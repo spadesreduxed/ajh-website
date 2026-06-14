@@ -1052,6 +1052,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initKeyboardGame();
   initQuoteVault();
   initBadges();
+  initPlanBoard();
 
   console.log('⚡ AJH Website loaded - Day 53: Achievement Badges');
 });
@@ -2325,4 +2326,210 @@ function initBadges() {
   }
 
   console.log('🏆 Achievement Badges loaded - ' + Object.keys(unlocked).length + '/' + BADGES.length + ' unlocked');
+}
+
+// ========================================
+// Day 55 - Daily Plan Board (Now / Next / Later)
+// ========================================
+function initPlanBoard() {
+  const board = document.querySelector('.plan-board');
+  if (!board) return;
+
+  const STORAGE_KEY = 'ajh_plan_board_v1';
+  const ORDER = ['now', 'next', 'later'];
+  const DEFAULT_BOARD = {
+    now: [
+      { id: 'day-55-build', title: 'Day 55 build — Daily Plan Board', meta: 'in progress · today', done: false },
+      { id: 'focus-tracker', title: 'Focus session tracker (Pomodoro log)', meta: 'active · in progress', done: false }
+    ],
+    next: [
+      { id: 'code-snippets', title: 'Code snippets library with copy-to-clipboard', meta: 'up next · tomorrow', done: false },
+      { id: 'reading-list', title: 'Reading list widget with progress', meta: 'up next · this week', done: false }
+    ],
+    later: [
+      { id: 'vault-v10', title: 'Vault V10 — next-gen gaming hub', meta: 'future · this quarter', done: false },
+      { id: 'mobile-app', title: 'AJH mobile companion app', meta: 'future · someday', done: false }
+    ]
+  };
+
+  const load = () => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return JSON.parse(JSON.stringify(DEFAULT_BOARD));
+      const parsed = JSON.parse(raw);
+      ORDER.forEach(col => { if (!Array.isArray(parsed[col])) parsed[col] = []; });
+      return parsed;
+    } catch (e) {
+      return JSON.parse(JSON.stringify(DEFAULT_BOARD));
+    }
+  };
+
+  const save = (data) => {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (e) {}
+  };
+
+  const nextStatus = (current) => {
+    if (current === 'now') return 'next';
+    if (current === 'next') return 'later';
+    return 'now';
+  };
+
+  const arrowIcon = (current) => current === 'later' ? 'fa-arrow-left' : 'fa-arrow-right';
+  const arrowLabel = (current) => current === 'later' ? 'Move to Now' : 'Move forward';
+
+  const render = (data) => {
+    ORDER.forEach(status => {
+      const list = document.getElementById('plan-' + status + '-list');
+      const count = document.getElementById('plan-' + status + '-count');
+      if (!list) return;
+      list.innerHTML = '';
+      const items = data[status] || [];
+      items.forEach(item => list.appendChild(createItem(status, item)));
+      if (count) count.textContent = items.length;
+    });
+    updateSummary(data);
+  };
+
+  const createItem = (status, item) => {
+    const li = document.createElement('li');
+    li.className = 'plan-item' + (item.done ? ' done' : '');
+    li.draggable = true;
+    li.dataset.id = item.id;
+    li.dataset.status = status;
+    li.innerHTML = `
+      <span class="plan-check" data-action="toggle" aria-label="Mark shipped"><i class="fas fa-check"></i></span>
+      <div class="plan-item-body">
+        <span class="plan-title">${escapeHtml(item.title)}</span>
+        <span class="plan-meta">${escapeHtml(item.meta || 'plan item')}</span>
+      </div>
+      <button class="plan-action" data-action="advance" aria-label="${arrowLabel(status)}"><i class="fas ${arrowIcon(status)}"></i></button>
+      <button class="plan-remove" data-action="remove" aria-label="Remove"><i class="fas fa-times"></i></button>
+    `;
+    return li;
+  };
+
+  const escapeHtml = (str) => String(str || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  const updateSummary = (data) => {
+    const total = ORDER.reduce((acc, s) => acc + (data[s] || []).length, 0);
+    const shipped = ORDER.reduce((acc, s) => acc + (data[s] || []).filter(i => i.done).length, 0);
+    const pct = total ? Math.round((shipped / total) * 100) : 0;
+    const totalEl = document.getElementById('plan-total');
+    const compEl = document.getElementById('plan-completed');
+    const pctEl = document.getElementById('plan-progress-pct');
+    if (totalEl) totalEl.textContent = total;
+    if (compEl) compEl.textContent = shipped;
+    if (pctEl) pctEl.textContent = pct + '%';
+  };
+
+  let data = load();
+  render(data);
+
+  board.addEventListener('click', (e) => {
+    const actionEl = e.target.closest('[data-action]');
+    if (!actionEl) return;
+    const li = actionEl.closest('.plan-item');
+    if (!li) return;
+    const id = li.dataset.id;
+    const status = li.dataset.status;
+    const action = actionEl.dataset.action;
+
+    if (action === 'toggle') {
+      const item = (data[status] || []).find(i => i.id === id);
+      if (item) item.done = !item.done;
+    } else if (action === 'advance') {
+      const list = data[status] || [];
+      const idx = list.findIndex(i => i.id === id);
+      if (idx < 0) return;
+      const [item] = list.splice(idx, 1);
+      const target = nextStatus(status);
+      data[target] = data[target] || [];
+      data[target].push(item);
+    } else if (action === 'remove') {
+      data[status] = (data[status] || []).filter(i => i.id !== id);
+    }
+    save(data);
+    render(data);
+  });
+
+  board.addEventListener('dragstart', (e) => {
+    const li = e.target.closest('.plan-item');
+    if (!li) return;
+    li.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', JSON.stringify({ id: li.dataset.id, from: li.dataset.status }));
+  });
+
+  board.addEventListener('dragend', (e) => {
+    const li = e.target.closest('.plan-item');
+    if (li) li.classList.remove('dragging');
+    document.querySelectorAll('.plan-list.drag-over').forEach(el => el.classList.remove('drag-over'));
+  });
+
+  board.addEventListener('dragover', (e) => {
+    const list = e.target.closest('.plan-list');
+    if (!list) return;
+    e.preventDefault();
+    list.classList.add('drag-over');
+  });
+
+  board.addEventListener('dragleave', (e) => {
+    const list = e.target.closest('.plan-list');
+    if (list && (!e.relatedTarget || !list.contains(e.relatedTarget))) list.classList.remove('drag-over');
+  });
+
+  board.addEventListener('drop', (e) => {
+    const list = e.target.closest('.plan-list');
+    if (!list) return;
+    e.preventDefault();
+    list.classList.remove('drag-over');
+    let payload;
+    try { payload = JSON.parse(e.dataTransfer.getData('text/plain') || '{}'); } catch (err) { return; }
+    const target = list.dataset.status;
+    if (!target || !payload.id || !payload.from) return;
+    const fromList = data[payload.from] || [];
+    const idx = fromList.findIndex(i => i.id === payload.id);
+    if (idx < 0) return;
+    const [item] = fromList.splice(idx, 1);
+    data[target] = data[target] || [];
+    data[target].push(item);
+    save(data);
+    render(data);
+  });
+
+  document.querySelectorAll('.plan-add').forEach(form => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const target = form.dataset.target;
+      const input = form.querySelector('.plan-input');
+      const title = (input.value || '').trim();
+      if (!title) return;
+      const id = 'plan-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7);
+      data[target] = data[target] || [];
+      data[target].push({ id, title, meta: 'new · just added', done: false });
+      input.value = '';
+      save(data);
+      render(data);
+    });
+  });
+
+  const resetBtn = document.getElementById('plan-reset');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      if (!confirm('Reset the plan board to defaults?')) return;
+      data = JSON.parse(JSON.stringify(DEFAULT_BOARD));
+      save(data);
+      render(data);
+    });
+  }
+
+  const planHeroBtn = document.getElementById('plan-btn');
+  if (planHeroBtn) {
+    planHeroBtn.addEventListener('click', () => {
+      const target = document.getElementById('plan');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
+  console.log('📋 Daily Plan Board loaded - drag, check, or add new items');
 }

@@ -106,6 +106,7 @@
             <li><a href="#projects">Projects</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#badges">Badges</a></li>
+            <li><a href="#plan">Plan</a></li>
             <li><a href="#quotes">Quotes</a></li>
             <li><a href="#stats">Stats</a></li>
             <li><a href="#journey">Journey</a></li>
@@ -174,6 +175,9 @@
                     <i class="fas fa-trophy"></i>
                     <span class="badges-count-mini" id="badges-count-mini">0</span>
                 </button>
+                <button class="plan-btn" id="plan-btn" aria-label="View daily plan" title="View daily plan">
+                    <i class="fas fa-list-check"></i>
+                </button>
             </div>
             <div class="hero-stats">
                 <div class="stat">
@@ -192,7 +196,7 @@
             <div class="daily-streak">
                 <span class="streak-icon">🔥</span>
                 <div class="streak-info">
-                    <span class="streak-count">54 days</span>
+                    <span class="streak-count">55 days</span>
                     <span class="streak-label">Daily Streak</span>
                 </div>
             </div>
@@ -212,11 +216,11 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 54</span>
+                    <span class="insight-value">Day 55</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
-                    <span class="insight-value">54</span>
+                    <span class="insight-value">55</span>
                     <span class="insight-label">streak</span>
                 </div>
             </div>
@@ -698,7 +702,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="54">0</div>
+                    <div class="stat-number" data-count="55">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -719,7 +723,7 @@
                 </div>
                 <div class="stat-card large">
                     <i class="fas fa-rocket"></i>
-                    <div class="stat-number" data-count="53">0</div>
+                    <div class="stat-number" data-count="54">0</div>
                     <div class="stat-label">Features Built</div>
                     <div class="stat-sublabel">And counting...</div>
                 </div>
@@ -781,6 +785,121 @@
                         <div class="timeline-desc">Building daily. Always shipping. Forever improving.</div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Daily Plan Board Section (Day 55) -->
+    <section id="plan" class="section plan-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Roadmap</span>
+                <h2 class="section-title">Daily Plan Board</h2>
+                <p class="section-subtitle">What I'm building now, next, and later</p>
+            </div>
+            <div class="plan-board">
+                <div class="plan-column plan-now">
+                    <div class="plan-column-header">
+                        <span class="plan-dot now"></span>
+                        <h3>Now</h3>
+                        <span class="plan-count" id="plan-now-count">0</span>
+                    </div>
+                    <ul class="plan-list" id="plan-now-list" data-status="now">
+                        <li class="plan-item" data-id="day-55-build">
+                            <span class="plan-check"><i class="fas fa-check"></i></span>
+                            <div class="plan-item-body">
+                                <span class="plan-title">Day 55 build — Daily Plan Board</span>
+                                <span class="plan-meta">in progress · today</span>
+                            </div>
+                            <button class="plan-action" data-action="advance" aria-label="Move to Next"><i class="fas fa-arrow-right"></i></button>
+                        </li>
+                        <li class="plan-item" data-id="focus-tracker">
+                            <span class="plan-check"><i class="fas fa-check"></i></span>
+                            <div class="plan-item-body">
+                                <span class="plan-title">Focus session tracker (Pomodoro log)</span>
+                                <span class="plan-meta">active · in progress</span>
+                            </div>
+                            <button class="plan-action" data-action="advance" aria-label="Move to Next"><i class="fas fa-arrow-right"></i></button>
+                        </li>
+                    </ul>
+                    <form class="plan-add" data-target="now">
+                        <input type="text" class="plan-input" placeholder="Add to Now…" maxlength="80" aria-label="Add to Now">
+                        <button type="submit" class="plan-add-btn" aria-label="Add item"><i class="fas fa-plus"></i></button>
+                    </form>
+                </div>
+                <div class="plan-column plan-next">
+                    <div class="plan-column-header">
+                        <span class="plan-dot next"></span>
+                        <h3>Next</h3>
+                        <span class="plan-count" id="plan-next-count">0</span>
+                    </div>
+                    <ul class="plan-list" id="plan-next-list" data-status="next">
+                        <li class="plan-item" data-id="code-snippets">
+                            <span class="plan-check"><i class="fas fa-check"></i></span>
+                            <div class="plan-item-body">
+                                <span class="plan-title">Code snippets library with copy-to-clipboard</span>
+                                <span class="plan-meta">up next · tomorrow</span>
+                            </div>
+                            <button class="plan-action" data-action="advance" aria-label="Move to Later"><i class="fas fa-arrow-right"></i></button>
+                        </li>
+                        <li class="plan-item" data-id="reading-list">
+                            <span class="plan-check"><i class="fas fa-check"></i></span>
+                            <div class="plan-item-body">
+                                <span class="plan-title">Reading list widget with progress</span>
+                                <span class="plan-meta">up next · this week</span>
+                            </div>
+                            <button class="plan-action" data-action="advance" aria-label="Move to Later"><i class="fas fa-arrow-right"></i></button>
+                        </li>
+                    </ul>
+                    <form class="plan-add" data-target="next">
+                        <input type="text" class="plan-input" placeholder="Add to Next…" maxlength="80" aria-label="Add to Next">
+                        <button type="submit" class="plan-add-btn" aria-label="Add item"><i class="fas fa-plus"></i></button>
+                    </form>
+                </div>
+                <div class="plan-column plan-later">
+                    <div class="plan-column-header">
+                        <span class="plan-dot later"></span>
+                        <h3>Later</h3>
+                        <span class="plan-count" id="plan-later-count">0</span>
+                    </div>
+                    <ul class="plan-list" id="plan-later-list" data-status="later">
+                        <li class="plan-item" data-id="vault-v10">
+                            <span class="plan-check"><i class="fas fa-check"></i></span>
+                            <div class="plan-item-body">
+                                <span class="plan-title">Vault V10 — next-gen gaming hub</span>
+                                <span class="plan-meta">future · this quarter</span>
+                            </div>
+                            <button class="plan-action" data-action="advance" aria-label="Move to Now"><i class="fas fa-arrow-left"></i></button>
+                        </li>
+                        <li class="plan-item" data-id="mobile-app">
+                            <span class="plan-check"><i class="fas fa-check"></i></span>
+                            <div class="plan-item-body">
+                                <span class="plan-title">AJH mobile companion app</span>
+                                <span class="plan-meta">future · someday</span>
+                            </div>
+                            <button class="plan-action" data-action="advance" aria-label="Move to Now"><i class="fas fa-arrow-left"></i></button>
+                        </li>
+                    </ul>
+                    <form class="plan-add" data-target="later">
+                        <input type="text" class="plan-input" placeholder="Add to Later…" maxlength="80" aria-label="Add to Later">
+                        <button type="submit" class="plan-add-btn" aria-label="Add item"><i class="fas fa-plus"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="plan-summary">
+                <div class="plan-summary-item">
+                    <span class="plan-summary-num" id="plan-total">0</span>
+                    <span class="plan-summary-label">Total Items</span>
+                </div>
+                <div class="plan-summary-item">
+                    <span class="plan-summary-num" id="plan-completed">0</span>
+                    <span class="plan-summary-label">Shipped</span>
+                </div>
+                <div class="plan-summary-item">
+                    <span class="plan-summary-num" id="plan-progress-pct">0%</span>
+                    <span class="plan-summary-label">Progress</span>
+                </div>
+                <button class="plan-reset btn btn-sm" id="plan-reset"><i class="fas fa-undo"></i> Reset Board</button>
             </div>
         </div>
     </section>
@@ -871,7 +990,7 @@
                     <div class="productivity-widget streak-widget">
                         <div class="streak-visual" id="streak-visual">
                             <span class="streak-flame">🔥</span>
-                            <span class="streak-number" id="streak-number">54</span>
+                            <span class="streak-number" id="streak-number">55</span>
                             <span class="streak-label">days</span>
                         </div>
                     </div>
@@ -968,6 +1087,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">13</span>
+                        <span class="blog-month">June 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 55</span>
+                        <h3>Daily Plan Board — Now / Next / Later</h3>
+                        <p>Added a roadmap-style plan board to the site. Three columns — Now, Next, Later — show what I'm building, with add/remove controls, item counts, and a progress meter. Click the arrow on a card to advance it to the next column; check it off to mark it shipped. Everything auto-saves to your browser, so a fresh plan from today will be here tomorrow. The hero meta now has a checklist button that scrolls straight to the plan.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">04</span>
