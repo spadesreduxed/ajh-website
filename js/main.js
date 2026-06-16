@@ -719,6 +719,8 @@ function initCommandPalette() {
     { id: 'tool-notes', label: 'Open Quick Notes', icon: 'fa-sticky-note', category: 'Tools', action: () => document.getElementById('notes-btn')?.click() },
     { id: 'tool-timer', label: 'Start Focus Timer', icon: 'fa-bullseye', category: 'Tools', action: () => document.getElementById('timer-toggle')?.click() },
     { id: 'tool-clock', label: 'View World Clock', icon: 'fa-globe', category: 'Tools', action: () => document.getElementById('world-clock-btn')?.click() },
+    { id: 'tool-snippets', label: 'Browse Code Snippets', icon: 'fa-code', shortcut: 'G N', category: 'Tools', action: () => scrollTo('#snippets') },
+    { id: 'tool-snippet-add', label: 'Add New Snippet', icon: 'fa-plus', category: 'Tools', action: () => document.getElementById('snippet-add-btn')?.click() },
     
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -1053,8 +1055,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initQuoteVault();
   initBadges();
   initPlanBoard();
+  initSnippetsVault();
 
-  console.log('⚡ AJH Website loaded - Day 53: Achievement Badges');
+  console.log('⚡ AJH Website loaded - Day 56: Code Snippets Vault');
 });
 
 // Day 48 - Daily Challenge + API Status
@@ -2531,5 +2534,287 @@ function initPlanBoard() {
     });
   }
 
+  const snippetsHeroBtn = document.getElementById('snippets-btn');
+  if (snippetsHeroBtn) {
+    snippetsHeroBtn.addEventListener('click', () => {
+      const target = document.getElementById('snippets');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
   console.log('📋 Daily Plan Board loaded - drag, check, or add new items');
 }
+// ============================================
+// DAY 56: CODE SNIPPETS VAULT
+// ============================================
+function initSnippetsVault() {
+  const STORAGE_KEY = 'ajh_snippets_v1';
+  const STATS_KEY = 'ajh_snippets_stats_v1';
+  const grid = document.getElementById('snippets-grid');
+  const searchInput = document.getElementById('snippets-search');
+  const filtersHost = document.getElementById('snippets-filters');
+  const addBtn = document.getElementById('snippet-add-btn');
+  const empty = document.getElementById('snippets-empty');
+  const totalEl = document.getElementById('snippets-total');
+  const shownEl = document.getElementById('snippets-shown');
+  const langsEl = document.getElementById('snippets-languages');
+  const copiesEl = document.getElementById('snippets-copies');
+  const resetBtn = document.getElementById('snippets-reset');
+
+  if (!grid) return;
+
+  // Seed library
+  const SEED = [
+    { title: 'Debounce', language: 'JavaScript', tags: ['utility', 'performance'], code: 'function debounce(fn, wait = 200) {\n  let t;\n  return function (...args) {\n    clearTimeout(t);\n    t = setTimeout(() => fn.apply(this, args), wait);\n  };\n}' },
+    { title: 'Copy to Clipboard', language: 'JavaScript', tags: ['utility', 'dom'], code: 'async function copyText(text) {\n  try {\n    await navigator.clipboard.writeText(text);\n    return true;\n  } catch (e) {\n    const ta = document.createElement("textarea");\n    ta.value = text;\n    document.body.appendChild(ta);\n    ta.select();\n    document.execCommand("copy");\n    ta.remove();\n    return true;\n  }\n}' },
+    { title: 'Smooth Scroll to Element', language: 'JavaScript', tags: ['dom', 'animation'], code: 'function scrollToElement(selector, offset = 0) {\n  const el = document.querySelector(selector);\n  if (!el) return;\n  const top = el.getBoundingClientRect().top + window.scrollY - offset;\n  window.scrollTo({ top, behavior: "smooth" });\n}' },
+    { title: 'Fetch with Timeout', language: 'JavaScript', tags: ['network', 'utility'], code: 'async function fetchWithTimeout(url, opts = {}, ms = 8000) {\n  const ctrl = new AbortController();\n  const t = setTimeout(() => ctrl.abort(), ms);\n  try {\n    const res = await fetch(url, { ...opts, signal: ctrl.signal });\n    return res;\n  } finally {\n    clearTimeout(t);\n  }\n}' },
+    { title: 'useLocalStorage Hook', language: 'TypeScript', tags: ['react', 'hooks', 'state'], code: "import { useState, useEffect } from 'react';\n\nexport function useLocalStorage<T>(key: string, initial: T): [T, (v: T) => void] {\n  const [value, setValue] = useState<T>(() => {\n    try {\n      const raw = localStorage.getItem(key);\n      return raw ? JSON.parse(raw) : initial;\n    } catch { return initial; }\n  });\n  useEffect(() => {\n    try { localStorage.setItem(key, JSON.stringify(value)); } catch {}\n  }, [key, value]);\n  return [value, setValue];\n}" },
+    { title: 'Flex Centering', language: 'CSS', tags: ['layout', 'utility'], code: '.center {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}' },
+    { title: 'CSS Glass Card', language: 'CSS', tags: ['glassmorphism', 'effect'], code: '.glass {\n  background: rgba(255, 255, 255, 0.08);\n  backdrop-filter: blur(14px);\n  -webkit-backdrop-filter: blur(14px);\n  border: 1px solid rgba(255, 255, 255, 0.15);\n  border-radius: 14px;\n}' },
+    { title: 'Responsive Meta Tag', language: 'HTML', tags: ['meta', 'mobile'], code: '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n<meta name="theme-color" content="#0a0a0a">' },
+    { title: 'Find & Replace in Files', language: 'Bash', tags: ['git', 'shell'], code: '# Replace "oldApi" with "newApi" across all .ts files\ngrep -rl "oldApi" src/ | xargs sed -i \'s/oldApi/newApi/g\'' },
+    { title: 'List Git Branches by Date', language: 'Bash', tags: ['git'], code: 'git for-each-ref --sort=-committerdate refs/heads/ --format="%(committerdate:short) %(refname:short)"' },
+    { title: 'Python HTTP Server', language: 'Python', tags: ['server', 'utility'], code: 'import http.server, socketserver, sys\nPORT = int(sys.argv[1]) if len(sys.argv) > 1 else 8000\nwith socketserver.TCPServer(("", PORT), http.server.SimpleHTTPRequestHandler) as httpd:\n    print(f"Serving on http://localhost:{PORT}")\n    httpd.serve_forever()' },
+    { title: 'Pretty Print JSON', language: 'JavaScript', tags: ['json', 'utility'], code: 'const pretty = (obj) => JSON.stringify(obj, null, 2);\nconsole.log(pretty({ a: 1, b: [1, 2, 3] }));' }
+  ];
+
+  function load() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(SEED));
+        return SEED.slice();
+      }
+      return JSON.parse(raw);
+    } catch (e) {
+      return SEED.slice();
+    }
+  }
+
+  function save(list) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); } catch (e) {}
+  }
+
+  function loadStats() {
+    try { return JSON.parse(localStorage.getItem(STATS_KEY)) || { copies: 0 }; }
+    catch (e) { return { copies: 0 }; }
+  }
+  function saveStats(s) {
+    try { localStorage.setItem(STATS_KEY, JSON.stringify(s)); } catch (e) {}
+  }
+
+  let snippets = load();
+  let stats = loadStats();
+  let activeFilter = 'all';
+  let activeQuery = '';
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+
+  function render() {
+    const q = activeQuery.trim().toLowerCase();
+    const filtered = snippets.filter((sn) => {
+      if (activeFilter !== 'all' && sn.language !== activeFilter) return false;
+      if (!q) return true;
+      const hay = (sn.title + ' ' + sn.language + ' ' + (sn.tags || []).join(' ') + ' ' + sn.code).toLowerCase();
+      return hay.includes(q);
+    });
+
+    if (filtered.length === 0) {
+      grid.innerHTML = '';
+      empty.hidden = false;
+    } else {
+      empty.hidden = true;
+      grid.innerHTML = filtered.map((sn, i) => `
+        <article class="snippet-card" data-id="${escapeHtml(sn.id)}" style="animation: fadeInUp 0.35s ease ${i * 30}ms both">
+          <div class="snippet-card-header">
+            <span class="snippet-lang" data-lang="${escapeHtml(sn.language)}">${escapeHtml(sn.language)}</span>
+            <h3 class="snippet-title">${escapeHtml(sn.title)}</h3>
+          </div>
+          ${(sn.tags && sn.tags.length) ? `<div class="snippet-tags">${sn.tags.map((t) => `<span class="snippet-tag-pill">${escapeHtml(t)}</span>`).join('')}</div>` : ''}
+          <pre class="snippet-code"><code>${escapeHtml(sn.code)}</code></pre>
+          <div class="snippet-card-actions">
+            <button class="copy-btn" data-action="copy" title="Copy to clipboard">
+              <i class="fas fa-copy"></i> <span>Copy</span>
+            </button>
+            <button class="edit-btn" data-action="edit" title="Edit snippet">
+              <i class="fas fa-pen"></i> <span>Edit</span>
+            </button>
+            <button class="delete-btn" data-action="delete" title="Delete snippet">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    totalEl.textContent = snippets.length;
+    shownEl.textContent = filtered.length;
+    const langs = new Set(snippets.map((s) => s.language));
+    langsEl.textContent = langs.size;
+    copiesEl.textContent = stats.copies;
+  }
+
+  // ---- Card actions (event delegation) ----
+  grid.addEventListener('click', async (e) => {
+    const btn = e.target.closest('button[data-action]');
+    if (!btn) return;
+    const card = btn.closest('.snippet-card');
+    if (!card) return;
+    const id = card.dataset.id;
+    const sn = snippets.find((s) => s.id === id);
+    if (!sn) return;
+    const action = btn.dataset.action;
+
+    if (action === 'copy') {
+      try {
+        await navigator.clipboard.writeText(sn.code);
+        stats.copies = (stats.copies || 0) + 1;
+        saveStats(stats);
+        copiesEl.textContent = stats.copies;
+        btn.classList.add('copied');
+        const label = btn.querySelector('span');
+        const old = label ? label.textContent : '';
+        if (label) label.textContent = 'Copied!';
+        card.classList.add('flash');
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          if (label) label.textContent = old || 'Copy';
+          card.classList.remove('flash');
+        }, 1100);
+        showNotification && showNotification(`Copied "${sn.title}" to clipboard`, 'success');
+      } catch (err) {
+        showNotification && showNotification('Copy failed — clipboard blocked', 'error');
+      }
+    } else if (action === 'edit') {
+      openModal(sn);
+    } else if (action === 'delete') {
+      if (confirm(`Delete "${sn.title}"?`)) {
+        snippets = snippets.filter((s) => s.id !== id);
+        save(snippets);
+        render();
+        showNotification && showNotification(`Deleted "${sn.title}"`, 'info');
+      }
+    }
+  });
+
+  // ---- Search ----
+  let searchTimer;
+  searchInput.addEventListener('input', (e) => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      activeQuery = e.target.value;
+      render();
+    }, 90);
+  });
+
+  // ---- Filters ----
+  filtersHost.addEventListener('click', (e) => {
+    const btn = e.target.closest('.snippet-filter');
+    if (!btn) return;
+    filtersHost.querySelectorAll('.snippet-filter').forEach((b) => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    render();
+  });
+
+  // ---- Add button ----
+  addBtn.addEventListener('click', () => openModal(null));
+
+  // ---- Reset ----
+  resetBtn.addEventListener('click', () => {
+    if (confirm('Reset to starter snippets? This will replace your current library.')) {
+      snippets = SEED.slice();
+      save(snippets);
+      render();
+      showNotification && showNotification('Library reset to starter snippets', 'success');
+    }
+  });
+
+  // ---- Modal logic ----
+  const modal = document.getElementById('snippet-modal');
+  const form = document.getElementById('snippet-form');
+  const idField = document.getElementById('snippet-id');
+  const titleField = document.getElementById('snippet-title');
+  const langField = document.getElementById('snippet-language');
+  const tagsField = document.getElementById('snippet-tags');
+  const codeField = document.getElementById('snippet-code');
+  const charcount = document.getElementById('snippet-charcount');
+  const modalTitle = document.getElementById('snippet-modal-title');
+
+  function openModal(snippet) {
+    if (snippet) {
+      modalTitle.textContent = 'Edit Snippet';
+      idField.value = snippet.id;
+      titleField.value = snippet.title;
+      langField.value = snippet.language;
+      tagsField.value = (snippet.tags || []).join(', ');
+      codeField.value = snippet.code;
+    } else {
+      modalTitle.textContent = 'New Snippet';
+      form.reset();
+      idField.value = '';
+    }
+    charcount.textContent = `${codeField.value.length} chars`;
+    modal.hidden = false;
+    setTimeout(() => titleField.focus(), 30);
+  }
+  function closeModal() { modal.hidden = true; }
+  modal.addEventListener('click', (e) => {
+    if (e.target.matches('[data-close]')) closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (!modal.hidden && e.key === 'Escape') { e.preventDefault(); closeModal(); }
+  });
+
+  codeField.addEventListener('input', () => {
+    charcount.textContent = `${codeField.value.length} chars`;
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const title = titleField.value.trim();
+    const code = codeField.value;
+    if (!title || !code) return;
+    const id = idField.value || ('sn-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6));
+    const language = langField.value;
+    const tags = tagsField.value
+      .split(',')
+      .map((t) => t.trim())
+      .filter(Boolean);
+
+    const existingIdx = snippets.findIndex((s) => s.id === id);
+    const next = { id, title, language, tags, code };
+    if (existingIdx >= 0) {
+      snippets[existingIdx] = next;
+      showNotification && showNotification(`Updated "${title}"`, 'success');
+    } else {
+      snippets.unshift(next);
+      showNotification && showNotification(`Added "${title}"`, 'success');
+    }
+    save(snippets);
+    render();
+    closeModal();
+  });
+
+  // ---- Keyboard shortcut: Ctrl/Cmd + Shift + C to add ----
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'c') {
+      // Avoid hijacking if any other input is focused unless it's not the modal
+      e.preventDefault();
+      openModal(null);
+    }
+  });
+
+  render();
+}
+
+// Wire up snippets into DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+  initSnippetsVault();
+});
+
+// Also expose for the command palette
+window.initSnippetsVault = initSnippetsVault;

@@ -7149,3 +7149,427 @@ button:focus-visible,
     margin-left: 0;
   }
 }
+
+/* ============================================
+   DAY 56: CODE SNIPPETS VAULT
+   ============================================ */
+
+.snippets-section {
+  background: var(--bg-primary);
+}
+
+.snippets-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 28px;
+  padding: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+}
+
+.snippets-search {
+  flex: 1 1 240px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 0 12px;
+  transition: border-color 0.2s ease;
+}
+.snippets-search:focus-within {
+  border-color: var(--accent-primary, #00ff88);
+  box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.12);
+}
+.snippets-search i {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+.snippets-search input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 10px 8px;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+}
+
+.snippets-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.snippet-filter {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.snippet-filter:hover {
+  border-color: var(--accent-primary, #00ff88);
+  color: var(--accent-primary, #00ff88);
+}
+.snippet-filter.active {
+  background: var(--accent-primary, #00ff88);
+  color: #0a0a0a;
+  border-color: var(--accent-primary, #00ff88);
+}
+
+.snippet-add-btn {
+  white-space: nowrap;
+}
+
+.snippets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+}
+
+.snippet-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+.snippet-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-primary, #00ff88);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+}
+
+.snippet-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.snippet-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(0, 255, 136, 0.12);
+  color: var(--accent-primary, #00ff88);
+}
+.snippet-lang[data-lang="JavaScript"] { background: rgba(247, 223, 30, 0.12); color: #f7df1e; }
+.snippet-lang[data-lang="TypeScript"] { background: rgba(49, 120, 198, 0.18); color: #3178c6; }
+.snippet-lang[data-lang="CSS"] { background: rgba(86, 154, 167, 0.18); color: #569aa7; }
+.snippet-lang[data-lang="HTML"] { background: rgba(228, 77, 38, 0.18); color: #e44d26; }
+.snippet-lang[data-lang="Bash"] { background: rgba(137, 211, 100, 0.16); color: #89d364; }
+.snippet-lang[data-lang="Python"] { background: rgba(53, 114, 165, 0.22); color: #6db1d1; }
+.snippet-lang[data-lang="JSON"] { background: rgba(165, 165, 165, 0.18); color: #c0c0c0; }
+.snippet-lang[data-lang="Markdown"] { background: rgba(150, 100, 200, 0.18); color: #b48ead; }
+.snippet-lang[data-lang="Other"] { background: rgba(180, 180, 180, 0.12); color: var(--text-muted); }
+
+.snippet-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  flex: 1;
+  line-height: 1.3;
+}
+
+.snippet-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 0 16px;
+  margin-top: 10px;
+}
+.snippet-tag-pill {
+  font-size: 0.68rem;
+  padding: 2px 7px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.snippet-code {
+  margin: 12px 16px 0;
+  background: #0d0d0f;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: #e1e3e6;
+  max-height: 200px;
+  overflow: auto;
+  white-space: pre;
+  position: relative;
+}
+.snippet-code code {
+  font-family: inherit;
+  white-space: pre;
+  color: inherit;
+}
+
+.snippet-card-actions {
+  display: flex;
+  gap: 6px;
+  padding: 12px 16px 14px;
+  margin-top: auto;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+.snippet-card-actions button {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 7px 10px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.snippet-card-actions button:hover {
+  transform: translateY(-1px);
+}
+.copy-btn:hover {
+  border-color: var(--accent-primary, #00ff88);
+  color: var(--accent-primary, #00ff88);
+  background: rgba(0, 255, 136, 0.08);
+}
+.copy-btn.copied {
+  border-color: var(--accent-primary, #00ff88);
+  background: var(--accent-primary, #00ff88);
+  color: #0a0a0a;
+}
+.edit-btn:hover {
+  border-color: #569aa7;
+  color: #569aa7;
+  background: rgba(86, 154, 167, 0.08);
+}
+.delete-btn:hover {
+  border-color: #ff5577;
+  color: #ff5577;
+  background: rgba(255, 85, 119, 0.08);
+}
+
+.snippet-card.flash {
+  animation: snippetFlash 0.6s ease;
+}
+@keyframes snippetFlash {
+  0% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.6); }
+  50% { box-shadow: 0 0 0 10px rgba(0, 255, 136, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
+}
+
+.snippets-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  border: 1px dashed var(--border-color);
+  border-radius: 14px;
+}
+.snippets-empty i {
+  font-size: 2.4rem;
+  margin-bottom: 10px;
+  display: block;
+  color: var(--text-muted);
+}
+
+.snippets-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  margin-top: 28px;
+  padding: 18px 22px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+}
+.snippets-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.snippets-stat-num {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--accent-primary, #00ff88);
+  line-height: 1;
+}
+.snippets-stat-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-top: 4px;
+}
+.snippets-reset {
+  margin-left: auto;
+}
+
+/* Snippet editor modal */
+.snippet-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.snippet-modal[hidden] { display: none; }
+.snippet-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.snippet-modal-content {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  max-width: 640px;
+  width: 100%;
+  max-height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  animation: modalPop 0.18s ease;
+}
+@keyframes modalPop {
+  from { transform: scale(0.96); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.snippet-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+.snippet-modal-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+.snippet-modal-close {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.snippet-modal-close:hover {
+  border-color: #ff5577;
+  color: #ff5577;
+}
+.snippet-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px;
+  overflow-y: auto;
+}
+.snippet-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+.snippet-field span {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.snippet-field small {
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-left: 4px;
+}
+.snippet-field input,
+.snippet-field select,
+.snippet-field textarea {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.snippet-field textarea {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  resize: vertical;
+  min-height: 180px;
+  line-height: 1.55;
+}
+.snippet-field input:focus,
+.snippet-field select:focus,
+.snippet-field textarea:focus {
+  border-color: var(--accent-primary, #00ff88);
+  box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.12);
+}
+.snippet-charcount {
+  align-self: flex-end;
+  font-family: var(--font-mono);
+}
+.snippet-form-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  padding-top: 6px;
+  border-top: 1px solid var(--border-color);
+  margin-top: 4px;
+  padding-top: 14px;
+}
+
+@media (max-width: 700px) {
+  .snippets-toolbar { flex-direction: column; align-items: stretch; }
+  .snippet-add-btn { width: 100%; }
+  .snippets-grid { grid-template-columns: 1fr; }
+  .snippets-footer { flex-direction: column; align-items: flex-start; }
+  .snippets-reset { margin-left: 0; width: 100%; }
+}

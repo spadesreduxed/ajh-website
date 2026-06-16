@@ -107,6 +107,7 @@
             <li><a href="#skills">Skills</a></li>
             <li><a href="#badges">Badges</a></li>
             <li><a href="#plan">Plan</a></li>
+            <li><a href="#snippets">Snippets</a></li>
             <li><a href="#quotes">Quotes</a></li>
             <li><a href="#stats">Stats</a></li>
             <li><a href="#journey">Journey</a></li>
@@ -178,6 +179,9 @@
                 <button class="plan-btn" id="plan-btn" aria-label="View daily plan" title="View daily plan">
                     <i class="fas fa-list-check"></i>
                 </button>
+                <button class="plan-btn" id="snippets-btn" aria-label="Browse code snippets" title="Browse code snippets">
+                    <i class="fas fa-code"></i>
+                </button>
             </div>
             <div class="hero-stats">
                 <div class="stat">
@@ -185,7 +189,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="54">0</span>
+                    <span class="stat-value" data-count="56">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -196,7 +200,7 @@
             <div class="daily-streak">
                 <span class="streak-icon">🔥</span>
                 <div class="streak-info">
-                    <span class="streak-count">55 days</span>
+                    <span class="streak-count">56 days</span>
                     <span class="streak-label">Daily Streak</span>
                 </div>
             </div>
@@ -216,11 +220,11 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 55</span>
+                    <span class="insight-value">Day 56</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
-                    <span class="insight-value">55</span>
+                    <span class="insight-value">56</span>
                     <span class="insight-label">streak</span>
                 </div>
             </div>
@@ -702,7 +706,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="55">0</div>
+                    <div class="stat-number" data-count="56">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -723,7 +727,7 @@
                 </div>
                 <div class="stat-card large">
                     <i class="fas fa-rocket"></i>
-                    <div class="stat-number" data-count="54">0</div>
+                    <div class="stat-number" data-count="55">0</div>
                     <div class="stat-label">Features Built</div>
                     <div class="stat-sublabel">And counting...</div>
                 </div>
@@ -904,6 +908,110 @@
         </div>
     </section>
 
+    <!-- Code Snippets Vault Section (Day 56) -->
+    <section id="snippets" class="section snippets-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-code"></i> Library</span>
+                <h2 class="section-title">Code Snippets Vault</h2>
+                <p class="section-subtitle">Hand-picked, copy-paste-ready snippets I reach for again and again</p>
+            </div>
+
+            <div class="snippets-toolbar">
+                <div class="snippets-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="snippets-search" placeholder="Search snippets by title, tag, or content…" aria-label="Search snippets">
+                </div>
+                <div class="snippets-filters" id="snippets-filters">
+                    <button class="snippet-filter active" data-filter="all">All</button>
+                    <button class="snippet-filter" data-filter="JavaScript">JavaScript</button>
+                    <button class="snippet-filter" data-filter="TypeScript">TypeScript</button>
+                    <button class="snippet-filter" data-filter="CSS">CSS</button>
+                    <button class="snippet-filter" data-filter="HTML">HTML</button>
+                    <button class="snippet-filter" data-filter="Bash">Bash</button>
+                    <button class="snippet-filter" data-filter="Python">Python</button>
+                </div>
+                <button class="btn btn-primary snippet-add-btn" id="snippet-add-btn">
+                    <i class="fas fa-plus"></i> New Snippet
+                </button>
+            </div>
+
+            <div class="snippets-grid" id="snippets-grid"></div>
+
+            <div class="snippets-empty" id="snippets-empty" hidden>
+                <i class="fas fa-folder-open"></i>
+                <p>No snippets match. Try a different filter or add a new one.</p>
+            </div>
+
+            <div class="snippets-footer">
+                <div class="snippets-stat">
+                    <span class="snippets-stat-num" id="snippets-total">0</span>
+                    <span class="snippets-stat-label">Total</span>
+                </div>
+                <div class="snippets-stat">
+                    <span class="snippets-stat-num" id="snippets-shown">0</span>
+                    <span class="snippets-stat-label">Showing</span>
+                </div>
+                <div class="snippets-stat">
+                    <span class="snippets-stat-num" id="snippets-languages">0</span>
+                    <span class="snippets-stat-label">Languages</span>
+                </div>
+                <div class="snippets-stat">
+                    <span class="snippets-stat-num" id="snippets-copies">0</span>
+                    <span class="snippets-stat-label">Times Copied</span>
+                </div>
+                <button class="btn btn-sm snippets-reset" id="snippets-reset" title="Reset to starter snippets">
+                    <i class="fas fa-undo"></i> Reset Library
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Snippet Editor Modal (Day 56) -->
+    <div class="snippet-modal" id="snippet-modal" hidden>
+        <div class="snippet-modal-backdrop" data-close></div>
+        <div class="snippet-modal-content" role="dialog" aria-labelledby="snippet-modal-title">
+            <div class="snippet-modal-header">
+                <h3 id="snippet-modal-title">New Snippet</h3>
+                <button class="snippet-modal-close" data-close aria-label="Close"><i class="fas fa-times"></i></button>
+            </div>
+            <form class="snippet-form" id="snippet-form">
+                <input type="hidden" id="snippet-id">
+                <label class="snippet-field">
+                    <span>Title</span>
+                    <input type="text" id="snippet-title" required maxlength="80" placeholder="e.g. Debounce function">
+                </label>
+                <label class="snippet-field">
+                    <span>Language</span>
+                    <select id="snippet-language">
+                        <option>JavaScript</option>
+                        <option>TypeScript</option>
+                        <option>CSS</option>
+                        <option>HTML</option>
+                        <option>Bash</option>
+                        <option>Python</option>
+                        <option>JSON</option>
+                        <option>Markdown</option>
+                        <option>Other</option>
+                    </select>
+                </label>
+                <label class="snippet-field">
+                    <span>Tags <small>(comma separated)</small></span>
+                    <input type="text" id="snippet-tags" maxlength="120" placeholder="e.g. utility, performance">
+                </label>
+                <label class="snippet-field">
+                    <span>Code</span>
+                    <textarea id="snippet-code" required rows="12" spellcheck="false" placeholder="// paste or type your code here"></textarea>
+                    <small class="snippet-charcount" id="snippet-charcount">0 chars</small>
+                </label>
+                <div class="snippet-form-actions">
+                    <button type="button" class="btn btn-sm" data-close>Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Snippet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Achievement Badges Section (Day 54) -->
     <section id="badges" class="section alt-bg badges-section">
         <div class="container">
@@ -990,7 +1098,7 @@
                     <div class="productivity-widget streak-widget">
                         <div class="streak-visual" id="streak-visual">
                             <span class="streak-flame">🔥</span>
-                            <span class="streak-number" id="streak-number">55</span>
+                            <span class="streak-number" id="streak-number">56</span>
                             <span class="streak-label">days</span>
                         </div>
                     </div>
@@ -1087,6 +1195,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">16</span>
+                        <span class="blog-month">June 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 56</span>
+                        <h3>Code Snippets Vault — Save, Search, Copy</h3>
+                        <p>A personal snippet library right inside the site. Filter by language, search by title or content, copy with one click, and add your own. Comes seeded with ten hand-picked snippets I keep reaching for, and lives in localStorage so your library survives every refresh. Open with the command palette or click the Snippets nav link.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">13</span>
@@ -1928,8 +2047,8 @@
     </div>
 
     <script src="js/main.js"></script>
-</body>
-</html>
+
+
 
     <!-- Code Playground Modal -->
     <div class="playground-modal" id="playground-modal">
@@ -2252,3 +2371,5 @@
             </div>
         </div>
     </section>
+</body>
+</html>

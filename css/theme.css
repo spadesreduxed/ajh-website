@@ -287,3 +287,23 @@ body {
   color: #ffbd2e;
   background: rgba(255, 189, 46, 0.1);
 }
+
+/* ============================================
+   DAY 56: SNIPPETS — LIGHT THEME OVERRIDES
+   ============================================ */
+[data-theme="light"] .snippets-search { background: #ffffff; }
+[data-theme="light"] .snippets-search input { color: #1a1a1a; }
+[data-theme="light"] .snippet-card { background: #ffffff; }
+[data-theme="light"] .snippet-card-header { border-color: rgba(0, 0, 0, 0.08); }
+[data-theme="light"] .snippet-card-actions { background: #f6f7f9; border-color: rgba(0, 0, 0, 0.06); }
+[data-theme="light"] .snippet-card-actions button { color: #4a4a4a; border-color: rgba(0, 0, 0, 0.1); }
+[data-theme="light"] .snippet-tag-pill { background: #f0f0f0; border-color: rgba(0, 0, 0, 0.08); }
+[data-theme="light"] .snippets-toolbar { background: #ffffff; border-color: rgba(0, 0, 0, 0.08); }
+[data-theme="light"] .snippets-footer { background: #ffffff; border-color: rgba(0, 0, 0, 0.08); }
+[data-theme="light"] .snippets-empty { background: #ffffff; border-color: rgba(0, 0, 0, 0.12); }
+[data-theme="light"] .snippet-modal-content { background: #ffffff; }
+[data-theme="light"] .snippet-modal-header { border-color: rgba(0, 0, 0, 0.08); }
+[data-theme="light"] .snippet-field input,
+[data-theme="light"] .snippet-field select,
+[data-theme="light"] .snippet-field textarea { background: #f6f7f9; color: #1a1a1a; border-color: rgba(0, 0, 0, 0.1); }
+[data-theme="light"] .snippet-code { background: #1a1a1d; }
