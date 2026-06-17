@@ -182,6 +182,9 @@
                 <button class="plan-btn" id="snippets-btn" aria-label="Browse code snippets" title="Browse code snippets">
                     <i class="fas fa-code"></i>
                 </button>
+                <button class="plan-btn" id="calendar-btn" aria-label="Build calendar" title="View 57-day build calendar">
+                    <i class="fas fa-calendar-check"></i>
+                </button>
             </div>
             <div class="hero-stats">
                 <div class="stat">
@@ -220,11 +223,11 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 56</span>
+                    <span class="insight-value">Day 57</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
-                    <span class="insight-value">56</span>
+                    <span class="insight-value">57</span>
                     <span class="insight-label">streak</span>
                 </div>
             </div>
@@ -1012,6 +1015,107 @@
         </div>
     </div>
 
+    <!-- Build Calendar Heatmap Section (Day 57) -->
+    <section id="calendar" class="section calendar-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-fire"></i> 57-Day Streak</span>
+                <h2 class="section-title">Build Calendar Heatmap</h2>
+                <p class="section-subtitle">Every day for 57 days, something shipped. Click a tile to read what I built.</p>
+            </div>
+
+            <div class="calendar-summary">
+                <div class="calendar-summary-item">
+                    <span class="calendar-summary-num" id="cal-days-built">57</span>
+                    <span class="calendar-summary-label">Days Built</span>
+                </div>
+                <div class="calendar-summary-item">
+                    <span class="calendar-summary-num" id="cal-current-streak">57</span>
+                    <span class="calendar-summary-label">Current Streak</span>
+                </div>
+                <div class="calendar-summary-item">
+                    <span class="calendar-summary-num" id="cal-longest-streak">57</span>
+                    <span class="calendar-summary-label">Longest Streak</span>
+                </div>
+                <div class="calendar-summary-item">
+                    <span class="calendar-summary-num" id="cal-best-day">Day 37</span>
+                    <span class="calendar-summary-label">Biggest Drop</span>
+                </div>
+            </div>
+
+            <div class="calendar-legend">
+                <span class="calendar-legend-label">Less</span>
+                <span class="calendar-cell level-0" title="No build"></span>
+                <span class="calendar-cell level-1" title="Small fix"></span>
+                <span class="calendar-cell level-2" title="Solid feature"></span>
+                <span class="calendar-cell level-3" title="Big feature"></span>
+                <span class="calendar-cell level-4" title="Massive drop"></span>
+                <span class="calendar-legend-label">More</span>
+            </div>
+
+            <div class="calendar-wrap">
+                <div class="calendar-months" id="calendar-months"></div>
+                <div class="calendar-grid-wrap">
+                    <div class="calendar-weekdays">
+                        <span></span>
+                        <span>Mon</span>
+                        <span></span>
+                        <span>Wed</span>
+                        <span></span>
+                        <span>Fri</span>
+                        <span></span>
+                    </div>
+                    <div class="calendar-grid" id="calendar-grid"></div>
+                </div>
+            </div>
+
+            <div class="calendar-controls">
+                <button class="btn btn-sm calendar-view" id="cal-view-all"><i class="fas fa-th"></i> All 57 Days</button>
+                <button class="btn btn-sm calendar-view" id="cal-view-recent"><i class="fas fa-bolt"></i> Last 30</button>
+                <button class="btn btn-sm calendar-view" id="cal-view-featured"><i class="fas fa-star"></i> Featured Only</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Build Day Modal (Day 57) -->
+    <div class="cal-modal" id="cal-modal" hidden>
+        <div class="cal-modal-backdrop" data-close></div>
+        <div class="cal-modal-content" role="dialog" aria-labelledby="cal-modal-title">
+            <button class="cal-modal-close" data-close aria-label="Close"><i class="fas fa-times"></i></button>
+            <div class="cal-modal-header">
+                <span class="cal-modal-tag" id="cal-modal-tag">Day 1</span>
+                <h3 id="cal-modal-title">First Commit</h3>
+                <p class="cal-modal-date" id="cal-modal-date">April 22, 2026</p>
+            </div>
+            <div class="cal-modal-body">
+                <div class="cal-modal-stat-row">
+                    <div class="cal-modal-stat">
+                        <i class="fas fa-fire"></i>
+                        <span class="cal-modal-stat-num" id="cal-modal-streak">1</span>
+                        <span class="cal-modal-stat-label">Streak</span>
+                    </div>
+                    <div class="cal-modal-stat">
+                        <i class="fas fa-cubes"></i>
+                        <span class="cal-modal-stat-num" id="cal-modal-impact">3</span>
+                        <span class="cal-modal-stat-label">Impact</span>
+                    </div>
+                    <div class="cal-modal-stat">
+                        <i class="fas fa-code-branch"></i>
+                        <span class="cal-modal-stat-num" id="cal-modal-commits">1</span>
+                        <span class="cal-modal-stat-label">Commits</span>
+                    </div>
+                </div>
+                <p class="cal-modal-desc" id="cal-modal-desc">Built the foundation of the site.</p>
+                <ul class="cal-modal-features" id="cal-modal-features"></ul>
+                <div class="cal-modal-tags" id="cal-modal-tags"></div>
+            </div>
+            <div class="cal-modal-footer">
+                <button class="btn btn-sm" data-close>Close</button>
+                <button class="btn btn-primary" id="cal-modal-share"><i class="fas fa-share"></i> Share this build</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Achievement Badges Section (Day 54) -->
     <section id="badges" class="section alt-bg badges-section">
         <div class="container">
@@ -1195,6 +1299,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">17</span>
+                        <span class="blog-month">June 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 57</span>
+                        <h3>Build Calendar Heatmap — 57 Days Visible</h3>
+                        <p>A GitHub-style contribution graph for the build streak. 57 cells, color-coded by impact, with click-to-read modals for every single day. Includes summary stats (days built, current/longest streak, biggest drop), filter views (all / last 30 / featured), month labels, weekday axis, and a 5-step legend. Scroll up to see 57 squares of evidence that the streak is real.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">16</span>

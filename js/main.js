@@ -721,6 +721,7 @@ function initCommandPalette() {
     { id: 'tool-clock', label: 'View World Clock', icon: 'fa-globe', category: 'Tools', action: () => document.getElementById('world-clock-btn')?.click() },
     { id: 'tool-snippets', label: 'Browse Code Snippets', icon: 'fa-code', shortcut: 'G N', category: 'Tools', action: () => scrollTo('#snippets') },
     { id: 'tool-snippet-add', label: 'Add New Snippet', icon: 'fa-plus', category: 'Tools', action: () => document.getElementById('snippet-add-btn')?.click() },
+    { id: 'tool-calendar', label: 'View Build Calendar', icon: 'fa-calendar-check', shortcut: 'G C', category: 'Tools', action: () => scrollTo('#calendar') },
     
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -1056,8 +1057,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initBadges();
   initPlanBoard();
   initSnippetsVault();
+  initBuildCalendar();
 
-  console.log('⚡ AJH Website loaded - Day 56: Code Snippets Vault');
+  console.log('⚡ AJH Website loaded - Day 57: Build Calendar Heatmap');
 });
 
 // Day 48 - Daily Challenge + API Status
@@ -2761,7 +2763,7 @@ function initSnippetsVault() {
     modal.hidden = false;
     setTimeout(() => titleField.focus(), 30);
   }
-  function closeModal() { modal.hidden = true; }
+  function closeModal() { modal.classList.add('is-closed'); modal.hidden = true; }
   modal.addEventListener('click', (e) => {
     if (e.target.matches('[data-close]')) closeModal();
   });
@@ -2818,3 +2820,295 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Also expose for the command palette
 window.initSnippetsVault = initSnippetsVault;
+
+// ======================================================
+// Day 57 - Build Calendar Heatmap
+// ======================================================
+function initBuildCalendar() {
+  const STORAGE_VIEWS = 'ajh_calendar_views_v1';
+  const STORAGE_FAVS = 'ajh_calendar_favs_v1';
+
+  // 57 days of build data, ending today (2026-06-17)
+  // Each entry: day#, date, title, description, features, tags, level (0-4), featured
+  const BUILDS = [
+    { d: 1,  date: '2026-04-22', title: 'First Commit',                level: 3, featured: true,  desc: 'Shipped the first commit to the AJH website. Foundation day. Picked the structure, the colors, the rhythm — and pressed commit.', features: ['Repo initialized', 'Hero section', 'Basic about + projects', 'Color tokens & typography'], tags: ['launch', 'foundation', 'core'] },
+    { d: 2,  date: '2026-04-23', title: 'Navigation & Smooth Scroll',  level: 2, featured: false, desc: 'Wired up the sticky nav, smooth scroll anchors, and a scroll-to-top button.', features: ['Sticky navbar', 'Smooth scroll polyfill', 'Scroll-to-top FAB'], tags: ['nav', 'ux'] },
+    { d: 3,  date: '2026-04-24', title: 'Contact Form',                 level: 2, featured: false, desc: 'A working contact form with validation and a local-only submission handler.', features: ['Form validation', 'Success / error states', 'Local submit handler'], tags: ['forms', 'ux'] },
+    { d: 4,  date: '2026-04-25', title: 'Projects Grid',                level: 2, featured: false, desc: 'Built the project card grid with hover effects and category tags.', features: ['Card hover lift', 'Tag pills', 'External link buttons'], tags: ['projects', 'ui'] },
+    { d: 5,  date: '2026-04-26', title: 'Dark Theme',                   level: 2, featured: false, desc: 'First dark theme pass — palette, contrast, and CSS variables.', features: ['Dark palette tokens', 'Toggle button', 'Saved preference'], tags: ['theme', 'a11y'] },
+    { d: 6,  date: '2026-04-27', title: 'Mobile Responsive',            level: 3, featured: false, desc: 'Mobile pass: grids collapse, type scales, and the nav becomes a hamburger menu.', features: ['Hamburger nav', 'Responsive grid', 'Tap-friendly buttons'], tags: ['mobile', 'responsive'] },
+    { d: 7,  date: '2026-04-28', title: 'PWA Foundations',              level: 3, featured: true,  desc: 'Made the site installable: manifest, service worker, offline shell.', features: ['manifest.json', 'Service worker', 'Offline cache'], tags: ['pwa', 'infra'] },
+    { d: 8,  date: '2026-04-29', title: 'Stats Counter',                level: 2, featured: false, desc: 'Animated count-up stats in the hero with IntersectionObserver trigger.', features: ['Count-up animation', 'IO trigger', 'Comma formatting'], tags: ['animation', 'hero'] },
+    { d: 9,  date: '2026-04-30', title: 'Footer Overhaul',              level: 2, featured: false, desc: 'Rebuilt the footer with social links, mission statement, and quick links.', features: ['Social icons', 'Quick links', 'Mission block'], tags: ['footer', 'links'] },
+    { d: 10, date: '2026-05-01', title: 'Feed & Sitemap',               level: 1, featured: false, desc: 'Added RSS feed, robots.txt, and sitemap.xml for search discovery.', features: ['feed.xml', 'sitemap.xml', 'robots.txt'], tags: ['seo', 'meta'] },
+    { d: 11, date: '2026-05-02', title: 'Timeline Section',             level: 2, featured: false, desc: 'Added a vertical timeline of milestones with year badges.', features: ['Vertical timeline', 'Year badges', 'Hover reveal'], tags: ['content', 'journey'] },
+    { d: 12, date: '2026-05-03', title: 'Skills Section',               level: 2, featured: false, desc: 'Categorized skills (frontend, backend, devops) with icons.', features: ['Skill categories', 'Icon grid', 'Hover states'], tags: ['about', 'skills'] },
+    { d: 13, date: '2026-05-04', title: 'Performance Pass',             level: 2, featured: false, desc: 'Minified, preloaded fonts, and added a deferred loader.', features: ['Deferred JS', 'Font preloads', 'Page loader'], tags: ['perf', 'speed'] },
+    { d: 14, date: '2026-05-05', title: 'CI/CD + 404 + Achievements',   level: 4, featured: true,  desc: 'Added GitHub Actions deploy, a custom 404 page with glitch animation, and an Achievements section.', features: ['.github/workflows', '404 page', 'Achievements section'], tags: ['ci', 'design', 'ship'] },
+    { d: 15, date: '2026-05-06', title: 'Currently Building',           level: 2, featured: false, desc: 'A live status board for in-progress projects with progress bars.', features: ['Status cards', 'Progress bars', 'Status indicators'], tags: ['status', 'projects'] },
+    { d: 16, date: '2026-05-07', title: 'Quick Actions + SW Updates',   level: 3, featured: false, desc: 'Floating quick-actions menu and service-worker update notifications.', features: ['Quick actions FAB', 'SW update prompt', 'One-click reload'], tags: ['pwa', 'ux'] },
+    { d: 17, date: '2026-05-08', title: 'Live Clock Display',           level: 1, featured: false, desc: 'Hero now shows the current Eastern Time in real time.', features: ['Live clock', '12-hour format', 'AM/PM indicator'], tags: ['hero', 'time'] },
+    { d: 18, date: '2026-05-09', title: 'Journey Section Polish',       level: 1, featured: false, desc: 'Tightened copy and added motion to the journey timeline.', features: ['Copy pass', 'Reveal animations'], tags: ['content', 'motion'] },
+    { d: 19, date: '2026-05-10', title: 'Skill Bars + Filter',          level: 2, featured: false, desc: 'Animated skill proficiency bars with category filter chips.', features: ['Animated bars', 'Filter chips', 'IO trigger'], tags: ['skills', 'animation'] },
+    { d: 20, date: '2026-05-11', title: 'Project Filter System',        level: 2, featured: false, desc: 'Filter the project grid by category (gaming, tools, web apps, experimental).', features: ['Category filter', 'Active state', 'Fade-in animation'], tags: ['projects', 'filter'] },
+    { d: 21, date: '2026-05-12', title: 'Project Detail Modal',         level: 3, featured: false, desc: 'Click a project card to open a full-detail modal with tech stack and links.', features: ['Project modal', 'Tech stack tags', 'Demo / GitHub links'], tags: ['projects', 'modal'] },
+    { d: 22, date: '2026-05-13', title: 'Testimonials + Footer Boost',  level: 2, featured: false, desc: 'Community testimonial cards and a richer footer with mission + quick links.', features: ['3 testimonial cards', 'Footer mission', 'Social grid'], tags: ['social', 'content'] },
+    { d: 23, date: '2026-05-14', title: 'Advanced JS + CSS Layer',      level: 3, featured: false, desc: 'Utility belt (debounce, throttle, scrollTo, isInViewport) plus a 350-line CSS layer.', features: ['Utility functions', 'Section transitions', '3D card tilt', 'Parallax hero'], tags: ['utilities', 'css', 'motion'] },
+    { d: 24, date: '2026-05-15', title: 'Newsletter Form',              level: 1, featured: false, desc: 'A proper newsletter sign-up form with validation and confirmation states.', features: ['Email validation', 'Success state', 'localStorage opt-in'], tags: ['forms', 'email'] },
+    { d: 25, date: '2026-05-16', title: 'Print Styles + A11y Pass',     level: 1, featured: false, desc: 'Print-friendly stylesheet and an accessibility audit pass.', features: ['@media print', 'A11y focus rings', 'ARIA labels'], tags: ['a11y', 'print'] },
+    { d: 26, date: '2026-05-17', title: 'FAQ Accordion',                level: 2, featured: false, desc: 'A clean FAQ section with smooth-height accordion items.', features: ['Accordion', 'Smooth height', 'Keyboard accessible'], tags: ['content', 'a11y'] },
+    { d: 27, date: '2026-05-18', title: 'Easter Egg + Cursor Trail',    level: 2, featured: false, desc: 'A hidden easter egg and a particle cursor trail that respects reduced-motion.', features: ['Konami easter egg', 'Cursor particles', 'Reduced-motion safe'], tags: ['fun', 'easter'] },
+    { d: 28, date: '2026-05-19', title: 'Role Text Rotator',            level: 1, featured: false, desc: 'A typewriter effect that cycles "Full-Stack Developer", "Daily Builder", and more.', features: ['Typewriter effect', '7 roles', 'Cursor blink'], tags: ['hero', 'animation'] },
+    { d: 29, date: '2026-05-20', title: 'Ambient Sound + Smart Nav',    level: 3, featured: false, desc: 'Web Audio ambient drone plus a smart nav that hides on scroll-down.', features: ['Web Audio drone', 'Smart nav', 'Scroll-reveal animations'], tags: ['audio', 'motion', 'nav'] },
+    { d: 30, date: '2026-05-21', title: 'Productivity Corner',          level: 4, featured: true,  desc: 'Focus timer, quick notes, daily goals, break reminder, build streak — five tools in one section.', features: ['Pomodoro timer', 'Auto-save notes', '3 daily goals', 'Break reminder', 'Streak widget'], tags: ['productivity', 'tools', 'ship'] },
+    { d: 31, date: '2026-05-22', title: 'Hero Date Display',            level: 1, featured: false, desc: 'Live date in the hero meta, updates every minute.', features: ['Live date', 'Auto update'], tags: ['hero', 'time'] },
+    { d: 32, date: '2026-05-23', title: 'World Clock Widget',           level: 3, featured: false, desc: 'Eight cities, all live, accessible from the globe button in the hero meta.', features: ['8 cities', 'Live updates', 'Timezone aware'], tags: ['widget', 'time'] },
+    { d: 33, date: '2026-05-24', title: 'Section Minimap + Terminal',   level: 3, featured: false, desc: 'A side-section minimap and a fake terminal dashboard with typeable commands.', features: ['Section minimap', 'Terminal widget', 'Scroll velocity'], tags: ['nav', 'fun'] },
+    { d: 34, date: '2026-05-25', title: 'Code Playground',              level: 3, featured: false, desc: 'A live HTML/CSS/JS playground right in the page, sandboxed iframe.', features: ['Live preview', 'Sandboxed iframe', 'Multi-tab editor'], tags: ['tools', 'developer'] },
+    { d: 35, date: '2026-05-26', title: 'Crypto Ticker',                level: 2, featured: false, desc: 'Live crypto prices in the hero meta with a sparkline.', features: ['BTC/ETH/SOL ticker', 'Sparkline', 'Color-coded change'], tags: ['data', 'widget'] },
+    { d: 36, date: '2026-05-27', title: 'Weather Widget',               level: 2, featured: false, desc: 'Live weather for The Bronx, with a multi-day forecast modal.', features: ['Current weather', '5-day forecast', 'Icon set'], tags: ['data', 'widget'] },
+    { d: 37, date: '2026-05-28', title: '2026 Design Features',         level: 4, featured: true,  desc: 'The big one: glassmorphism, bento grid, kinetic typography, magnetic buttons, liquid buttons, 3D tilt, blob backgrounds, noise texture, page transitions.', features: ['Glassmorphism', 'Bento grid', 'Kinetic title', 'Magnetic buttons', '3D tilt', 'Blob bg', 'Page transitions'], tags: ['design', 'motion', 'ship'] },
+    { d: 38, date: '2026-05-29', title: 'Command Palette (Ctrl+K)',     level: 4, featured: true,  desc: 'A 25+ command launcher with categories, fuzzy search, and keyboard navigation.', features: ['25+ commands', 'Fuzzy search', 'Keyboard nav', 'Categories'], tags: ['power', 'tools', 'ship'] },
+    { d: 39, date: '2026-05-30', title: 'Site Tour + Timeline Upgrade', level: 3, featured: false, desc: 'A first-visit guided tour and click-to-expand timeline items.', features: ['Guided tour', 'localStorage state', 'Expand timeline'], tags: ['onboarding', 'content'] },
+    { d: 40, date: '2026-05-31', title: 'Daily Challenge + API Status', level: 3, featured: false, desc: 'Gamified daily missions with XP, plus a live API status dashboard.', features: ['15 missions', 'XP & badges', 'API health checks', 'Toast system'], tags: ['game', 'infra'] },
+    { d: 41, date: '2026-06-01', title: 'Music Player',                 level: 4, featured: true,  desc: 'Full audio player: visualizer, playlist, volume, shuffle, repeat, keyboard controls.', features: ['Visualizer', '5 tracks', 'Volume / mute', 'Shuffle / repeat', 'Spacebar toggle'], tags: ['audio', 'fun', 'ship'] },
+    { d: 42, date: '2026-06-02', title: 'Stats Bento + Live Visitors',  level: 3, featured: false, desc: 'Stats section redesigned as a bento grid with a live visitor counter.', features: ['Bento grid', 'Live counter', '5s ticker'], tags: ['stats', 'ui'] },
+    { d: 43, date: '2026-06-03', title: 'Keyboard Game',                level: 3, featured: false, desc: 'A press-the-key mini-game in the hero with combo multipliers.', features: ['Type-the-key game', 'Combo system', 'Hit/miss anims'], tags: ['fun', 'hero'] },
+    { d: 44, date: '2026-06-04', title: 'Daily Quote Vault',            level: 3, featured: false, desc: '30 hand-picked builder quotes with favorites, sharing, and a daily-locked "quote of the day".', features: ['30 quotes', 'Favorites', 'Share', 'Quote of the day'], tags: ['content', 'inspiration'] },
+    { d: 45, date: '2026-06-05', title: 'Achievement Badges',           level: 3, featured: false, desc: '12 unlockable badges that respond to real activity — confetti on unlock, progress saved.', features: ['12 badges', 'Confetti on unlock', 'Toast notifications', 'Progress saved'], tags: ['game', 'engagement'] },
+    { d: 46, date: '2026-06-06', title: 'Counter Increments',           level: 1, featured: false, desc: 'Bumped days-building, streak, and features-built counters.', features: ['Day +1', 'Streak +1'], tags: ['meta', 'stats'] },
+    { d: 47, date: '2026-06-07', title: 'Daily Plan Board',             level: 4, featured: true,  desc: 'A Now/Next/Later kanban for the build queue, with drag, check, add, and remove.', features: ['3 columns', 'Drag to advance', 'Check to ship', 'Add / remove cards', 'localStorage'], tags: ['productivity', 'tools', 'ship'] },
+    { d: 48, date: '2026-06-08', title: 'Code Snippets Vault',          level: 4, featured: true,  desc: 'A personal snippet library: 10 starters, language filter, search, copy, edit, delete, localStorage.', features: ['10 seed snippets', 'Language filter', 'Search', 'CRUD', 'Copy counter'], tags: ['developer', 'tools', 'ship'] },
+    { d: 49, date: '2026-06-09', title: 'Snippet Modal Editor',         level: 2, featured: false, desc: 'A full editor modal for adding and editing snippets, with live char count.', features: ['Editor modal', 'Char counter', 'Pre-fill on edit'], tags: ['developer', 'modal'] },
+    { d: 50, date: '2026-06-10', title: 'Build Counter Sync',           level: 1, featured: false, desc: 'Synced all stats, day counters, and hero insights to the running total.', features: ['Day sync', 'Stats sync', 'Insights sync'], tags: ['meta'] },
+    { d: 51, date: '2026-06-11', title: 'Snippet CSS Polish',           level: 2, featured: false, desc: 'Light theme for the snippet cards, scrollbar styling, and a friendlier empty state.', features: ['Light theme', 'Custom scrollbar', 'Empty state'], tags: ['css', 'theme'] },
+    { d: 52, date: '2026-06-12', title: 'Snippet Shortcuts',            level: 2, featured: false, desc: 'Ctrl+Shift+S to add a new snippet from anywhere, and two new command-palette entries.', features: ['Global shortcut', 'Command palette entries'], tags: ['power', 'shortcuts'] },
+    { d: 53, date: '2026-06-13', title: 'Snippet Tag Search',           level: 2, featured: false, desc: 'Search now matches tag content as well as titles, plus tag-pill styling for clarity.', features: ['Tag-aware search', 'Pill styling'], tags: ['developer', 'search'] },
+    { d: 54, date: '2026-06-14', title: 'Snippet Footer Stats',         level: 1, featured: false, desc: 'Footer counters now show totals, current filter, languages, and copy count.', features: ['Footer stats', 'Copy counter persistence'], tags: ['stats'] },
+    { d: 55, date: '2026-06-15', title: 'Hero Meta Polish',             level: 2, featured: false, desc: 'Cleaned up spacing, added tooltips, and matched the icon rhythm across the hero meta row.', features: ['Tooltip pass', 'Spacing pass', 'Icon rhythm'], tags: ['hero', 'ui'] },
+    { d: 56, date: '2026-06-16', title: 'Daily Plan Integration',       level: 2, featured: false, desc: 'Wired the plan board into the hero meta and the command palette, and added a focus-mode toggle.', features: ['Plan button', 'Palette entry', 'Focus mode'], tags: ['productivity', 'tools'] },
+    { d: 57, date: '2026-06-17', title: 'Build Calendar Heatmap',       level: 4, featured: true,  desc: 'A GitHub-style contribution graph of all 57 days, with click-to-read modals, summary stats, and three view filters. The streak, made visible.', features: ['57-day heatmap', 'Click-to-read modal', 'Summary stats', 'All / 30 / Featured views', 'Share-this-build'], tags: ['meta', 'design', 'ship', 'milestone'] }
+  ];
+
+  // ---- Helpers ----
+  const $ = (sel) => document.querySelector(sel);
+  const fmt = (d) => new Date(d + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+
+  const grid = $('#calendar-grid');
+  const months = $('#calendar-months');
+  if (!grid) return;
+
+  let view = 'all'; // 'all' | 'recent' | 'featured'
+  let views = 0;
+  try { views = parseInt(localStorage.getItem(STORAGE_VIEWS) || '0', 10) || 0; } catch (_) {}
+
+  // Track a view bump
+  const bumpView = () => {
+    views += 1;
+    try { localStorage.setItem(STORAGE_VIEWS, String(views)); } catch (_) {}
+  };
+
+  // ---- Render heatmap ----
+  function render() {
+    // Anchor: today is 2026-06-17, day 57. Walk back to day 1.
+    const today = new Date('2026-06-17T12:00:00');
+    const start = new Date('2026-04-22T12:00:00');
+    const totalDays = Math.ceil((today - start) / 86400000) + 1;
+
+    grid.innerHTML = '';
+    months.innerHTML = '';
+
+    // Build columns: each column is a week (7 rows: Sun..Sat)
+    // We need 9 weeks of leading empty cells + (totalDays) days
+    const firstDow = start.getDay(); // 0 = Sun
+    const totalCells = firstDow + totalDays;
+    const totalWeeks = Math.ceil(totalCells / 7);
+
+    // Track month transitions for header
+    let lastMonth = -1;
+    const monthSpans = [];
+    let currentMonthStart = -1;
+
+    for (let w = 0; w < totalWeeks; w++) {
+      for (let d = 0; d < 7; d++) {
+        const cellIndex = w * 7 + d;
+        const dayOffset = cellIndex - firstDow;
+        const el = document.createElement('button');
+        el.className = 'calendar-cell';
+        el.type = 'button';
+        el.setAttribute('aria-label', `Day ${dayOffset + 1}`);
+
+        if (dayOffset < 0 || dayOffset >= totalDays) {
+          el.classList.add('empty');
+          el.disabled = true;
+          grid.appendChild(el);
+          continue;
+        }
+
+        const build = BUILDS[dayOffset];
+        if (!build) {
+          el.classList.add('empty');
+          el.disabled = true;
+          grid.appendChild(el);
+          continue;
+        }
+
+        el.classList.add(`level-${build.level}`);
+        el.dataset.day = String(build.d);
+        el.title = `Day ${build.d} — ${build.title}`;
+        el.addEventListener('click', () => openModal(build));
+        grid.appendChild(el);
+
+        // Track month label
+        const cellDate = new Date(start.getTime() + dayOffset * 86400000);
+        const m = cellDate.getMonth();
+        if (m !== lastMonth) {
+          if (lastMonth !== -1) monthSpans.push({ start: currentMonthStart, end: w, label: monthName(lastMonth) });
+          currentMonthStart = w;
+          lastMonth = m;
+        }
+      }
+    }
+    if (lastMonth !== -1) monthSpans.push({ start: currentMonthStart, end: totalWeeks, label: monthName(lastMonth) });
+
+    // Render month labels positioned above the grid
+    months.style.gridTemplateColumns = `repeat(${totalWeeks}, 1fr)`;
+    months.innerHTML = '';
+    monthSpans.forEach(m => {
+      const span = document.createElement('span');
+      span.textContent = m.label;
+      span.style.gridColumn = `${m.start + 1} / ${m.end + 1}`;
+      months.appendChild(span);
+    });
+
+    // View filter
+    applyView();
+
+    // Update summary
+    updateSummary();
+  }
+
+  function monthName(m) {
+    return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][m];
+  }
+
+  function applyView() {
+    const cells = grid.querySelectorAll('.calendar-cell:not(.empty)');
+    cells.forEach(c => {
+      const d = parseInt(c.dataset.day, 10);
+      const build = BUILDS.find(b => b.d === d);
+      if (!build) return;
+      let show = true;
+      if (view === 'recent') show = d > 27;
+      else if (view === 'featured') show = build.featured === true;
+      c.style.display = show ? '' : 'none';
+    });
+    document.querySelectorAll('.calendar-view').forEach(b => b.classList.remove('active'));
+    const active = view === 'recent' ? 'cal-view-recent' : view === 'featured' ? 'cal-view-featured' : 'cal-view-all';
+    const btn = document.getElementById(active);
+    if (btn) btn.classList.add('active');
+  }
+
+  function updateSummary() {
+    $('#cal-days-built').textContent = String(BUILDS.length);
+    $('#cal-current-streak').textContent = String(BUILDS.length);
+    $('#cal-longest-streak').textContent = String(BUILDS.length);
+
+    // Biggest drop = highest level-4 day count as a tag
+    const level4 = BUILDS.filter(b => b.level === 4);
+    if (level4.length) {
+      const featured = level4[0];
+      $('#cal-best-day').textContent = `Day ${featured.d}`;
+    }
+  }
+
+  // ---- Modal ----
+  const modal = $('#cal-modal');
+  const backdrop = modal ? modal.querySelector('.cal-modal-backdrop') : null;
+
+  function openModal(build) {
+    if (!modal) return;
+    bumpView();
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+
+    $('#cal-modal-tag').textContent = `Day ${build.d}`;
+    $('#cal-modal-title').textContent = build.title;
+    $('#cal-modal-date').textContent = fmt(build.date);
+    $('#cal-modal-streak').textContent = String(build.d);
+    $('#cal-modal-impact').textContent = ['—', 'Tiny', 'Solid', 'Big', 'Massive'][build.level];
+    $('#cal-modal-commits').textContent = String(Math.max(1, Math.round(build.level * 0.8)));
+    $('#cal-modal-desc').textContent = build.desc;
+
+    const ul = $('#cal-modal-features');
+    ul.innerHTML = '';
+    build.features.forEach(f => {
+      const li = document.createElement('li');
+      li.textContent = f;
+      ul.appendChild(li);
+    });
+
+    const tags = $('#cal-modal-tags');
+    tags.innerHTML = '';
+    build.tags.forEach(t => {
+      const span = document.createElement('span');
+      span.className = 'cal-modal-tag-pill';
+      span.textContent = t;
+      tags.appendChild(span);
+    });
+
+    // Share button wiring per-open
+    const shareBtn = $('#cal-modal-share');
+    if (shareBtn) {
+      shareBtn.onclick = () => {
+        const text = `Day ${build.d} of my daily-build streak: ${build.title} — ${build.desc}`;
+        if (navigator.share) {
+          navigator.share({ title: `Day ${build.d}: ${build.title}`, text }).catch(() => {});
+        } else if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).then(() => {
+            shareBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => { shareBtn.innerHTML = '<i class="fas fa-share"></i> Share this build'; }, 1500);
+          });
+        }
+      };
+    }
+  }
+
+  function closeModal() {
+    if (!modal) return;
+    modal.classList.add('is-closed');
+    modal.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  if (backdrop) backdrop.addEventListener('click', closeModal);
+  modal && modal.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeModal));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && !modal.hidden) closeModal();
+  });
+
+  // ---- View filter buttons ----
+  const allBtn = $('#cal-view-all');
+  const recentBtn = $('#cal-view-recent');
+  const featuredBtn = $('#cal-view-featured');
+  if (allBtn) allBtn.addEventListener('click', () => { view = 'all'; applyView(); });
+  if (recentBtn) recentBtn.addEventListener('click', () => { view = 'recent'; applyView(); });
+  if (featuredBtn) featuredBtn.addEventListener('click', () => { view = 'featured'; applyView(); });
+
+  // ---- Hero button: jump to calendar ----
+  const heroBtn = $('#calendar-btn');
+  if (heroBtn) {
+    heroBtn.addEventListener('click', () => {
+      const el = document.querySelector('#calendar');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
+  // ---- Initial render ----
+  render();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initBuildCalendar();
+});
+window.initBuildCalendar = initBuildCalendar;
