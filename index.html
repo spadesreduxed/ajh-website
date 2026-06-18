@@ -108,6 +108,7 @@
             <li><a href="#badges">Badges</a></li>
             <li><a href="#plan">Plan</a></li>
             <li><a href="#snippets">Snippets</a></li>
+            <li><a href="#assistant">Assistant</a></li>
             <li><a href="#quotes">Quotes</a></li>
             <li><a href="#stats">Stats</a></li>
             <li><a href="#journey">Journey</a></li>
@@ -185,6 +186,9 @@
                 <button class="plan-btn" id="calendar-btn" aria-label="Build calendar" title="View 57-day build calendar">
                     <i class="fas fa-calendar-check"></i>
                 </button>
+                <button class="plan-btn" id="assistant-btn" aria-label="Build assistant" title="Ask the Build Assistant (A)">
+                    <i class="fas fa-robot"></i>
+                </button>
             </div>
             <div class="hero-stats">
                 <div class="stat">
@@ -192,7 +196,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="56">0</span>
+                    <span class="stat-value" data-count="58">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -203,7 +207,7 @@
             <div class="daily-streak">
                 <span class="streak-icon">🔥</span>
                 <div class="streak-info">
-                    <span class="streak-count">56 days</span>
+                    <span class="streak-count">58 days</span>
                     <span class="streak-label">Daily Streak</span>
                 </div>
             </div>
@@ -223,11 +227,11 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 57</span>
+                    <span class="insight-value">Day 58</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
-                    <span class="insight-value">57</span>
+                    <span class="insight-value">58</span>
                     <span class="insight-label">streak</span>
                 </div>
             </div>
@@ -709,7 +713,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="56">0</div>
+                    <div class="stat-number" data-count="58">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -730,7 +734,7 @@
                 </div>
                 <div class="stat-card large">
                     <i class="fas fa-rocket"></i>
-                    <div class="stat-number" data-count="55">0</div>
+                    <div class="stat-number" data-count="57">0</div>
                     <div class="stat-label">Features Built</div>
                     <div class="stat-sublabel">And counting...</div>
                 </div>
@@ -1299,6 +1303,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">18</span>
+                        <span class="blog-month">June 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 58</span>
+                        <h3>Build Assistant — Chat With the Streak</h3>
+                        <p>A chatbot that lives inside the site and knows about every one of the 58 build days. Press <kbd>A</kbd> anywhere to open it, or hit the robot button in the bottom-right. Ask by day number, by date, by tag, or just say "recent" or "biggest". The assistant is pure JavaScript, pattern-matches against the same build data the calendar uses, and saves the conversation locally. It's Day 58 shipping Day 58, which feels right.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">17</span>
@@ -2486,5 +2501,87 @@
             </div>
         </div>
     </section>
+
+    <!-- Build Assistant Section (Day 58) -->
+    <section id="assistant" class="section assistant-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-robot"></i> AI Inside</span>
+                <h2 class="section-title">Build Assistant</h2>
+                <p class="section-subtitle">A small chatbot that lives inside the site and knows about every one of the 58 build days. Ask it anything.</p>
+            </div>
+
+            <div class="assistant-section-grid">
+                <div class="assistant-intro glass-card">
+                    <div class="assistant-intro-icon"><i class="fas fa-comments"></i></div>
+                    <h3>Chat with the streak</h3>
+                    <p>Press <kbd>A</kbd> anywhere, or click the floating robot button in the bottom-right. The assistant will answer questions about any of the 58 build days, surface featured ships, and recap recent work.</p>
+                    <div class="assistant-intro-pills">
+                        <span class="assistant-intro-pill"><i class="fas fa-bolt"></i> Day-by-day</span>
+                        <span class="assistant-intro-pill"><i class="fas fa-tag"></i> Tag search</span>
+                        <span class="assistant-intro-pill"><i class="fas fa-fire"></i> Streak stats</span>
+                        <span class="assistant-intro-pill"><i class="fas fa-history"></i> Saved locally</span>
+                    </div>
+                    <button class="btn btn-primary" id="assistant-open-section"><i class="fas fa-comment-dots"></i> Open Assistant</button>
+                </div>
+                <div class="assistant-howto">
+                    <h4>Try asking…</h4>
+                    <ul class="assistant-howto-list">
+                        <li><i class="fas fa-quote-left"></i> <span><em>\"What did you build on day 37?\"</em></span></li>
+                        <li><i class="fas fa-quote-left"></i> <span><em>\"May 28\"</em> or <em>\"June 17\"</em> — by date</span></li>
+                        <li><i class="fas fa-quote-left"></i> <span><em>\"recent builds\"</em> — last 7 days</span></li>
+                        <li><i class="fas fa-quote-left"></i> <span><em>\"biggest features\"</em> — level-4 drops</span></li>
+                        <li><i class="fas fa-quote-left"></i> <span><em>\"audio\"</em>, <em>\"design\"</em>, <em>\"tools\"</em> — by tag</span></li>
+                        <li><i class="fas fa-quote-left"></i> <span><em>\"streak stats\"</em> — numbers &amp; totals</span></li>
+                    </ul>
+                    <div class="assistant-howto-foot">
+                        <span class="assistant-kbd"><kbd>A</kbd> toggle</span>
+                        <span class="assistant-kbd"><kbd>Enter</kbd> send</span>
+                        <span class="assistant-kbd"><kbd>Esc</kbd> close</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Build Assistant Panel (Day 58) -->
+    <div class="assistant-panel" id="assistant-panel" hidden aria-hidden="true">
+        <div class="assistant-backdrop" id="assistant-backdrop" data-close></div>
+        <div class="assistant-window" role="dialog" aria-labelledby="assistant-title">
+            <div class="assistant-header">
+                <div class="assistant-header-icon"><i class="fas fa-robot"></i></div>
+                <div class="assistant-header-info">
+                    <h3 id="assistant-title">Build Assistant</h3>
+                    <p><span class="assistant-online-dot"></span> Online · knows 58 days</p>
+                </div>
+                <div class="assistant-header-actions">
+                    <button class="assistant-icon-btn" id="assistant-clear" aria-label="Clear history" title="Clear history">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                    <button class="assistant-icon-btn" id="assistant-close" aria-label="Close assistant" data-close>
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="assistant-messages" id="assistant-messages">
+                <!-- Filled by JS -->
+            </div>
+            <div class="assistant-suggestions" id="assistant-suggestions">
+                <!-- Filled by JS -->
+            </div>
+            <div class="assistant-input-row">
+                <textarea id="assistant-input" rows="1" placeholder="Ask about any build day… (Enter to send)" aria-label="Message"></textarea>
+                <button class="assistant-send" id="assistant-send" aria-label="Send">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="assistant-hint">Press <kbd>Esc</kbd> to close · <kbd>A</kbd> to reopen</div>
+        </div>
+    </div>
+
+    <!-- Build Assistant Floating Button (Day 58) -->
+    <button class="assistant-fab" id="assistant-fab" aria-label="Open Build Assistant" title="Build Assistant (press A)">
+        <i class="fas fa-robot"></i>
+    </button>
 </body>
 </html>

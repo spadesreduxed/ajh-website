@@ -722,6 +722,7 @@ function initCommandPalette() {
     { id: 'tool-snippets', label: 'Browse Code Snippets', icon: 'fa-code', shortcut: 'G N', category: 'Tools', action: () => scrollTo('#snippets') },
     { id: 'tool-snippet-add', label: 'Add New Snippet', icon: 'fa-plus', category: 'Tools', action: () => document.getElementById('snippet-add-btn')?.click() },
     { id: 'tool-calendar', label: 'View Build Calendar', icon: 'fa-calendar-check', shortcut: 'G C', category: 'Tools', action: () => scrollTo('#calendar') },
+    { id: 'tool-assistant', label: 'Open Build Assistant', icon: 'fa-robot', shortcut: 'A', category: 'Tools', action: () => window.ajhAssistantOpen && window.ajhAssistantOpen() },
     
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -1058,8 +1059,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initPlanBoard();
   initSnippetsVault();
   initBuildCalendar();
+  initBuildAssistant();
 
-  console.log('⚡ AJH Website loaded - Day 57: Build Calendar Heatmap');
+  console.log('⚡ AJH Website loaded - Day 58: Build Assistant');
 });
 
 // Day 48 - Daily Challenge + API Status
@@ -2816,6 +2818,10 @@ function initSnippetsVault() {
 // Wire up snippets into DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
   initSnippetsVault();
+  initBuildCalendar();
+  initBuildAssistant();
+
+  console.log('⚡ AJH Website loaded - Day 58: Build Assistant');
 });
 
 // Also expose for the command palette
@@ -3112,3 +3118,446 @@ document.addEventListener('DOMContentLoaded', () => {
   initBuildCalendar();
 });
 window.initBuildCalendar = initBuildCalendar;
+
+// ======================================================
+// Day 58 - Build Assistant (Knowledge Base Chat)
+// ======================================================
+function initBuildAssistant() {
+  const STORAGE_KEY = 'ajh_assistant_history_v1';
+  const STORAGE_FIRST = 'ajh_assistant_seen_v1';
+
+  // 58 days of build data, mirroring the calendar (Day 58 is today, 2026-06-18)
+  const BUILDS = [
+    { d:  1, title: 'First Commit',                date: '2026-04-22', tags: ['launch','foundation','core'],         level: 3, desc: 'Shipped the first commit. Picked the structure, the colors, the rhythm.' },
+    { d:  2, title: 'Navigation & Smooth Scroll',  date: '2026-04-23', tags: ['nav','ux'],                              level: 2, desc: 'Sticky nav, smooth scroll anchors, scroll-to-top FAB.' },
+    { d:  3, title: 'Contact Form',                 date: '2026-04-24', tags: ['forms','ux'],                            level: 2, desc: 'Working contact form with validation and submit handler.' },
+    { d:  4, title: 'Projects Grid',                date: '2026-04-25', tags: ['projects','ui'],                         level: 2, desc: 'Project card grid with hover effects and category tags.' },
+    { d:  5, title: 'Dark Theme',                   date: '2026-04-26', tags: ['theme','a11y'],                          level: 2, desc: 'First dark theme pass with palette, contrast, and CSS variables.' },
+    { d:  6, title: 'Mobile Responsive',            date: '2026-04-27', tags: ['mobile','responsive'],                   level: 3, desc: 'Mobile pass: grids collapse, type scales, hamburger nav.' },
+    { d:  7, title: 'PWA Foundations',              date: '2026-04-28', tags: ['pwa','infra'],                           level: 3, desc: 'Manifest, service worker, offline shell.' },
+    { d:  8, title: 'Stats Counter',                date: '2026-04-29', tags: ['animation','hero'],                      level: 2, desc: 'Animated count-up stats with IntersectionObserver trigger.' },
+    { d:  9, title: 'Footer Overhaul',              date: '2026-04-30', tags: ['footer','links'],                        level: 2, desc: 'Footer with social links, mission, and quick links.' },
+    { d: 10, title: 'Feed & Sitemap',               date: '2026-05-01', tags: ['seo','meta'],                            level: 1, desc: 'RSS feed, robots.txt, sitemap.xml.' },
+    { d: 11, title: 'Timeline Section',             date: '2026-05-02', tags: ['content','journey'],                     level: 2, desc: 'Vertical timeline with year badges.' },
+    { d: 12, title: 'Skills Section',               date: '2026-05-03', tags: ['about','skills'],                        level: 2, desc: 'Categorized skills with icons.' },
+    { d: 13, title: 'Performance Pass',             date: '2026-05-04', tags: ['perf','speed'],                          level: 2, desc: 'Deferred JS, font preloads, page loader.' },
+    { d: 14, title: 'CI/CD + 404 + Achievements',   date: '2026-05-05', tags: ['ci','design','ship'],                     level: 4, desc: 'GitHub Actions deploy, custom 404, Achievements section.' },
+    { d: 15, title: 'Currently Building',           date: '2026-05-06', tags: ['status','projects'],                     level: 2, desc: 'Live status board for in-progress projects.' },
+    { d: 16, title: 'Quick Actions + SW Updates',   date: '2026-05-07', tags: ['pwa','ux'],                              level: 3, desc: 'Floating quick-actions menu and SW update prompt.' },
+    { d: 17, title: 'Live Clock Display',           date: '2026-05-08', tags: ['hero','time'],                           level: 1, desc: 'Hero shows current Eastern Time in real time.' },
+    { d: 18, title: 'Journey Section Polish',       date: '2026-05-09', tags: ['content','motion'],                      level: 1, desc: 'Copy and motion polish on the journey timeline.' },
+    { d: 19, title: 'Skill Bars + Filter',          date: '2026-05-10', tags: ['skills','animation'],                    level: 2, desc: 'Animated skill bars with category filter chips.' },
+    { d: 20, title: 'Project Filter System',        date: '2026-05-11', tags: ['projects','filter'],                     level: 2, desc: 'Filter the project grid by category.' },
+    { d: 21, title: 'Project Detail Modal',         date: '2026-05-12', tags: ['projects','modal'],                      level: 3, desc: 'Click a project to open a full-detail modal.' },
+    { d: 22, title: 'Testimonials + Footer Boost',  date: '2026-05-13', tags: ['social','content'],                      level: 2, desc: 'Community testimonials and a richer footer.' },
+    { d: 23, title: 'Advanced JS + CSS Layer',      date: '2026-05-14', tags: ['utilities','css','motion'],              level: 3, desc: 'Utility belt + 350-line CSS layer + 3D tilt + parallax.' },
+    { d: 24, title: 'Newsletter Form',              date: '2026-05-15', tags: ['forms','email'],                         level: 1, desc: 'Newsletter sign-up with validation and success states.' },
+    { d: 25, title: 'Print Styles + A11y Pass',     date: '2026-05-16', tags: ['a11y','print'],                          level: 1, desc: 'Print stylesheet and accessibility audit.' },
+    { d: 26, title: 'FAQ Accordion',                date: '2026-05-17', tags: ['content','a11y'],                        level: 2, desc: 'Clean FAQ section with smooth-height accordion.' },
+    { d: 27, title: 'Easter Egg + Cursor Trail',    date: '2026-05-18', tags: ['fun','easter'],                          level: 2, desc: 'Konami easter egg and a particle cursor trail.' },
+    { d: 28, title: 'Role Text Rotator',            date: '2026-05-19', tags: ['hero','animation'],                      level: 1, desc: 'Typewriter cycling seven developer roles.' },
+    { d: 29, title: 'Ambient Sound + Smart Nav',    date: '2026-05-20', tags: ['audio','motion','nav'],                  level: 3, desc: 'Web Audio ambient drone plus smart auto-hide nav.' },
+    { d: 30, title: 'Productivity Corner',          date: '2026-05-21', tags: ['productivity','tools','ship'],           level: 4, desc: 'Focus timer, quick notes, daily goals, break reminder, build streak.' },
+    { d: 31, title: 'Hero Date Display',            date: '2026-05-22', tags: ['hero','time'],                           level: 1, desc: 'Live date in hero meta, updates every minute.' },
+    { d: 32, title: 'World Clock Widget',           date: '2026-05-23', tags: ['widget','time'],                         level: 3, desc: 'Eight cities live, accessible from the globe button.' },
+    { d: 33, title: 'Section Minimap + Terminal',   date: '2026-05-24', tags: ['nav','fun'],                             level: 3, desc: 'Side-section minimap and a fake typeable terminal.' },
+    { d: 34, title: 'Code Playground',              date: '2026-05-25', tags: ['tools','developer'],                     level: 3, desc: 'Live HTML/CSS/JS playground in a sandboxed iframe.' },
+    { d: 35, title: 'Crypto Ticker',                date: '2026-05-26', tags: ['data','widget'],                         level: 2, desc: 'Live crypto prices in the hero meta with a sparkline.' },
+    { d: 36, title: 'Weather Widget',               date: '2026-05-27', tags: ['data','widget'],                         level: 2, desc: 'Live weather for The Bronx with a multi-day forecast.' },
+    { d: 37, title: '2026 Design Features',         date: '2026-05-28', tags: ['design','motion','ship'],                level: 4, desc: 'Glassmorphism, bento grid, kinetic typography, magnetic buttons, liquid buttons, 3D tilt, blob bg.' },
+    { d: 38, title: 'Command Palette (Ctrl+K)',     date: '2026-05-29', tags: ['power','tools','ship'],                  level: 4, desc: '25+ command launcher with categories, fuzzy search, keyboard nav.' },
+    { d: 39, title: 'Site Tour + Timeline Upgrade', date: '2026-05-30', tags: ['onboarding','content'],                  level: 3, desc: 'First-visit guided tour and click-to-expand timeline.' },
+    { d: 40, title: 'Daily Challenge + API Status', date: '2026-05-31', tags: ['game','infra'],                          level: 3, desc: 'Gamified daily missions with XP, plus live API status dashboard.' },
+    { d: 41, title: 'Music Player',                 date: '2026-06-01', tags: ['audio','fun','ship'],                    level: 4, desc: 'Full audio player: visualizer, playlist, volume, shuffle, repeat.' },
+    { d: 42, title: 'Stats Bento + Live Visitors',  date: '2026-06-02', tags: ['stats','ui'],                            level: 3, desc: 'Stats redesigned as a bento grid with a live visitor counter.' },
+    { d: 43, title: 'Keyboard Game',                date: '2026-06-03', tags: ['fun','hero'],                            level: 3, desc: 'Press-the-key mini-game in the hero with combo multipliers.' },
+    { d: 44, title: 'Daily Quote Vault',            date: '2026-06-04', tags: ['content','inspiration'],                 level: 3, desc: '30 hand-picked builder quotes with favorites and sharing.' },
+    { d: 45, title: 'Achievement Badges',           date: '2026-06-05', tags: ['game','engagement'],                     level: 3, desc: '12 unlockable badges that respond to real activity.' },
+    { d: 46, title: 'Counter Increments',           date: '2026-06-06', tags: ['meta','stats'],                          level: 1, desc: 'Bumped days-building, streak, and features-built counters.' },
+    { d: 47, title: 'Daily Plan Board',             date: '2026-06-07', tags: ['productivity','tools','ship'],           level: 4, desc: 'Now/Next/Later kanban with drag, check, add, remove.' },
+    { d: 48, title: 'Code Snippets Vault',          date: '2026-06-08', tags: ['developer','tools','ship'],              level: 4, desc: 'Snippet library: 10 starters, language filter, search, copy, edit, delete.' },
+    { d: 49, title: 'Snippet Modal Editor',         date: '2026-06-09', tags: ['developer','modal'],                     level: 2, desc: 'Full editor modal for snippets with live char count.' },
+    { d: 50, title: 'Build Counter Sync',           date: '2026-06-10', tags: ['meta'],                                  level: 1, desc: 'Synced all stats and hero insights to the running total.' },
+    { d: 51, title: 'Snippet CSS Polish',           date: '2026-06-11', tags: ['css','theme'],                           level: 2, desc: 'Light theme for snippet cards, scrollbar styling, empty state.' },
+    { d: 52, title: 'Snippet Shortcuts',            date: '2026-06-12', tags: ['power','shortcuts'],                     level: 2, desc: 'Ctrl+Shift+S to add a snippet from anywhere, palette entries.' },
+    { d: 53, title: 'Snippet Tag Search',           date: '2026-06-13', tags: ['developer','search'],                    level: 2, desc: 'Search matches tag content as well as titles.' },
+    { d: 54, title: 'Snippet Footer Stats',         date: '2026-06-14', tags: ['stats'],                                 level: 1, desc: 'Footer counters for totals, filter, languages, copies.' },
+    { d: 55, title: 'Hero Meta Polish',             date: '2026-06-15', tags: ['hero','ui'],                             level: 2, desc: 'Spacing, tooltips, icon rhythm across the hero meta row.' },
+    { d: 56, title: 'Daily Plan Integration',       date: '2026-06-16', tags: ['productivity','tools'],                  level: 2, desc: 'Wired plan board into hero meta and command palette.' },
+    { d: 57, title: 'Build Calendar Heatmap',       date: '2026-06-17', tags: ['meta','design','ship','milestone'],      level: 4, desc: 'GitHub-style contribution graph of all 57 days, click-to-read modals.' },
+    { d: 58, title: 'Build Assistant',              date: '2026-06-18', tags: ['meta','tools','ship','milestone'],       level: 4, desc: 'A chat assistant that knows about every one of the 58 days.' }
+  ];
+
+  // ---- DOM ----
+  const panel       = document.getElementById('assistant-panel');
+  const fab         = document.getElementById('assistant-fab');
+  const heroBtn     = document.getElementById('assistant-btn');
+  const closeBtn    = document.getElementById('assistant-close');
+  const backdrop    = document.getElementById('assistant-backdrop');
+  const messagesEl  = document.getElementById('assistant-messages');
+  const inputEl     = document.getElementById('assistant-input');
+  const sendBtn     = document.getElementById('assistant-send');
+  const suggestions = document.getElementById('assistant-suggestions');
+  const clearBtn    = document.getElementById('assistant-clear');
+  if (!panel || !messagesEl || !inputEl) return;
+
+  // ---- Helpers ----
+  const $ = (s, r=document) => r.querySelector(s);
+  const fmtDate = (d) => new Date(d + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  const fmtDateLong = (d) => new Date(d + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+  const escapeHtml = (s) => String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+
+  const levelLabel = (n) => ['Tiny','Small','Solid','Big','Massive'][n] || 'Solid';
+  const levelEmoji = (n) => ['·','▪','◆','★','🔥'][n] || '◆';
+
+  // ---- Storage ----
+  function loadHistory() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return []; }
+  }
+  function saveHistory(history) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(history.slice(-50))); } catch (e) {}
+  }
+  function markSeen() {
+    try { localStorage.setItem(STORAGE_FIRST, '1'); } catch (e) {}
+  }
+
+  // ---- Rendering ----
+  function renderMessage(role, html) {
+    const wrap = document.createElement('div');
+    wrap.className = `assistant-msg assistant-${role}`;
+    const avatar = document.createElement('div');
+    avatar.className = 'assistant-avatar';
+    avatar.innerHTML = role === 'user' ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
+    const body = document.createElement('div');
+    body.className = 'assistant-body';
+    body.innerHTML = html;
+    wrap.appendChild(avatar);
+    wrap.appendChild(body);
+    messagesEl.appendChild(wrap);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    return wrap;
+  }
+
+  function renderTyping() {
+    const wrap = document.createElement('div');
+    wrap.className = 'assistant-msg assistant-bot assistant-typing';
+    wrap.innerHTML = `
+      <div class="assistant-avatar"><i class="fas fa-robot"></i></div>
+      <div class="assistant-body">
+        <div class="assistant-typing-dots">
+          <span></span><span></span><span></span>
+        </div>
+      </div>`;
+    messagesEl.appendChild(wrap);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    return wrap;
+  }
+
+  function buildCard(b) {
+    const tagsHtml = b.tags.map(t => `<span class="assistant-tag">${escapeHtml(t)}</span>`).join('');
+    return `
+      <div class="assistant-card">
+        <div class="assistant-card-header">
+          <span class="assistant-card-day">Day ${b.d}</span>
+          <span class="assistant-card-level level-${b.level}">${levelEmoji(b.level)} ${levelLabel(b.level)}</span>
+        </div>
+        <h4 class="assistant-card-title">${escapeHtml(b.title)}</h4>
+        <div class="assistant-card-date"><i class="fas fa-calendar"></i> ${escapeHtml(fmtDateLong(b.date))}</div>
+        <p class="assistant-card-desc">${escapeHtml(b.desc)}</p>
+        <div class="assistant-card-tags">${tagsHtml}</div>
+      </div>`;
+  }
+
+  // ---- Reply builders ----
+  function replyGreeting() {
+    const today = BUILDS[BUILDS.length - 1];
+    return `Hi! I'm the <strong>AJH Build Assistant</strong>. I know about <strong>all 58 days</strong> of this site — every feature, every fix, every late-night push.<br><br>
+      Today is <strong>${escapeHtml(fmtDateLong(today.date))}</strong>, and the latest build is <strong>Day ${today.d}: ${escapeHtml(today.title)}</strong>.<br><br>
+      Ask me anything: <em>"What did you build on day 37?"</em>, <em>"recent builds"</em>, <em>"biggest features"</em>, or anything else.`;
+  }
+
+  function replyTotal() {
+    const featured = BUILDS.filter(b => b.featured || b.level === 4).length;
+    return `I've got <strong>${BUILDS.length} days</strong> in memory.<br>
+      <strong>${featured}</strong> are <em>featured</em> (the major ship days).<br>
+      <strong>${BUILDS.filter(b => b.level >= 3).length}</strong> are level 3 or 4 (big / massive drops).<br><br>
+      First commit: <strong>${escapeHtml(fmtDate(BUILDS[0].date))}</strong>. Latest: <strong>${escapeHtml(fmtDate(BUILDS[BUILDS.length - 1].date))}</strong>.`;
+  }
+
+  function replyLatest() {
+    return buildCard(BUILDS[BUILDS.length - 1]);
+  }
+
+  function replyFirst() {
+    return buildCard(BUILDS[0]);
+  }
+
+  function replyRandom() {
+    const idx = Math.floor(Math.random() * BUILDS.length);
+    return `Here's a random one from the streak:<br>${buildCard(BUILDS[idx])}`;
+  }
+
+  function replyBiggest() {
+    const big = BUILDS.filter(b => b.level === 4);
+    return `The <strong>${big.length} level-4 "massive" days</strong>:<br><br>` +
+      big.map(b => `🔥 <strong>Day ${b.d}</strong> — ${escapeHtml(b.title)} <em>(${escapeHtml(fmtDate(b.date))})</em>`).join('<br>');
+  }
+
+  function replyFeatured() {
+    const featured = BUILDS.filter(b => b.tags.includes('ship') || b.tags.includes('milestone'));
+    return `Featured ship days:<br><br>` +
+      featured.map(b => `⭐ <strong>Day ${b.d}</strong> — ${escapeHtml(b.title)}`).join('<br>') +
+      `<br><br>That's ${featured.length} major drops across 58 days.`;
+  }
+
+  function replyRecent(n = 7) {
+    const recent = BUILDS.slice(-n);
+    return `The last <strong>${n} days</strong>:<br><br>` +
+      recent.map(b => `<strong>Day ${b.d}</strong> — ${escapeHtml(b.title)} <em>(${escapeHtml(fmtDate(b.date))})</em>`).join('<br>');
+  }
+
+  function replyStreak() {
+    const dates = BUILDS.map(b => new Date(b.date + 'T12:00:00'));
+    let longest = 1, run = 1;
+    for (let i = 1; i < dates.length; i++) {
+      const diff = Math.round((dates[i] - dates[i-1]) / 86400000);
+      if (diff === 1) { run++; longest = Math.max(longest, run); }
+      else run = 1;
+    }
+    const daysBuilt = BUILDS.length;
+    const featured = BUILDS.filter(b => b.level === 4).length;
+    return `🔥 <strong>Streak stats</strong><br>
+      Days built: <strong>${daysBuilt}</strong><br>
+      Longest unbroken streak: <strong>${longest} days</strong><br>
+      Massive drops (level 4): <strong>${featured}</strong><br>
+      Featured ships: <strong>${BUILDS.filter(b => b.tags.includes('ship')).length}</strong>`;
+  }
+
+  function replyTag(query) {
+    const q = query.toLowerCase();
+    const matches = BUILDS.filter(b =>
+      b.tags.some(t => t.toLowerCase().includes(q)) ||
+      b.title.toLowerCase().includes(q) ||
+      b.desc.toLowerCase().includes(q)
+    );
+    if (matches.length === 0) {
+      return `Couldn't find a build matching <em>"${escapeHtml(query)}"</em>.<br>Try tags like <code>design</code>, <code>ship</code>, <code>tools</code>, <code>audio</code>, or <code>productivity</code>.`;
+    }
+    return `Found <strong>${matches.length}</strong> build${matches.length > 1 ? 's' : ''} matching <em>"${escapeHtml(query)}"</em>:<br><br>` +
+      matches.slice(0, 8).map(b => `<strong>Day ${b.d}</strong> — ${escapeHtml(b.title)}`).join('<br>') +
+      (matches.length > 8 ? `<br><br><em>…and ${matches.length - 8} more.</em>` : '');
+  }
+
+  function replyDay(n) {
+    const b = BUILDS.find(x => x.d === n);
+    if (!b) {
+      return `No record of <em>day ${n}</em>. The streak runs from <strong>Day 1</strong> to <strong>Day ${BUILDS.length}</strong>.`;
+    }
+    return buildCard(b);
+  }
+
+  function replyDate(query) {
+    // Try to match a month-day like "May 28" or a full date
+    const monthMap = { jan:0,january:0, feb:1,february:1, mar:2,march:2, apr:3,april:3, may:4, jun:5,june:5, jul:6,july:6, aug:7,august:7, sep:8,sept:8,september:8, oct:9,october:9, nov:10,november:10, dec:11,december:11 };
+    const m = query.match(/(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\s*(\d{1,2})/i);
+    if (m) {
+      const month = monthMap[m[1].toLowerCase().slice(0, 3)];
+      const day = parseInt(m[2], 10);
+      const matches = BUILDS.filter(b => {
+        const d = new Date(b.date + 'T12:00:00');
+        return d.getMonth() === month && d.getDate() === day;
+      });
+      if (matches.length === 0) {
+        return `No build on <em>${m[1]} ${day}</em>. The streak started April 22 and runs through ${escapeHtml(fmtDate(BUILDS[BUILDS.length-1].date))}.`;
+      }
+      return matches.length === 1 ? buildCard(matches[0])
+        : `Builds on <em>${m[1]} ${day}</em>:<br><br>` +
+            matches.map(b => `<strong>Day ${b.d}</strong> — ${escapeHtml(b.title)}`).join('<br>');
+    }
+    return `I couldn't parse that as a date. Try <em>"May 28"</em> or <em>"June 17"</em>.`;
+  }
+
+  // ---- Intent detection ----
+  function generateReply(rawQuery) {
+    const q = rawQuery.trim().toLowerCase();
+    if (!q) return 'Type something and press <kbd>Enter</kbd>.';
+
+    // Greetings
+    if (/^(hi|hey|hello|yo|sup|hola|greetings|good\s*(morning|afternoon|evening))/.test(q)) {
+      return replyGreeting();
+    }
+    // Help
+    if (/^(help|what can you do|commands?|how).*?/.test(q)) {
+      return `I can tell you about any of the <strong>58 build days</strong>. Try:<br><br>
+        • <em>"What did you build on day 37?"</em><br>
+        • <em>"Day 58"</em> — by number<br>
+        • <em>"May 28"</em> — by date<br>
+        • <em>"recent builds"</em> or <em>"last 5"</em><br>
+        • <em>"biggest features"</em> or <em>"featured"</em><br>
+        • <em>"streak stats"</em> or <em>"how many days"</em><br>
+        • <em>"audio"</em>, <em>"productivity"</em>, <em>"design"</em> — by tag`;
+    }
+    // Total
+    if (/^(how many|total|count|days built)/.test(q)) return replyTotal();
+    // Streak
+    if (/streak/.test(q)) return replyStreak();
+    // Latest / today
+    if (/^(latest|today|newest|most recent|current|now)/.test(q)) return replyLatest();
+    // First
+    if (/^(first|oldest|earliest|where did it start)/.test(q)) return replyFirst();
+    // Random
+    if (/^(random|surprise|pick one|any)/.test(q)) return replyRandom();
+    // Biggest
+    if (/biggest|massive|largest|big drops|big features|level 4|lvl 4/.test(q)) return replyBiggest();
+    // Featured
+    if (/featured|ship day|major|highlight/.test(q)) return replyFeatured();
+    // Recent
+    const recMatch = q.match(/^(last|past|recent)\s*(\d+)?/);
+    if (recMatch) {
+      const n = parseInt(recMatch[2] || '7', 10);
+      return replyRecent(Math.min(Math.max(n, 1), 30));
+    }
+    // Day by number
+    const dayMatch = q.match(/day\s*(\d+)|#\s*(\d+)|^d\s*(\d+)$/);
+    if (dayMatch) {
+      const n = parseInt(dayMatch[1] || dayMatch[2] || dayMatch[3], 10);
+      return replyDay(n);
+    }
+    // Date match
+    if (/[a-z]{3,9}\s*\d{1,2}/.test(q)) {
+      return replyDate(rawQuery);
+    }
+    // Tag / keyword search
+    return replyTag(q);
+  }
+
+  // ---- Open / close ----
+  function open() {
+    panel.hidden = false;
+    panel.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => inputEl && inputEl.focus(), 200);
+    // First-time welcome
+    if (messagesEl.children.length === 0) {
+      renderMessage('bot', replyGreeting());
+    }
+  }
+  function close() {
+    panel.classList.remove('is-open');
+    document.body.style.overflow = '';
+    setTimeout(() => { panel.hidden = true; }, 220);
+  }
+  function toggle() {
+    if (panel.hidden || !panel.classList.contains('is-open')) open(); else close();
+  }
+
+  // ---- Send ----
+  function send(text) {
+    const trimmed = (text || '').trim();
+    if (!trimmed) return;
+    renderMessage('user', `<div class="assistant-text">${escapeHtml(trimmed)}</div>`);
+    inputEl.value = '';
+    const typing = renderTyping();
+    const history = loadHistory();
+    history.push({ role: 'user', text: trimmed, ts: Date.now() });
+
+    setTimeout(() => {
+      typing.remove();
+      const html = generateReply(trimmed);
+      renderMessage('bot', html);
+      history.push({ role: 'bot', html, ts: Date.now() });
+      saveHistory(history);
+    }, 380 + Math.random() * 280);
+  }
+
+  // ---- Suggestions ----
+  function buildSuggestions() {
+    const chips = [
+      'Latest build', 'Biggest features', 'Day 37', 'May 28', 'recent builds', 'streak stats', 'random'
+    ];
+    suggestions.innerHTML = chips.map(c => `<button class="assistant-chip" data-q="${escapeHtml(c)}">${escapeHtml(c)}</button>`).join('');
+    suggestions.querySelectorAll('.assistant-chip').forEach(btn => {
+      btn.addEventListener('click', () => send(btn.dataset.q));
+    });
+  }
+
+  // ---- Restore history on open ----
+  function restoreHistory() {
+    const history = loadHistory();
+    if (!history.length) {
+      renderMessage('bot', replyGreeting());
+      return;
+    }
+    history.forEach(m => {
+      if (m.role === 'user') renderMessage('user', `<div class="assistant-text">${escapeHtml(m.text)}</div>`);
+      else renderMessage('bot', m.html);
+    });
+  }
+
+  // ---- Init wiring ----
+  buildSuggestions();
+
+  // First-time open handler: restore full history
+  function firstOpen() {
+    messagesEl.innerHTML = '';
+    restoreHistory();
+  }
+
+  // Bind open/close
+  if (fab) fab.addEventListener('click', toggle);
+  if (heroBtn) heroBtn.addEventListener('click', () => {
+    open();
+    if (!localStorage.getItem(STORAGE_FIRST)) {
+      firstOpen();
+      markSeen();
+    }
+  });
+  if (closeBtn) closeBtn.addEventListener('click', close);
+  if (backdrop) backdrop.addEventListener('click', close);
+  const sectionBtn = document.getElementById('assistant-open-section');
+  if (sectionBtn) sectionBtn.addEventListener('click', () => {
+    open();
+    if (inputEl) inputEl.focus();
+  });
+
+  // Send
+  if (sendBtn) sendBtn.addEventListener('click', () => send(inputEl.value));
+  inputEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      send(inputEl.value);
+    }
+    if (e.key === 'Escape') close();
+  });
+
+  // Clear history
+  if (clearBtn) clearBtn.addEventListener('click', () => {
+    if (!confirm('Clear all assistant history?')) return;
+    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+    messagesEl.innerHTML = '';
+    renderMessage('bot', replyGreeting());
+  });
+
+  // Global keyboard shortcut: A to open
+  document.addEventListener('keydown', (e) => {
+    if ((e.key === 'a' || e.key === 'A') && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      const t = e.target;
+      const tag = t && t.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || (t && t.isContentEditable)) return;
+      e.preventDefault();
+      toggle();
+    }
+  });
+
+  // Expose for command palette
+  window.ajhAssistantOpen = open;
+  window.ajhAssistantClose = close;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initBuildAssistant();
+});
+window.initBuildAssistant = initBuildAssistant;
