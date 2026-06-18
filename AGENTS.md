@@ -61,3 +61,43 @@
 - Add quote categories filter
 - Add quote author bio expansion
 - Continue building new features daily
+
+---
+
+### Day 58 - 2026-06-18
+**Status**: Build Assistant — a knowledge-base chat that knows all 58 days
+**Actions**:
+- Added **Build Assistant** section (`#assistant`) + full-page chat panel + floating action button
+  - 58-entry BUILDS knowledge base mirroring the calendar (Day 1 → Day 58, today)
+  - Intent-based reply engine that handles: greetings, help, day-by-number (e.g. "day 37"), date-by-month-day (e.g. "May 28"), total / streak stats, latest / first / random, biggest features (level 4), featured ships, recent N days, and tag / keyword search (audio, design, tools, etc.)
+  - Rich card replies for individual days (day#, level badge, formatted date, desc, tags) and bulleted lists for "biggest" / "recent" / "featured"
+  - Suggestion chips below the message stream for one-tap prompts (Latest build, Biggest features, Day 37, May 28, recent builds, streak stats, random)
+  - Conversation history persisted to localStorage (`ajh_assistant_history_v1`), capped at 50 messages, with a clear-history button
+  - "First time seen" flag (`ajh_assistant_seen_v1`) gates whether the welcome greeting re-renders on re-open
+  - Typing dots animation (~380-660ms thinking delay) before each bot reply
+  - **Global `A` shortcut** to toggle the panel from anywhere on the page (ignored when typing in inputs / textareas)
+  - Esc closes the panel; Enter sends; Shift+Enter inserts a newline in the textarea
+  - Panel is fully accessible: ARIA `dialog` role, labelled by header, `aria-hidden` toggled
+  - Floating robot FAB bottom-right with a subtle pulse animation; "Open Assistant" button inside the section also opens it
+  - **Command palette entry**: "Open Build Assistant" (shortcut `A`)
+  - Bumped stats: Days Building 56→58, Streak 56→58, Day 57→Day 58 in hero insights, Features Built 55→57, Day Streak 56→58 in the stats bento
+  - Added **nav link** `#assistant` between Snippets and Quotes
+  - Added **hero meta button** (robot icon) that opens the assistant
+  - Added **Day 58 blog entry** at the top of the blog grid
+
+**Files Changed**:
+- `index.html` - new `#assistant` section with intro card + "how to ask" list, assistant panel modal, FAB button, nav link, hero meta button, Day 58 blog entry, all stat counter increments
+- `css/style.css` - added ~445 lines: `.assistant-fab` (with pulse keyframes), `.assistant-panel` / `.assistant-backdrop` / `.assistant-window`, `.assistant-header` (with online dot), `.assistant-messages` + custom scrollbar, `.assistant-msg` (user + bot variants), `.assistant-avatar`, `.assistant-typing-dots`, `.assistant-card` (day-level header, level badge, title, date, desc, tags), `.assistant-input-row` (textarea + send button), `.assistant-suggestions` + `.assistant-chip`, `.assistant-hint` (kbd hints), section styles for `.assistant-section-grid`, `.assistant-intro` (glass card), `.assistant-intro-pills`, `.assistant-howto` + `.assistant-howto-list`, responsive breakpoints
+- `css/theme.css` - added ~49 lines of light-theme overrides for window, header, body, card, input row, tag, user message, icon button, chips
+- `js/main.js` - added `initBuildAssistant()` (~440 lines) with BUILDS knowledge base, intent detection (greeting / help / total / streak / latest / first / random / biggest / featured / recent / day# / date / tag), reply builders, history persistence, suggestion chips, scroll-to-bottom, `ajhAssistantOpen`/`ajhAssistantClose` exposed for command palette; wired into DOMContentLoaded and command palette; console log updated to "Day 58: Build Assistant"
+
+**Next Steps**:
+- Add multi-turn context (assistant remembers what you asked previously)
+- Add "what should I build next?" suggestions based on unused tags
+- Add export-conversation to JSON / Markdown
+- Add voice input via the Web Speech API
+- Continue building new features daily - never stop
+
+---
+
+### Day 57 - 2026-06-17
