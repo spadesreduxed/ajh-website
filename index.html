@@ -108,6 +108,7 @@
             <li><a href="#badges">Badges</a></li>
             <li><a href="#plan">Plan</a></li>
             <li><a href="#snippets">Snippets</a></li>
+            <li><a href="#bookmarks">Bookmarks</a></li>
             <li><a href="#assistant">Assistant</a></li>
             <li><a href="#quotes">Quotes</a></li>
             <li><a href="#stats">Stats</a></li>
@@ -196,7 +197,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="58">0</span>
+                    <span class="stat-value" data-count="59">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -207,7 +208,7 @@
             <div class="daily-streak">
                 <span class="streak-icon">🔥</span>
                 <div class="streak-info">
-                    <span class="streak-count">58 days</span>
+                    <span class="streak-count">59 days</span>
                     <span class="streak-label">Daily Streak</span>
                 </div>
             </div>
@@ -227,11 +228,11 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 58</span>
+                    <span class="insight-value">Day 59</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
-                    <span class="insight-value">58</span>
+                    <span class="insight-value">59</span>
                     <span class="insight-label">streak</span>
                 </div>
             </div>
@@ -713,7 +714,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="58">0</div>
+                    <div class="stat-number" data-count="59">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -734,7 +735,7 @@
                 </div>
                 <div class="stat-card large">
                     <i class="fas fa-rocket"></i>
-                    <div class="stat-number" data-count="57">0</div>
+                    <div class="stat-number" data-count="58">0</div>
                     <div class="stat-label">Features Built</div>
                     <div class="stat-sublabel">And counting...</div>
                 </div>
@@ -1303,6 +1304,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">19</span>
+                        <span class="blog-month">June 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 59</span>
+                        <h3>Bookmark Cards — Deep-Link Any Section</h3>
+                        <p>Every section on this site now has a generated share card — title, icon, description, and a one-click copy link. Browse in grid or list, search across all 25 cards, pin the ones you return to, and pop open the detail modal to share via the native share sheet (or clipboard fallback). Click any card to jump straight to the section. Press <kbd>B</kbd> to jump to Bookmarks.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">18</span>
@@ -2583,5 +2595,72 @@
     <button class="assistant-fab" id="assistant-fab" aria-label="Open Build Assistant" title="Build Assistant (press A)">
         <i class="fas fa-robot"></i>
     </button>
+
+    <!-- Bookmark Cards Section (Day 59) (Day 59) -->
+    <section id="bookmarks" class="section bookmarks-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Shareable</span>
+                <h2 class="section-title">Bookmark Cards</h2>
+                <p class="section-subtitle">Pick any section, get a deep-link card with a unique preview. Copy and share — or pin the ones you love.</p>
+            </div>
+            <div class="bookmarks-toolbar">
+                <div class="bookmarks-search-input">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="bookmarks-search-input" placeholder="Search sections (try 'calendar', 'music', 'plan')..." aria-label="Search bookmarks">
+                </div>
+                <div class="bookmarks-controls">
+                    <button class="bookmarks-view-btn active" data-view="grid" aria-label="Grid view">
+                        <i class="fas fa-th"></i> Grid
+                    </button>
+                    <button class="bookmarks-view-btn" data-view="list" aria-label="List view">
+                        <i class="fas fa-list"></i> List
+                    </button>
+                    <select id="bookmarks-sort" class="bookmarks-sort" aria-label="Sort bookmarks">
+                        <option value="default">Sort: Default</option>
+                        <option value="alpha">Sort: A → Z</option>
+                        <option value="pinned">Sort: Pinned First</option>
+                    </select>
+                </div>
+            </div>
+            <div class="bookmarks-footer" id="bookmarks-footer">
+                <div class="bookmarks-stat">
+                    <span class="bookmarks-stat-value" id="bm-total">0</span>
+                    <span class="bookmarks-stat-label">Sections</span>
+                </div>
+                <div class="bookmarks-stat">
+                    <span class="bookmarks-stat-value" id="bm-pinned">0</span>
+                    <span class="bookmarks-stat-label">Pinned</span>
+                </div>
+                <div class="bookmarks-stat">
+                    <span class="bookmarks-stat-value" id="bm-copied">0</span>
+                    <span class="bookmarks-stat-label">Links Copied</span>
+                </div>
+                <div class="bookmarks-stat">
+                    <span class="bookmarks-stat-value" id="bm-shown">0</span>
+                    <span class="bookmarks-stat-label">Showing</span>
+                </div>
+            </div>
+            <div class="bookmarks-grid" id="bookmarks-grid"></div>
+            <div class="bookmarks-empty" id="bookmarks-empty" hidden>
+                <i class="fas fa-bookmark"></i>
+                <h3>No bookmarks match that search</h3>
+                <p>Try a different word — every section on the page has a card.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bookmark Detail Modal (Day 59) -->
+    <div class="bm-modal" id="bm-modal" aria-hidden="true">
+        <div class="bm-modal-backdrop" data-bookmark-close></div>
+        <div class="bm-modal-card" role="dialog" aria-modal="true" aria-labelledby="bm-modal-title">
+            <button class="bm-modal-close" id="bm-modal-close" data-bookmark-close aria-label="Close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="bm-modal-body" id="bm-modal-body">
+                <!-- Filled by initBookmarkCards() -->
+            </div>
+        </div>
+    </div>
 </body>
 </html>

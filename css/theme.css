@@ -382,3 +382,46 @@ body {
 [data-theme="light"] .assistant-chip:hover {
   background: rgba(0, 153, 204, 0.18);
 }
+
+/* Day 59 - Bookmark Cards light theme */
+[data-theme="light"] .bookmarks-toolbar,
+[data-theme="light"] .bookmarks-footer {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+[data-theme="light"] .bookmarks-search input,
+[data-theme="light"] .bookmarks-sort {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+[data-theme="light"] .bm-card {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+[data-theme="light"] .bm-card-preview {
+  background: linear-gradient(135deg, rgba(0, 153, 204, 0.06), rgba(123, 44, 191, 0.06));
+}
+[data-theme="light"] .bm-card-footer {
+  background: rgba(0, 0, 0, 0.03);
+  border-top-color: rgba(0, 0, 0, 0.05);
+}
+[data-theme="light"] .bm-tag {
+  background: rgba(0, 153, 204, 0.12);
+  color: #0077a8;
+}
+[data-theme="light"] .bm-icon-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+[data-theme="light"] .bm-modal-content {
+  background: #fff;
+  border-color: rgba(0, 0, 0, 0.1);
+}
+[data-theme="light"] .bm-modal-preview {
+  background: linear-gradient(135deg, rgba(0, 153, 204, 0.1), rgba(123, 44, 191, 0.1));
+}
+[data-theme="light"] .bm-modal-link {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.08);
+}

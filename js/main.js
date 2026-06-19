@@ -721,6 +721,7 @@ function initCommandPalette() {
     { id: 'tool-clock', label: 'View World Clock', icon: 'fa-globe', category: 'Tools', action: () => document.getElementById('world-clock-btn')?.click() },
     { id: 'tool-snippets', label: 'Browse Code Snippets', icon: 'fa-code', shortcut: 'G N', category: 'Tools', action: () => scrollTo('#snippets') },
     { id: 'tool-snippet-add', label: 'Add New Snippet', icon: 'fa-plus', category: 'Tools', action: () => document.getElementById('snippet-add-btn')?.click() },
+    { id: 'tool-bookmarks', label: 'Browse Bookmark Cards', icon: 'fa-bookmark', shortcut: 'G B', category: 'Tools', action: () => document.getElementById('bookmarks-search-input')?.focus() },
     { id: 'tool-calendar', label: 'View Build Calendar', icon: 'fa-calendar-check', shortcut: 'G C', category: 'Tools', action: () => scrollTo('#calendar') },
     { id: 'tool-assistant', label: 'Open Build Assistant', icon: 'fa-robot', shortcut: 'A', category: 'Tools', action: () => window.ajhAssistantOpen && window.ajhAssistantOpen() },
     
@@ -1060,8 +1061,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initSnippetsVault();
   initBuildCalendar();
   initBuildAssistant();
+  initBookmarkCards();
 
-  console.log('⚡ AJH Website loaded - Day 58: Build Assistant');
+  console.log('⚡ AJH Website loaded - Day 59: Bookmark Cards');
 });
 
 // Day 48 - Daily Challenge + API Status
@@ -2820,8 +2822,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initSnippetsVault();
   initBuildCalendar();
   initBuildAssistant();
+  initBookmarkCards();
 
-  console.log('⚡ AJH Website loaded - Day 58: Build Assistant');
+  console.log('⚡ AJH Website loaded - Day 59: Bookmark Cards');
 });
 
 // Also expose for the command palette
@@ -3561,3 +3564,278 @@ document.addEventListener('DOMContentLoaded', () => {
   initBuildAssistant();
 });
 window.initBuildAssistant = initBuildAssistant;
+
+// Day 59 - Bookmark Cards
+function initBookmarkCards() {
+  const grid = document.getElementById('bookmarks-grid');
+  const searchInput = document.getElementById('bookmarks-search-input');
+  const sortSelect = document.getElementById('bookmarks-sort');
+  const refreshBtn = document.getElementById('bookmarks-refresh');
+  const viewBtns = document.querySelectorAll('.bookmarks-view-btn');
+  const modal = document.getElementById('bm-modal');
+  const modalBody = document.getElementById('bm-modal-body');
+  const modalClose = document.getElementById('bm-modal-close');
+  const totalEl = document.getElementById('bm-total');
+  const shownEl = document.getElementById('bm-shown');
+  const copiedEl = document.getElementById('bm-copied');
+  if (!grid) return;
+
+  const STORAGE_KEY = 'ajh_bookmarks_v1';
+  const COUNTER_KEY = 'ajh_bookmark_copies_v1';
+
+  const BOOKMARKS = [
+    { id: 'home', icon: 'fa-house', title: 'Home', tag: 'Overview', desc: 'The landing page: live stats, hero insights, day counter, and quick jumps to everything else.' },
+    { id: 'about', icon: 'fa-user', title: 'About AJ', tag: 'Profile', desc: 'Who I am, where I am, what I build. The Bronx, full-stack, always shipping.' },
+    { id: 'projects', icon: 'fa-rocket', title: 'Projects', tag: 'Work', desc: 'The live lineup — Vault V6, UV Static, Korone, Zo Computer, and more. Filterable, clickable.' },
+    { id: 'skills', icon: 'fa-bolt', title: 'Skills', tag: 'Stack', desc: 'Frontend, backend, DevOps, special. Each with an animated proficiency bar that fills on scroll.' },
+    { id: 'stats', icon: 'fa-chart-line', title: 'Stats', tag: 'Numbers', desc: 'A bento grid of the streak, day count, repos, games served, and total views. Counters animate in.' },
+    { id: 'journey', icon: 'fa-road', title: 'Journey', tag: 'Timeline', desc: 'The interactive timeline — click any year to expand what was happening in that era of the build.' },
+    { id: 'plan', icon: 'fa-list-check', title: 'Daily Plan Board', tag: 'Productivity', desc: 'Now / Next / Later columns with drag, check, add, remove. Local-first, no backend.' },
+    { id: 'snippets', icon: 'fa-code', title: 'Code Snippets Vault', tag: 'Library', desc: 'Ten hand-picked snippets I keep reaching for. Filter by language, search, copy with one click, add your own.' },
+    { id: 'calendar', icon: 'fa-calendar-days', title: 'Build Calendar Heatmap', tag: 'Streak', desc: 'A GitHub-style contribution graph showing all 59 build days. Click any cell to read what shipped that day.' },
+    { id: 'badges', icon: 'fa-medal', title: 'Achievement Badges', tag: 'Gamification', desc: 'Twelve unlockable badges, progress bars, and confetti when you hit a milestone. Saves to localStorage.' },
+    { id: 'productivity', icon: 'fa-toolbox', title: 'Productivity Corner', tag: 'Tools', desc: 'Focus timer, daily goals, break reminder, build streak visual, and quick notes — all in one row.' },
+    { id: 'demos', icon: 'fa-play', title: 'Project Demos', tag: 'Live', desc: 'Embedded demos of the major projects. Click any card to open it inside an iframe without leaving the site.' },
+    { id: 'blog', icon: 'fa-newspaper', title: 'Daily Build Log', tag: 'Updates', desc: 'Every single build day, one card per day, top of the page is newest. The proof that the streak is real.' },
+    { id: 'current', icon: 'fa-spinner', title: 'Currently Working On', tag: 'Status', desc: 'What I am building right now, what is queued, and what is on the back burner. Auto-updates as I ship.' },
+    { id: 'contact', icon: 'fa-envelope', title: 'Contact', tag: 'Reach Out', desc: 'Email, GitHub, Discord, social. The form posts a message and stores a copy locally.' },
+    { id: 'newsletter', icon: 'fa-bell', title: 'Newsletter', tag: 'Subscribe', desc: 'A no-spam, occasional update when something ships. Stores the signup locally so it persists.' },
+    { id: 'gallery', icon: 'fa-images', title: 'Project Gallery', tag: 'Gallery', desc: 'Visual showcase of the projects — thumbnails, live links, and a quick filter to find the work.' },
+    { id: 'achievements', icon: 'fa-trophy', title: 'Achievements', tag: 'Milestones', desc: 'The big wins — first commit, first 1K games served, first 50 days. Each one is a moment worth marking.' },
+    { id: 'testimonials', icon: 'fa-comments', title: 'Testimonials', tag: 'Voices', desc: 'What collaborators and users have said about the projects. Three rotating cards, real quotes.' },
+    { id: 'quotes', icon: 'fa-quote-right', title: 'Daily Quote Vault', tag: 'Inspiration', desc: 'A rotating set of inspirational quotes. Favorite them, share them, set one as your quote of the day.' },
+    { id: 'faq', icon: 'fa-circle-question', title: 'FAQ', tag: 'Help', desc: 'Questions I get asked a lot — stack, location, how to collaborate, what the build streak means.' },
+    { id: 'challenge', icon: 'fa-flag-checkered', title: 'Daily Challenge', tag: 'Gamification', desc: 'A new mission every day with XP rewards. Streaks, badges, and progress bars that persist.' },
+    { id: 'api-status', icon: 'fa-server', title: 'API Status Dashboard', tag: 'Realtime', desc: 'Live monitoring of GitHub, Vault API, Games DB, and the proxy network. Updates every 30 seconds.' },
+    { id: 'music', icon: 'fa-music', title: 'Music Player', tag: 'Lo-fi', desc: 'Built-in player with a visualizer, five demo tracks, play/pause/shuffle/repeat, and Space to toggle.' },
+    { id: 'assistant', icon: 'fa-robot', title: 'Build Assistant', tag: 'AI Chat', desc: 'Press A to open the chat. It knows every one of the 59 build days and can answer by day, date, or tag.' },
+  ];
+
+  let state = {
+    view: 'all',
+    sort: 'default',
+    query: '',
+  };
+  let copiedCount = parseInt(localStorage.getItem(COUNTER_KEY) || '0', 10);
+
+  function persistCopy() {
+    try { localStorage.setItem(COUNTER_KEY, String(copiedCount)); } catch (e) {}
+  }
+
+  function buildCard(bm) {
+    const el = document.createElement('div');
+    el.className = 'bm-card';
+    el.dataset.id = bm.id;
+    el.innerHTML = `
+      <div class="bm-card-preview">
+        <div class="bm-preview-chrome">
+          <span class="bm-dot red"></span>
+          <span class="bm-dot yellow"></span>
+          <span class="bm-dot green"></span>
+          <span class="bm-preview-url">ajhs.zo.space/#${bm.id}</span>
+        </div>
+        <div class="bm-preview-body">
+          <div class="bm-preview-icon"><i class="fas ${bm.icon}"></i></div>
+          <div class="bm-preview-title">${bm.title}</div>
+          <div class="bm-preview-desc">${bm.desc}</div>
+          <div class="bm-preview-meta">
+            <span class="bm-tag">${bm.tag}</span>
+            <span class="bm-preview-domain">ajhs.zo.space</span>
+          </div>
+        </div>
+      </div>
+      <div class="bm-card-footer">
+        <button class="bm-icon-btn bm-open" title="Open section"><i class="fas fa-arrow-up-right-from-square"></i></button>
+        <button class="bm-icon-btn bm-copy" title="Copy link"><i class="fas fa-link"></i></button>
+        <button class="bm-icon-btn bm-share" title="Share"><i class="fas fa-share-nodes"></i></button>
+        <button class="bm-icon-btn bm-detail" title="View details"><i class="fas fa-ellipsis"></i></button>
+      </div>
+    `;
+    el.querySelector('.bm-open').addEventListener('click', (e) => {
+      e.stopPropagation();
+      location.hash = '#' + bm.id;
+    });
+    el.querySelector('.bm-copy').addEventListener('click', (e) => {
+      e.stopPropagation();
+      copyLink(bm, el.querySelector('.bm-copy'));
+    });
+    el.querySelector('.bm-share').addEventListener('click', (e) => {
+      e.stopPropagation();
+      shareLink(bm);
+    });
+    el.querySelector('.bm-detail').addEventListener('click', (e) => {
+      e.stopPropagation();
+      openModal(bm);
+    });
+    el.querySelector('.bm-card-preview').addEventListener('click', () => openModal(bm));
+    return el;
+  }
+
+  function applyFilters() {
+    let list = BOOKMARKS.slice();
+    if (state.query) {
+      const q = state.query.toLowerCase();
+      list = list.filter(b =>
+        b.title.toLowerCase().includes(q) ||
+        b.desc.toLowerCase().includes(q) ||
+        b.tag.toLowerCase().includes(q) ||
+        b.id.toLowerCase().includes(q)
+      );
+    }
+    if (state.sort === 'alpha') list.sort((a, b) => a.title.localeCompare(b.title));
+    if (state.sort === 'tag') list.sort((a, b) => a.tag.localeCompare(b.tag));
+    return list;
+  }
+
+  function render() {
+    const list = applyFilters();
+    grid.innerHTML = '';
+    list.forEach(bm => grid.appendChild(buildCard(bm)));
+    if (shownEl) shownEl.textContent = list.length;
+    if (totalEl) totalEl.textContent = BOOKMARKS.length;
+    if (copiedEl) copiedEl.textContent = copiedCount;
+  }
+
+  function copyLink(bm, btn) {
+    const url = location.origin + location.pathname + '#' + bm.id;
+    const onOk = () => {
+      copiedCount += 1;
+      persistCopy();
+      if (copiedEl) copiedEl.textContent = copiedCount;
+      if (btn) {
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i>';
+        btn.classList.add('bm-icon-btn-success');
+        setTimeout(() => {
+          btn.innerHTML = orig;
+          btn.classList.remove('bm-icon-btn-success');
+        }, 1200);
+      }
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(url).then(onOk).catch(() => fallbackCopy(url, onOk));
+    } else {
+      fallbackCopy(url, onOk);
+    }
+  }
+
+  function fallbackCopy(text, cb) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); cb && cb(); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  function shareLink(bm) {
+    const url = location.origin + location.pathname + '#' + bm.id;
+    if (navigator.share) {
+      navigator.share({ title: bm.title + ' — AJ H', text: bm.desc, url }).catch(() => {});
+    } else {
+      copyLink(bm, null);
+    }
+  }
+
+  function openModal(bm) {
+    const url = location.origin + location.pathname + '#' + bm.id;
+    modalBody.innerHTML = `
+      <div class="bm-modal-header">
+        <div class="bm-modal-icon"><i class="fas ${bm.icon}"></i></div>
+        <div>
+          <div class="bm-modal-eyebrow">${bm.tag}</div>
+          <h3 class="bm-modal-title">${bm.title}</h3>
+        </div>
+      </div>
+      <p class="bm-modal-desc">${bm.desc}</p>
+      <div class="bm-modal-preview">
+        <div class="bm-preview-chrome">
+          <span class="bm-dot red"></span>
+          <span class="bm-dot yellow"></span>
+          <span class="bm-dot green"></span>
+          <span class="bm-preview-url">${url}</span>
+        </div>
+        <div class="bm-preview-body">
+          <div class="bm-preview-icon"><i class="fas ${bm.icon}"></i></div>
+          <div class="bm-preview-title">${bm.title}</div>
+          <div class="bm-preview-desc">${bm.desc}</div>
+          <div class="bm-preview-meta">
+            <span class="bm-tag">${bm.tag}</span>
+            <span class="bm-preview-domain">ajhs.zo.space</span>
+          </div>
+        </div>
+      </div>
+      <div class="bm-modal-link">
+        <i class="fas fa-link"></i>
+        <input type="text" value="${url}" readonly />
+        <button class="btn btn-primary btn-sm" id="bm-modal-copy"><i class="fas fa-copy"></i> Copy</button>
+      </div>
+      <div class="bm-modal-actions">
+        <a href="#${bm.id}" class="btn btn-primary"><i class="fas fa-arrow-up-right-from-square"></i> Open Section</a>
+        <button class="btn btn-outline" id="bm-modal-share"><i class="fas fa-share-nodes"></i> Share</button>
+      </div>
+    `;
+    modal.classList.add('bm-modal-open');
+    document.body.style.overflow = 'hidden';
+    modalBody.querySelector('#bm-modal-copy').addEventListener('click', () => {
+      fallbackCopy(url, () => {
+        const btn = modalBody.querySelector('#bm-modal-copy');
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i> Copied';
+        setTimeout(() => { btn.innerHTML = orig; }, 1200);
+      });
+      copiedCount += 1;
+      persistCopy();
+      if (copiedEl) copiedEl.textContent = copiedCount;
+    });
+    modalBody.querySelector('#bm-modal-share').addEventListener('click', () => shareLink(bm));
+  }
+
+  function closeModal() {
+    modal.classList.remove('bm-modal-open');
+    document.body.style.overflow = '';
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      state.query = e.target.value;
+      render();
+    });
+  }
+  if (sortSelect) {
+    sortSelect.addEventListener('change', (e) => {
+      state.sort = e.target.value;
+      render();
+    });
+  }
+  viewBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      viewBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.view = btn.dataset.view;
+      grid.classList.toggle('bm-grid-compact', state.view === 'compact');
+      render();
+    });
+  });
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', () => {
+      refreshBtn.classList.add('spinning');
+      render();
+      setTimeout(() => refreshBtn.classList.remove('spinning'), 600);
+    });
+  }
+  if (modalClose) modalClose.addEventListener('click', closeModal);
+  if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && modal.classList.contains('bm-modal-open')) closeModal();
+  });
+
+  render();
+  window.initBookmarkCards = initBookmarkCards;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initBookmarkCards();
+});
