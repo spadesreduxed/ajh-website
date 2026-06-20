@@ -134,3 +134,47 @@
 - Add a "Copy all" button to export the whole section list as a markdown link sheet
 - Add per-section "Last viewed" tracker
 - Continue building new features daily - never stop
+
+---
+
+### Day 60 - 2026-06-20
+**Status**: Site Constellation - Interactive 2D graph of every section
+**Actions**:
+- Added **Site Constellation** section (`#constellation`) just before `</body>`, the closing section of the 60-day run
+  - 27 nodes, one per section on the site (including the Constellation itself, recursively), laid out in concentric rings around the Home hub
+  - SVG node graph: edges drawn between related sections (59 edges total), each color-coded by category
+  - **Categories**: core (cyan), tools (purple), data (green), content (pink) — the chip filter toggles them
+  - **Ring layout**: Home at center → Core ring (About, Projects, Skills) → Tools ring (Plan, Snippets, Badges...) → Data ring (Stats, Calendar, Bookmarks...) → Outer ring (FAQ, Quotes, Music...)
+  - **Drag-to-reposition**: pointerdown / pointermove / pointerup on any node, with screen-to-SVG coordinate conversion, and a click-vs-drag threshold so a tap still opens the detail
+  - **Hover highlight**: hovered node + all of its direct edges + all of its connected nodes get the `highlighted` class; non-connected nodes dim to 30% opacity
+  - **Click any node** to open the side detail panel showing icon, title, tag, full description, connection count, and a "Jump to section" button
+  - **Search** (real-time filter across id, label, desc, tag)
+  - **Category chips** (All / Core / Tools / Data / Content) with active state
+  - **Zoom in / out / reset** (SVG viewBox manipulation, 40% to 250% range, 15% steps)
+  - **Reset layout** button (spinning animation) restores all node positions to the original RING_LAYOUT
+  - **Tooltip** follows the cursor showing "Label — Tag" on hover
+  - **Footer stats**: Nodes (27), Edges (59), Showing (current visible count after filter), Jumps (lifetime visit count)
+  - **Persistence**: `ajh_constellation_views_v1` (jumps count) and `ajh_constellation_layout_v1` (node positions, future feature)
+  - **Keyboard shortcut**: `C` focuses the constellation section from anywhere
+  - **Mobile-responsive**: toolbar wraps, search + filters + zoom stack vertically, SVG viewBox adjusts on resize
+  - **Light theme overrides** for the section, toolbar, chips, zoom buttons, stage, node circle colors, labels, and detail panel
+
+- Added **nav link** `#constellation` between Bookmarks and Assistant
+- Updated stats: Day Streak 59→60, Days Building 59→60, Features Built 58→59
+- Added Day 60 blog entry at top of blog grid (60 days!) with description of the constellation
+
+**Files Changed**:
+- `index.html` - new `#constellation` section (~85 lines: section header, toolbar, stage with SVG, detail panel, footer, hint), new nav link, blog entry, stat increments
+- `css/style.css` - added ~460 lines for `.constellation-section`, `.constellation-toolbar`, `.constellation-search`, `.constellation-chip`, `.constellation-zoom`, `.constellation-icon-btn`, `.constellation-stage`, `.constellation-svg`, `.constellation-edge`, `.constellation-node` (with category color variants), `.constellation-node-circle`, `.constellation-node-label`, `.constellation-tooltip`, `.constellation-detail`, `.constellation-detail-icon`, `.constellation-detail-go`, `.constellation-footer`, `.constellation-stat`, mobile responsive
+- `css/theme.css` - added ~130 lines of light-theme overrides for all the above
+- `js/main.js` - added `initConstellation()` (~280 lines) with NODES data (27 entries), EDGES data (59 relationships), RING_LAYOUT positions, visibleSet(), render() that creates SVG edges/nodes/labels, attachNodeHandlers() for drag/hover/click, positionTooltip(), openDetail() / closeDetail(), search/chip/zoom/reset handlers, keyboard 'C' shortcut, keyboard 'Escape' closes detail, DOMContentLoaded wiring
+
+**Git Push Status**: Pending push
+
+**Next Steps**:
+- Save node positions to localStorage so user-pinned positions persist across reloads
+- Add an "Export" button to download the graph as a PNG or SVG
+- Add a "Shuffle layout" button for a fresh visual
+- Add an "Auto-arrange" button that runs a force-directed simulation
+- Add per-node stats (view count of each section, time of last visit)
+- Continue building new features daily - never stop

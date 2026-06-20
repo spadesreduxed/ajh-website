@@ -109,6 +109,7 @@
             <li><a href="#plan">Plan</a></li>
             <li><a href="#snippets">Snippets</a></li>
             <li><a href="#bookmarks">Bookmarks</a></li>
+            <li><a href="#constellation">Constellation</a></li>
             <li><a href="#assistant">Assistant</a></li>
             <li><a href="#quotes">Quotes</a></li>
             <li><a href="#stats">Stats</a></li>
@@ -197,7 +198,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="59">0</span>
+                    <span class="stat-value" data-count="60">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -208,7 +209,7 @@
             <div class="daily-streak">
                 <span class="streak-icon">🔥</span>
                 <div class="streak-info">
-                    <span class="streak-count">59 days</span>
+                    <span class="streak-count">60 days</span>
                     <span class="streak-label">Daily Streak</span>
                 </div>
             </div>
@@ -228,11 +229,11 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 59</span>
+                    <span class="insight-value">Day 60</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
-                    <span class="insight-value">59</span>
+                    <span class="insight-value">60</span>
                     <span class="insight-label">streak</span>
                 </div>
             </div>
@@ -714,7 +715,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="59">0</div>
+                    <div class="stat-number" data-count="60">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -735,7 +736,7 @@
                 </div>
                 <div class="stat-card large">
                     <i class="fas fa-rocket"></i>
-                    <div class="stat-number" data-count="58">0</div>
+                    <div class="stat-number" data-count="59">0</div>
                     <div class="stat-label">Features Built</div>
                     <div class="stat-sublabel">And counting...</div>
                 </div>
@@ -1304,6 +1305,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">20</span>
+                        <span class="blog-month">June 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 60</span>
+                        <h3>Site Constellation — 25 Sections, One Graph</h3>
+                        <p>Sixty days straight. To mark it I added a constellation view: every section on this site laid out as a node in an interactive 2D graph, with edges drawn between related sections. Drag nodes around, zoom and pan, search by name, filter by category, and click any node to jump. The graph auto-arranges on load, the connected node of whatever you're hovering pulses, and you can reset the layout any time. A new way to see the whole site at once.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">19</span>
@@ -2662,5 +2674,89 @@
             </div>
         </div>
     </div>
+
+    <!-- Day 60 - Site Constellation -->
+    <section id="constellation" class="section constellation-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Milestone Map</span>
+                <h2 class="section-title">Site Constellation</h2>
+                <p class="section-subtitle">Sixty days, twenty-seven nodes — one interactive graph. Drag, zoom, search, and click any node to jump.</p>
+            </div>
+
+            <div class="constellation-toolbar">
+                <div class="constellation-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="constellation-search" placeholder="Search nodes (try 'calendar', 'music', 'plan')..." aria-label="Search constellation">
+                </div>
+                <div class="constellation-controls">
+                    <div class="constellation-filters" id="constellation-filters">
+                        <button class="constellation-chip active" data-filter="all">All</button>
+                        <button class="constellation-chip" data-filter="core">Core</button>
+                        <button class="constellation-chip" data-filter="tools">Tools</button>
+                        <button class="constellation-chip" data-filter="data">Data</button>
+                        <button class="constellation-chip" data-filter="content">Content</button>
+                    </div>
+                    <div class="constellation-zoom">
+                        <button class="constellation-icon-btn" id="constellation-zoom-out" aria-label="Zoom out"><i class="fas fa-minus"></i></button>
+                        <button class="constellation-icon-btn" id="constellation-zoom-reset" aria-label="Reset view"><i class="fas fa-compress"></i></button>
+                        <button class="constellation-icon-btn" id="constellation-zoom-in" aria-label="Zoom in"><i class="fas fa-plus"></i></button>
+                    </div>
+                    <button class="constellation-icon-btn" id="constellation-reset-layout" aria-label="Reset layout"><i class="fas fa-rotate"></i></button>
+                </div>
+            </div>
+
+            <div class="constellation-stage" id="constellation-stage">
+                <svg id="constellation-svg" class="constellation-svg" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid meet" aria-label="Site constellation graph">
+                    <defs>
+                        <radialGradient id="constellation-node-glow" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="rgba(0, 212, 255, 0.45)"/>
+                            <stop offset="100%" stop-color="rgba(0, 212, 255, 0)"/>
+                        </radialGradient>
+                        <linearGradient id="constellation-edge-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="rgba(0, 212, 255, 0.25)"/>
+                            <stop offset="50%" stop-color="rgba(139, 92, 246, 0.4)"/>
+                            <stop offset="100%" stop-color="rgba(236, 72, 153, 0.25)"/>
+                        </linearGradient>
+                    </defs>
+                    <g id="constellation-edges-layer"></g>
+                    <g id="constellation-nodes-layer"></g>
+                </svg>
+                <div class="constellation-detail" id="constellation-detail" hidden>
+                    <button class="constellation-detail-close" id="constellation-detail-close" aria-label="Close detail"><i class="fas fa-times"></i></button>
+                    <div class="constellation-detail-icon"><i id="constellation-detail-icon" class="fas fa-circle"></i></div>
+                    <div class="constellation-detail-title" id="constellation-detail-title">—</div>
+                    <div class="constellation-detail-tag" id="constellation-detail-tag">—</div>
+                    <div class="constellation-detail-desc" id="constellation-detail-desc">—</div>
+                    <div class="constellation-detail-meta">
+                        <span id="constellation-detail-connections">0 connections</span>
+                        <button class="constellation-detail-go" id="constellation-detail-go"><i class="fas fa-arrow-right"></i> Jump to section</button>
+                    </div>
+                </div>
+                <div class="constellation-tooltip" id="constellation-tooltip" hidden></div>
+            </div>
+
+            <div class="constellation-footer">
+                <div class="constellation-stat">
+                    <span class="constellation-stat-value" id="constellation-nodes-count">0</span>
+                    <span class="constellation-stat-label">Nodes</span>
+                </div>
+                <div class="constellation-stat">
+                    <span class="constellation-stat-value" id="constellation-edges-count">0</span>
+                    <span class="constellation-stat-label">Edges</span>
+                </div>
+                <div class="constellation-stat">
+                    <span class="constellation-stat-value" id="constellation-shown-count">0</span>
+                    <span class="constellation-stat-label">Showing</span>
+                </div>
+                <div class="constellation-stat">
+                    <span class="constellation-stat-value" id="constellation-clicked-count">0</span>
+                    <span class="constellation-stat-label">Jumps</span>
+                </div>
+            </div>
+            <p class="constellation-hint">Drag a node to reposition it • Hover to highlight its connections • Click to jump • Press <kbd>C</kbd> to focus this section</p>
+        </div>
+    </section>
+
 </body>
 </html>

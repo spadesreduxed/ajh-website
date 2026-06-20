@@ -266,6 +266,11 @@ function initKeyboardShortcuts() {
       if (themeToggle) themeToggle.click();
     }
 
+    if (e.key === 'c' || e.key === 'C') {
+      const target = document.getElementById('constellation');
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    }
+
     if (e.key === 'Escape') {
       const panel = document.getElementById('shortcuts-panel');
       if (panel) panel.classList.remove('open');
@@ -3838,4 +3843,463 @@ function initBookmarkCards() {
 
 document.addEventListener('DOMContentLoaded', () => {
   initBookmarkCards();
+});
+
+/* ========================================
+   DAY 60 - SITE CONSTELLATION
+   Interactive node graph of every section
+   ======================================== */
+function initConstellation() {
+  const stage = document.getElementById('constellation-stage');
+  const svg = document.getElementById('constellation-svg');
+  const edgesGroup = document.getElementById('constellation-edges-layer');
+  const nodesGroup = document.getElementById('constellation-nodes-layer');
+  const tooltip = document.getElementById('constellation-tooltip');
+  const detail = document.getElementById('constellation-detail');
+  const detailIcon = document.getElementById('constellation-detail-icon');
+  const detailTitle = document.getElementById('constellation-detail-title');
+  const detailTag = document.getElementById('constellation-detail-tag');
+  const detailDesc = document.getElementById('constellation-detail-desc');
+  const detailConnections = document.getElementById('constellation-detail-connections');
+  const detailGo = document.getElementById('constellation-detail-go');
+  const detailClose = document.getElementById('constellation-detail-close');
+  const search = document.getElementById('constellation-search');
+  const chips = document.querySelectorAll('.constellation-chip');
+  const zoomInBtn = document.getElementById('constellation-zoom-in');
+  const zoomOutBtn = document.getElementById('constellation-zoom-out');
+  const zoomResetBtn = document.getElementById('constellation-zoom-reset');
+  const zoomLevelEl = document.getElementById('constellation-zoom-level');
+  const resetLayoutBtn = document.getElementById('constellation-reset-layout');
+  const statNodes = document.getElementById('constellation-nodes-count');
+  const statEdgesEl = document.getElementById('constellation-edges-count');
+  const statShown = document.getElementById('constellation-shown-count');
+  const statClicks = document.getElementById('constellation-clicked-count');
+  if (!stage || !svg) return;
+
+  // NODES — every section, mapped to a category
+  // categories: core, tools, data, content
+  const NODES = [
+    { id: 'home', label: 'Home', category: 'core', icon: 'fa-house', desc: 'The landing hero with live stats, time-based greeting, and a Day-Streak badge.', tag: 'Overview' },
+    { id: 'about', label: 'About', category: 'core', icon: 'fa-user', desc: 'Who I am: full-stack developer in The Bronx, building every day.', tag: 'Profile' },
+    { id: 'projects', label: 'Projects', category: 'core', icon: 'fa-rocket', desc: 'The live lineup — Vault V6, UV Static, Korone, Zo Computer, more. Filterable.', tag: 'Work' },
+    { id: 'skills', label: 'Skills', category: 'core', icon: 'fa-bolt', desc: 'Frontend, backend, DevOps, special — animated proficiency bars.', tag: 'Stack' },
+    { id: 'stats', label: 'Stats', category: 'data', icon: 'fa-chart-line', desc: 'Bento grid of streak, repos, games served, total views.', tag: 'Numbers' },
+    { id: 'journey', label: 'Journey', category: 'content', icon: 'fa-road', desc: 'Interactive timeline — click any year to expand the era.', tag: 'Timeline' },
+    { id: 'plan', label: 'Plan Board', category: 'tools', icon: 'fa-list-check', desc: 'Now / Next / Later columns with drag, check, add, remove.', tag: 'Productivity' },
+    { id: 'snippets', label: 'Snippets', category: 'tools', icon: 'fa-code', desc: 'Hand-picked snippets, search, copy, edit, delete. localStorage.', tag: 'Library' },
+    { id: 'calendar', label: 'Calendar', category: 'data', icon: 'fa-calendar-days', desc: 'GitHub-style heatmap for 60 build days, click any cell.', tag: 'Streak' },
+    { id: 'badges', label: 'Badges', category: 'data', icon: 'fa-medal', desc: 'Twelve unlockable badges with progress and confetti.', tag: 'Gamification' },
+    { id: 'productivity', label: 'Productivity', category: 'tools', icon: 'fa-toolbox', desc: 'Focus timer, goals, break reminders, build streak.', tag: 'Tools' },
+    { id: 'demos', label: 'Demos', category: 'core', icon: 'fa-play', desc: 'Embedded demos of major projects in iframes.', tag: 'Live' },
+    { id: 'blog', label: 'Build Log', category: 'content', icon: 'fa-newspaper', desc: 'Every build day, one card per day, top is newest.', tag: 'Updates' },
+    { id: 'current', label: 'Working On', category: 'content', icon: 'fa-spinner', desc: 'What I am building right now, what is queued.', tag: 'Status' },
+    { id: 'contact', label: 'Contact', category: 'core', icon: 'fa-envelope', desc: 'Email, GitHub, Discord, social.', tag: 'Reach Out' },
+    { id: 'newsletter', label: 'Newsletter', category: 'content', icon: 'fa-bell', desc: 'No-spam updates when something ships. localStorage signup.', tag: 'Subscribe' },
+    { id: 'gallery', label: 'Gallery', category: 'content', icon: 'fa-images', desc: 'Visual showcase — thumbnails and live links.', tag: 'Gallery' },
+    { id: 'achievements', label: 'Achievements', category: 'data', icon: 'fa-trophy', desc: 'Big wins: first commit, 1K games served, 50 days.', tag: 'Milestones' },
+    { id: 'testimonials', label: 'Testimonials', category: 'content', icon: 'fa-comments', desc: 'What collaborators and users have said.', tag: 'Voices' },
+    { id: 'quotes', label: 'Quotes', category: 'content', icon: 'fa-quote-right', desc: 'Rotating inspirational quotes. Favorite and share.', tag: 'Inspiration' },
+    { id: 'faq', label: 'FAQ', category: 'content', icon: 'fa-circle-question', desc: 'Common questions — stack, location, how to collaborate.', tag: 'Help' },
+    { id: 'challenge', label: 'Challenge', category: 'data', icon: 'fa-flag-checkered', desc: 'A new mission every day with XP rewards.', tag: 'Gamification' },
+    { id: 'api-status', label: 'API Status', category: 'data', icon: 'fa-server', desc: 'Live monitoring of GitHub, Vault, Games DB, proxy.', tag: 'Realtime' },
+    { id: 'music', label: 'Music', category: 'content', icon: 'fa-music', desc: 'Built-in player with visualizer, five demo tracks.', tag: 'Lo-fi' },
+    { id: 'assistant', label: 'Assistant', category: 'tools', icon: 'fa-robot', desc: 'Chat with the build — knows every build day.', tag: 'AI Chat' },
+    { id: 'bookmarks', label: 'Bookmarks', category: 'tools', icon: 'fa-bookmark', desc: 'Share cards for every section. Pin, search, share.', tag: 'Shareable' },
+    { id: 'constellation', label: 'Constellation', category: 'data', icon: 'fa-diagram-project', desc: 'You are here. This interactive graph of every section.', tag: 'Milestone' },
+  ];
+
+  // EDGES — relationships between sections (this → that)
+  const EDGES = [
+    ['home', 'about'], ['home', 'projects'], ['home', 'stats'], ['home', 'blog'],
+    ['about', 'skills'], ['about', 'journey'], ['about', 'contact'],
+    ['projects', 'demos'], ['projects', 'gallery'], ['projects', 'achievements'],
+    ['skills', 'projects'], ['skills', 'about'],
+    ['stats', 'calendar'], ['stats', 'achievements'], ['stats', 'badges'],
+    ['journey', 'blog'], ['journey', 'achievements'],
+    ['plan', 'productivity'], ['plan', 'snippets'],
+    ['productivity', 'plan'], ['productivity', 'current'],
+    ['snippets', 'projects'], ['snippets', 'assistant'],
+    ['calendar', 'blog'], ['calendar', 'assistant'], ['calendar', 'badges'], ['calendar', 'stats'],
+    ['badges', 'achievements'], ['badges', 'challenge'], ['badges', 'stats'],
+    ['challenge', 'badges'], ['challenge', 'current'],
+    ['api-status', 'stats'], ['api-status', 'projects'],
+    ['music', 'productivity'], ['music', 'home'],
+    ['assistant', 'calendar'], ['assistant', 'blog'], ['assistant', 'snippets'],
+    ['bookmarks', 'home'], ['bookmarks', 'projects'], ['bookmarks', 'blog'],
+    ['quotes', 'productivity'], ['quotes', 'blog'],
+    ['testimonials', 'about'], ['testimonials', 'projects'],
+    ['faq', 'contact'], ['faq', 'about'],
+    ['newsletter', 'blog'], ['newsletter', 'contact'],
+    ['current', 'plan'], ['current', 'blog'],
+    ['gallery', 'projects'], ['gallery', 'demos'],
+    ['constellation', 'home'], ['constellation', 'bookmarks'], ['constellation', 'calendar'],
+    ['contact', 'home'], ['contact', 'newsletter'],
+  ];
+
+  // Position nodes on concentric rings. Home at center.
+  const RING_LAYOUT = (() => {
+    const positions = {};
+    const cx = 0, cy = 0;
+    const ring1 = ['home'];
+    const ring2 = ['about', 'projects', 'blog', 'skills', 'stats', 'current', 'contact'];
+    const ring3 = ['plan', 'snippets', 'calendar', 'badges', 'journey', 'productivity', 'demos'];
+    const ring4 = ['newsletter', 'gallery', 'achievements', 'testimonials', 'quotes', 'faq'];
+    const ring5 = ['challenge', 'api-status', 'music', 'assistant', 'bookmarks', 'constellation'];
+
+    const place = (arr, radius) => {
+      const n = arr.length;
+      arr.forEach((id, i) => {
+        const angle = (i / n) * Math.PI * 2 - Math.PI / 2;
+        positions[id] = { x: cx + Math.cos(angle) * radius, y: cy + Math.sin(angle) * radius };
+      });
+    };
+    place(ring1, 0);
+    place(ring2, 180);
+    place(ring3, 320);
+    place(ring4, 450);
+    place(ring5, 540);
+    return positions;
+  })();
+
+  // Mutable state per node
+  const nodeState = {};
+  NODES.forEach(n => {
+    nodeState[n.id] = {
+      x: RING_LAYOUT[n.id].x,
+      y: RING_LAYOUT[n.id].y,
+      pinned: false,
+    };
+  });
+
+  // View transform (zoom + pan)
+  const view = { scale: 1, tx: 0, ty: 0 };
+
+  // Selection / filter state
+  let activeCategory = 'all';
+  let searchQuery = '';
+  let highlightedId = null;
+  let visitCount = parseInt(localStorage.getItem('ajh_constellation_views_v1') || '0', 10);
+
+  const svgNS = 'http://www.w3.org/2000/svg';
+
+  function visibleSet() {
+    // Returns Set of node IDs that pass current filter/search.
+    const set = new Set();
+    const q = searchQuery.trim().toLowerCase();
+    NODES.forEach(n => {
+      const catOk = activeCategory === 'all' || n.category === activeCategory;
+      const qOk = !q ||
+        n.id.toLowerCase().includes(q) ||
+        n.label.toLowerCase().includes(q) ||
+        n.desc.toLowerCase().includes(q) ||
+        n.tag.toLowerCase().includes(q);
+      if (catOk && qOk) set.add(n.id);
+    });
+    return set;
+  }
+
+  function setHighlight(id) {
+    highlightedId = id;
+    render();
+  }
+
+  function render() {
+    // Update SVG size to match stage in CSS pixels.
+    const rect = stage.getBoundingClientRect();
+    svg.setAttribute('viewBox', `${rect.width / 2 - 500} ${rect.height / 2 - 360} 1000 720`);
+
+    const vis = visibleSet();
+
+    // Edges
+    edgesGroup.innerHTML = '';
+    EDGES.forEach(([a, b]) => {
+      const A = nodeState[a];
+      const B = nodeState[b];
+      if (!A || !B) return;
+      const line = document.createElementNS(svgNS, 'line');
+      line.setAttribute('x1', A.x);
+      line.setAttribute('y1', A.y);
+      line.setAttribute('x2', B.x);
+      line.setAttribute('y2', B.y);
+      const bothVisible = vis.has(a) && vis.has(b);
+      const bothHighlighted = highlightedId && (a === highlightedId || b === highlightedId);
+      line.setAttribute('class', 'constellation-edge' +
+        (!bothVisible ? ' dimmed' : '') +
+        (bothHighlighted ? ' highlighted' : ''));
+      edgesGroup.appendChild(line);
+    });
+
+    // Nodes + labels
+    nodesGroup.innerHTML = '';
+    NODES.forEach(n => {
+      const s = nodeState[n.id];
+      const isVisible = vis.has(n.id);
+      const isHighlighted = highlightedId === n.id;
+      const connectedHighlighted = highlightedId && EDGES.some(([a, b]) =>
+        (a === highlightedId && b === n.id) || (b === highlightedId && a === n.id));
+
+      const g = document.createElementNS(svgNS, 'g');
+      g.setAttribute('class', 'constellation-node' +
+        (!isVisible ? ' dimmed' : '') +
+        (isHighlighted || connectedHighlighted ? ' highlighted' : ''));
+      g.setAttribute('data-id', n.id);
+      g.setAttribute('data-category', n.category);
+      g.setAttribute('transform', `translate(${s.x}, ${s.y})`);
+
+      const circle = document.createElementNS(svgNS, 'circle');
+      circle.setAttribute('class', 'constellation-node-circle');
+      circle.setAttribute('r', isHighlighted ? 18 : 14);
+      g.appendChild(circle);
+
+      // Inner icon — render via foreignObject using an inline SVG of the FA path.
+      // Simpler: skip inner icon, keep clean.
+
+      nodesGroup.appendChild(g);
+
+      // Label below node — appended to the same group so it moves with the node.
+      const label = document.createElementNS(svgNS, 'text');
+      label.setAttribute('class', 'constellation-node-label');
+      label.setAttribute('x', 0);
+      label.setAttribute('y', isHighlighted ? 36 : 30);
+      label.setAttribute('text-anchor', 'middle');
+      label.textContent = n.label;
+      if (!isVisible) label.style.opacity = '0.2';
+      if (isHighlighted) label.style.fontWeight = '700';
+      g.appendChild(label);
+
+      // Drag + hover/click handlers on the node group
+      attachNodeHandlers(g, n);
+    });
+
+    // Footer stats
+    if (statNodes) statNodes.textContent = NODES.length;
+    if (statEdgesEl) statEdgesEl.textContent = EDGES.length;
+    if (statShown) statShown.textContent = vis.size;
+    if (statClicks) statClicks.textContent = visitCount;
+  }
+
+  function attachNodeHandlers(g, node) {
+    let dragging = false;
+    let moved = false;
+    let startPt = null;
+
+    g.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      dragging = true;
+      moved = false;
+      startPt = { x: e.clientX, y: e.clientY, nx: nodeState[node.id].x, ny: nodeState[node.id].y };
+      g.setPointerCapture(e.pointerId);
+    });
+
+    g.addEventListener('pointermove', (e) => {
+      if (!dragging || !startPt) return;
+      const rect = svg.getBoundingClientRect();
+      // Convert screen pixels to SVG world units.
+      const vb = svg.viewBox.baseVal;
+      const sx = vb.width / rect.width;
+      const sy = vb.height / rect.height;
+      const dx = (e.clientX - startPt.x) * sx;
+      const dy = (e.clientY - startPt.y) * sy;
+      if (Math.hypot(e.clientX - (startPt.x / sx - vb.x), e.clientY - (startPt.y / sy - vb.y)) > 3) moved = true;
+      nodeState[node.id].x = startPt.nx + dx;
+      nodeState[node.id].y = startPt.ny + dy;
+      // Update just this node + adjacent edges cheaply.
+      quickUpdate();
+    });
+
+    g.addEventListener('pointerup', (e) => {
+      if (!dragging) return;
+      dragging = false;
+      try { g.releasePointerCapture(e.pointerId); } catch (_) {}
+      if (!moved) {
+        // Treat as click — open detail
+        openDetail(node.id);
+      }
+    });
+
+    g.addEventListener('pointerenter', (e) => {
+      if (!tooltip) return;
+      tooltip.textContent = `${node.label} — ${node.tag}`;
+      tooltip.style.opacity = '1';
+      positionTooltip(e);
+      if (!dragging) setHighlight(node.id);
+    });
+
+    g.addEventListener('pointermove', (e) => {
+      if (!tooltip) return;
+      positionTooltip(e);
+    });
+
+    g.addEventListener('pointerleave', () => {
+      if (!tooltip) return;
+      tooltip.style.opacity = '0';
+      // Don't clear highlight if the detail panel is open for this node.
+      if (highlightedId === node.id && !(detail && detail.classList.contains('open'))) {
+        setHighlight(null);
+      }
+    });
+  }
+
+  function positionTooltip(e) {
+    if (!tooltip) return;
+    const rect = stage.getBoundingClientRect();
+    const x = e.clientX - rect.left + 12;
+    const y = e.clientY - rect.top + 12;
+    tooltip.style.left = `${x}px`;
+    tooltip.style.top = `${y}px`;
+  }
+
+  // Cheaper partial update — for drags only the moved node + its edges change.
+  function quickUpdate() {
+    edgesGroup.innerHTML = '';
+    const vis = visibleSet();
+    EDGES.forEach(([a, b]) => {
+      const A = nodeState[a];
+      const B = nodeState[b];
+      if (!A || !B) return;
+      const line = document.createElementNS(svgNS, 'line');
+      line.setAttribute('x1', A.x);
+      line.setAttribute('y1', A.y);
+      line.setAttribute('x2', B.x);
+      line.setAttribute('y2', B.y);
+      const bothVisible = vis.has(a) && vis.has(b);
+      const bothHighlighted = highlightedId && (a === highlightedId || b === highlightedId);
+      line.setAttribute('class', 'constellation-edge' +
+        (!bothVisible ? ' dimmed' : '') +
+        (bothHighlighted ? ' highlighted' : ''));
+      edgesGroup.appendChild(line);
+    });
+
+    // Labels live inside each node group, so they move with their node during drag —
+    // no separate label update needed here.
+  }
+
+  function openDetail(id) {
+    const node = NODES.find(n => n.id === id);
+    if (!node || !detail) return;
+    visitCount += 1;
+    try { localStorage.setItem('ajh_constellation_views_v1', String(visitCount)); } catch (_) {}
+    if (detailTitle) detailTitle.textContent = node.label;
+    if (detailTag) detailTag.textContent = node.tag;
+    if (detailDesc) detailDesc.textContent = node.desc;
+    if (detailIcon) {
+      detailIcon.className = 'fas ' + node.icon;
+    }
+    if (detailConnections) {
+      const connCount = EDGES.filter(([a, b]) => a === id || b === id).length;
+      detailConnections.textContent = `${connCount} connection${connCount === 1 ? '' : 's'} from this section`;
+    }
+    if (detailGo) detailGo.dataset.go = id;
+    detail.classList.add('open');
+    detail.setAttribute('aria-hidden', 'false');
+    setHighlight(id);
+  }
+
+  function closeDetail() {
+    if (!detail) return;
+    detail.classList.remove('open');
+    detail.setAttribute('aria-hidden', 'true');
+    setHighlight(null);
+  }
+
+  // Search input
+  if (search) {
+    search.addEventListener('input', () => {
+      searchQuery = search.value;
+      render();
+    });
+  }
+
+  // Category chips
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeCategory = chip.dataset.filter || 'all';
+      render();
+    });
+  });
+
+  // Zoom controls
+  function applyZoom(delta) {
+    view.scale = Math.max(0.4, Math.min(2.5, view.scale + delta));
+    // Scale via viewBox width/height around center.
+    const rect = stage.getBoundingClientRect();
+    const cx = rect.width / 2;
+    const cy = rect.height / 2;
+    const halfW = 500 / view.scale;
+    const halfH = 360 / view.scale;
+    svg.setAttribute('viewBox', `${cx - halfW} ${cy - halfH} ${halfW * 2} ${halfH * 2}`);
+  }
+  function resetView() {
+    view.scale = 1;
+    const rect = stage.getBoundingClientRect();
+    svg.setAttribute('viewBox', `${rect.width / 2 - 500} ${rect.height / 2 - 360} 1000 720`);
+  }
+  if (zoomInBtn) zoomInBtn.addEventListener('click', () => applyZoom(0.15));
+  if (zoomOutBtn) zoomOutBtn.addEventListener('click', () => applyZoom(-0.15));
+  if (zoomResetBtn) zoomResetBtn.addEventListener('click', resetView);
+  if (resetLayoutBtn) {
+    resetLayoutBtn.addEventListener('click', () => {
+      NODES.forEach(n => {
+        if (RING_LAYOUT[n.id]) {
+          nodeState[n.id].x = RING_LAYOUT[n.id].x;
+          nodeState[n.id].y = RING_LAYOUT[n.id].y;
+        }
+      });
+      resetLayoutBtn.classList.add('spinning');
+      render();
+      setTimeout(() => resetLayoutBtn.classList.remove('spinning'), 600);
+    });
+  }
+
+  if (detailClose) detailClose.addEventListener('click', closeDetail);
+  if (detailGo) {
+    detailGo.addEventListener('click', () => {
+      const targetId = detailGo.dataset.go;
+      if (targetId) {
+        const target = document.getElementById(targetId);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      }
+      closeDetail();
+    });
+  }
+  if (detail) {
+    detail.addEventListener('click', (e) => {
+      if (e.target === detail) closeDetail();
+    });
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && detail && detail.classList.contains('open')) closeDetail();
+  });
+
+  // Re-layout when window resizes so the SVG viewBox stays centered.
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const rect = stage.getBoundingClientRect();
+      svg.setAttribute('viewBox', `${rect.width / 2 - 500} ${rect.height / 2 - 360} 1000 720`);
+    }, 150);
+  });
+
+  // SVG defs — gradient for edges (Day 60)
+  const defs = document.createElementNS(svgNS, 'defs');
+  defs.innerHTML = `
+    <linearGradient id="constellation-edge-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.7"/>
+    </linearGradient>
+  `;
+  svg.insertBefore(defs, svg.firstChild);
+
+  if (tooltip) tooltip.style.opacity = '0';
+
+  render();
+  window.initConstellation = initConstellation;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initConstellation();
+  console.log('⚡ AJH Website loaded - Day 60: Site Constellation');
 });
