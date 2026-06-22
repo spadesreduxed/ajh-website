@@ -186,7 +186,10 @@
                     <i class="fas fa-code"></i>
                 </button>
                 <button class="plan-btn" id="calendar-btn" aria-label="Build calendar" title="View 57-day build calendar">
-                    <i class="fas fa-calendar-check"></i>
+                    <i class="fas fa-calendar-days"></i>
+                </button>
+                <button class="plan-btn" id="timecapsule-hero-btn" aria-label="New time capsule" title="Write to future you">
+                    <i class="fas fa-hourglass-half"></i>
                 </button>
                 <button class="plan-btn" id="assistant-btn" aria-label="Build assistant" title="Ask the Build Assistant (A)">
                     <i class="fas fa-robot"></i>
@@ -209,7 +212,7 @@
             <div class="daily-streak">
                 <span class="streak-icon">🔥</span>
                 <div class="streak-info">
-                    <span class="streak-count">60 days</span>
+                    <span class="streak-count">61 days</span>
                     <span class="streak-label">Daily Streak</span>
                 </div>
             </div>
@@ -715,7 +718,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="60">0</div>
+                    <div class="stat-number" data-count="61">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -736,7 +739,7 @@
                 </div>
                 <div class="stat-card large">
                     <i class="fas fa-rocket"></i>
-                    <div class="stat-number" data-count="59">0</div>
+                    <div class="stat-number" data-count="60">0</div>
                     <div class="stat-label">Features Built</div>
                     <div class="stat-sublabel">And counting...</div>
                 </div>
@@ -1208,7 +1211,7 @@
                     <div class="productivity-widget streak-widget">
                         <div class="streak-visual" id="streak-visual">
                             <span class="streak-flame">🔥</span>
-                            <span class="streak-number" id="streak-number">56</span>
+                            <span class="streak-number" id="streak-number">61</span>
                             <span class="streak-label">days</span>
                         </div>
                     </div>
@@ -1305,6 +1308,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">21</span>
+                        <span class="blog-month">June 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 61</span>
+                        <h3>Time Capsule Vault — Letters to Future-Me</h3>
+                        <p>Day 61 added a Time Capsule Vault. Compose a note to future-you, pick the unlock date, and seal it. The vault shows live countdowns for every sealed capsule, mood tags for the journey, and a "Next Unlock" tile that ticks down in real time. Open an unlocked capsule to read what past-you wrote. Press <kbd>T</kbd> to jump straight to the vault.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">20</span>
@@ -2757,6 +2771,121 @@
             <p class="constellation-hint">Drag a node to reposition it • Hover to highlight its connections • Click to jump • Press <kbd>C</kbd> to focus this section</p>
         </div>
     </section>
+
+    <!-- Time Capsule Vault Section (Day 61) -->
+    <section id="timecapsule" class="section timecapsule-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-hourglass-half"></i> Day 61</span>
+                <h2 class="section-title">Time Capsule Vault</h2>
+                <p class="section-subtitle">Write a note to your future self. Seal it with a date, and the vault will keep it locked until then.</p>
+            </div>
+
+            <div class="timecapsule-toolbar">
+                <div class="timecapsule-stats" id="timecapsule-stats">
+                    <div class="timecapsule-stat">
+                        <span class="timecapsule-stat-num" id="timecapsule-total">0</span>
+                        <span class="timecapsule-stat-label">Total</span>
+                    </div>
+                    <div class="timecapsule-stat">
+                        <span class="timecapsule-stat-num" id="timecapsule-locked">0</span>
+                        <span class="timecapsule-stat-label">Sealed</span>
+                    </div>
+                    <div class="timecapsule-stat">
+                        <span class="timecapsule-stat-num" id="timecapsule-unlocked">0</span>
+                        <span class="timecapsule-stat-label">Opened</span>
+                    </div>
+                    <div class="timecapsule-stat">
+                        <span class="timecapsule-stat-num" id="timecapsule-soonest">—</span>
+                        <span class="timecapsule-stat-label">Next Unlock</span>
+                    </div>
+                </div>
+                <div class="timecapsule-actions">
+                    <div class="timecapsule-filters" id="timecapsule-filters">
+                        <button class="timecapsule-filter active" data-filter="all">All</button>
+                        <button class="timecapsule-filter" data-filter="sealed">Sealed</button>
+                        <button class="timecapsule-filter" data-filter="opened">Opened</button>
+                    </div>
+                    <button class="btn btn-primary timecapsule-new-btn" id="timecapsule-new-btn">
+                        <i class="fas fa-feather"></i> New Capsule
+                    </button>
+                </div>
+            </div>
+
+            <div class="timecapsule-grid" id="timecapsule-grid"></div>
+
+            <div class="timecapsule-empty" id="timecapsule-empty" hidden>
+                <i class="fas fa-hourglass-start"></i>
+                <p>No capsules yet. Write your first note to a future you.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Time Capsule Composer Modal (Day 61) -->
+    <div class="timecapsule-modal" id="timecapsule-modal" hidden>
+        <div class="timecapsule-modal-backdrop" data-close></div>
+        <div class="timecapsule-modal-content" role="dialog" aria-labelledby="timecapsule-modal-title">
+            <div class="timecapsule-modal-header">
+                <h3 id="timecapsule-modal-title">New Time Capsule</h3>
+                <button class="timecapsule-modal-close" data-close aria-label="Close"><i class="fas fa-times"></i></button>
+            </div>
+            <form class="timecapsule-form" id="timecapsule-form">
+                <input type="hidden" id="timecapsule-id">
+                <label class="timecapsule-field">
+                    <span>Title</span>
+                    <input type="text" id="timecapsule-title" required maxlength="80" placeholder="e.g. A note to myself on Day 100">
+                </label>
+                <label class="timecapsule-field">
+                    <span>Message to your future self</span>
+                    <textarea id="timecapsule-message" required rows="8" maxlength="2000" placeholder="What do you want future-you to remember? Where do you hope to be? What were you feeling today?"></textarea>
+                    <small class="timecapsule-charcount" id="timecapsule-charcount">0 / 2000</small>
+                </label>
+                <div class="timecapsule-field-row">
+                    <label class="timecapsule-field">
+                        <span>Unlock Date</span>
+                        <input type="date" id="timecapsule-unlock" required>
+                    </label>
+                    <label class="timecapsule-field">
+                        <span>Mood</span>
+                        <select id="timecapsule-mood">
+                            <option value="hopeful">🌱 Hopeful</option>
+                            <option value="grateful">🙏 Grateful</option>
+                            <option value="determined">🔥 Determined</option>
+                            <option value="reflective">🌙 Reflective</option>
+                            <option value="curious">🧭 Curious</option>
+                            <option value="celebrating">🎉 Celebrating</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="timecapsule-form-actions">
+                    <button type="button" class="btn btn-sm" data-close>Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-lock"></i> Seal Capsule</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Time Capsule Reader Modal (Day 61) -->
+    <div class="timecapsule-reader" id="timecapsule-reader" hidden>
+        <div class="timecapsule-modal-backdrop" data-reader-close></div>
+        <div class="timecapsule-reader-content">
+            <button class="timecapsule-reader-close" data-reader-close aria-label="Close"><i class="fas fa-times"></i></button>
+            <div class="timecapsule-reader-meta">
+                <span class="timecapsule-reader-mood" id="timecapsule-reader-mood">🌱 Hopeful</span>
+                <span class="timecapsule-reader-date" id="timecapsule-reader-date">—</span>
+            </div>
+            <h3 class="timecapsule-reader-title" id="timecapsule-reader-title">Capsule Title</h3>
+            <div class="timecapsule-reader-unlock" id="timecapsule-reader-unlock">
+                <i class="fas fa-lock"></i>
+                <span>Unlocks in — days</span>
+            </div>
+            <div class="timecapsule-reader-message" id="timecapsule-reader-message"></div>
+            <div class="timecapsule-reader-footer">
+                <button class="btn btn-sm timecapsule-share-btn" id="timecapsule-share-btn"><i class="fas fa-share-nodes"></i> Share</button>
+                <button class="btn btn-sm timecapsule-delete-btn" id="timecapsule-delete-btn"><i class="fas fa-trash"></i> Delete</button>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

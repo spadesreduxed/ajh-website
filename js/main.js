@@ -271,6 +271,11 @@ function initKeyboardShortcuts() {
       if (target) target.scrollIntoView({ behavior: 'smooth' });
     }
 
+    if (e.key === 'k' || e.key === 'K') {
+      const target = document.getElementById('timecapsule');
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    }
+
     if (e.key === 'Escape') {
       const panel = document.getElementById('shortcuts-panel');
       if (panel) panel.classList.remove('open');
@@ -729,6 +734,8 @@ function initCommandPalette() {
     { id: 'tool-bookmarks', label: 'Browse Bookmark Cards', icon: 'fa-bookmark', shortcut: 'G B', category: 'Tools', action: () => document.getElementById('bookmarks-search-input')?.focus() },
     { id: 'tool-calendar', label: 'View Build Calendar', icon: 'fa-calendar-check', shortcut: 'G C', category: 'Tools', action: () => scrollTo('#calendar') },
     { id: 'tool-assistant', label: 'Open Build Assistant', icon: 'fa-robot', shortcut: 'A', category: 'Tools', action: () => window.ajhAssistantOpen && window.ajhAssistantOpen() },
+    { id: 'tool-timecapsule', label: 'Open Time Capsule Vault', icon: 'fa-hourglass-half', shortcut: 'G K', category: 'Tools', action: () => scrollTo('#timecapsule') },
+    { id: 'tool-timecapsule-new', label: 'Write a New Time Capsule', icon: 'fa-feather', category: 'Tools', action: () => document.getElementById('timecapsule-hero-btn')?.click() },
     
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -2901,7 +2908,11 @@ function initBuildCalendar() {
     { d: 54, date: '2026-06-14', title: 'Snippet Footer Stats',         level: 1, featured: false, desc: 'Footer counters now show totals, current filter, languages, and copy count.', features: ['Footer stats', 'Copy counter persistence'], tags: ['stats'] },
     { d: 55, date: '2026-06-15', title: 'Hero Meta Polish',             level: 2, featured: false, desc: 'Cleaned up spacing, added tooltips, and matched the icon rhythm across the hero meta row.', features: ['Tooltip pass', 'Spacing pass', 'Icon rhythm'], tags: ['hero', 'ui'] },
     { d: 56, date: '2026-06-16', title: 'Daily Plan Integration',       level: 2, featured: false, desc: 'Wired the plan board into the hero meta and the command palette, and added a focus-mode toggle.', features: ['Plan button', 'Palette entry', 'Focus mode'], tags: ['productivity', 'tools'] },
-    { d: 57, date: '2026-06-17', title: 'Build Calendar Heatmap',       level: 4, featured: true,  desc: 'A GitHub-style contribution graph of all 57 days, with click-to-read modals, summary stats, and three view filters. The streak, made visible.', features: ['57-day heatmap', 'Click-to-read modal', 'Summary stats', 'All / 30 / Featured views', 'Share-this-build'], tags: ['meta', 'design', 'ship', 'milestone'] }
+    { d: 57, date: '2026-06-17', title: 'Build Calendar Heatmap',       level: 4, featured: true,  desc: 'A GitHub-style contribution graph of all 57 days, with click-to-read modals, summary stats, and three view filters. The streak, made visible.', features: ['57-day heatmap', 'Click-to-read modal', 'Summary stats', 'All / 30 / Featured views', 'Share-this-build'], tags: ['meta', 'design', 'ship', 'milestone'] },
+    { d: 58, date: '2026-06-18', title: 'Build Assistant',               level: 4, featured: true,  desc: 'A chatbot that lives inside the site and knows about every build day. Press A to open, ask by day number, by date, by tag, or just say "recent" or "biggest".', features: ['Pattern-match knowledge base', 'Local chat memory', 'Day / date / tag search', '60+ suggestions'], tags: ['meta', 'tools', 'ship', 'milestone'] },
+    { d: 59, date: '2026-06-19', title: 'Bookmark Cards',                level: 4, featured: true,  desc: 'Every section on this site now has a generated share card with title, icon, description, and a one-click copy link. Pin, sort, search, and pop open the detail modal to share.', features: ['25+ share cards', 'Pin / sort / search', 'Detail modal', 'Native share sheet'], tags: ['meta', 'tools', 'ship', 'milestone'] },
+    { d: 60, date: '2026-06-20', title: 'Site Constellation',            level: 4, featured: true,  desc: 'A 27-node interactive graph of every section on this site, organized into 4 categories with 59 edges connecting related sections. Drag, zoom, search, filter, click to jump.', features: ['27 SVG nodes', '59 edges', 'Drag to reposition', 'Search + filter', 'Zoom controls', 'Detail panel'], tags: ['meta', 'tools', 'ship', 'milestone'] },
+    { d: 61, date: '2026-06-21', title: 'Time Capsule Vault',            level: 4, featured: true,  desc: 'Write a note to your future self. Seal it with a date, and the vault keeps it locked until then. Live countdowns, mood tags, shareable previews, and a Next Unlock tile that ticks down in real time.', features: ['Compose / seal / unlock', 'Live countdowns', 'Mood tags (6)', 'Sealed previews', 'Share via Web Share API', 'localStorage persistence', 'Two seeded capsules'], tags: ['meta', 'tools', 'ship', 'milestone', 'new'] }
   ];
 
   // ---- Helpers ----
@@ -3193,7 +3204,10 @@ function initBuildAssistant() {
     { d: 55, title: 'Hero Meta Polish',             date: '2026-06-15', tags: ['hero','ui'],                             level: 2, desc: 'Spacing, tooltips, icon rhythm across the hero meta row.' },
     { d: 56, title: 'Daily Plan Integration',       date: '2026-06-16', tags: ['productivity','tools'],                  level: 2, desc: 'Wired plan board into hero meta and command palette.' },
     { d: 57, title: 'Build Calendar Heatmap',       date: '2026-06-17', tags: ['meta','design','ship','milestone'],      level: 4, desc: 'GitHub-style contribution graph of all 57 days, click-to-read modals.' },
-    { d: 58, title: 'Build Assistant',              date: '2026-06-18', tags: ['meta','tools','ship','milestone'],       level: 4, desc: 'A chat assistant that knows about every one of the 58 days.' }
+    { d: 58, title: 'Build Assistant',              date: '2026-06-18', tags: ['meta','tools','ship','milestone'],       level: 4, desc: 'A chat assistant that knows about every one of the 58 days.' },
+    { d: 59, title: 'Bookmark Cards',               date: '2026-06-19', tags: ['meta','tools','ship','milestone'],       level: 4, desc: 'Every section on this site now has a generated share card with title, icon, description, and a one-click copy link. Pin, sort, search, and pop open the detail modal to share.' },
+    { d: 60, title: 'Site Constellation',           date: '2026-06-20', tags: ['meta','tools','ship','milestone'],       level: 4, desc: 'A 27-node interactive graph of every section on this site, organized into 4 categories with 59 edges connecting related sections. Drag, zoom, search, filter, click to jump.' },
+    { d: 61, title: 'Time Capsule Vault',           date: '2026-06-21', tags: ['meta','tools','ship','milestone','new'], level: 4, desc: 'Write a note to your future self. Seal it with a date, and the vault keeps it locked until then. Live countdowns, mood tags, shareable previews, and a Next Unlock tile that ticks down in real time.' }
   ];
 
   // ---- DOM ----
@@ -4301,5 +4315,404 @@ function initConstellation() {
 
 document.addEventListener('DOMContentLoaded', () => {
   initConstellation();
-  console.log('⚡ AJH Website loaded - Day 60: Site Constellation');
+  initTimeCapsule();
+  console.log('⚡ AJH Website loaded - Day 61: Time Capsule Vault');
 });
+/* ============================================================
+   Day 61: Time Capsule Vault
+   ============================================================ */
+function initTimeCapsule() {
+  const grid = document.getElementById('timecapsule-grid');
+  const empty = document.getElementById('timecapsule-empty');
+  const filters = document.querySelectorAll('.timecapsule-filter');
+  const newBtn = document.getElementById('timecapsule-new-btn');
+  const heroBtn = document.getElementById('timecapsule-hero-btn');
+  const statTotal = document.getElementById('timecapsule-total');
+  const statSealed = document.getElementById('timecapsule-locked');
+  const statUnlocked = document.getElementById('timecapsule-unlocked');
+  const statNext = document.getElementById('timecapsule-soonest');
+
+  const modal = document.getElementById('timecapsule-modal');
+  const modalForm = document.getElementById('timecapsule-form');
+  const modalId = document.getElementById('timecapsule-id');
+  const modalTitle = document.getElementById('timecapsule-title');
+  const modalMessage = document.getElementById('timecapsule-message');
+  const modalUnlock = document.getElementById('timecapsule-unlock');
+  const modalMood = document.getElementById('timecapsule-mood');
+  const modalCharcount = document.getElementById('timecapsule-charcount');
+  const modalTitleText = document.getElementById('timecapsule-modal-title');
+  const modalCloseBtns = modal ? modal.querySelectorAll('[data-close]') : [];
+
+  const reader = document.getElementById('timecapsule-reader');
+  const readerMood = document.getElementById('timecapsule-reader-mood');
+  const readerDate = document.getElementById('timecapsule-reader-date');
+  const readerTitle = document.getElementById('timecapsule-reader-title');
+  const readerUnlock = document.getElementById('timecapsule-reader-unlock');
+  const readerMessage = document.getElementById('timecapsule-reader-message');
+  const readerShareBtn = document.getElementById('timecapsule-share-btn');
+  const readerDeleteBtn = document.getElementById('timecapsule-delete-btn');
+  const readerCloseBtns = reader ? reader.querySelectorAll('[data-reader-close]') : [];
+
+  if (!grid || !modal || !reader) return;
+
+  const STORAGE_KEY = 'ajh_timecapsule_v1';
+  const today = () => new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
+
+  const MOODS = {
+    hopeful: { label: 'Hopeful', emoji: '🌱' },
+    grateful: { label: 'Grateful', emoji: '🙏' },
+    determined: { label: 'Determined', emoji: '🔥' },
+    reflective: { label: 'Reflective', emoji: '🌙' },
+    curious: { label: 'Curious', emoji: '🧭' },
+    celebrating: { label: 'Celebrating', emoji: '🎉' }
+  };
+
+  function moodInfo(m) { return MOODS[m] || MOODS.hopeful; }
+
+  function fmtDate(d) {
+    if (!d) return '—';
+    const date = (d instanceof Date) ? d : new Date(d);
+    return date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+  }
+
+  function shortDate(d) {
+    if (!d) return '—';
+    const date = (d instanceof Date) ? d : new Date(d);
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  function load() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return [];
+      const arr = JSON.parse(raw);
+      if (!Array.isArray(arr)) return [];
+      return arr.map(c => ({
+        id: c.id,
+        title: c.title || 'Untitled',
+        message: c.message || '',
+        unlockAt: c.unlockAt,
+        mood: c.mood || 'hopeful',
+        createdAt: c.createdAt || new Date().toISOString()
+      }));
+    } catch (e) { return []; }
+  }
+
+  function save(list) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); } catch (e) { /* quota */ }
+  }
+
+  function isUnlocked(c) {
+    return today().getTime() >= new Date(c.unlockAt).getTime();
+  }
+
+  function daysUntil(iso) {
+    const t = today();
+    t.setHours(0, 0, 0, 0);
+    const target = new Date(iso);
+    target.setHours(0, 0, 0, 0);
+    return Math.ceil((target.getTime() - t.getTime()) / (1000 * 60 * 60 * 24));
+  }
+
+  function escapeHtml(s) {
+    if (s == null) return '';
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function snippet(text, max) {
+    if (!text) return '';
+    const t = String(text).replace(/\s+/g, ' ').trim();
+    return t.length > max ? t.slice(0, max - 1).trimEnd() + '…' : t;
+  }
+
+  let state = { filter: 'all', capsules: load() };
+
+  function filtered() {
+    return state.capsules.filter(c => {
+      if (state.filter === 'sealed') return !isUnlocked(c);
+      if (state.filter === 'opened') return isUnlocked(c);
+      return true;
+    }).sort((a, b) => new Date(a.unlockAt) - new Date(b.unlockAt));
+  }
+
+  function render() {
+    const visible = filtered();
+    grid.innerHTML = visible.map(renderCard).join('');
+    if (empty) empty.hidden = visible.length > 0;
+
+    const total = state.capsules.length;
+    const unlocked = state.capsules.filter(isUnlocked).length;
+    const sealed = total - unlocked;
+
+    if (statTotal) statTotal.textContent = total;
+    if (statSealed) statSealed.textContent = sealed;
+    if (statUnlocked) statUnlocked.textContent = unlocked;
+    if (statNext) {
+      const sealedList = state.capsules
+        .filter(c => !isUnlocked(c))
+        .sort((a, b) => new Date(a.unlockAt) - new Date(b.unlockAt));
+      statNext.textContent = sealedList.length === 0
+        ? (total > 0 ? 'All opened' : '—')
+        : shortDate(sealedList[0].unlockAt);
+    }
+  }
+
+  function renderCard(c) {
+    const mood = moodInfo(c.mood);
+    const unlocked = isUnlocked(c);
+    const days = daysUntil(c.unlockAt);
+    let countdownText;
+    if (unlocked) {
+      countdownText = `<i class="fas fa-unlock"></i> Opened ${Math.abs(days)} day${Math.abs(days) === 1 ? '' : 's'} ago`;
+    } else if (days === 0) {
+      countdownText = `<i class="fas fa-hourglass-end"></i> Unlocks today`;
+    } else if (days === 1) {
+      countdownText = `<i class="fas fa-hourglass-half"></i> Unlocks tomorrow`;
+    } else {
+      countdownText = `<i class="fas fa-hourglass-half"></i> Unlocks in ${days} days`;
+    }
+
+    return `
+      <article class="timecapsule-card ${unlocked ? 'is-open' : 'is-sealed'}" data-id="${escapeHtml(c.id)}">
+        <div class="timecapsule-card-top">
+          <div class="timecapsule-card-mood">${mood.emoji} ${mood.label}</div>
+          <div class="timecapsule-card-status">
+            ${unlocked ? '<span class="timecapsule-status opened"><i class="fas fa-unlock"></i> Opened</span>' : '<span class="timecapsule-status sealed"><i class="fas fa-lock"></i> Sealed</span>'}
+          </div>
+        </div>
+        <h3 class="timecapsule-card-title">${escapeHtml(c.title)}</h3>
+        <p class="timecapsule-card-snippet">${escapeHtml(snippet(c.message, 140))}</p>
+        <div class="timecapsule-card-meta">
+          <span class="timecapsule-card-date"><i class="fas fa-calendar"></i> ${shortDate(c.unlockAt)}</span>
+          <span class="timecapsule-card-countdown">${countdownText}</span>
+        </div>
+        <div class="timecapsule-card-actions">
+          <button class="timecapsule-btn timecapsule-read-btn" data-id="${escapeHtml(c.id)}">
+            <i class="fas fa-book-open"></i> ${unlocked ? 'Read' : 'Preview'}
+          </button>
+          <button class="timecapsule-btn timecapsule-edit-btn" data-id="${escapeHtml(c.id)}" aria-label="Edit capsule">
+            <i class="fas fa-pen"></i>
+          </button>
+          <button class="timecapsule-btn timecapsule-delete-btn" data-id="${escapeHtml(c.id)}" aria-label="Delete capsule">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </article>
+    `;
+  }
+
+  function openComposer(id) {
+    if (id) {
+      const c = state.capsules.find(x => x.id === id);
+      if (!c) return;
+      modalId.value = id;
+      modalTitle.value = c.title;
+      modalMessage.value = c.message;
+      modalUnlock.value = c.unlockAt;
+      modalMood.value = c.mood;
+      if (modalTitleText) modalTitleText.textContent = 'Edit Time Capsule';
+    } else {
+      modalId.value = '';
+      modalForm.reset();
+      const future = new Date();
+      future.setDate(future.getDate() + 30);
+      modalUnlock.value = future.toISOString().slice(0, 10);
+      modalMood.value = 'hopeful';
+      if (modalTitleText) modalTitleText.textContent = 'New Time Capsule';
+    }
+    if (modalCharcount) modalCharcount.textContent = `${modalMessage.value.length} / 2000`;
+    modal.hidden = false;
+    document.body.classList.add('timecapsule-modal-open');
+    setTimeout(() => modalTitle.focus(), 50);
+  }
+
+  function closeComposer() {
+    modal.hidden = true;
+    document.body.classList.remove('timecapsule-modal-open');
+  }
+
+  function openReader(id) {
+    const c = state.capsules.find(x => x.id === id);
+    if (!c) return;
+    const mood = moodInfo(c.mood);
+    const unlocked = isUnlocked(c);
+    const days = daysUntil(c.unlockAt);
+
+    if (readerMood) readerMood.innerHTML = `${mood.emoji} ${mood.label}`;
+    if (readerDate) readerDate.textContent = `Sealed ${shortDate(c.createdAt)}`;
+    if (readerTitle) readerTitle.textContent = c.title || 'Untitled Capsule';
+
+    if (readerUnlock) {
+      if (unlocked) {
+        readerUnlock.innerHTML = `<i class="fas fa-unlock"></i> Opened on ${fmtDate(c.unlockAt)}`;
+        readerUnlock.classList.add('is-open');
+      } else if (days === 0) {
+        readerUnlock.innerHTML = `<i class="fas fa-hourglass-end"></i> Unlocks today!`;
+        readerUnlock.classList.remove('is-open');
+      } else if (days === 1) {
+        readerUnlock.innerHTML = `<i class="fas fa-hourglass-half"></i> Unlocks tomorrow (${shortDate(c.unlockAt)})`;
+        readerUnlock.classList.remove('is-open');
+      } else {
+        readerUnlock.innerHTML = `<i class="fas fa-hourglass-half"></i> Unlocks in ${days} days (${shortDate(c.unlockAt)})`;
+        readerUnlock.classList.remove('is-open');
+      }
+    }
+
+    if (readerMessage) {
+      if (unlocked) {
+        readerMessage.textContent = c.message;
+        readerMessage.classList.remove('sealed');
+      } else {
+        const preview = c.message ? snippet(c.message, 220) : '';
+        readerMessage.textContent = `This capsule is still sealed. Return on ${shortDate(c.unlockAt)} to read it in full.\n\n—\n\n${preview}`;
+        readerMessage.classList.add('sealed');
+      }
+    }
+
+    if (readerShareBtn) readerShareBtn.dataset.id = id;
+    if (readerDeleteBtn) readerDeleteBtn.dataset.id = id;
+    reader.hidden = false;
+    document.body.classList.add('timecapsule-modal-open');
+  }
+
+  function closeReader() {
+    reader.hidden = true;
+    document.body.classList.remove('timecapsule-modal-open');
+  }
+
+  function deleteCapsule(id) {
+    state.capsules = state.capsules.filter(c => c.id !== id);
+    save(state.capsules);
+    render();
+  }
+
+  // Wire events
+  filters.forEach(f => {
+    f.addEventListener('click', () => {
+      filters.forEach(x => x.classList.remove('active'));
+      f.classList.add('active');
+      state.filter = f.dataset.filter;
+      render();
+    });
+  });
+
+  if (newBtn) newBtn.addEventListener('click', () => openComposer());
+  if (heroBtn) heroBtn.addEventListener('click', () => openComposer());
+
+  modalCloseBtns.forEach(b => b.addEventListener('click', closeComposer));
+  readerCloseBtns.forEach(b => b.addEventListener('click', closeReader));
+
+  if (modalMessage && modalCharcount) {
+    modalMessage.addEventListener('input', () => {
+      modalCharcount.textContent = `${modalMessage.value.length} / 2000`;
+    });
+  }
+
+  grid.addEventListener('click', (e) => {
+    const read = e.target.closest('.timecapsule-read-btn');
+    const edit = e.target.closest('.timecapsule-edit-btn');
+    const del = e.target.closest('.timecapsule-delete-btn');
+    const card = e.target.closest('.timecapsule-card');
+    if (read) { openReader(read.dataset.id); return; }
+    if (edit) { openComposer(edit.dataset.id); return; }
+    if (del) {
+      const c = state.capsules.find(x => x.id === del.dataset.id);
+      const ok = confirm(`Delete capsule "${c?.title || 'Untitled'}"? This cannot be undone.`);
+      if (ok) deleteCapsule(del.dataset.id);
+      return;
+    }
+    if (card && !e.target.closest('button')) {
+      openReader(card.dataset.id);
+    }
+  });
+
+  modalForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const title = modalTitle.value.trim();
+    const message = modalMessage.value.trim();
+    const unlockAt = modalUnlock.value;
+    const mood = modalMood.value;
+    if (!title || !message || !unlockAt) return;
+    const id = modalId.value;
+    if (id) {
+      const idx = state.capsules.findIndex(c => c.id === id);
+      if (idx >= 0) state.capsules[idx] = { ...state.capsules[idx], title, message, unlockAt, mood };
+    } else {
+      const newId = 'cap_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+      state.capsules.push({ id: newId, title, message, unlockAt, mood, createdAt: new Date().toISOString() });
+    }
+    save(state.capsules);
+    closeComposer();
+    render();
+  });
+
+  if (readerShareBtn) {
+    readerShareBtn.addEventListener('click', async () => {
+      const id = readerShareBtn.dataset.id;
+      const c = state.capsules.find(x => x.id === id);
+      if (!c) return;
+      const url = window.location.href.split('#')[0] + '#timecapsule';
+      const text = `A time capsule sealed on ${shortDate(c.createdAt)}, set to open on ${shortDate(c.unlockAt)}. Mood: ${moodInfo(c.mood).label}.`;
+      try {
+        if (navigator.share) {
+          await navigator.share({ title: `Time Capsule — ${c.title}`, text, url });
+        } else if (navigator.clipboard) {
+          await navigator.clipboard.writeText(`${text} ${url}`);
+          readerShareBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+          setTimeout(() => { readerShareBtn.innerHTML = '<i class="fas fa-share-nodes"></i> Share'; }, 1500);
+        }
+      } catch (err) { /* cancelled */ }
+    });
+  }
+
+  if (readerDeleteBtn) {
+    readerDeleteBtn.addEventListener('click', () => {
+      const id = readerDeleteBtn.dataset.id;
+      const c = state.capsules.find(x => x.id === id);
+      if (!c) return;
+      const ok = confirm(`Delete capsule "${c.title}"? This cannot be undone.`);
+      if (!ok) return;
+      closeReader();
+      deleteCapsule(id);
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if (!modal.hidden) closeComposer();
+    else if (!reader.hidden) closeReader();
+  });
+
+  // Seed two starter capsules on first run
+  if (state.capsules.length === 0) {
+    const future = new Date();
+    future.setDate(future.getDate() + 90);
+    const pastUnlock = new Date();
+    pastUnlock.setDate(pastUnlock.getDate() - 7);
+    state.capsules.push({
+      id: 'cap_seed_1',
+      title: 'A note from the build assistant launch day',
+      message: 'Hey future me. If you are reading this, you are at least three months deeper into the streak. The site is bigger than you remember. The vault has more capsules. The snippets library grew. Keep building small things — they add up. The whole site started with a single line on Day 1.',
+      unlockAt: future.toISOString().slice(0, 10),
+      mood: 'hopeful',
+      createdAt: new Date().toISOString()
+    });
+    state.capsules.push({
+      id: 'cap_seed_2',
+      title: 'The day the constellation graph went live',
+      message: 'You just shipped a 27-node graph of the site you have been building for sixty days. It looks like a night sky. The kind of thing that only works because everything before it shipped. Notice the small wins. Tomorrow, ship another one.',
+      unlockAt: pastUnlock.toISOString().slice(0, 10),
+      mood: 'grateful',
+      createdAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString()
+    });
+    save(state.capsules);
+  }
+
+  render();
+  setInterval(render, 60 * 1000);
+}

@@ -555,3 +555,187 @@ body {
   border-color: rgba(0, 0, 0, 0.15);
   color: #000;
 }
+/* Day 61: Time Capsule Vault - light theme overrides */
+[data-theme="light"] .timecapsule-section {
+  background: linear-gradient(180deg, #ffffff 0%, #f6f7fb 100%);
+}
+
+[data-theme="light"] .timecapsule-section::before {
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.06) 0%, transparent 60%);
+}
+
+[data-theme="light"] .timecapsule-section::after {
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.04) 0%, transparent 60%);
+}
+
+[data-theme="light"] .timecapsule-toolbar {
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+}
+
+[data-theme="light"] .timecapsule-stat {
+  background: #f6f7fb;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .timecapsule-card {
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .timecapsule-card:hover {
+  box-shadow: 0 12px 30px rgba(139, 92, 246, 0.12);
+}
+
+[data-theme="light"] .timecapsule-card.is-sealed {
+  background: linear-gradient(135deg, #fff 0%, rgba(139, 92, 246, 0.04) 100%);
+}
+
+[data-theme="light"] .timecapsule-card-mood {
+  background: #f6f7fb;
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #4b5563;
+}
+
+[data-theme="light"] .timecapsule-status.sealed {
+  background: rgba(139, 92, 246, 0.1);
+  color: #6d28d9;
+}
+
+[data-theme="light"] .timecapsule-status.opened {
+  background: rgba(0, 184, 107, 0.12);
+  color: #00b86b;
+}
+
+[data-theme="light"] .timecapsule-btn {
+  background: #f6f7fb;
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #4b5563;
+}
+
+[data-theme="light"] .timecapsule-filters {
+  background: #f6f7fb;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .timecapsule-filter {
+  color: #6b7280;
+}
+
+[data-theme="light"] .timecapsule-modal-content,
+[data-theme="light"] .timecapsule-reader-content {
+  background: #fff;
+}
+
+[data-theme="light"] .timecapsule-field input,
+[data-theme="light"] .timecapsule-field select,
+[data-theme="light"] .timecapsule-field textarea {
+  background: #f6f7fb;
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #1f2937;
+}
+
+[data-theme="light"] .timecapsule-reader-message {
+  background: #f6f7fb;
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #1f2937;
+}
+
+[data-theme="light"] .timecapsule-reader-mood,
+[data-theme="light"] .timecapsule-reader-unlock {
+  background: #f6f7fb;
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #4b5563;
+}
+/* Day 61: Time Capsule Vault - light theme overrides */
+[data-theme="light"] .timecapsule-section {
+  background: linear-gradient(180deg, #ffffff 0%, #f6f7fb 100%);
+}
+
+[data-theme="light"] .timecapsule-section::before {
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.06) 0%, transparent 60%);
+}
+
+[data-theme="light"] .timecapsule-section::after {
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.04) 0%, transparent 60%);
+}
+
+[data-theme="light"] .timecapsule-toolbar {
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+}
+
+[data-theme="light"] .timecapsule-stat {
+  background: #f6f7fb;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .timecapsule-card {
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .timecapsule-card:hover {
+  box-shadow: 0 12px 30px rgba(139, 92, 246, 0.12);
+}
+
+[data-theme="light"] .timecapsule-card.is-sealed {
+  background: linear-gradient(135deg, #fff 0%, rgba(139, 92, 246, 0.04) 100%);
+}
+
+[data-theme="light"] .timecapsule-card-mood {
+  background: #f6f7fb;
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #4b5563;
+}
+
+[data-theme="light"] .timecapsule-status.sealed {
+  background: rgba(139, 92, 246, 0.1);
+  color: #6d28d9;
+}
+
+[data-theme="light"] .timecapsule-status.opened {
+  background: rgba(0, 184, 107, 0.12);
+  color: #00b86b;
+}
+
+[data-theme="light"] .timecapsule-btn {
+  background: #f6f7fb;
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #4b5563;
+}
+
+[data-theme="light"] .timecapsule-filters {
+  background: #f6f7fb;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .timecapsule-filter {
+  color: #6b7280;
+}
+
+[data-theme="light"] .timecapsule-modal-content,
+[data-theme="light"] .timecapsule-reader-content {
+  background: #fff;
+}
+
+[data-theme="light"] .timecapsule-field input,
+[data-theme="light"] .timecapsule-field select,
+[data-theme="light"] .timecapsule-field textarea {
+  background: #f6f7fb;
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #1f2937;
+}
+
+[data-theme="light"] .timecapsule-reader-message {
+  background: #f6f7fb;
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #1f2937;
+}
+
+[data-theme="light"] .timecapsule-reader-mood,
+[data-theme="light"] .timecapsule-reader-unlock {
+  background: #f6f7fb;
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #4b5563;
+}

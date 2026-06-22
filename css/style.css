@@ -9174,4 +9174,2205 @@ button:focus-visible,
   .constellation-node.highlighted .constellation-node-circle {
     animation: none;
   }
+/* ============================================================
+   Day 61: Time Capsule Vault
+   ============================================================ */
+.timecapsule-section {
+  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.timecapsule-section::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 60%);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.timecapsule-section::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  right: -100px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.timecapsule-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Toolbar */
+.timecapsule-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+}
+
+.timecapsule-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  flex: 1 1 auto;
+}
+
+.timecapsule-stat {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 10px 14px;
+  min-width: 100px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.timecapsule-stat:hover {
+  border-color: var(--accent-primary, #00ff88);
+  transform: translateY(-1px);
+}
+
+.timecapsule-stat-num {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.timecapsule-stat-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.timecapsule-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.timecapsule-filters {
+  display: inline-flex;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 2px;
+}
+
+.timecapsule-filter {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.timecapsule-filter:hover {
+  color: var(--text-primary);
+}
+
+.timecapsule-filter.active {
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.timecapsule-new-btn {
+  white-space: nowrap;
+}
+
+/* Grid */
+.timecapsule-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.timecapsule-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 280px;
+  cursor: pointer;
+}
+
+.timecapsule-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-secondary, #a78bfa);
+  box-shadow: 0 16px 40px rgba(139, 92, 246, 0.18);
+}
+
+.timecapsule-card.is-sealed {
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(139, 92, 246, 0.06) 100%);
+}
+
+.timecapsule-card.is-sealed::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #8b5cf6 0%, #ec4899 100%);
+}
+
+.timecapsule-card.is-open::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00ff88 0%, #00d4ff 100%);
+}
+
+.timecapsule-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.timecapsule-card-mood {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.timecapsule-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.timecapsule-status.sealed {
+  background: rgba(139, 92, 246, 0.15);
+  color: #c4b5fd;
+}
+
+.timecapsule-status.opened {
+  background: rgba(0, 255, 136, 0.15);
+  color: #00ff88;
+}
+
+.timecapsule-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.timecapsule-card-snippet {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.timecapsule-card.is-sealed .timecapsule-card-snippet {
+  filter: blur(2px);
+  opacity: 0.7;
+  user-select: none;
+  position: relative;
+}
+
+.timecapsule-card.is-sealed .timecapsule-card-snippet::after {
+  content: '🔒';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  filter: blur(0);
+  opacity: 1;
+}
+
+.timecapsule-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+
+.timecapsule-card-date,
+.timecapsule-card-countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono, monospace);
+}
+
+.timecapsule-card-countdown {
+  color: var(--accent-primary, #00ff88);
+  font-weight: 600;
+}
+
+.timecapsule-card.is-sealed .timecapsule-card-countdown {
+  color: #c4b5fd;
+}
+
+.timecapsule-card-actions {
+  display: flex;
+  gap: 6px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 12px;
+  margin-top: auto;
+}
+
+.timecapsule-btn {
+  flex: 1;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.timecapsule-btn:hover {
+  border-color: var(--accent-primary, #00ff88);
+  color: var(--accent-primary, #00ff88);
+}
+
+.timecapsule-btn.timecapsule-delete-btn:hover {
+  border-color: #ff5252;
+  color: #ff5252;
+}
+
+.timecapsule-btn i {
+  font-size: 0.78rem;
+}
+
+/* Empty */
+.timecapsule-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+
+.timecapsule-empty i {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.timecapsule-empty p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Modals */
+.timecapsule-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: timecapsule-fade-in 0.2s ease;
+}
+
+.timecapsule-modal[hidden] {
+  display: none;
+}
+
+.timecapsule-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.timecapsule-modal-content {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: timecapsule-slide-up 0.3s ease;
+}
+
+.timecapsule-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.timecapsule-modal-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.timecapsule-modal-close {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timecapsule-modal-close:hover {
+  border-color: var(--accent-primary, #00ff88);
+  color: var(--accent-primary, #00ff88);
+}
+
+.timecapsule-form {
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.timecapsule-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.timecapsule-field > span {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.timecapsule-field-row {
+  display: flex;
+  gap: 12px;
+}
+
+.timecapsule-field-row .timecapsule-field {
+  flex: 1;
+}
+
+.timecapsule-field input,
+.timecapsule-field select,
+.timecapsule-field textarea {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.timecapsule-field input:focus,
+.timecapsule-field select:focus,
+.timecapsule-field textarea:focus {
+  border-color: var(--accent-secondary, #a78bfa);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+}
+
+.timecapsule-field textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.timecapsule-charcount {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  align-self: flex-end;
+  font-family: var(--font-mono, monospace);
+}
+
+.timecapsule-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-color);
+  margin-top: 4px;
+}
+
+/* Reader modal */
+.timecapsule-reader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: timecapsule-fade-in 0.2s ease;
+}
+
+.timecapsule-reader[hidden] {
+  display: none;
+}
+
+.timecapsule-reader-content {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 32px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: timecapsule-slide-up 0.3s ease;
+}
+
+.timecapsule-reader-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timecapsule-reader-close:hover {
+  border-color: var(--accent-primary, #00ff88);
+  color: var(--accent-primary, #00ff88);
+}
+
+.timecapsule-reader-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.timecapsule-reader-mood {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+
+.timecapsule-reader-date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono, monospace);
+}
+
+.timecapsule-reader-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 12px;
+  line-height: 1.25;
+  padding-right: 40px;
+}
+
+.timecapsule-reader-unlock {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 18px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.timecapsule-reader-unlock i {
+  color: var(--accent-primary, #00ff88);
+}
+
+.timecapsule-reader-message {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  padding: 20px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.92rem;
+}
+
+.timecapsule-reader-message.sealed {
+  filter: blur(4px);
+  user-select: none;
+  pointer-events: none;
+  position: relative;
+}
+
+.timecapsule-reader-message.sealed::after {
+  content: '🔒';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  filter: blur(0);
+}
+
+.timecapsule-reader-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 16px;
+}
+
+.timecapsule-share-btn,
+.timecapsule-delete-btn {
+  flex: 0 0 auto;
+}
+
+/* Body lock when modal is open */
+body.timecapsule-modal-open {
+  overflow: hidden;
+}
+
+/* Animations */
+@keyframes timecapsule-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes timecapsule-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes timecapsule-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(139, 92, 246, 0); }
+}
+
+.timecapsule-stat:first-child .timecapsule-stat-num {
+  animation: timecapsule-pulse 2s ease-in-out infinite;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .timecapsule-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .timecapsule-stats {
+    justify-content: space-between;
+  }
+  .timecapsule-stat {
+    min-width: 0;
+    flex: 1 1 45%;
+  }
+  .timecapsule-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .timecapsule-filters {
+    justify-content: center;
+  }
+  .timecapsule-new-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .timecapsule-grid {
+    grid-template-columns: 1fr;
+  }
+  .timecapsule-field-row {
+    flex-direction: column;
+  }
+  .timecapsule-reader-content {
+    padding: 24px 20px;
+  }
+  .timecapsule-reader-title {
+    font-size: 1.3rem;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .timecapsule-stat:first-child .timecapsule-stat-num {
+    animation: none;
+  }
+  .timecapsule-modal,
+  .timecapsule-reader {
+    animation: none;
+  }
+}
+/* ============================================================
+   Day 61: Time Capsule Vault
+   ============================================================ */
+.timecapsule-section {
+  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.timecapsule-section::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 60%);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.timecapsule-section::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  right: -100px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.timecapsule-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Toolbar */
+.timecapsule-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+}
+
+.timecapsule-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  flex: 1 1 auto;
+}
+
+.timecapsule-stat {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 10px 14px;
+  min-width: 100px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.timecapsule-stat:hover {
+  border-color: var(--accent-primary, #00ff88);
+  transform: translateY(-1px);
+}
+
+.timecapsule-stat-num {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.timecapsule-stat-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.timecapsule-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.timecapsule-filters {
+  display: inline-flex;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 2px;
+}
+
+.timecapsule-filter {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.timecapsule-filter:hover {
+  color: var(--text-primary);
+}
+
+.timecapsule-filter.active {
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.timecapsule-new-btn {
+  white-space: nowrap;
+}
+
+/* Grid */
+.timecapsule-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.timecapsule-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 280px;
+  cursor: pointer;
+}
+
+.timecapsule-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-secondary, #a78bfa);
+  box-shadow: 0 16px 40px rgba(139, 92, 246, 0.18);
+}
+
+.timecapsule-card.is-sealed {
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(139, 92, 246, 0.06) 100%);
+}
+
+.timecapsule-card.is-sealed::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #8b5cf6 0%, #ec4899 100%);
+}
+
+.timecapsule-card.is-open::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00ff88 0%, #00d4ff 100%);
+}
+
+.timecapsule-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.timecapsule-card-mood {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.timecapsule-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.timecapsule-status.sealed {
+  background: rgba(139, 92, 246, 0.15);
+  color: #c4b5fd;
+}
+
+.timecapsule-status.opened {
+  background: rgba(0, 255, 136, 0.15);
+  color: #00ff88;
+}
+
+.timecapsule-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.timecapsule-card-snippet {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.timecapsule-card.is-sealed .timecapsule-card-snippet {
+  filter: blur(2px);
+  opacity: 0.7;
+  user-select: none;
+  position: relative;
+}
+
+.timecapsule-card.is-sealed .timecapsule-card-snippet::after {
+  content: '🔒';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  filter: blur(0);
+  opacity: 1;
+}
+
+.timecapsule-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+
+.timecapsule-card-date,
+.timecapsule-card-countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono, monospace);
+}
+
+.timecapsule-card-countdown {
+  color: var(--accent-primary, #00ff88);
+  font-weight: 600;
+}
+
+.timecapsule-card.is-sealed .timecapsule-card-countdown {
+  color: #c4b5fd;
+}
+
+.timecapsule-card-actions {
+  display: flex;
+  gap: 6px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 12px;
+  margin-top: auto;
+}
+
+.timecapsule-btn {
+  flex: 1;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.timecapsule-btn:hover {
+  border-color: var(--accent-primary, #00ff88);
+  color: var(--accent-primary, #00ff88);
+}
+
+.timecapsule-btn.timecapsule-delete-btn:hover {
+  border-color: #ff5252;
+  color: #ff5252;
+}
+
+.timecapsule-btn i {
+  font-size: 0.78rem;
+}
+
+/* Empty */
+.timecapsule-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+
+.timecapsule-empty i {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.timecapsule-empty p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Modals */
+.timecapsule-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: timecapsule-fade-in 0.2s ease;
+}
+
+.timecapsule-modal[hidden] {
+  display: none;
+}
+
+.timecapsule-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.timecapsule-modal-content {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: timecapsule-slide-up 0.3s ease;
+}
+
+.timecapsule-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.timecapsule-modal-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.timecapsule-modal-close {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timecapsule-modal-close:hover {
+  border-color: var(--accent-primary, #00ff88);
+  color: var(--accent-primary, #00ff88);
+}
+
+.timecapsule-form {
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.timecapsule-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.timecapsule-field > span {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.timecapsule-field-row {
+  display: flex;
+  gap: 12px;
+}
+
+.timecapsule-field-row .timecapsule-field {
+  flex: 1;
+}
+
+.timecapsule-field input,
+.timecapsule-field select,
+.timecapsule-field textarea {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.timecapsule-field input:focus,
+.timecapsule-field select:focus,
+.timecapsule-field textarea:focus {
+  border-color: var(--accent-secondary, #a78bfa);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+}
+
+.timecapsule-field textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.timecapsule-charcount {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  align-self: flex-end;
+  font-family: var(--font-mono, monospace);
+}
+
+.timecapsule-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-color);
+  margin-top: 4px;
+}
+
+/* Reader modal */
+.timecapsule-reader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: timecapsule-fade-in 0.2s ease;
+}
+
+.timecapsule-reader[hidden] {
+  display: none;
+}
+
+.timecapsule-reader-content {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 32px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: timecapsule-slide-up 0.3s ease;
+}
+
+.timecapsule-reader-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timecapsule-reader-close:hover {
+  border-color: var(--accent-primary, #00ff88);
+  color: var(--accent-primary, #00ff88);
+}
+
+.timecapsule-reader-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.timecapsule-reader-mood {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+
+.timecapsule-reader-date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono, monospace);
+}
+
+.timecapsule-reader-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 12px;
+  line-height: 1.25;
+  padding-right: 40px;
+}
+
+.timecapsule-reader-unlock {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 18px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.timecapsule-reader-unlock i {
+  color: var(--accent-primary, #00ff88);
+}
+
+.timecapsule-reader-message {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  padding: 20px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.92rem;
+}
+
+.timecapsule-reader-message.sealed {
+  filter: blur(4px);
+  user-select: none;
+  pointer-events: none;
+  position: relative;
+}
+
+.timecapsule-reader-message.sealed::after {
+  content: '🔒';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  filter: blur(0);
+}
+
+.timecapsule-reader-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 16px;
+}
+
+.timecapsule-share-btn,
+.timecapsule-delete-btn {
+  flex: 0 0 auto;
+}
+
+/* Body lock when modal is open */
+body.timecapsule-modal-open {
+  overflow: hidden;
+}
+
+/* Animations */
+@keyframes timecapsule-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes timecapsule-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes timecapsule-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(139, 92, 246, 0); }
+}
+
+.timecapsule-stat:first-child .timecapsule-stat-num {
+  animation: timecapsule-pulse 2s ease-in-out infinite;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .timecapsule-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .timecapsule-stats {
+    justify-content: space-between;
+  }
+  .timecapsule-stat {
+    min-width: 0;
+    flex: 1 1 45%;
+  }
+  .timecapsule-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .timecapsule-filters {
+    justify-content: center;
+  }
+  .timecapsule-new-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .timecapsule-grid {
+    grid-template-columns: 1fr;
+  }
+  .timecapsule-field-row {
+    flex-direction: column;
+  }
+  .timecapsule-reader-content {
+    padding: 24px 20px;
+  }
+  .timecapsule-reader-title {
+    font-size: 1.3rem;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .timecapsule-stat:first-child .timecapsule-stat-num {
+    animation: none;
+  }
+  .timecapsule-modal,
+  .timecapsule-reader {
+    animation: none;
+  }
+}
+/* ============================================================
+   Day 61: Time Capsule Vault
+   ============================================================ */
+.timecapsule-section {
+  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.timecapsule-section::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 60%);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.timecapsule-section::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  right: -100px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.timecapsule-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Toolbar */
+.timecapsule-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+}
+
+.timecapsule-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  flex: 1 1 auto;
+}
+
+.timecapsule-stat {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 10px 14px;
+  min-width: 100px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.timecapsule-stat:hover {
+  border-color: var(--accent-primary, #00ff88);
+  transform: translateY(-1px);
+}
+
+.timecapsule-stat-num {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.timecapsule-stat-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.timecapsule-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.timecapsule-filters {
+  display: inline-flex;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 2px;
+}
+
+.timecapsule-filter {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.timecapsule-filter:hover {
+  color: var(--text-primary);
+}
+
+.timecapsule-filter.active {
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.timecapsule-new-btn {
+  white-space: nowrap;
+}
+
+/* Grid */
+.timecapsule-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.timecapsule-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 280px;
+  cursor: pointer;
+}
+
+.timecapsule-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-secondary, #a78bfa);
+  box-shadow: 0 16px 40px rgba(139, 92, 246, 0.18);
+}
+
+.timecapsule-card.is-sealed {
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(139, 92, 246, 0.06) 100%);
+}
+
+.timecapsule-card.is-sealed::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #8b5cf6 0%, #ec4899 100%);
+}
+
+.timecapsule-card.is-open::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00ff88 0%, #00d4ff 100%);
+}
+
+.timecapsule-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.timecapsule-card-mood {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.timecapsule-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.timecapsule-status.sealed {
+  background: rgba(139, 92, 246, 0.15);
+  color: #c4b5fd;
+}
+
+.timecapsule-status.opened {
+  background: rgba(0, 255, 136, 0.15);
+  color: #00ff88;
+}
+
+.timecapsule-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.timecapsule-card-snippet {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.timecapsule-card.is-sealed .timecapsule-card-snippet {
+  filter: blur(2px);
+  opacity: 0.7;
+  user-select: none;
+  position: relative;
+}
+
+.timecapsule-card.is-sealed .timecapsule-card-snippet::after {
+  content: '🔒';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  filter: blur(0);
+  opacity: 1;
+}
+
+.timecapsule-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+
+.timecapsule-card-date,
+.timecapsule-card-countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono, monospace);
+}
+
+.timecapsule-card-countdown {
+  color: var(--accent-primary, #00ff88);
+  font-weight: 600;
+}
+
+.timecapsule-card.is-sealed .timecapsule-card-countdown {
+  color: #c4b5fd;
+}
+
+.timecapsule-card-actions {
+  display: flex;
+  gap: 6px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 12px;
+  margin-top: auto;
+}
+
+.timecapsule-btn {
+  flex: 1;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.timecapsule-btn:hover {
+  border-color: var(--accent-primary, #00ff88);
+  color: var(--accent-primary, #00ff88);
+}
+
+.timecapsule-btn.timecapsule-delete-btn:hover {
+  border-color: #ff5252;
+  color: #ff5252;
+}
+
+.timecapsule-btn i {
+  font-size: 0.78rem;
+}
+
+/* Empty */
+.timecapsule-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+
+.timecapsule-empty i {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.timecapsule-empty p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Modals */
+.timecapsule-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: timecapsule-fade-in 0.2s ease;
+}
+
+.timecapsule-modal[hidden] {
+  display: none;
+}
+
+.timecapsule-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.timecapsule-modal-content {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: timecapsule-slide-up 0.3s ease;
+}
+
+.timecapsule-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.timecapsule-modal-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.timecapsule-modal-close {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timecapsule-modal-close:hover {
+  border-color: var(--accent-primary, #00ff88);
+  color: var(--accent-primary, #00ff88);
+}
+
+.timecapsule-form {
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.timecapsule-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.timecapsule-field > span {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.timecapsule-field-row {
+  display: flex;
+  gap: 12px;
+}
+
+.timecapsule-field-row .timecapsule-field {
+  flex: 1;
+}
+
+.timecapsule-field input,
+.timecapsule-field select,
+.timecapsule-field textarea {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.timecapsule-field input:focus,
+.timecapsule-field select:focus,
+.timecapsule-field textarea:focus {
+  border-color: var(--accent-secondary, #a78bfa);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+}
+
+.timecapsule-field textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.timecapsule-charcount {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  align-self: flex-end;
+  font-family: var(--font-mono, monospace);
+}
+
+.timecapsule-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-color);
+  margin-top: 4px;
+}
+
+/* Reader modal */
+.timecapsule-reader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: timecapsule-fade-in 0.2s ease;
+}
+
+.timecapsule-reader[hidden] {
+  display: none;
+}
+
+.timecapsule-reader-content {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 32px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: timecapsule-slide-up 0.3s ease;
+}
+
+.timecapsule-reader-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timecapsule-reader-close:hover {
+  border-color: var(--accent-primary, #00ff88);
+  color: var(--accent-primary, #00ff88);
+}
+
+.timecapsule-reader-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.timecapsule-reader-mood {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+
+.timecapsule-reader-date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono, monospace);
+}
+
+.timecapsule-reader-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 12px;
+  line-height: 1.25;
+  padding-right: 40px;
+}
+
+.timecapsule-reader-unlock {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 18px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.timecapsule-reader-unlock i {
+  color: var(--accent-primary, #00ff88);
+}
+
+.timecapsule-reader-message {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  padding: 20px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.92rem;
+}
+
+.timecapsule-reader-message.sealed {
+  filter: blur(4px);
+  user-select: none;
+  pointer-events: none;
+  position: relative;
+}
+
+.timecapsule-reader-message.sealed::after {
+  content: '🔒';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  filter: blur(0);
+}
+
+.timecapsule-reader-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 16px;
+}
+
+.timecapsule-share-btn,
+.timecapsule-delete-btn {
+  flex: 0 0 auto;
+}
+
+/* Body lock when modal is open */
+body.timecapsule-modal-open {
+  overflow: hidden;
+}
+
+/* Animations */
+@keyframes timecapsule-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes timecapsule-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes timecapsule-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(139, 92, 246, 0); }
+}
+
+.timecapsule-stat:first-child .timecapsule-stat-num {
+  animation: timecapsule-pulse 2s ease-in-out infinite;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .timecapsule-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .timecapsule-stats {
+    justify-content: space-between;
+  }
+  .timecapsule-stat {
+    min-width: 0;
+    flex: 1 1 45%;
+  }
+  .timecapsule-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .timecapsule-filters {
+    justify-content: center;
+  }
+  .timecapsule-new-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .timecapsule-grid {
+    grid-template-columns: 1fr;
+  }
+  .timecapsule-field-row {
+    flex-direction: column;
+  }
+  .timecapsule-reader-content {
+    padding: 24px 20px;
+  }
+  .timecapsule-reader-title {
+    font-size: 1.3rem;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .timecapsule-stat:first-child .timecapsule-stat-num {
+    animation: none;
+  }
+  .timecapsule-modal,
+  .timecapsule-reader {
+    animation: none;
+  }
 }
