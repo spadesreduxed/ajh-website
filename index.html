@@ -110,6 +110,7 @@
             <li><a href="#snippets">Snippets</a></li>
             <li><a href="#bookmarks">Bookmarks</a></li>
             <li><a href="#constellation">Constellation</a></li>
+            <li><a href="#themestudio">Themes</a></li>
             <li><a href="#assistant">Assistant</a></li>
             <li><a href="#quotes">Quotes</a></li>
             <li><a href="#stats">Stats</a></li>
@@ -188,6 +189,9 @@
                 <button class="plan-btn" id="calendar-btn" aria-label="Build calendar" title="View 57-day build calendar">
                     <i class="fas fa-calendar-days"></i>
                 </button>
+                <button class="plan-btn" id="themestudio-hero-btn" aria-label="Theme studio" title="Customize the site theme (T)">
+                    <i class="fas fa-palette"></i>
+                </button>
                 <button class="plan-btn" id="timecapsule-hero-btn" aria-label="New time capsule" title="Write to future you">
                     <i class="fas fa-hourglass-half"></i>
                 </button>
@@ -201,7 +205,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="60">0</span>
+                    <span class="stat-value" data-count="62">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -212,7 +216,7 @@
             <div class="daily-streak">
                 <span class="streak-icon">🔥</span>
                 <div class="streak-info">
-                    <span class="streak-count">61 days</span>
+                    <span class="streak-count">62 days</span>
                     <span class="streak-label">Daily Streak</span>
                 </div>
             </div>
@@ -232,11 +236,11 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 60</span>
+                    <span class="insight-value">Day 62</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
-                    <span class="insight-value">60</span>
+                    <span class="insight-value">62</span>
                     <span class="insight-label">streak</span>
                 </div>
             </div>
@@ -718,7 +722,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="61">0</div>
+                    <div class="stat-number" data-count="62">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -1211,7 +1215,7 @@
                     <div class="productivity-widget streak-widget">
                         <div class="streak-visual" id="streak-visual">
                             <span class="streak-flame">🔥</span>
-                            <span class="streak-number" id="streak-number">61</span>
+                            <span class="streak-number" id="streak-number">62</span>
                             <span class="streak-label">days</span>
                         </div>
                     </div>
@@ -1308,6 +1312,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">22</span>
+                        <span class="blog-month">June 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 62</span>
+                        <h3>Theme Studio — Reskin the Site Live</h3>
+                        <p>Day 62 shipped a Theme Studio: live CSS-variable customizer with color pickers for background, surface, primary / secondary / tertiary accents, font family, border radius, density, animation speed, and a motion toggle. Six named presets ship with the studio (Default Midnight, Aurora, Sunset, Mono, Synthwave, Forest), plus save-your-own themes that persist to localStorage, share-as-URL hash, and a randomize button. Press <kbd>T</kbd> to jump to the studio.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">21</span>
@@ -2886,6 +2901,231 @@
             </div>
         </div>
     </div>
+
+    <!-- Day 62 - Theme Studio -->
+    <section id="themestudio" class="section themestudio-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-palette"></i> Day 62</span>
+                <h2 class="section-title">Theme Studio</h2>
+                <p class="section-subtitle">Reskin the entire site live. Every change is a CSS-variable edit — instant, reversible, and exportable.</p>
+            </div>
+
+            <div class="themestudio-stage">
+                <div class="themestudio-preview">
+                    <div class="themestudio-preview-frame" id="ts-preview-frame">
+                        <div class="ts-preview-bar">
+                            <span class="ts-dot ts-dot-r"></span>
+                            <span class="ts-dot ts-dot-y"></span>
+                            <span class="ts-dot ts-dot-g"></span>
+                            <span class="ts-preview-url">ajhs.zo.space</span>
+                        </div>
+                        <div class="ts-preview-body" id="themestudio-mockup">
+                            <div class="ts-preview-hero">
+                                <div class="ts-preview-tag">Hero</div>
+                                <div class="ts-preview-title">Theme Studio</div>
+                                <div class="ts-preview-sub">Reskin the entire site live.</div>
+                                <div class="ts-preview-row">
+                                    <div class="ts-preview-btn ts-preview-btn-primary">View Projects</div>
+                                    <div class="ts-preview-btn ts-preview-btn-outline">Contact</div>
+                                </div>
+                            </div>
+                            <div class="ts-preview-cards">
+                                <div class="ts-preview-card">
+                                    <div class="ts-preview-card-line"></div>
+                                    <div class="ts-preview-card-line ts-short"></div>
+                                </div>
+                                <div class="ts-preview-card">
+                                    <div class="ts-preview-card-line"></div>
+                                    <div class="ts-preview-card-line ts-short"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="themestudio-preview-meta">
+                        <span class="ts-preview-name" id="ts-preview-name">Default Midnight</span>
+                        <span class="ts-preview-rainbow" id="ts-preview-rainbow">
+                            <span class="ts-swatch" data-color="--bg-primary"></span>
+                            <span class="ts-swatch" data-color="--bg-card"></span>
+                            <span class="ts-swatch" data-color="--accent-primary"></span>
+                            <span class="ts-swatch" data-color="--accent-secondary"></span>
+                            <span class="ts-swatch" data-color="--accent-tertiary"></span>
+                            <span class="ts-swatch" data-color="--text-primary"></span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="themestudio-controls" id="themestudio-controls" data-custom="1">
+                    <div class="ts-group">
+                        <div class="ts-group-header">
+                            <i class="fas fa-droplet"></i>
+                            <h3>Colors</h3>
+                            <button class="ts-reset-mini" data-reset-group="colors" title="Reset to current preset">Reset</button>
+                        </div>
+                        <div class="ts-color-grid">
+                            <label class="ts-color-row">
+                                <span class="ts-color-label">Background</span>
+                                <input type="color" id="ts-color-bg-primary" data-var="--bg-primary">
+                            </label>
+                            <label class="ts-color-row">
+                                <span class="ts-color-label">Surface</span>
+                                <input type="color" id="ts-color-bg-card" data-var="--bg-card">
+                            </label>
+                            <label class="ts-color-row">
+                                <span class="ts-color-label">Accent · primary</span>
+                                <input type="color" id="ts-color-accent-primary" data-var="--accent-primary">
+                            </label>
+                            <label class="ts-color-row">
+                                <span class="ts-color-label">Accent · secondary</span>
+                                <input type="color" id="ts-color-accent-secondary" data-var="--accent-secondary">
+                            </label>
+                            <label class="ts-color-row">
+                                <span class="ts-color-label">Accent · tertiary</span>
+                                <input type="color" id="ts-color-accent-tertiary" data-var="--accent-tertiary">
+                            </label>
+                            <label class="ts-color-row">
+                                <span class="ts-color-label">Text</span>
+                                <input type="color" id="ts-color-text-primary" data-var="--text-primary">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="ts-group">
+                        <div class="ts-group-header">
+                            <i class="fas fa-font"></i>
+                            <h3>Typography</h3>
+                            <button class="ts-reset-mini" data-reset-group="typography">Reset</button>
+                        </div>
+                        <label class="ts-row">
+                            <span>Font family</span>
+                            <select id="ts-font" data-var="--font-main" class="ts-select">
+                                <option value="Inter, system-ui, -apple-system, sans-serif">Inter (default)</option>
+                                <option value="Georgia, 'Times New Roman', serif">Georgia (serif)</option>
+                                <option value="'JetBrains Mono', 'Courier New', monospace">JetBrains (mono)</option>
+                                <option value="'Comic Sans MS', cursive">Comic Sans (wild)</option>
+                                <option value="'Courier New', monospace">Courier (mono)</option>
+                                <option value="Verdana, sans-serif">Verdana</option>
+                            </select>
+                        </label>
+                        <label class="ts-row">
+                            <span>Base size</span>
+                            <input type="range" id="ts-text-size" min="14" max="20" step="0.5" value="16">
+                            <span class="ts-row-value" id="ts-text-size-val">16px</span>
+                        </label>
+                    </div>
+
+                    <div class="ts-group">
+                        <div class="ts-group-header">
+                            <i class="fas fa-shapes"></i>
+                            <h3>Shape</h3>
+                            <button class="ts-reset-mini" data-reset-group="shape">Reset</button>
+                        </div>
+                        <label class="ts-row">
+                            <span>Border radius</span>
+                            <input type="range" id="ts-radius" min="0" max="24" step="1" value="10">
+                            <span class="ts-row-value" id="ts-radius-val">10px</span>
+                        </label>
+                        <label class="ts-row">
+                            <span>Density</span>
+                            <div class="ts-chip-row" id="ts-density">
+                                <button class="ts-chip" data-density="compact">Compact</button>
+                                <button class="ts-chip active" data-density="comfortable">Cozy</button>
+                                <button class="ts-chip" data-density="spacious">Spacious</button>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="ts-group">
+                        <div class="ts-group-header">
+                            <i class="fas fa-bolt"></i>
+                            <h3>Motion</h3>
+                            <button class="ts-reset-mini" data-reset-group="motion">Reset</button>
+                        </div>
+                        <label class="ts-row">
+                            <span>Animation speed</span>
+                            <input type="range" id="ts-motion" min="0.25" max="2.5" step="0.05" value="1">
+                            <span class="ts-row-value" id="ts-motion-val">1.0×</span>
+                        </label>
+                        <label class="ts-row">
+                            <span>Reduce motion</span>
+                            <label class="ts-switch">
+                                <input type="checkbox" id="ts-reduce-motion">
+                                <span class="ts-switch-slider"></span>
+                            </label>
+                        </label>
+                    </div>
+
+                    <div class="ts-group">
+                        <div class="ts-group-header">
+                            <i class="fas fa-wand-magic-sparkles"></i>
+                            <h3>Effects</h3>
+                            <button class="ts-reset-mini" data-reset-group="effects">Reset</button>
+                        </div>
+                        <label class="ts-row">
+                            <span>Glass blur</span>
+                            <input type="range" id="ts-blur" min="0" max="40" step="1" value="20">
+                            <span class="ts-row-value" id="ts-blur-val">20px</span>
+                        </label>
+                        <label class="ts-row">
+                            <span>Noise grain</span>
+                            <input type="range" id="ts-noise" min="0" max="100" step="1" value="0">
+                            <span class="ts-row-value" id="ts-noise-val">0%</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="themestudio-presets" id="themestudio-presets">
+                <div class="ts-presets-header">
+                    <h3><i class="fas fa-palette"></i> Presets</h3>
+                    <span class="ts-presets-hint">Click to apply — current values are saved as your active preset.</span>
+                </div>
+                <div class="ts-preset-grid" id="ts-preset-grid"></div>
+            </div>
+
+            <div class="themestudio-actions">
+                <button class="btn btn-primary ts-action-btn" id="themestudio-save"><i class="fas fa-bookmark"></i> Save Theme</button>
+                <button class="btn ts-action-btn" id="themestudio-randomize"><i class="fas fa-shuffle"></i> Randomize</button>
+                <button class="btn ts-action-btn" id="themestudio-export"><i class="fas fa-file-export"></i> Export CSS</button>
+                <button class="btn ts-action-btn" id="themestudio-share"><i class="fas fa-share-nodes"></i> Share Link</button>
+                <button class="btn ts-action-btn" id="themestudio-reset"><i class="fas fa-rotate-left"></i> Reset All</button>
+            </div>
+
+            <div class="themestudio-saved" id="themestudio-saved">
+                <div class="ts-saved-header">
+                    <h3><i class="fas fa-bookmark"></i> Saved Themes</h3>
+                    <span class="ts-saved-count" id="ts-saved-count">0 themes</span>
+                </div>
+                <div class="themestudio-saved-list" id="themestudio-saved-list"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Theme Studio Share Modal (Day 62) -->
+    <div class="ts-modal" id="ts-share-modal" hidden>
+        <div class="ts-modal-backdrop" data-share-close></div>
+        <div class="ts-modal-content" role="dialog" aria-labelledby="ts-share-title">
+            <div class="ts-modal-header">
+                <h3 id="ts-share-title"><i class="fas fa-share-nodes"></i> Share this theme</h3>
+                <button class="ts-modal-close" data-share-close aria-label="Close"><i class="fas fa-times"></i></button>
+            </div>
+            <p class="ts-modal-desc">Anyone with this URL will open the site pre-themed with your values. They can then tweak from there.</p>
+            <div class="ts-share-url">
+                <input type="text" id="ts-share-url" readonly>
+                <button class="btn btn-primary" id="ts-share-copy"><i class="fas fa-copy"></i> Copy</button>
+            </div>
+            <div class="ts-share-preview">
+                <span class="ts-share-preview-label">Preview</span>
+                <div class="ts-share-preview-swatches" id="ts-share-preview-swatches"></div>
+            </div>
+            <div class="ts-modal-footer">
+                <span class="ts-share-status" id="ts-share-status">Copied to clipboard</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Studio Toast (Day 62) -->
+    <div class="ts-toast" id="ts-toast" hidden></div>
 
 </body>
 </html>

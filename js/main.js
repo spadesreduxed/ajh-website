@@ -4316,7 +4316,8 @@ function initConstellation() {
 document.addEventListener('DOMContentLoaded', () => {
   initConstellation();
   initTimeCapsule();
-  console.log('⚡ AJH Website loaded - Day 61: Time Capsule Vault');
+  initThemeStudio();
+  console.log('⚡ AJH Website loaded - Day 62: Theme Studio');
 });
 /* ============================================================
    Day 61: Time Capsule Vault
@@ -4715,4 +4716,475 @@ function initTimeCapsule() {
 
   render();
   setInterval(render, 60 * 1000);
+}
+
+/* ============================================================
+   Day 62: Theme Studio
+   Live CSS-variable customizer: color pickers, font, radius,
+   density, animation speed, motion toggle. 6 named presets.
+   Save-your-own themes persisted to localStorage. Share via
+   URL hash. Randomize button. Live page-mockup preview.
+   ============================================================ */
+const TS_KEY = 'ajh_themestudio_v1';
+const TS_SAVED_KEY = 'ajh_themestudio_saved_v1';
+const TS_ROOT = document.documentElement;
+
+const TS_PRESETS = [
+  { id: 'midnight', name: 'Default Midnight', icon: '🌌', desc: 'The signature cyan-on-deep-space look.',
+    vars: { '--bg-primary': '#0a0a0f', '--bg-secondary': '#12121a', '--bg-card': '#1a1a25', '--bg-card-hover': '#22222f', '--accent-primary': '#00d4ff', '--accent-secondary': '#7b2cbf', '--accent-tertiary': '#ff006e', '--text-primary': '#ffffff', '--text-secondary': '#a0a0b0', '--text-muted': '#606070', '--border-color': '#2a2a3a', '--radius': '14px', '--font-main': "'Inter', system-ui, sans-serif", '--density': '1', '--motion-speed': '1' } },
+  { id: 'aurora', name: 'Aurora', icon: '🌈', desc: 'Cool greens and violets. Northern-lights energy.',
+    vars: { '--bg-primary': '#060a14', '--bg-secondary': '#0c1428', '--bg-card': '#142039', '--bg-card-hover': '#1c2b4a', '--accent-primary': '#5cf2c4', '--accent-secondary': '#9b6cff', '--accent-tertiary': '#ffb86b', '--text-primary': '#eef6ff', '--text-secondary': '#9fb0c8', '--text-muted': '#5e6e87', '--border-color': '#1e2c47', '--radius': '18px', '--font-main': "'Inter', system-ui, sans-serif", '--density': '1', '--motion-speed': '1' } },
+  { id: 'sunset', name: 'Sunset', icon: '🌅', desc: 'Warm oranges and pinks. Late-evening glow.',
+    vars: { '--bg-primary': '#150a14', '--bg-secondary': '#220e1f', '--bg-card': '#2f132d', '--bg-card-hover': '#3d1a3a', '--accent-primary': '#ff8a3d', '--accent-secondary': '#ff3d8a', '--accent-tertiary': '#ffd23d', '--text-primary': '#fff7ed', '--text-secondary': '#d6b8b8', '--text-muted': '#7c5b62', '--border-color': '#3b1e3a', '--radius': '12px', '--font-main': "'Inter', system-ui, sans-serif", '--density': '1', '--motion-speed': '1' } },
+  { id: 'mono', name: 'Mono', icon: '◼', desc: 'Pure black and white. Hacker-mode.',
+    vars: { '--bg-primary': '#000000', '--bg-secondary': '#0a0a0a', '--bg-card': '#111111', '--bg-card-hover': '#1a1a1a', '--accent-primary': '#ffffff', '--accent-secondary': '#cccccc', '--accent-tertiary': '#888888', '--text-primary': '#ffffff', '--text-secondary': '#aaaaaa', '--text-muted': '#555555', '--border-color': '#222222', '--radius': '6px', '--font-main': "'JetBrains Mono', 'Courier New', monospace", '--density': '1', '--motion-speed': '0.5' } },
+  { id: 'synthwave', name: 'Synthwave', icon: '🎛', desc: 'Magenta-and-cyan. Drive-into-the-sun.',
+    vars: { '--bg-primary': '#1a0a2e', '--bg-secondary': '#241038', '--bg-card': '#311a4f', '--bg-card-hover': '#3f2366', '--accent-primary': '#00f0ff', '--accent-secondary': '#ff2bd6', '--accent-tertiary': '#ffae00', '--text-primary': '#fce8ff', '--text-secondary': '#c8a8e0', '--text-muted': '#765a90', '--border-color': '#4a2a72', '--radius': '20px', '--font-main': "'Inter', system-ui, sans-serif", '--density': '1', '--motion-speed': '1.25' } },
+  { id: 'forest', name: 'Forest', icon: '🌲', desc: 'Mossy greens, parchment, quiet.',
+    vars: { '--bg-primary': '#0d1410', '--bg-secondary': '#141e17', '--bg-card': '#1d2a20', '--bg-card-hover': '#283a2c', '--accent-primary': '#86e07a', '--accent-secondary': '#e0c47a', '--accent-tertiary': '#d97a5e', '--text-primary': '#f3efe0', '--text-secondary': '#b8b29a', '--text-muted': '#6c6852', '--border-color': '#263429', '--radius': '10px', '--font-main': "'Inter', system-ui, sans-serif", '--density': '1', '--motion-speed': '0.85' } }
+];
+
+const TS_FONTS = [
+  { id: 'inter', label: 'Inter (default)', value: "'Inter', system-ui, sans-serif" },
+  { id: 'system', label: 'System UI', value: "system-ui, -apple-system, sans-serif" },
+  { id: 'mono', label: 'JetBrains Mono', value: "'JetBrains Mono', 'Courier New', monospace" },
+  { id: 'serif', label: 'Newsreader', value: "'Georgia', 'Times New Roman', serif" }
+];
+
+const TS_VAR_LIST = [
+  { key: '--bg-primary', label: 'Background', group: 'Colors' },
+  { key: '--bg-secondary', label: 'Background Alt', group: 'Colors' },
+  { key: '--bg-card', label: 'Surface', group: 'Colors' },
+  { key: '--bg-card-hover', label: 'Surface Hover', group: 'Colors' },
+  { key: '--accent-primary', label: 'Accent Primary', group: 'Colors' },
+  { key: '--accent-secondary', label: 'Accent Secondary', group: 'Colors' },
+  { key: '--accent-tertiary', label: 'Accent Tertiary', group: 'Colors' },
+  { key: '--text-primary', label: 'Text Primary', group: 'Colors' },
+  { key: '--text-secondary', label: 'Text Secondary', group: 'Colors' },
+  { key: '--text-muted', label: 'Text Muted', group: 'Colors' },
+  { key: '--border-color', label: 'Border', group: 'Colors' },
+  { key: '--radius', label: 'Border Radius', group: 'Shape' },
+  { key: '--font-main', label: 'Font Family', group: 'Type' },
+  { key: '--density', label: 'Density', group: 'Layout' },
+  { key: '--motion-speed', label: 'Motion Speed', group: 'Motion' }
+];
+
+function tsReadVar(name) {
+  return getComputedStyle(TS_ROOT).getPropertyValue(name).trim();
+}
+
+function tsReadCurrent() {
+  const out = {};
+  TS_VAR_LIST.forEach(({ key }) => { out[key] = tsReadVar(key); });
+  return out;
+}
+
+function tsApplyVars(vars) {
+  Object.entries(vars).forEach(([k, v]) => TS_ROOT.style.setProperty(k, v));
+  document.body.style.setProperty('--radius', vars['--radius'] || '');
+}
+
+function tsSaveCurrent() {
+  const data = tsReadCurrent();
+  try { localStorage.setItem(TS_KEY, JSON.stringify(data)); } catch (e) {}
+}
+
+function tsLoadPersisted() {
+  try {
+    const raw = localStorage.getItem(TS_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed === 'object') return parsed;
+  } catch (e) {}
+  return null;
+}
+
+function tsGetSaved() {
+  try {
+    const raw = localStorage.getItem(TS_SAVED_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (e) { return []; }
+}
+
+function tsSetSaved(list) {
+  try { localStorage.setItem(TS_SAVED_KEY, JSON.stringify(list)); } catch (e) {}
+}
+
+function tsEncodeHash(vars) {
+  const compact = {};
+  TS_VAR_LIST.forEach(({ key }) => { if (vars[key] !== undefined) compact[key] = vars[key]; });
+  try { return btoa(unescape(encodeURIComponent(JSON.stringify(compact)))).replace(/=+$/, ''); }
+  catch (e) { return ''; }
+}
+
+function tsDecodeHash(hash) {
+  try {
+    const padded = hash + '==='.slice((hash.length + 3) % 4);
+    const json = decodeURIComponent(escape(atob(padded)));
+    const parsed = JSON.parse(json);
+    if (parsed && typeof parsed === 'object') return parsed;
+  } catch (e) {}
+  return null;
+}
+
+function tsColorIsLight(hex) {
+  if (!hex) return false;
+  let h = hex.replace('#', '');
+  if (h.length === 3) h = h.split('').map(c => c + c).join('');
+  const r = parseInt(h.substring(0, 2), 16), g = parseInt(h.substring(2, 4), 16), b = parseInt(h.substring(4, 6), 16);
+  if (Number.isNaN(r) || Number.isNaN(g) || Number.isNaN(b)) return false;
+  return ((r * 299) + (g * 587) + (b * 114)) / 1000 > 160;
+}
+
+function tsApplyFromVars(vars, opts) {
+  if (!vars) return;
+  tsApplyVars(vars);
+  if (!opts || !opts.skipPersist) tsSaveCurrent();
+  if (!opts || !opts.skipControls) tsSyncControlsFromVars();
+  if (!opts || !opts.skipMockup) tsRenderMockup(vars);
+  if (!opts || !opts.skipHash) tsWriteHash(vars);
+}
+
+function tsWriteHash(vars) {
+  const hash = tsEncodeHash(vars);
+  if (!hash) return;
+  if (window.history && window.history.replaceState) {
+    try { window.history.replaceState(null, '', '#theme=' + hash); } catch (e) {}
+  }
+}
+
+function tsInitPresets() {
+  const wrap = document.getElementById('themestudio-presets');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  TS_PRESETS.forEach(p => {
+    const btn = document.createElement('button');
+    btn.className = 'ts-preset';
+    btn.type = 'button';
+    btn.dataset.preset = p.id;
+    btn.innerHTML = `<span class="ts-preset-icon">${p.icon}</span><span class="ts-preset-name">${p.name}</span>`;
+    btn.title = p.desc;
+    btn.addEventListener('click', () => tsApplyFromVars(p.vars));
+    wrap.appendChild(btn);
+  });
+}
+
+function tsBuildControls() {
+  const wrap = document.getElementById('themestudio-controls');
+  if (!wrap) return;
+  if (wrap.dataset.custom === '1') {
+    // HTML controls are already in place; just wire up listeners.
+    wrap.querySelectorAll('[data-var]').forEach(input => {
+      input.addEventListener('input', () => {
+        TS_ROOT.style.setProperty(input.dataset.var, input.value);
+        const displayId = input.dataset.display;
+        if (displayId) {
+          const d = document.getElementById(displayId);
+          const unit = input.dataset.unit || '';
+          if (d) d.textContent = unit ? `${input.value}${unit}` : input.value;
+        }
+        tsAfterLiveChange();
+      });
+    });
+    return;
+  }
+  const groups = {};
+  TS_VAR_LIST.forEach(v => { (groups[v.group] = groups[v.group] || []).push(v); });
+
+  const groupsOrder = ['Colors', 'Shape', 'Type', 'Layout', 'Motion'];
+  let html = '';
+  groupsOrder.forEach(g => {
+    if (!groups[g]) return;
+    html += `<div class="ts-group"><div class="ts-group-label">${g}</div><div class="ts-group-rows">`;
+    groups[g].forEach(({ key, label }) => {
+      if (key === '--font-main') {
+        html += `<label class="ts-row ts-row-select"><span class="ts-row-label">${label}</span><select data-var="${key}" class="ts-select">${TS_FONTS.map(f => `<option value="${f.value}">${f.label}</option>`).join('')}</select></label>`;
+      } else if (key === '--radius') {
+        html += `<label class="ts-row"><span class="ts-row-label">${label}</span><input type="range" min="0" max="32" step="1" data-var="${key}" data-display="ts-radius-display" data-unit="px" class="ts-range"></label><span class="ts-display" id="ts-radius-display">—</span>`;
+      } else if (key === '--density') {
+        html += `<label class="ts-row"><span class="ts-row-label">${label}</span><input type="range" min="0.7" max="1.4" step="0.05" data-var="${key}" data-display="ts-density-display" class="ts-range"></label><span class="ts-display" id="ts-density-display">—</span>`;
+      } else if (key === '--motion-speed') {
+        html += `<label class="ts-row"><span class="ts-row-label">${label}</span><input type="range" min="0" max="2" step="0.05" data-var="${key}" data-display="ts-motion-display" class="ts-range"></label><span class="ts-display" id="ts-motion-display">—</span>`;
+      } else {
+        html += `<label class="ts-row ts-row-color"><span class="ts-row-label">${label}</span><input type="color" data-var="${key}" class="ts-color"></label>`;
+      }
+    });
+    html += '</div></div>';
+  });
+  wrap.innerHTML = html;
+
+  wrap.querySelectorAll('[data-var]').forEach(input => {
+    input.addEventListener('input', e => {
+      const key = input.dataset.var;
+      const displayId = input.dataset.display;
+      const unit = input.dataset.unit || '';
+      const val = input.value;
+      TS_ROOT.style.setProperty(key, val);
+      if (displayId) {
+        const d = document.getElementById(displayId);
+        if (d) d.textContent = unit ? `${val}${unit}` : val;
+      }
+      tsAfterLiveChange();
+    });
+  });
+}
+
+function tsSyncControlsFromVars() {
+  const wrap = document.getElementById('themestudio-controls');
+  if (!wrap) return;
+  wrap.querySelectorAll('[data-var]').forEach(input => {
+    const key = input.dataset.var;
+    const cur = tsReadVar(key);
+    if (input.tagName === 'INPUT' && input.type === 'color') {
+      if (/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(cur)) input.value = cur;
+    } else if (input.tagName === 'INPUT' && input.type === 'range') {
+      const num = parseFloat(cur);
+      if (!Number.isNaN(num)) input.value = String(num);
+    } else if (input.tagName === 'SELECT') {
+      const opts = Array.from(input.options).map(o => o.value);
+      if (opts.includes(cur)) input.value = cur;
+      else {
+        const lower = cur.toLowerCase();
+        const match = opts.find(o => o.toLowerCase() === lower);
+        if (match) input.value = match;
+      }
+    }
+    const displayId = input.dataset.display;
+    if (displayId) {
+      const d = document.getElementById(displayId);
+      const unit = input.dataset.unit || '';
+      if (d) d.textContent = unit ? `${input.value}${unit}` : input.value;
+    }
+  });
+}
+
+function tsRenderMockup(vars) {
+  const stage = document.getElementById('themestudio-mockup');
+  if (!stage) return;
+  const v = vars || tsReadCurrent();
+  stage.style.setProperty('--bg', v['--bg-primary']);
+  stage.style.setProperty('--surface', v['--bg-card']);
+  stage.style.setProperty('--surface-hover', v['--bg-card-hover']);
+  stage.style.setProperty('--accent', v['--accent-primary']);
+  stage.style.setProperty('--accent2', v['--accent-secondary']);
+  stage.style.setProperty('--accent3', v['--accent-tertiary']);
+  stage.style.setProperty('--text', v['--text-primary']);
+  stage.style.setProperty('--muted', v['--text-secondary']);
+  stage.style.setProperty('--border', v['--border-color']);
+  stage.style.setProperty('--r', v['--radius'] || '14px');
+  stage.style.fontFamily = v['--font-main'] || "'Inter', sans-serif";
+
+  const radius = v['--radius'] || '14px';
+  const radiusNum = parseInt(radius, 10) || 14;
+  stage.querySelectorAll('[data-radius]').forEach(el => {
+    const kind = el.getAttribute('data-radius');
+    const base = kind === 'pill' ? 999 : kind === 'card' ? radiusNum : kind === 'tile' ? Math.max(4, Math.round(radiusNum * 0.6)) : radiusNum;
+    el.style.borderRadius = (kind === 'pill' ? '999px' : `${base}px`);
+  });
+}
+
+function tsAfterLiveChange() {
+  const cur = tsReadCurrent();
+  tsSaveCurrent();
+  tsRenderMockup(cur);
+  tsWriteHash(cur);
+}
+
+function tsRandomize() {
+  const randomHex = () => '#' + Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, '0');
+  const sample = arr => arr[Math.floor(Math.random() * arr.length)];
+  const fonts = TS_FONTS.map(f => f.value);
+  const next = {
+    '--bg-primary': randomHex(),
+    '--bg-secondary': randomHex(),
+    '--bg-card': randomHex(),
+    '--bg-card-hover': randomHex(),
+    '--accent-primary': randomHex(),
+    '--accent-secondary': randomHex(),
+    '--accent-tertiary': randomHex(),
+    '--text-primary': randomHex(),
+    '--text-secondary': randomHex(),
+    '--text-muted': randomHex(),
+    '--border-color': randomHex(),
+    '--radius': `${4 + Math.floor(Math.random() * 24)}px`,
+    '--font-main': sample(fonts),
+    '--density': (0.85 + Math.random() * 0.45).toFixed(2),
+    '--motion-speed': (0.6 + Math.random() * 0.9).toFixed(2)
+  };
+  tsApplyFromVars(next);
+  tsToast('Random theme applied ✨');
+}
+
+function tsResetDefault() {
+  tsApplyFromVars(TS_PRESETS[0].vars);
+  try { localStorage.removeItem(TS_KEY); } catch (e) {}
+  tsToast('Reset to Default Midnight');
+}
+
+function tsSaveCurrentTheme() {
+  const name = prompt('Name this theme:', `My Theme ${new Date().toLocaleDateString()}`);
+  if (!name) return;
+  const cur = tsReadCurrent();
+  const list = tsGetSaved();
+  list.push({ id: 't_' + Date.now(), name, vars: cur, createdAt: new Date().toISOString() });
+  tsSetSaved(list);
+  tsRenderSaved();
+  tsToast(`Saved "${name}"`);
+}
+
+function tsRenderSaved() {
+  const wrap = document.getElementById('themestudio-saved-list');
+  if (!wrap) return;
+  const list = tsGetSaved();
+  wrap.innerHTML = '';
+  if (!list.length) {
+    wrap.innerHTML = '<div class="ts-saved-empty">No saved themes yet. Tweak a preset then hit Save.</div>';
+    return;
+  }
+  list.forEach(t => {
+    const v = t.vars || {};
+    const card = document.createElement('div');
+    card.className = 'ts-saved-card';
+    card.innerHTML = `
+      <div class="ts-saved-swatches">
+        <span class="ts-swatch" style="background:${v['--bg-primary'] || '#000'}"></span>
+        <span class="ts-swatch" style="background:${v['--bg-card'] || '#222'}"></span>
+        <span class="ts-swatch" style="background:${v['--accent-primary'] || '#fff'}"></span>
+        <span class="ts-swatch" style="background:${v['--accent-secondary'] || '#888'}"></span>
+        <span class="ts-swatch" style="background:${v['--accent-tertiary'] || '#444'}"></span>
+        <span class="ts-swatch" style="background:${v['--text-primary'] || '#fff'}"></span>
+      </div>
+      <div class="ts-saved-meta">
+        <div class="ts-saved-name">${escapeHtml(t.name)}</div>
+        <div class="ts-saved-date">${new Date(t.createdAt).toLocaleDateString()}</div>
+      </div>
+      <div class="ts-saved-actions">
+        <button class="ts-mini-btn" data-action="apply" data-id="${t.id}" title="Apply"><i class="fas fa-paintbrush"></i></button>
+        <button class="ts-mini-btn" data-action="share" data-id="${t.id}" title="Copy share link"><i class="fas fa-link"></i></button>
+        <button class="ts-mini-btn" data-action="delete" data-id="${t.id}" title="Delete"><i class="fas fa-trash"></i></button>
+      </div>`;
+    wrap.appendChild(card);
+  });
+  wrap.querySelectorAll('button[data-action]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const id = btn.dataset.id;
+      const action = btn.dataset.action;
+      const t = tsGetSaved().find(x => x.id === id);
+      if (!t) return;
+      if (action === 'apply') tsApplyFromVars(t.vars);
+      else if (action === 'share') tsShareSaved(t);
+      else if (action === 'delete') {
+        if (!confirm(`Delete "${t.name}"?`)) return;
+        tsSetSaved(tsGetSaved().filter(x => x.id !== id));
+        tsRenderSaved();
+      }
+    });
+  });
+}
+
+function tsShareSaved(theme) {
+  const hash = tsEncodeHash(theme.vars);
+  const url = window.location.origin + window.location.pathname + '#theme=' + hash;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(() => tsToast('Share link copied!'));
+  } else {
+    prompt('Copy this link:', url);
+  }
+}
+
+function tsShareCurrent() {
+  const cur = tsReadCurrent();
+  const hash = tsEncodeHash(cur);
+  const url = window.location.origin + window.location.pathname + '#theme=' + hash;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(() => tsToast('Share link copied!'));
+  } else {
+    prompt('Copy this link:', url);
+  }
+}
+
+function tsExportCSS() {
+  const cur = tsReadCurrent();
+  const lines = [':root {'];
+  Object.entries(cur).forEach(([k, v]) => { lines.push(`  ${k}: ${v};`); });
+  lines.push('}');
+  const css = lines.join('\n');
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(css).then(() => tsToast('CSS copied to clipboard'));
+  } else {
+    prompt('Copy this CSS:', css);
+  }
+}
+
+function tsApplyPresetByName(name) {
+  const p = TS_PRESETS.find(x => x.id === name);
+  if (p) tsApplyFromVars(p.vars);
+}
+
+let tsToastTimer = null;
+function tsToast(msg) {
+  let el = document.getElementById('themestudio-toast');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'themestudio-toast';
+    el.className = 'ts-toast';
+    document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(tsToastTimer);
+  tsToastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function initThemeStudio() {
+  const section = document.getElementById('themestudio');
+  if (!section) return;
+
+  let initial = tsLoadPersisted();
+  if (!initial && window.location.hash && window.location.hash.includes('theme=')) {
+    const hash = window.location.hash.split('theme=')[1];
+    initial = tsDecodeHash(hash);
+  }
+  if (initial) tsApplyVars(initial);
+
+  tsInitPresets();
+  tsBuildControls();
+  tsSyncControlsFromVars();
+  tsRenderMockup(initial || tsReadCurrent());
+
+  document.getElementById('themestudio-randomize')?.addEventListener('click', tsRandomize);
+  document.getElementById('themestudio-reset')?.addEventListener('click', tsResetDefault);
+  document.getElementById('themestudio-save')?.addEventListener('click', tsSaveCurrentTheme);
+  document.getElementById('themestudio-share')?.addEventListener('click', tsShareCurrent);
+  document.getElementById('themestudio-export')?.addEventListener('click', tsExportCSS);
+  document.getElementById('themestudio-hero-btn')?.addEventListener('click', () => scrollTo('#themestudio'));
+
+  tsRenderSaved();
+
+  window.addEventListener('hashchange', () => {
+    if (window.location.hash && window.location.hash.includes('theme=')) {
+      const hash = window.location.hash.split('theme=')[1];
+      const vars = tsDecodeHash(hash);
+      if (vars) tsApplyFromVars(vars, { skipHash: true });
+    }
+  });
+
+  if (window.PALETTE_COMMANDS) {
+    window.PALETTE_COMMANDS.push(
+      { id: 'theme-default', label: 'Theme: Default Midnight', icon: 'fa-moon', category: 'Theme', action: () => tsApplyPresetByName('midnight') },
+      { id: 'theme-aurora', label: 'Theme: Aurora', icon: 'fa-mountain-sun', category: 'Theme', action: () => tsApplyPresetByName('aurora') },
+      { id: 'theme-sunset', label: 'Theme: Sunset', icon: 'fa-sun', category: 'Theme', action: () => tsApplyPresetByName('sunset') },
+      { id: 'theme-mono', label: 'Theme: Mono', icon: 'fa-square', category: 'Theme', action: () => tsApplyPresetByName('mono') },
+      { id: 'theme-synthwave', label: 'Theme: Synthwave', icon: 'fa-wave-square', category: 'Theme', action: () => tsApplyPresetByName('synthwave') },
+      { id: 'theme-forest', label: 'Theme: Forest', icon: 'fa-tree', category: 'Theme', action: () => tsApplyPresetByName('forest') },
+      { id: 'theme-randomize', label: 'Theme: Randomize', icon: 'fa-shuffle', shortcut: 'T R', category: 'Theme', action: tsRandomize },
+      { id: 'theme-reset', label: 'Theme: Reset to Default', icon: 'fa-rotate-left', category: 'Theme', action: tsResetDefault }
+    );
+  }
 }
