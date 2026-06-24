@@ -738,6 +738,8 @@ function initCommandPalette() {
     { id: 'tool-timecapsule-new', label: 'Write a New Time Capsule', icon: 'fa-feather', category: 'Tools', action: () => document.getElementById('timecapsule-hero-btn')?.click() },
     { id: 'tool-journal', label: 'Open Build Journal', icon: 'fa-pen-fancy', shortcut: 'G J', category: 'Tools', action: () => scrollTo('#journal') },
     { id: 'tool-journal-export', label: 'Export Journal as JSON', icon: 'fa-download', category: 'Tools', action: () => document.getElementById('journal-export-btn')?.click() },
+    { id: 'tool-wishlist', label: 'Open Community Wishlist', icon: 'fa-clipboard-list', shortcut: 'G W', category: 'Tools', action: () => scrollTo('#wishlist') },
+    { id: 'tool-wishlist-new', label: 'Submit a New Wish', icon: 'fa-plus-circle', category: 'Tools', action: () => document.getElementById('wishlist-hero-btn')?.click() },
     
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -4321,7 +4323,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initThemeStudio();
   initReadingMode();
   initBuildJournal();
-  console.log("⚡ AJH Website loaded - Day 64: Build Journal");
+  initCommunityWishlist();
+  console.log("⚡ AJH Website loaded - Day 64: Build Journal + Day 65: Community Wishlist");
 });
 /* ============================================================
    Day 61: Time Capsule Vault
@@ -6053,4 +6056,311 @@ function initBuildJournal() {
   recalcStreak();
   render();
   wire();
+}
+
+// ===========================================================================
+// Day 65: Community Wishlist — submit, vote, ship, leaderboard
+// ===========================================================================
+function initCommunityWishlist() {
+  const STORAGE_KEY = 'ajh_wishlist_v1';
+  const VOTED_KEY = 'ajh_wishlist_voted_v1';
+  const MAX_ITEMS = 200;
+
+  // Seed wishes so the section feels alive on first visit.
+  // Each: { id, title, desc, category, status, score, voters, created, shippedDay? }
+  const SEED = [
+    { id: 'w-seed-1', title: 'Dark mode toggle with smooth transition', desc: 'Click-to-fade between dark and light, persisted across visits.', category: 'design', status: 'shipped', shippedDay: 37, score: 42, voters: [], created: 1714000000000 },
+    { id: 'w-seed-2', title: 'A way to actually hear what is built (music player)', desc: 'Lo-fi player with visualizer and shortcuts.', category: 'fun', status: 'shipped', shippedDay: 49, score: 28, voters: [], created: 1715000000000 },
+    { id: 'w-seed-3', title: 'Quote-of-the-day that does not suck', desc: 'Rotating quotes with favorites and sharing.', category: 'content', status: 'shipped', shippedDay: 52, score: 17, voters: [], created: 1716000000000 },
+    { id: 'w-seed-4', title: 'Search across the whole site', desc: 'Bookmark cards indexed and searchable.', category: 'feature', status: 'shipped', shippedDay: 59, score: 31, voters: [], created: 1717000000000 },
+    { id: 'w-seed-5', title: 'Export my data (snippets, quotes, journal)', desc: 'JSON downloads for everything I have built.', category: 'feature', status: 'shipped', shippedDay: 64, score: 24, voters: [], created: 1718000000000 },
+    { id: 'w-seed-6', title: 'A reading mode that strips out the chrome', desc: 'Type scales up, nav fades, focus on words.', category: 'design', status: 'shipped', shippedDay: 63, score: 19, voters: [], created: 1719000000000 },
+    { id: 'w-seed-7', title: 'Daily journal — shipped / learned / broke', desc: 'A structured log of every build day.', category: 'feature', status: 'shipped', shippedDay: 64, score: 26, voters: [], created: 1719500000000 },
+    { id: 'w-seed-8', title: 'Public wishlist so visitors can steer what gets built next', desc: 'You are looking at it.', category: 'feature', status: 'shipped', shippedDay: 65, score: 12, voters: [], created: 1719900000000 },
+    { id: 'w-seed-9', title: 'A way to compare two build days side by side', desc: 'Pick any two days, see features shipped side by side.', category: 'fun', status: 'open', score: 7, voters: [], created: 1720000000000 },
+    { id: 'w-seed-10', title: 'Keyboard shortcut cheatsheet overlay (press ?)', desc: 'A searchable panel of every shortcut.', category: 'feature', status: 'open', score: 14, voters: [], created: 1720100000000 },
+    { id: 'w-seed-11', title: 'RSS feed for the build log', desc: 'Subscribe in your reader and never miss a day.', category: 'content', status: 'open', score: 8, voters: [], created: 1720200000000 },
+    { id: 'w-seed-12', title: 'Way to comment on a specific build day', desc: 'Threaded discussion per calendar entry.', category: 'content', status: 'planned', score: 5, voters: [], created: 1720300000000 },
+    { id: 'w-seed-13', title: 'A 404 page with the keyboard game as a fallback', desc: 'Wandering users get entertained, not bounced.', category: 'fun', status: 'open', score: 6, voters: [], created: 1720400000000 }
+  ];
+
+  const CATEGORIES = ['feature', 'design', 'content', 'perf', 'fun'];
+
+  function load() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return SEED.slice();
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) && parsed.length ? parsed : SEED.slice();
+    } catch (e) { return SEED.slice(); }
+  }
+  function save() {
+    try {
+      const trimmed = items.slice(0, MAX_ITEMS);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(trimmed));
+    } catch (e) {}
+  }
+  function loadVoted() {
+    try {
+      const raw = localStorage.getItem(VOTED_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+  }
+  function saveVoted() {
+    try { localStorage.setItem(VOTED_KEY, JSON.stringify(voted)); } catch (e) {}
+  }
+
+  let items = load();
+  let voted = loadVoted();
+  let activeFilter = 'all';
+  let activeSort = 'votes';
+  let searchQuery = '';
+
+  function uid() { return 'w-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+  function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  function relTime(ts) {
+    if (!ts) return '';
+    const diff = Date.now() - ts;
+    const days = Math.floor(diff / 86400000);
+    if (days < 1) return 'today';
+    if (days < 30) return days + 'd ago';
+    return Math.floor(days / 30) + 'mo ago';
+  }
+  function statusLabel(s) { return ({ open: 'Open', planned: 'Planned', shipped: 'Shipped', declined: 'Declined' })[s] || s; }
+
+  function refresh() {
+    renderStats();
+    renderList();
+  }
+
+  function renderStats() {
+    const total = items.length;
+    const shipped = items.filter(i => i.status === 'shipped').length;
+    const open = items.filter(i => i.status === 'open').length;
+    const totalVotes = items.reduce((acc, i) => acc + (i.score || 0), 0);
+    const topScore = items.reduce((acc, i) => Math.max(acc, i.score || 0), 0);
+    const set = (id, n) => { const el = document.getElementById(id); if (el) el.textContent = n; };
+    set('wish-total', total);
+    set('wish-shipped', shipped);
+    set('wish-open', open);
+    set('wish-votes', totalVotes);
+    set('wish-top-score', topScore);
+  }
+
+  function renderList() {
+    const host = document.getElementById('wishlist-list');
+    if (!host) return;
+    let list = items.slice();
+    if (activeFilter !== 'all') list = list.filter(i => i.status === activeFilter);
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      list = list.filter(i =>
+        (i.title || '').toLowerCase().includes(q) ||
+        (i.desc || '').toLowerCase().includes(q) ||
+        (i.category || '').toLowerCase().includes(q)
+      );
+    }
+    if (activeSort === 'votes') list.sort((a, b) => (b.score || 0) - (a.score || 0));
+    else if (activeSort === 'newest') list.sort((a, b) => (b.created || 0) - (a.created || 0));
+    else if (activeSort === 'oldest') list.sort((a, b) => (a.created || 0) - (b.created || 0));
+    else if (activeSort === 'title') list.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+
+    if (!list.length) {
+      host.innerHTML = '<div class="wishlist-empty"><i class="fas fa-inbox"></i><div>No wishes match that filter. Try <strong>All</strong> or submit a new one.</div></div>';
+      return;
+    }
+    host.innerHTML = list.map(cardHtml).join('');
+    wireCards();
+  }
+
+  function cardHtml(i) {
+    const myVote = voted[i.id] || 0;
+    const score = i.score || 0;
+    const cls = score >= 20 ? 'wish-hot' : score <= 0 ? 'wish-cold' : '';
+    const shipBadge = i.status === 'shipped' && i.shippedDay
+      ? '<span class="wish-meta-shipped"><i class="fas fa-rocket"></i> Built on Day ' + i.shippedDay + '</span>'
+      : '';
+    const desc = i.desc ? '<p class="wish-card-desc">' + escapeHtml(i.desc) + '</p>' : '';
+    return '' +
+      '<article class="wish-card status-' + i.status + '" id="wish-card-' + i.id + '">' +
+        '<div class="wish-vote-col">' +
+          '<button class="wish-vote-btn ' + (myVote === 1 ? 'active-up' : '') + '" data-act="up" data-id="' + i.id + '" title="Upvote" aria-label="Upvote">' +
+            '<i class="fas fa-chevron-up"></i>' +
+          '</button>' +
+          '<div class="wish-vote-count ' + cls + '">' + score + '</div>' +
+          '<button class="wish-vote-btn ' + (myVote === -1 ? 'active-down' : '') + '" data-act="down" data-id="' + i.id + '" title="Downvote" aria-label="Downvote">' +
+            '<i class="fas fa-chevron-down"></i>' +
+          '</button>' +
+        '</div>' +
+        '<div class="wish-card-body">' +
+          '<div class="wish-card-head">' +
+            '<span class="wish-status-pill wish-status-' + i.status + '">' + statusLabel(i.status) + '</span>' +
+            '<span class="wish-cat-tag">' + escapeHtml(i.category || 'feature') + '</span>' +
+            shipBadge +
+            '<span class="wish-time-ago">' + relTime(i.created) + '</span>' +
+          '</div>' +
+          '<h3 class="wish-card-title">' + escapeHtml(i.title) + '</h3>' +
+          desc +
+          '<div class="wish-card-actions">' +
+            (i.status === 'open' ? '<button class="wish-mini" data-act="plan" data-id="' + i.id + '"><i class="fas fa-bullseye"></i> Plan</button>' : '') +
+            (i.status === 'planned' ? '<button class="wish-mini" data-act="ship" data-id="' + i.id + '"><i class="fas fa-rocket"></i> Mark shipped</button>' : '') +
+            (i.status === 'shipped' && i.shippedDay ? '<button class="wish-mini" data-act="scroll-blog" data-id="' + i.id + '"><i class="fas fa-book-open"></i> Read log</button>' : '') +
+            '<button class="wish-mini" data-act="copy" data-id="' + i.id + '"><i class="fas fa-link"></i> Share</button>' +
+            '<button class="wish-mini wish-mini-danger" data-act="delete" data-id="' + i.id + '" title="Delete"><i class="fas fa-trash"></i></button>' +
+          '</div>' +
+        '</div>' +
+      '</article>';
+  }
+
+  function wireCards() {
+    document.querySelectorAll('#wishlist-list .wish-vote-btn, #wishlist-list .wish-mini').forEach(b => {
+      b.addEventListener('click', onAction);
+    });
+  }
+
+  function onAction(e) {
+    const btn = e.currentTarget;
+    const id = btn.dataset.id;
+    const act = btn.dataset.act;
+    const item = items.find(x => x.id === id);
+    if (!item) return;
+
+    if (act === 'up' || act === 'down') {
+      const dir = act === 'up' ? 1 : -1;
+      const prev = voted[id] || 0;
+      let delta = dir - prev;
+      item.score = Math.max(0, (item.score || 0) + delta);
+      voted[id] = prev === dir ? 0 : dir;
+      saveVoted(); save();
+      refresh();
+      flashToast((delta > 0 ? '↑ +' : delta < 0 ? '↓ ' : '') + (delta || '0'));
+      return;
+    }
+    if (act === 'plan') { item.status = 'planned'; save(); refresh(); flashToast('Marked planned'); return; }
+    if (act === 'ship') {
+      item.status = 'shipped';
+      item.shippedDay = 65;
+      save(); refresh();
+      flashToast('Shipped! 🎉 Day 65');
+      return;
+    }
+    if (act === 'scroll-blog' && item.shippedDay) {
+      const blog = document.getElementById('blog');
+      if (blog) blog.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+    if (act === 'copy') {
+      const text = item.title + ' — AJH Build Wishlist (' + item.status + ')';
+      copyToClipboardLocal(text);
+      flashToast('Copied ✓');
+      return;
+    }
+    if (act === 'delete') {
+      items = items.filter(x => x.id !== id);
+      delete voted[id];
+      save(); saveVoted(); refresh();
+      flashToast('Removed');
+      return;
+    }
+  }
+
+  function wireForm() {
+    const form = document.getElementById('wish-form');
+    if (!form) return;
+    const titleEl = document.getElementById('wish-title');
+    const descEl = document.getElementById('wish-desc');
+    const catEl = document.getElementById('wish-category');
+    const countEl = document.getElementById('wish-charcount');
+
+    if (descEl && countEl) {
+      const updateCount = () => { countEl.textContent = (descEl.value || '').length + ' / 280'; };
+      descEl.addEventListener('input', updateCount);
+      updateCount();
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const title = (titleEl.value || '').trim().slice(0, 80);
+      if (!title) { flashToast('Add a title first'); titleEl.focus(); return; }
+      const desc = (descEl.value || '').trim().slice(0, 280);
+      const category = CATEGORIES.includes(catEl.value) ? catEl.value : 'feature';
+      items.unshift({
+        id: uid(),
+        title,
+        desc,
+        category,
+        status: 'open',
+        score: 1,
+        voters: ['you'],
+        created: Date.now()
+      });
+      titleEl.value = '';
+      descEl.value = '';
+      catEl.value = 'feature';
+      if (countEl) countEl.textContent = '0 / 280';
+      save();
+      refresh();
+      flashToast('Wish submitted ↑1');
+    });
+  }
+
+  function wireFilters() {
+    document.querySelectorAll('.wish-filter').forEach(b => {
+      b.addEventListener('click', () => {
+        document.querySelectorAll('.wish-filter').forEach(x => { x.classList.remove('active'); x.setAttribute('aria-selected', 'false'); });
+        b.classList.add('active');
+        b.setAttribute('aria-selected', 'true');
+        activeFilter = b.dataset.filter;
+        renderList();
+      });
+    });
+    const sort = document.getElementById('wish-sort');
+    if (sort) sort.addEventListener('change', (e) => { activeSort = e.target.value; renderList(); });
+  }
+
+  function wireHero() {
+    const hero = document.getElementById('wishlist-hero-btn');
+    if (hero) hero.addEventListener('click', () => {
+      const sec = document.getElementById('wishlist');
+      if (sec) {
+        sec.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => { const t = document.getElementById('wish-title'); if (t) t.focus({ preventScroll: true }); }, 600);
+      }
+    });
+  }
+
+  function flashToast(msg) {
+    let el = document.getElementById('wl-flash-toast');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'wl-flash-toast';
+      el.className = 'wl-flash';
+      document.body.appendChild(el);
+    }
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(flashToast._t);
+    flashToast._t = setTimeout(() => el.classList.remove('show'), 1600);
+  }
+
+  function copyToClipboardLocal(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).catch(() => fallbackCopyLocal(text));
+    } else fallbackCopyLocal(text);
+  }
+  function fallbackCopyLocal(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  // ---- init ----
+  refresh();
+  wireForm();
+  wireFilters();
+  wireHero();
 }

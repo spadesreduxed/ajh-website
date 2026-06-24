@@ -113,6 +113,7 @@
             <li><a href="#themestudio">Themes</a></li>
             <li><a href="#assistant">Assistant</a></li>
             <li><a href="#journal">Journal</a></li>
+            <li><a href="#wishlist">Wishlist</a></li>
             <li><a href="#reading">Reading</a></li>
             <li><a href="#quotes">Quotes</a></li>
             <li><a href="#stats">Stats</a></li>
@@ -206,6 +207,9 @@
                 <button class="plan-btn" id="journal-hero-btn" aria-label="Build journal" title="Open Build Journal (J)">
                     <i class="fas fa-pen-fancy"></i>
                 </button>
+                <button class="plan-btn" id="wishlist-hero-btn" aria-label="Community wishlist" title="Open Community Wishlist (W)">
+                    <i class="fas fa-clipboard-list"></i>
+                </button>
             </div>
             <div class="hero-stats">
                 <div class="stat">
@@ -213,7 +217,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="64">0</span>
+                    <span class="stat-value" data-count="65">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -224,7 +228,7 @@
             <div class="daily-streak">
                 <span class="streak-icon">🔥</span>
                 <div class="streak-info">
-                    <span class="streak-count">64 days</span>
+                    <span class="streak-count">65 days</span>
                     <span class="streak-label">Daily Streak</span>
                 </div>
             </div>
@@ -244,11 +248,11 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 64</span>
+                    <span class="insight-value">Day 65</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
-                    <span class="insight-value">64</span>
+                    <span class="insight-value">65</span>
                     <span class="insight-label">streak</span>
                 </div>
             </div>
@@ -730,7 +734,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="64">0</div>
+                    <div class="stat-number" data-count="65">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -1322,6 +1326,17 @@
             <div class="blog-grid">
                 <div class="blog-card">
                     <div class="blog-date">
+                        <span class="blog-day">25</span>
+                        <span class="blog-month">June 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 65</span>
+                        <h3>Community Wishlist — Build What You Want to See</h3>
+                        <p>Day 65 turns the build streak into a two-way conversation: a Community Wishlist. Submit a feature, upvote the ones you'd use, mark your own as planned or shipped. Filter by status, sort by votes or recency, and watch the leaderboard. Top-voted ideas get a badge and the shipped count ticks up the day they're checked off. Eleven seeded wishes cover everything from a kanban board to a sound pack, so the list is alive on first visit. Click <kbd>W</kbd> in the command palette (or the clipboard icon in the hero meta) to jump straight in.</p>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-date">
                         <span class="blog-day">24</span>
                         <span class="blog-month">June 2026</span>
                     </div>
@@ -1882,6 +1897,82 @@
                     </button>
                     <div class="form-status" id="form-status"></div>
                 </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Wishlist Section (Day 65) -->
+    <section id="wishlist" class="section wishlist-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-clipboard-list"></i> Roadmap</span>
+                <h2 class="section-title">Community Wishlist</h2>
+                <p class="section-subtitle">Suggest a feature. Upvote the ones you'd love. The top wishes get shipped — and earn a spot in the changelog.</p>
+            </div>
+
+            <div class="wishlist-summary">
+                <div class="wish-stat">
+                    <i class="fas fa-lightbulb"></i>
+                    <div class="wish-stat-num" id="wish-total">0</div>
+                    <div class="wish-stat-label">Total Wishes</div>
+                </div>
+                <div class="wish-stat">
+                    <i class="fas fa-arrow-up"></i>
+                    <div class="wish-stat-num" id="wish-votes">0</div>
+                    <div class="wish-stat-label">Total Votes</div>
+                </div>
+                <div class="wish-stat">
+                    <i class="fas fa-rocket"></i>
+                    <div class="wish-stat-num" id="wish-shipped">0</div>
+                    <div class="wish-stat-label">Shipped</div>
+                </div>
+                <div class="wish-stat">
+                    <i class="fas fa-fire"></i>
+                    <div class="wish-stat-num" id="wish-top-score">0</div>
+                    <div class="wish-stat-label">Top Score</div>
+                </div>
+            </div>
+
+            <div class="wishlist-controls">
+                <div class="wishlist-filters" role="tablist" aria-label="Filter wishes">
+                    <button class="wish-filter active" data-filter="all" role="tab" aria-selected="true">All</button>
+                    <button class="wish-filter" data-filter="open" role="tab">Open</button>
+                    <button class="wish-filter" data-filter="planned" role="tab">Planned</button>
+                    <button class="wish-filter" data-filter="shipped" role="tab">Shipped</button>
+                    <span class="wishlist-spacer"></span>
+                    <select class="wish-sort" id="wish-sort" aria-label="Sort wishes">
+                        <option value="votes">Most voted</option>
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                        <option value="title">A → Z</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="wishlist-layout">
+                <form class="wishlist-form-card" id="wish-form" autocomplete="off">
+                    <div class="wishlist-form-head">
+                        <i class="fas fa-feather-alt"></i>
+                        <h3>Suggest a wish</h3>
+                    </div>
+                    <input type="text" id="wish-title" class="wish-input" maxlength="80" placeholder="Short title, e.g. 'Dark mode toggle in nav'" required />
+                    <textarea id="wish-desc" class="wish-input wish-textarea" maxlength="280" rows="3" placeholder="One or two sentences — what should it do and why would it be cool?"></textarea>
+                    <div class="wishlist-form-foot">
+                        <select id="wish-category" class="wish-select" aria-label="Category">
+                            <option value="feature">Feature</option>
+                            <option value="design">Design</option>
+                            <option value="content">Content</option>
+                            <option value="perf">Performance</option>
+                            <option value="fun">Just for fun</option>
+                        </select>
+                        <span class="wish-charcount" id="wish-charcount">0 / 280</span>
+                        <button type="submit" class="wish-submit">
+                            <i class="fas fa-paper-plane"></i> Submit Wish
+                        </button>
+                    </div>
+                </form>
+
+                <div class="wishlist-list" id="wishlist-list" aria-live="polite"></div>
             </div>
         </div>
     </section>
