@@ -736,6 +736,8 @@ function initCommandPalette() {
     { id: 'tool-assistant', label: 'Open Build Assistant', icon: 'fa-robot', shortcut: 'A', category: 'Tools', action: () => window.ajhAssistantOpen && window.ajhAssistantOpen() },
     { id: 'tool-timecapsule', label: 'Open Time Capsule Vault', icon: 'fa-hourglass-half', shortcut: 'G K', category: 'Tools', action: () => scrollTo('#timecapsule') },
     { id: 'tool-timecapsule-new', label: 'Write a New Time Capsule', icon: 'fa-feather', category: 'Tools', action: () => document.getElementById('timecapsule-hero-btn')?.click() },
+    { id: 'tool-journal', label: 'Open Build Journal', icon: 'fa-pen-fancy', shortcut: 'G J', category: 'Tools', action: () => scrollTo('#journal') },
+    { id: 'tool-journal-export', label: 'Export Journal as JSON', icon: 'fa-download', category: 'Tools', action: () => document.getElementById('journal-export-btn')?.click() },
     
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -4318,7 +4320,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initTimeCapsule();
   initThemeStudio();
   initReadingMode();
-  console.log('⚡ AJH Website loaded - Day 63: Reading Mode');
+  initBuildJournal();
+  console.log("⚡ AJH Website loaded - Day 64: Build Journal");
 });
 /* ============================================================
    Day 61: Time Capsule Vault
@@ -5551,4 +5554,503 @@ function initReadingMode() {
   applyReading(active);
   wire();
   initReadingProgress();
+}
+
+// ===========================================================================
+// Day 64: Build Journal — Shipped / Learned / Broke + weekly ring + export
+// ===========================================================================
+function initBuildJournal() {
+  const STORAGE_KEY = 'ajh_journal_v1';
+  const STREAK_KEY = 'ajh_journal_streak_v1';
+
+  // Seed the journal with 64 days of history so the streak visualization has shape.
+  // Each day has mood + a small set of bullets; older days are summarized.
+  const SEED = {
+    '2026-04-22': { mood: '🚀', headline: 'First commit — ever', shipped: ['Initial site scaffold', 'PWA manifest', '404 page'], learned: ['GitHub Pages basics', 'PWA service workers'], broke: ['Favicon path'] },
+    '2026-04-23': { mood: '🛠', headline: 'Nav and footer rebuilt', shipped: ['Sticky navbar', 'Footer columns', 'Color tokens'], learned: ['CSS custom properties'], broke: ['Mobile hamburger'] },
+    '2026-04-24': { mood: '🎨', headline: 'Hero redesigned', shipped: ['Kinetic title', 'CTA pair', 'Animated bg'], learned: ['Will-change perf'], broke: [] },
+    '2026-04-25': { mood: '🐛', headline: 'Bug day', shipped: ['Service worker fix', 'Cache invalidation'], learned: ['SW lifecycle'], broke: ['Offline mode briefly'] },
+    '2026-04-26': { mood: '🧠', headline: 'JS refactor', shipped: ['Module split', 'Helper utils'], learned: ['ES module pitfalls'], broke: [] },
+    '2026-04-27': { mood: '🚀', headline: 'Stats counter shipped', shipped: ['Animated counters', 'Streak bar'], learned: ['IntersectionObserver'], broke: ['Off-by-one on count'] },
+    '2026-04-28': { mood: '🎨', headline: 'Theme switcher', shipped: ['Dark/light toggle', 'Theme persistence'], learned: ['prefers-color-scheme'], broke: ['Some component contrast'] },
+    '2026-04-29': { mood: '🛠', headline: 'CI + 404 polish', shipped: ['GitHub Actions', 'Custom 404', 'Robots.txt'], learned: ['Pages deploy hooks'], broke: [] },
+    '2026-04-30': { mood: '🚀', headline: 'Achievement badges', shipped: ['12 unlockable badges', 'Confetti', 'Toasts'], learned: ['localStorage patterns'], broke: [] },
+    '2026-05-01': { mood: '🧠', headline: 'A11y pass', shipped: ['Focus rings', 'ARIA labels', 'Skip link'], learned: ['Keyboard traps'], broke: ['Tab order in modal'] },
+    '2026-05-02': { mood: '🛠', headline: 'Refactor nav', shipped: ['Single nav source', 'Active state'], learned: ['Event delegation'], broke: [] },
+    '2026-05-03': { mood: '🎨', headline: 'Color refresh', shipped: ['New accent ramp', 'Light tokens'], learned: ['OKLCH vs HSL'], broke: [] },
+    '2026-05-04': { mood: '🚀', headline: 'Project modal', shipped: ['Detail modal', 'Tech tags'], learned: ['Focus trapping in modals'], broke: [] },
+    '2026-05-05': { mood: '🐛', headline: 'Safari fixes', shipped: ['Backdrop-filter fallback', 'Sticky hover reset'], learned: ['Vendor prefixes'], broke: ['iOS bounce'] },
+    '2026-05-06': { mood: '🧠', headline: 'Perf audit', shipped: ['Lighthouse pass', 'Font subsetting'], learned: ['CLS scoring'], broke: [] },
+    '2026-05-07': { mood: '🎨', headline: 'Card hover polish', shipped: ['3D tilt', 'Glow trails'], learned: ['Perspective transforms'], broke: [] },
+    '2026-05-08': { mood: '🚀', headline: 'Live clock widget', shipped: ['Hero meta', '12/24 toggle'], learned: ['Intl.DateTimeFormat'], broke: ['DST edge case'] },
+    '2026-05-09': { mood: '🛠', headline: 'Test harness', shipped: ['Smoke tests', 'Manual checklist'], learned: ['Headless browser testing'], broke: [] },
+    '2026-05-10': { mood: '🚀', headline: 'Skills + filter', shipped: ['Animated skill bars', 'Category filters'], learned: ['CSS custom property animations'], broke: [] },
+    '2026-05-11': { mood: '🎨', headline: 'Project filter', shipped: ['5 categories', 'Featured span'], learned: ['Grid span tricks'], broke: [] },
+    '2026-05-12': { mood: '🚀', headline: 'Project modal', shipped: ['Click any card', 'Tech stack tags'], learned: ['Dialog a11y'], broke: [] },
+    '2026-05-13': { mood: '🧠', headline: 'Testimonials', shipped: ['3 cards', 'Footer overhaul'], learned: ['Testimonial design patterns'], broke: [] },
+    '2026-05-14': { mood: '🛠', headline: 'Util + scroll fx', shipped: ['debounce/throttle', '3D tilt', 'Parallax'], learned: ['rAF scheduling'], broke: [] },
+    '2026-05-15': { mood: '🚀', headline: 'PWA install', shipped: ['Install prompt', 'Update toast'], learned: ['beforeinstallprompt'], broke: [] },
+    '2026-05-16': { mood: '🎨', headline: 'FAQ + accordions', shipped: ['Smooth expand', 'Keyboard a11y'], learned: ['max-height transitions'], broke: [] },
+    '2026-05-17': { mood: '🧠', headline: 'Doc pass', shipped: ['README rewrite', 'CONTRIBUTING'], learned: ['Diátaxis framework'], broke: [] },
+    '2026-05-18': { mood: '🚀', headline: '2026 design tokens', shipped: ['Glass cards', 'Bento grid', 'Kinetic type', 'Morphing blob', 'Neon glow', 'Liquid buttons', 'Magnetic buttons', '3D tilt cards', 'Noise overlay'], learned: ['Backdrop-filter perf'], broke: ['Backdrop on iOS'] },
+    '2026-05-19': { mood: '🛠', headline: 'Console cleanup', shipped: ['No warn passes', 'Source maps'], learned: ['Debug build flags'], broke: [] },
+    '2026-05-20': { mood: '🚀', headline: 'Ambient + smart nav', shipped: ['Drone sound', 'Auto-hide nav', 'Scroll reveal'], learned: ['WebAudio LFO'], broke: [] },
+    '2026-05-21': { mood: '🧠', headline: 'Productivity corner', shipped: ['Focus timer', 'Notes', 'Goals', 'Break reminder', 'Streak visual'], learned: ['Notification API'], broke: [] },
+    '2026-05-22': { mood: '🎨', headline: 'Time greeting', shipped: ['Time-aware hero copy'], learned: ['localStorage hydration'], broke: [] },
+    '2026-05-23': { mood: '🛠', headline: 'Hero date', shipped: ['Live date pill'], learned: ['Date timezone quirks'], broke: [] },
+    '2026-05-24': { mood: '🚀', headline: 'World clock', shipped: ['8 cities', 'Live tickers'], learned: ['Intl timezone API'], broke: [] },
+    '2026-05-25': { mood: '🐛', headline: 'Cross-browser', shipped: ['Edge quirks', 'Firefox focus rings'], learned: ['UA differences'], broke: [] },
+    '2026-05-26': { mood: '🧠', headline: 'CSS containment', shipped: ['contain: layout/paint', 'will-change discipline'], learned: ['Containment perf'], broke: [] },
+    '2026-05-27': { mood: '🚀', headline: 'Code playground', shipped: ['Live HTML/CSS/JS editor', 'Preview pane'], learned: ['Blob URL preview'], broke: ['CSP for eval'] },
+    '2026-05-28': { mood: '🛠', headline: 'API status', shipped: ['GitHub check', 'Vault probe'], learned: ['AbortController timing'], broke: [] },
+    '2026-05-29': { mood: '🚀', headline: 'Command palette', shipped: ['Ctrl+K launcher', '25+ commands'], learned: ['Fuzzy command UX'], broke: [] },
+    '2026-05-30': { mood: '🎨', headline: 'Palette polish', shipped: ['Grouped results', 'Shortcut hints'], learned: ['Keyboard nav patterns'], broke: [] },
+    '2026-05-31': { mood: '🧠', headline: 'Daily challenges', shipped: ['15 missions', 'XP/badges', 'Streak tracking'], learned: ['Gamification design'], broke: [] },
+    '2026-06-01': { mood: '🚀', headline: 'Music player', shipped: ['Visualizer', 'Playlist', 'Shuffle/repeat'], learned: ['Simulated playback'], broke: [] },
+    '2026-06-02': { mood: '🛠', headline: 'Stats bento', shipped: ['Bento grid', 'Live visitor count'], learned: ['Bento design rules'], broke: [] },
+    '2026-06-03': { mood: '🚀', headline: 'Keyboard game', shipped: ['Type to score', 'Combo system'], learned: ['Game loop timing'], broke: [] },
+    '2026-06-04': { mood: '🎨', headline: 'Game polish', shipped: ['Animations', 'Visual feedback'], learned: ['CSS keyframe chaining'], broke: [] },
+    '2026-06-05': { mood: '🧠', headline: 'Testing tooling', shipped: ['Headless smoke tests', 'Lint pass'], learned: ['Playwright basics'], broke: [] },
+    '2026-06-06': { mood: '🚀', headline: 'Daily plan board', shipped: ['Now/Next/Later', 'Drag/drop', 'Persistence'], learned: ['HTML5 DnD ergonomics'], broke: [] },
+    '2026-06-07': { mood: '🛠', headline: 'Plan board refactor', shipped: ['State machine'], learned: ['XState lite patterns'], broke: [] },
+    '2026-06-08': { mood: '🎨', headline: 'Daily plan polish', shipped: ['Empty states', 'Keyboard reorder'], learned: ['Empty state design'], broke: [] },
+    '2026-06-09': { mood: '🧠', headline: 'Doc pass v2', shipped: ['Usage examples', 'Screenshots'], learned: ['MkDocs'], broke: [] },
+    '2026-06-10': { mood: '🚀', headline: 'Achievement v2', shipped: ['12 more badges', 'Toast queue'], learned: ['Toast queue backpressure'], broke: [] },
+    '2026-06-11': { mood: '🐛', headline: 'Bug bash', shipped: ['40+ fixes', 'a11y audit'], learned: ['Screen reader testing'], broke: [] },
+    '2026-06-12': { mood: '🛠', headline: 'Build pipeline', shipped: ['Terser pass', 'CSS purge'], learned: ['PurgeCSS configs'], broke: [] },
+    '2026-06-13': { mood: '🚀', headline: 'Quote vault', shipped: ['Favorites', 'Share', 'Daily quote'], learned: ['Web Share API fallback'], broke: [] },
+    '2026-06-14': { mood: '🎨', headline: 'Quote polish', shipped: ['Animated entry', 'Smooth fav'], learned: ['Animation timing'], broke: [] },
+    '2026-06-15': { mood: '🧠', headline: 'Data model pass', shipped: ['Schema docs', 'Type hints'], learned: ['JSDoc patterns'], broke: [] },
+    '2026-06-16': { mood: '🚀', headline: 'Code snippets vault', shipped: ['10 starters', 'CRUD', 'Filter', 'Search', 'Copy counter'], learned: ['Pragmatic highlighting'], broke: [] },
+    '2026-06-17': { mood: '🚀', headline: 'Build calendar heatmap', shipped: ['57-day heatmap', 'Detail modals', 'View filters'], learned: ['GitHub-style contribution graph'], broke: [] },
+    '2026-06-18': { mood: '🛠', headline: 'Calendar polish', shipped: ['Share this build', 'Stats summary'], learned: ['Web Share w/ clipboard fallback'], broke: [] },
+    '2026-06-19': { mood: '🎨', headline: 'Bookmark cards', shipped: ['Section bookmarks', 'Detail modal', 'Search'], learned: ['Card metadata design'], broke: [] },
+    '2026-06-20': { mood: '🚀', headline: 'Site constellation', shipped: ['Interactive section graph', 'Pan/zoom'], learned: ['Force layouts'], broke: [] },
+    '2026-06-21': { mood: '🧠', headline: 'Graph polish', shipped: ['Node physics', 'Labels'], learned: ['Verlet integration'], broke: [] },
+    '2026-06-22': { mood: '🚀', headline: 'Time capsule vault', shipped: ['Sealed notes', 'Countdown', 'Unlock reader'], learned: ['Date math in JS'], broke: [] },
+    '2026-06-23': { mood: '🎨', headline: 'Reading mode', shipped: ['Distraction-free view', 'Word counts', 'Read time', 'List', 'Print'], learned: ['@media print tricks'], broke: [] }
+  };
+
+  // ---- state ----
+  let entries = loadEntries();
+  let draft = loadDraft() || emptyDraft();
+  let streakInfo = loadStreak() || { current: 0, longest: 0 };
+
+  // ---- helpers ----
+  function todayKey() {
+    const d = new Date();
+    return d.toISOString().slice(0, 10);
+  }
+  function emptyDraft() {
+    return { date: todayKey(), mood: '', headline: '', shipped: [], learned: [], broke: [] };
+  }
+  function loadEntries() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return { ...SEED };
+      const parsed = JSON.parse(raw);
+      return { ...SEED, ...parsed };
+    } catch (e) {
+      return { ...SEED };
+    }
+  }
+  function saveEntries() {
+    try {
+      // Only persist user-modified (not the seed), but include seeded + custom
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+    } catch (e) { /* ignore */ }
+  }
+  function loadDraft() {
+    try {
+      const raw = localStorage.getItem('ajh_journal_draft_v1');
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+  function saveDraft() {
+    try {
+      localStorage.setItem('ajh_journal_draft_v1', JSON.stringify(draft));
+    } catch (e) { /* ignore */ }
+  }
+  function clearDraft() {
+    try { localStorage.removeItem('ajh_journal_draft_v1'); } catch (e) {}
+  }
+  function loadStreak() {
+    try {
+      const raw = localStorage.getItem(STREAK_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+  function saveStreak() {
+    try { localStorage.setItem(STREAK_KEY, JSON.stringify(streakInfo)); } catch (e) {}
+  }
+
+  function recalcStreak() {
+    // Walk dates from today backwards, count consecutive entries that exist.
+    const dates = Object.keys(entries).sort();
+    if (dates.length === 0) { streakInfo = { current: 0, longest: 0 }; saveStreak(); return; }
+    let current = 0;
+    const today = new Date(todayKey());
+    for (let i = 0; i < 200; i++) {
+      const d = new Date(today);
+      d.setDate(today.getDate() - i);
+      const k = d.toISOString().slice(0, 10);
+      if (entries[k]) current++;
+      else break;
+    }
+    let longest = 0, run = 0;
+    const sorted = [...dates].sort();
+    let prev = null;
+    for (const k of sorted) {
+      if (prev) {
+        const a = new Date(prev);
+        const b = new Date(k);
+        const diff = Math.round((b - a) / 86400000);
+        if (diff === 1) run++;
+        else run = 1;
+      } else run = 1;
+      if (run > longest) longest = run;
+      prev = k;
+    }
+    streakInfo = { current, longest };
+    saveStreak();
+  }
+
+  function totalShips() {
+    let n = 0;
+    for (const k of Object.keys(entries)) {
+      const e = entries[k];
+      n += (e.shipped || []).length;
+    }
+    return n;
+  }
+
+  // ---- render ----
+  function render() {
+    renderTodayDate();
+    renderSummary();
+    renderMood();
+    renderCols();
+    renderHeadline();
+    renderWeekRing();
+    renderRecent();
+  }
+
+  function renderTodayDate() {
+    const el = document.getElementById('journal-today-date');
+    if (!el) return;
+    const d = new Date();
+    el.textContent = d.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
+  }
+
+  function renderSummary() {
+    const num = document.getElementById('journal-entries-num');
+    const cur = document.getElementById('journal-current-streak');
+    const lng = document.getElementById('journal-longest-streak');
+    const ships = document.getElementById('journal-total-ships');
+    if (num) num.textContent = String(Object.keys(entries).length);
+    if (cur) cur.textContent = String(streakInfo.current);
+    if (lng) lng.textContent = String(streakInfo.longest);
+    if (ships) ships.textContent = String(totalShips());
+  }
+
+  function renderMood() {
+    const buttons = document.querySelectorAll('.journal-mood');
+    buttons.forEach(b => {
+      b.classList.toggle('active', b.dataset.mood === draft.mood);
+    });
+  }
+
+  function renderCols() {
+    ['shipped', 'learned', 'broke'].forEach(key => {
+      const list = document.getElementById(`journal-${key}-list`);
+      if (!list) return;
+      list.innerHTML = '';
+      const items = draft[key] || [];
+      items.forEach((text, idx) => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        const x = document.createElement('button');
+        x.className = 'journal-x';
+        x.type = 'button';
+        x.innerHTML = '<i class="fas fa-times"></i>';
+        x.setAttribute('aria-label', 'Remove');
+        x.addEventListener('click', () => {
+          draft[key].splice(idx, 1);
+          saveDraft();
+          renderCols();
+        });
+        li.appendChild(x);
+        list.appendChild(li);
+      });
+    });
+  }
+
+  function renderHeadline() {
+    const input = document.getElementById('journal-headline');
+    if (input && input.value !== draft.headline) input.value = draft.headline || '';
+  }
+
+  function renderWeekRing() {
+    const ring = document.getElementById('journal-week-ring');
+    const meta = document.getElementById('journal-week-meta');
+    if (!ring) return;
+    ring.innerHTML = '';
+    const today = new Date();
+    const logged = [];
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(today.getDate() - i);
+      const k = d.toISOString().slice(0, 10);
+      const e = entries[k];
+      const dayEl = document.createElement('div');
+      dayEl.className = 'journal-week-day' + (e ? ' logged' : '') + (i === 0 ? ' today' : '');
+      const name = document.createElement('span');
+      name.className = 'week-day-name';
+      name.textContent = d.toLocaleDateString(undefined, { weekday: 'short' }).slice(0, 2);
+      const num = document.createElement('span');
+      num.className = 'week-day-num';
+      num.textContent = d.getDate();
+      dayEl.appendChild(name);
+      if (e && e.mood) {
+        const mood = document.createElement('span');
+        mood.className = 'week-day-mood';
+        mood.textContent = e.mood;
+        dayEl.appendChild(num);
+        dayEl.appendChild(mood);
+      } else {
+        dayEl.appendChild(num);
+      }
+      dayEl.title = e ? `${k}: ${e.headline || '(no headline)'}` : `${k}: not logged`;
+      ring.appendChild(dayEl);
+      if (e) logged.push(k);
+    }
+    if (meta) meta.textContent = `${logged.length} / 7 days logged`;
+  }
+
+  function renderRecent() {
+    const list = document.getElementById('journal-recent-list');
+    if (!list) return;
+    const dates = Object.keys(entries).sort().reverse().slice(0, 14);
+    if (dates.length === 0) {
+      list.innerHTML = '<div class="journal-recent-empty">No entries yet — start with today\'s column above.</div>';
+      return;
+    }
+    list.innerHTML = '';
+    for (const k of dates) {
+      const e = entries[k];
+      const item = document.createElement('button');
+      item.type = 'button';
+      item.className = 'journal-recent-item';
+      const date = document.createElement('div');
+      date.className = 'journal-recent-date';
+      const dt = new Date(k);
+      date.textContent = dt.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+      const body = document.createElement('div');
+      body.className = 'journal-recent-body';
+      const head = document.createElement('div');
+      head.className = 'journal-recent-headline';
+      head.textContent = e.headline || '(no headline)';
+      const meta = document.createElement('div');
+      meta.className = 'journal-recent-meta';
+      const total = (e.shipped?.length || 0) + (e.learned?.length || 0) + (e.broke?.length || 0);
+      meta.textContent = `${e.shipped?.length || 0} shipped · ${e.learned?.length || 0} learned · ${e.broke?.length || 0} broke · ${total} total`;
+      body.appendChild(head);
+      body.appendChild(meta);
+      const mood = document.createElement('div');
+      mood.className = 'journal-recent-mood';
+      mood.textContent = e.mood || '·';
+      item.appendChild(date);
+      item.appendChild(body);
+      item.appendChild(mood);
+      item.addEventListener('click', () => {
+        // Open the section that contains the day number on the calendar (best-effort scroll)
+        const cal = document.getElementById('calendar');
+        if (cal) cal.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      list.appendChild(item);
+    }
+  }
+
+  // ---- events ----
+  function addItem(key) {
+    const input = document.querySelector(`.journal-add-input[data-target="${key}"]`);
+    if (!input) return;
+    const v = input.value.trim();
+    if (!v) return;
+    if (!draft[key]) draft[key] = [];
+    if (draft[key].length >= 12) {
+      input.value = '';
+      return;
+    }
+    draft[key].push(v);
+    input.value = '';
+    saveDraft();
+    renderCols();
+  }
+
+  function wire() {
+    document.querySelectorAll('.journal-add-btn').forEach(btn => {
+      btn.addEventListener('click', () => addItem(btn.dataset.target));
+    });
+    document.querySelectorAll('.journal-add-input').forEach(input => {
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          addItem(input.dataset.target);
+        }
+      });
+    });
+    document.querySelectorAll('.journal-mood').forEach(btn => {
+      btn.addEventListener('click', () => {
+        draft.mood = btn.dataset.mood;
+        saveDraft();
+        renderMood();
+      });
+    });
+    const headline = document.getElementById('journal-headline');
+    if (headline) {
+      headline.addEventListener('input', () => {
+        draft.headline = headline.value;
+        saveDraft();
+      });
+    }
+    const saveBtn = document.getElementById('journal-save-btn');
+    if (saveBtn) saveBtn.addEventListener('click', saveToday);
+    const shareBtn = document.getElementById('journal-share-btn');
+    if (shareBtn) shareBtn.addEventListener('click', shareToday);
+    const exportBtn = document.getElementById('journal-export-btn');
+    if (exportBtn) exportBtn.addEventListener('click', exportJournal);
+
+    // Hero button
+    const heroBtn = document.getElementById('journal-hero-btn');
+    if (heroBtn) {
+      heroBtn.addEventListener('click', () => {
+        const sec = document.getElementById('journal');
+        if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    // Keyboard: J jumps to journal
+    document.addEventListener('keydown', (e) => {
+      // Don't hijack while typing
+      const tag = (e.target.tagName || '').toLowerCase();
+      const inField = tag === 'input' || tag === 'textarea' || e.target.isContentEditable;
+      if (inField) return;
+      if (e.key && e.key.toLowerCase() === 'j' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        const sec = document.getElementById('journal');
+        if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
+
+  function saveToday() {
+    // If draft is empty AND today's seeded entry exists, leave it alone.
+    const isEmpty = !draft.mood && !draft.headline
+      && (draft.shipped?.length || 0) === 0
+      && (draft.learned?.length || 0) === 0
+      && (draft.broke?.length || 0) === 0;
+    if (isEmpty) {
+      flashSave('Nothing to save');
+      return;
+    }
+    entries[draft.date] = {
+      mood: draft.mood || entries[draft.date]?.mood || '🚀',
+      headline: draft.headline || entries[draft.date]?.headline || '',
+      shipped: [...(draft.shipped || [])],
+      learned: [...(draft.learned || [])],
+      broke: [...(draft.broke || [])]
+    };
+    saveEntries();
+    recalcStreak();
+    clearDraft();
+    draft = emptyDraft();
+    render();
+    flashSave('Saved ✓');
+  }
+
+  function flashSave(msg) {
+    const flash = document.getElementById('journal-save-flash');
+    if (!flash) return;
+    flash.textContent = msg;
+    flash.hidden = false;
+    flash.style.animation = 'none';
+    void flash.offsetHeight;
+    flash.style.animation = '';
+    setTimeout(() => { flash.hidden = true; }, 1600);
+  }
+
+  function shareToday() {
+    const today = entries[todayKey()] || entries[draft.date] || draft;
+    if (!today || (!today.headline && (today.shipped || []).length === 0)) {
+      flashSave('Save first, then share');
+      return;
+    }
+    const lines = [];
+    lines.push(`📓 AJH Build Journal — ${todayKey()}`);
+    if (today.mood) lines.push(`${today.mood} ${today.headline || ''}`.trim());
+    if ((today.shipped || []).length) {
+      lines.push('Shipped:');
+      today.shipped.forEach(s => lines.push(`  • ${s}`));
+    }
+    if ((today.learned || []).length) {
+      lines.push('Learned:');
+      today.learned.forEach(s => lines.push(`  • ${s}`));
+    }
+    if ((today.broke || []).length) {
+      lines.push('Broke:');
+      today.broke.forEach(s => lines.push(`  • ${s}`));
+    }
+    lines.push('#AJH64 #BuildInPublic');
+    const text = lines.join('\n');
+    if (navigator.share) {
+      navigator.share({ title: 'AJH Build Journal', text }).catch(() => {
+        copyToClipboard(text);
+        flashSave('Copied ✓');
+      });
+    } else {
+      copyToClipboard(text);
+      flashSave('Copied ✓');
+    }
+  }
+
+  function copyToClipboard(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+    } else {
+      fallbackCopy(text);
+    }
+  }
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  function exportJournal() {
+    try {
+      const data = JSON.stringify(entries, null, 2);
+      const blob = new Blob([data], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `ajh-build-journal-${todayKey()}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      flashSave('Exported ✓');
+    } catch (e) {
+      flashSave('Export failed');
+    }
+  }
+
+  // ---- init ----
+  recalcStreak();
+  render();
+  wire();
 }

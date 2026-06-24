@@ -112,6 +112,7 @@
             <li><a href="#constellation">Constellation</a></li>
             <li><a href="#themestudio">Themes</a></li>
             <li><a href="#assistant">Assistant</a></li>
+            <li><a href="#journal">Journal</a></li>
             <li><a href="#reading">Reading</a></li>
             <li><a href="#quotes">Quotes</a></li>
             <li><a href="#stats">Stats</a></li>
@@ -202,6 +203,9 @@
                 <button class="plan-btn" id="reading-hero-btn" aria-label="Reading mode" title="Open Reading Mode (R)">
                     <i class="fas fa-book-open"></i>
                 </button>
+                <button class="plan-btn" id="journal-hero-btn" aria-label="Build journal" title="Open Build Journal (J)">
+                    <i class="fas fa-pen-fancy"></i>
+                </button>
             </div>
             <div class="hero-stats">
                 <div class="stat">
@@ -209,7 +213,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="63">0</span>
+                    <span class="stat-value" data-count="64">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -220,7 +224,7 @@
             <div class="daily-streak">
                 <span class="streak-icon">🔥</span>
                 <div class="streak-info">
-                    <span class="streak-count">63 days</span>
+                    <span class="streak-count">64 days</span>
                     <span class="streak-label">Daily Streak</span>
                 </div>
             </div>
@@ -240,11 +244,11 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 63</span>
+                    <span class="insight-value">Day 64</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
-                    <span class="insight-value">63</span>
+                    <span class="insight-value">64</span>
                     <span class="insight-label">streak</span>
                 </div>
             </div>
@@ -726,7 +730,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="63">0</div>
+                    <div class="stat-number" data-count="64">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -1219,7 +1223,7 @@
                     <div class="productivity-widget streak-widget">
                         <div class="streak-visual" id="streak-visual">
                             <span class="streak-flame">🔥</span>
-                            <span class="streak-number" id="streak-number">63</span>
+                            <span class="streak-number" id="streak-number">64</span>
                             <span class="streak-label">days</span>
                         </div>
                     </div>
@@ -1316,6 +1320,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">24</span>
+                        <span class="blog-month">June 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 64</span>
+                        <h3>Build Journal — Shipped / Learned / Broke</h3>
+                        <p>Day 64 ships the Build Journal: a structured daily log with three columns — <em>Shipped</em>, <em>Learned</em>, <em>Broke</em> — plus a one-line headline and a mood picker. A weekly ring shows the last 7 days at a glance (logged = filled, empty = outline), and a side panel lists recent entries with quick jump-back. One-click <em>Save</em> persists everything to localStorage with a date-keyed JSON store; a copy-to-clipboard share button turns today's entry into a tweet-sized summary. Days Building jumps to 64, the journal summary tracks streak and total ships. The streak counter is now fed by the journal, so a missed day would visibly interrupt the ring — designed to make breaking the streak painful.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">23</span>
@@ -1569,6 +1584,122 @@
                         <p>Added a new Achievement Badges section with 12 unlockable badges that respond to your activity across the site. Earn the Keyboard Warrior badge by hitting 10 hits in the hero game, Quote Collector by saving 5 quotes, Midnight Builder by visiting after midnight, and 9 more. Progress auto-saves to localStorage. Locked badges show as grayscale silhouettes with hints. Each unlock triggers a confetti burst and toast notification. The site now rewards curiosity — explore to discover them all.</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Build Journal Section (Day 64) -->
+    <section id="journal" class="section journal-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-pen-fancy"></i> Daily Log</span>
+                <h2 class="section-title">Build Journal</h2>
+                <p class="section-subtitle">What I shipped, learned, and broke — every day, for 64 days and counting.</p>
+            </div>
+
+            <div class="journal-summary">
+                <div class="journal-stat">
+                    <i class="fas fa-feather-alt"></i>
+                    <div class="journal-stat-num" id="journal-entries-num">64</div>
+                    <div class="journal-stat-label">Entries Logged</div>
+                </div>
+                <div class="journal-stat">
+                    <i class="fas fa-fire"></i>
+                    <div class="journal-stat-num" id="journal-current-streak">64</div>
+                    <div class="journal-stat-label">Current Streak</div>
+                </div>
+                <div class="journal-stat">
+                    <i class="fas fa-trophy"></i>
+                    <div class="journal-stat-num" id="journal-longest-streak">64</div>
+                    <div class="journal-stat-label">Longest Streak</div>
+                </div>
+                <div class="journal-stat">
+                    <i class="fas fa-bolt"></i>
+                    <div class="journal-stat-num" id="journal-total-ships">0</div>
+                    <div class="journal-stat-label">Things Shipped</div>
+                </div>
+            </div>
+
+            <div class="journal-layout">
+                <div class="journal-editor-card">
+                    <div class="journal-editor-head">
+                        <div class="journal-editor-title">
+                            <i class="fas fa-pen"></i>
+                            <span>Today's Entry</span>
+                            <span class="journal-today-date" id="journal-today-date">—</span>
+                        </div>
+                        <div class="journal-mood-picker" id="journal-mood-picker" role="radiogroup" aria-label="Mood">
+                            <button class="journal-mood" data-mood="🚀" title="Ship day">🚀</button>
+                            <button class="journal-mood" data-mood="🧠" title="Learning">🧠</button>
+                            <button class="journal-mood" data-mood="🐛" title="Bug hunt">🐛</button>
+                            <button class="journal-mood" data-mood="🎨" title="Design">🎨</button>
+                            <button class="journal-mood" data-mood="🛠" title="Refactor">🛠</button>
+                            <button class="journal-mood" data-mood="🔥" title="On fire">🔥</button>
+                        </div>
+                    </div>
+
+                    <div class="journal-cols">
+                        <div class="journal-col journal-col-shipped">
+                            <label><i class="fas fa-rocket"></i> Shipped</label>
+                            <ul class="journal-list" id="journal-shipped-list" data-list="shipped"></ul>
+                            <div class="journal-add-row">
+                                <input type="text" class="journal-add-input" data-target="shipped" placeholder="What did you ship?" maxlength="120" />
+                                <button class="journal-add-btn" data-target="shipped" title="Add (Enter)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                        <div class="journal-col journal-col-learned">
+                            <label><i class="fas fa-lightbulb"></i> Learned</label>
+                            <ul class="journal-list" id="journal-learned-list" data-list="learned"></ul>
+                            <div class="journal-add-row">
+                                <input type="text" class="journal-add-input" data-target="learned" placeholder="What did you learn?" maxlength="160" />
+                                <button class="journal-add-btn" data-target="learned" title="Add (Enter)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                        <div class="journal-col journal-col-broke">
+                            <label><i class="fas fa-bug"></i> Broke</label>
+                            <ul class="journal-list" id="journal-broke-list" data-list="broke"></ul>
+                            <div class="journal-add-row">
+                                <input type="text" class="journal-add-input" data-target="broke" placeholder="What broke today?" maxlength="160" />
+                                <button class="journal-add-btn" data-target="broke" title="Add (Enter)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="journal-foot">
+                        <input type="text" id="journal-headline" class="journal-headline-input" placeholder="One-line summary of today…" maxlength="120" />
+                        <button class="journal-save-btn" id="journal-save-btn">
+                            <i class="fas fa-save"></i> <span>Save Entry</span>
+                        </button>
+                        <button class="journal-share-btn" id="journal-share-btn" title="Copy shareable summary">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                        <span class="journal-save-flash" id="journal-save-flash" hidden>Saved ✓</span>
+                    </div>
+                </div>
+
+                <aside class="journal-side">
+                    <div class="journal-week-card">
+                        <div class="journal-week-head">
+                            <h3>This Week</h3>
+                            <span class="journal-week-meta" id="journal-week-meta">7 days</span>
+                        </div>
+                        <div class="journal-week-ring" id="journal-week-ring"></div>
+                        <div class="journal-week-legend">
+                            <span><i class="fas fa-circle" style="color: var(--accent)"></i> Logged</span>
+                            <span><i class="fas fa-circle" style="color: var(--border, #333)"></i> Empty</span>
+                        </div>
+                    </div>
+
+                    <div class="journal-recent-card">
+                        <div class="journal-recent-head">
+                            <h3>Recent Entries</h3>
+                            <button class="journal-export-btn" id="journal-export-btn" title="Download journal as JSON">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                        <div class="journal-recent-list" id="journal-recent-list"></div>
+                    </div>
+                </aside>
             </div>
         </div>
     </section>
