@@ -3877,7 +3877,7 @@ function initConstellation() {
   const detailConnections = document.getElementById('constellation-detail-connections');
   const detailGo = document.getElementById('constellation-detail-go');
   const detailClose = document.getElementById('constellation-detail-close');
-  const search = document.getElementById('constellation-search');
+  const searchInput = document.getElementById('constellation-search');
   const chips = document.querySelectorAll('.constellation-chip');
   const zoomInBtn = document.getElementById('constellation-zoom-in');
   const zoomOutBtn = document.getElementById('constellation-zoom-out');
@@ -4217,9 +4217,9 @@ function initConstellation() {
   }
 
   // Search input
-  if (search) {
-    search.addEventListener('input', () => {
-      searchQuery = search.value;
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      searchQuery = searchInput.value;
       render();
     });
   }
@@ -4317,7 +4317,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initConstellation();
   initTimeCapsule();
   initThemeStudio();
-  console.log('⚡ AJH Website loaded - Day 62: Theme Studio');
+  initReadingMode();
+  console.log('⚡ AJH Website loaded - Day 63: Reading Mode');
 });
 /* ============================================================
    Day 61: Time Capsule Vault
@@ -5187,4 +5188,367 @@ function initThemeStudio() {
       { id: 'theme-reset', label: 'Theme: Reset to Default', icon: 'fa-rotate-left', category: 'Theme', action: tsResetDefault }
     );
   }
+}/* ============================================================
+   Day 63: Reading Mode + Reading List
+   - Distraction-free reading view (R)
+   - Word count + reading time per section
+   - Reading list (bookmark sections to read later)
+   - Per-section reading progress bar
+   - Print-friendly mode (clean black-on-white CSS)
+   ============================================================ */
+function initReadingMode() {
+  const STORAGE = {
+    list: 'ajh_reading_list_v1',
+    stats: 'ajh_reading_stats_v1',
+    active: 'ajh_reading_active_v1',
+  };
+
+  // Curated list of readable sections with title, blurb, icon, tag
+  const SECTIONS = [
+    { id: 'about',        title: 'About AJH',           icon: 'fa-user',         tag: 'Profile',   blurb: 'Who I am, what I build, and why I show up every day.' },
+    { id: 'projects',     title: 'Projects',            icon: 'fa-rocket',       tag: 'Builds',    blurb: 'Vault V6, the UV proxy, Zo tools, and the rest of the lab.' },
+    { id: 'skills',       title: 'Skills & Stack',      icon: 'fa-cubes',        tag: 'Craft',     blurb: 'Frontend, backend, DevOps — the full-stack toolkit.' },
+    { id: 'journey',      title: 'Journey',             icon: 'fa-road',         tag: 'Timeline',  blurb: 'A timeline of how the build streak began.' },
+    { id: 'stats',        title: 'Stats',               icon: 'fa-chart-line',   tag: 'Numbers',   blurb: 'Repositories, games served, daily-streak counters.' },
+    { id: 'plan',         title: 'Daily Plan Board',    icon: 'fa-list-check',   tag: 'Tool',      blurb: 'Now / Next / Later — what the day looks like.' },
+    { id: 'snippets',     title: 'Code Snippets',       icon: 'fa-code',         tag: 'Library',   blurb: 'Hand-picked, copy-paste-ready snippets.' },
+    { id: 'calendar',     title: 'Build Calendar',      icon: 'fa-calendar-days',tag: 'Heatmap',   blurb: 'Every build day, color-coded by impact.' },
+    { id: 'badges',       title: 'Achievement Badges',  icon: 'fa-trophy',       tag: 'Game',      blurb: 'Unlock as you explore the site.' },
+    { id: 'productivity', title: 'Productivity Corner', icon: 'fa-bullseye',     tag: 'Tools',     blurb: 'Focus timer, goals, break reminders.' },
+    { id: 'quotes',       title: 'Quote Vault',         icon: 'fa-quote-left',   tag: 'Library',   blurb: 'Hand-picked builder quotes with favorites.' },
+    { id: 'faq',          title: 'FAQ',                 icon: 'fa-circle-question',tag: 'Info',    blurb: 'Answers to the most-asked questions.' },
+    { id: 'blog',         title: 'Daily Build Log',     icon: 'fa-pen',          tag: 'Journal',   blurb: 'Every build, day by day.' },
+    { id: 'achievements', title: 'Achievements',        icon: 'fa-medal',        tag: 'Game',      blurb: 'Long-form milestones and trophies.' },
+    { id: 'assistant',    title: 'Build Assistant',     icon: 'fa-robot',        tag: 'AI',        blurb: 'Chat with a knowledge-base of the build log.' },
+    { id: 'constellation',title: 'Site Constellation',  icon: 'fa-diagram-project',tag: 'Map',     blurb: 'Every section, plotted as a 2D graph.' },
+  ];
+
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+
+  // ---------- state ----------
+  const loadJSON = (k, fallback) => {
+    try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : fallback; }
+    catch { return fallback; }
+  };
+  const saveJSON = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
+
+  let list = loadJSON(STORAGE.list, []);     // [{id, added}]
+  let stats = loadJSON(STORAGE.stats, { reads: 0, prints: 0, listAdds: 0 });
+  let active = loadJSON(STORAGE.active, false);
+  let filter = 'all';
+  let searchInput = '';
+
+  // ---------- helpers ----------
+  const findSection = id => SECTIONS.find(s => s.id === id);
+  const countWords = (root) => {
+    if (!root) return 0;
+    const text = (root.textContent || '').trim();
+    if (!text) return 0;
+    return text.split(/\s+/).filter(Boolean).length;
+  };
+  const readingTime = (words) => Math.max(1, Math.round(words / 220));
+
+  // ---------- reading mode toggle ----------
+  const applyReading = (on) => {
+    document.body.classList.toggle('reading-mode', on);
+    active = on;
+    saveJSON(STORAGE.active, on);
+    const tb = $('#reading-toolbar');
+    if (tb) tb.hidden = !on;
+    updateButton();
+  };
+  const toggleReading = () => applyReading(!active);
+
+  const updateButton = () => {
+    const btn = $('#reading-hero-btn') || $('#reading-btn');
+    if (!btn) return;
+    btn.classList.toggle('active', active);
+    btn.title = active ? 'Exit reading mode (R)' : 'Toggle reading mode (R)';
+  };
+
+  // ---------- reading list ----------
+  const isInList = (id) => list.includes(id);
+  const addToList = (id) => {
+    if (isInList(id)) return;
+    list.push(id);
+    saveJSON(STORAGE.list, list);
+    stats.listAdds = (stats.listAdds || 0) + 1;
+    saveJSON(STORAGE.stats, stats);
+    renderList();
+    renderPicker();
+    updateFooterStats();
+    toast('Added to reading list');
+  };
+  const removeFromList = (id) => {
+    list = list.filter(x => x !== id);
+    saveJSON(STORAGE.list, list);
+    renderList();
+    renderPicker();
+    updateFooterStats();
+  };
+  const clearList = () => {
+    if (!list.length) return;
+    if (!confirm('Clear the entire reading list?')) return;
+    list = [];
+    saveJSON(STORAGE.list, list);
+    renderList();
+    renderPicker();
+    updateFooterStats();
+  };
+
+  // ---------- reading list card ----------
+  const renderList = () => {
+    const wrap = $('#reading-list-wrap');
+    const empty = $('#reading-list-empty');
+    if (!wrap) return;
+    wrap.innerHTML = '';
+    if (!list.length) {
+      if (empty) empty.hidden = false;
+      return;
+    }
+    if (empty) empty.hidden = true;
+    list.forEach(id => {
+      const s = findSection(id);
+      if (!s) return;
+      const item = document.createElement('div');
+      item.className = 'reading-list-item';
+      item.innerHTML = `
+        <i class="fas ${s.icon}"></i>
+        <div class="reading-list-meta">
+          <span class="reading-list-title">${s.title}</span>
+          <span class="reading-list-tag">${s.tag}</span>
+        </div>
+        <div class="reading-list-actions">
+          <button class="reading-list-btn reading-list-go" data-go="${s.id}" title="Jump to section"><i class="fas fa-arrow-right"></i></button>
+          <button class="reading-list-btn reading-list-remove" data-remove="${s.id}" title="Remove"><i class="fas fa-times"></i></button>
+        </div>
+      `;
+      wrap.appendChild(item);
+    });
+  };
+
+  // ---------- section picker ----------
+  const renderPicker = () => {
+    const grid = $('#reading-picker');
+    if (!grid) return;
+    grid.innerHTML = '';
+    const visible = SECTIONS.filter(s => {
+      if (filter !== 'all' && s.tag !== filter) return false;
+      if (searchInput) {
+        const q = searchInput.toLowerCase();
+        return s.title.toLowerCase().includes(q) || s.blurb.toLowerCase().includes(q) || s.tag.toLowerCase().includes(q);
+      }
+      return true;
+    });
+    visible.forEach(s => {
+      const card = document.createElement('div');
+      card.className = 'rp-card';
+      const inList = isInList(s.id);
+      card.innerHTML = `
+        <div class="rp-card-head">
+          <i class="fas ${s.icon}"></i>
+          <span class="rp-card-tag">${s.tag}</span>
+        </div>
+        <h4 class="rp-card-title">${s.title}</h4>
+        <p class="rp-card-blurb">${s.blurb}</p>
+        <div class="rp-card-actions">
+          <button class="rp-card-btn" data-read="${s.id}"><i class="fas fa-book-open"></i> Read</button>
+          <button class="rp-card-btn rp-card-add" data-add="${s.id}">
+            <i class="fas ${inList ? 'fa-check' : 'fa-plus'}"></i> ${inList ? 'In list' : 'Add'}
+          </button>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+    if (!visible.length) {
+      grid.innerHTML = '<div class="reading-empty">No sections match your filter.</div>';
+    }
+    const counter = $('#reading-picker-count');
+    if (counter) counter.textContent = `${visible.length} of ${SECTIONS.length}`;
+  };
+
+  // ---------- footer stats ----------
+  const updateFooterStats = () => {
+    const r = $('#reading-stat-reads');
+    const a = $('#reading-stat-list');
+    const p = $('#reading-stat-prints');
+    if (r) r.textContent = stats.reads || 0;
+    if (a) a.textContent = list.length;
+    if (p) p.textContent = stats.prints || 0;
+  };
+
+  // ---------- section-level reading meta (word count + time) ----------
+  const decorateSections = () => {
+    SECTIONS.forEach(s => {
+      const sec = document.getElementById(s.id);
+      if (!sec || sec.dataset.readingDecorated) return;
+      sec.dataset.readingDecorated = '1';
+      const meta = document.createElement('div');
+      meta.className = 'section-read-meta';
+      const words = countWords(sec);
+      const time = readingTime(words);
+      meta.innerHTML = `<i class="fas fa-book-open"></i> ${words.toLocaleString()} words · ~${time} min read`;
+      const header = sec.querySelector('.section-header, .section-tag, .section-title');
+      if (header && header.parentNode) header.parentNode.appendChild(meta);
+    });
+  };
+
+  // ---------- print mode ----------
+  const printSection = (id) => {
+    const sec = document.getElementById(id);
+    if (!sec) return;
+    document.body.classList.add('reading-printing');
+    sec.setAttribute('data-printing-target', '1');
+    stats.prints = (stats.prints || 0) + 1;
+    saveJSON(STORAGE.stats, stats);
+    updateFooterStats();
+    setTimeout(() => { window.print(); }, 80);
+    setTimeout(() => {
+      document.body.classList.remove('reading-printing');
+      sec.removeAttribute('data-printing-target');
+    }, 800);
+  };
+
+  // ---------- read a section (track + jump) ----------
+  const readSection = (id) => {
+    const sec = document.getElementById(id);
+    if (!sec) return;
+    stats.reads = (stats.reads || 0) + 1;
+    saveJSON(STORAGE.stats, stats);
+    updateFooterStats();
+    applyReading(true);
+    requestAnimationFrame(() => {
+      sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  };
+
+  // ---------- toast ----------
+  let toastTimer;
+  const toast = (msg) => {
+    const t = $('#reading-toast');
+    if (!t) return;
+    t.textContent = msg;
+    t.hidden = false;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      t.classList.remove('show');
+      setTimeout(() => { t.hidden = true; }, 220);
+    }, 1600);
+  };
+
+  const printCurrentSection = () => {
+    let target = null;
+    for (const s of SECTIONS) {
+      const sec = document.getElementById(s.id);
+      if (!sec) continue;
+      const rect = sec.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.4 && rect.bottom > 0) { target = s.id; break; }
+    }
+    if (!target && SECTIONS.length) target = SECTIONS[0].id;
+    printSection(target);
+  };
+
+  // ---------- floating toolbar wiring ----------
+  console.log('[RM] toolbar wiring, btn:', document.getElementById('reading-toolbar-print'));
+  const tbPrint = $('#reading-toolbar-print');
+  if (tbPrint) tbPrint.addEventListener('click', printCurrentSection);
+  const tbExit = $('#reading-toolbar-exit');
+  if (tbExit) tbExit.addEventListener('click', () => applyReading(false));
+
+  // ---------- wiring ----------
+  const wire = () => {
+    const heroBtn = $('#reading-hero-btn') || $('#reading-btn');
+    if (heroBtn) heroBtn.addEventListener('click', toggleReading);
+
+    const navLink = document.querySelector('a[href="#reading"]');
+    if (navLink) navLink.addEventListener('click', () => { setTimeout(() => applyReading(true), 60); });
+
+    const searchInput = $('#reading-search-input');
+    if (searchInput) searchInput.addEventListener('input', e => { window.__rdSearch = e.target.value; filterAndRender(); });
+    const filterChips = $$('.reading-filter-tag');
+    filterChips.forEach(c => c.addEventListener('click', () => {
+      filterChips.forEach(x => x.classList.remove('active'));
+      c.classList.add('active');
+      filter = c.dataset.filter;
+      renderPicker();
+    }));
+    const clearBtn = $('#reading-list-clear');
+    if (clearBtn) clearBtn.addEventListener('click', clearList);
+
+    // delegated clicks for picker + list
+    document.addEventListener('click', e => {
+      const add = e.target.closest('[data-add]');
+      if (add) { addToList(add.dataset.add); return; }
+      const read = e.target.closest('[data-read]');
+      if (read) { readSection(read.dataset.read); return; }
+      const go = e.target.closest('[data-go]');
+      if (go) {
+        const id = go.dataset.go;
+        const sec = document.getElementById(id);
+        if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+      const rm = e.target.closest('[data-remove]');
+      if (rm) { removeFromList(rm.dataset.remove); return; }
+      const printBtn = e.target.closest('[data-print]');
+      if (printBtn) { printSection(printBtn.dataset.print); return; }
+    });
+
+    // keyboard: R toggles reading mode (ignored while typing)
+    document.addEventListener('keydown', e => {
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (/^(input|textarea|select)$/i.test(e.target.tagName) || e.target.isContentEditable) return;
+      if (e.key.toLowerCase() === 'r') {
+        e.preventDefault();
+        toggleReading();
+      }
+    });
+  };
+
+  // debounce search
+  let searchTimer;
+  const filterAndRender = () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => { searchInput = window.__rdSearch || ''; renderPicker(); }, 80);
+  };
+
+  // ---------- reading progress bar per section ----------
+  const initReadingProgress = () => {
+    SECTIONS.forEach(s => {
+      const sec = document.getElementById(s.id);
+      if (!sec || sec.dataset.readingProgress) return;
+      sec.dataset.readingProgress = '1';
+      const bar = document.createElement('div');
+      bar.className = 'reading-progress';
+      sec.prepend(bar);
+    });
+    const onScroll = () => {
+      if (!document.body.classList.contains('reading-mode')) return;
+      SECTIONS.forEach(s => {
+        const sec = document.getElementById(s.id);
+        if (!sec) return;
+        const bar = sec.querySelector('.reading-progress');
+        if (!bar) return;
+        const rect = sec.getBoundingClientRect();
+        const winH = window.innerHeight;
+        const total = rect.height;
+        const seen = Math.min(total, Math.max(0, winH - rect.top));
+        const pct = total > 0 ? Math.min(100, Math.max(0, (seen / Math.min(total, winH)) * 100)) : 0;
+        bar.style.width = pct + '%';
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  };
+
+  // ---------- init ----------
+  decorateSections();
+  renderList();
+  renderPicker();
+  updateFooterStats();
+  applyReading(active);
+  wire();
+  initReadingProgress();
 }

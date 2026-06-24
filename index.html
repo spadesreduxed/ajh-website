@@ -112,6 +112,7 @@
             <li><a href="#constellation">Constellation</a></li>
             <li><a href="#themestudio">Themes</a></li>
             <li><a href="#assistant">Assistant</a></li>
+            <li><a href="#reading">Reading</a></li>
             <li><a href="#quotes">Quotes</a></li>
             <li><a href="#stats">Stats</a></li>
             <li><a href="#journey">Journey</a></li>
@@ -198,6 +199,9 @@
                 <button class="plan-btn" id="assistant-btn" aria-label="Build assistant" title="Ask the Build Assistant (A)">
                     <i class="fas fa-robot"></i>
                 </button>
+                <button class="plan-btn" id="reading-hero-btn" aria-label="Reading mode" title="Open Reading Mode (R)">
+                    <i class="fas fa-book-open"></i>
+                </button>
             </div>
             <div class="hero-stats">
                 <div class="stat">
@@ -205,7 +209,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="62">0</span>
+                    <span class="stat-value" data-count="63">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -216,7 +220,7 @@
             <div class="daily-streak">
                 <span class="streak-icon">🔥</span>
                 <div class="streak-info">
-                    <span class="streak-count">62 days</span>
+                    <span class="streak-count">63 days</span>
                     <span class="streak-label">Daily Streak</span>
                 </div>
             </div>
@@ -236,11 +240,11 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 62</span>
+                    <span class="insight-value">Day 63</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
-                    <span class="insight-value">62</span>
+                    <span class="insight-value">63</span>
                     <span class="insight-label">streak</span>
                 </div>
             </div>
@@ -722,7 +726,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="62">0</div>
+                    <div class="stat-number" data-count="63">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -1215,7 +1219,7 @@
                     <div class="productivity-widget streak-widget">
                         <div class="streak-visual" id="streak-visual">
                             <span class="streak-flame">🔥</span>
-                            <span class="streak-number" id="streak-number">62</span>
+                            <span class="streak-number" id="streak-number">63</span>
                             <span class="streak-label">days</span>
                         </div>
                     </div>
@@ -1312,6 +1316,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">23</span>
+                        <span class="blog-month">June 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 63</span>
+                        <h3>Reading Mode &amp; Reading List — Distraction-Free Read</h3>
+                        <p>Day 63 shipped a Reading Mode and a personal Reading List. Press <kbd>R</kbd> (or click the book icon in the hero meta) to enter distraction-free reading: chrome fades out, type scales up, line-height opens, and a per-section progress bar tracks how far through the section you are. Add any section to your Reading List to save it for later — word count and estimated read time are calculated for every section automatically. Print any section with <kbd>Ctrl/⌘ + P</kbd> using the new print stylesheet. Stats (sections read, words consumed, list size) persist to localStorage.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">22</span>
@@ -3126,6 +3141,137 @@
 
     <!-- Theme Studio Toast (Day 62) -->
     <div class="ts-toast" id="ts-toast" hidden></div>
+
+    <!-- Reading Mode Floating Toggle (Day 63) -->
+    <div class="reading-toolbar" id="reading-toolbar" hidden>
+        <div class="reading-toolbar-row">
+            <span class="reading-toolbar-label"><i class="fas fa-book-open"></i> Reading Mode</span>
+            <div class="reading-toolbar-progress">
+                <div class="reading-toolbar-progress-fill" id="reading-progress-fill"></div>
+            </div>
+            <span class="reading-toolbar-pct" id="reading-progress-pct">0%</span>
+            <button class="reading-toolbar-btn" id="reading-list-btn" title="View reading list">
+                <i class="fas fa-bookmark"></i>
+                <span class="reading-list-badge" id="reading-list-badge">0</span>
+            </button>
+            <button class="reading-toolbar-btn" id="reading-print-btn" title="Print this section">
+                <i class="fas fa-print"></i>
+            </button>
+            <button class="reading-toolbar-btn reading-toolbar-close" id="reading-exit-btn" title="Exit reading mode (Esc)">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="reading-toolbar-meta">
+            <span class="reading-toolbar-section" id="reading-section-label">—</span>
+            <span class="reading-toolbar-words" id="reading-words">0 words</span>
+            <span class="reading-toolbar-time" id="reading-time">0 min read</span>
+        </div>
+    </div>
+
+    <!-- Reading List Drawer (Day 63) -->
+    <div class="reading-drawer" id="reading-drawer" hidden>
+        <div class="reading-drawer-backdrop" data-drawer-close></div>
+        <aside class="reading-drawer-panel" role="dialog" aria-labelledby="reading-drawer-title">
+            <header class="reading-drawer-head">
+                <h3 id="reading-drawer-title"><i class="fas fa-bookmark"></i> Reading List</h3>
+                <button class="reading-drawer-close" data-drawer-close aria-label="Close reading list"><i class="fas fa-times"></i></button>
+            </header>
+            <div class="reading-drawer-actions">
+                <button class="btn btn-primary" id="reading-drawer-clear"><i class="fas fa-trash"></i> Clear</button>
+                <button class="btn" id="reading-drawer-export"><i class="fas fa-file-export"></i> Export</button>
+            </div>
+            <ul class="reading-drawer-list" id="reading-drawer-list"></ul>
+            <div class="reading-drawer-empty" id="reading-drawer-empty" hidden>
+                <i class="fas fa-bookmark"></i>
+                <p>Nothing here yet. Click <em>Save for later</em> on any section to start your list.</p>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Day 63 - Reading Mode -->
+    <section id="reading" class="section reading-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-book-open"></i> Day 63</span>
+                <h2 class="section-title">Reading Mode</h2>
+                <p class="section-subtitle">Distraction-free reads + a reading list to come back to</p>
+            </div>
+
+            <div class="reading-grid">
+                <div class="reading-intro">
+                    <h3><i class="fas fa-circle-info"></i> What is this?</h3>
+                    <p>Hit the <kbd>R</kbd> key (or the book icon in the hero bar) to swap the page into a calm, paper-colored reading view. Animations quiet down, the navbar hides, and the typography switches to a serif for long-form comfort.</p>
+                    <ul>
+                        <li>Per-section word counts and reading-time estimates</li>
+                        <li>Build a reading list of sections to come back to</li>
+                        <li>Print-friendly mode for any single section</li>
+                        <li>Reading progress bar shows how far you are through the page</li>
+                    </ul>
+                    <div class="reading-shortcuts">
+                        <kbd>R</kbd> toggle reading mode &nbsp;·&nbsp; <kbd>Esc</kbd> exit &nbsp;·&nbsp; <kbd>Ctrl/Cmd</kbd>+<kbd>P</kbd> print
+                    </div>
+                </div>
+
+                <div class="reading-list-card">
+                    <div class="reading-list-card-head">
+                        <h3><i class="fas fa-bookmark"></i> Reading List</h3>
+                        <button class="reading-list-clear" id="reading-list-clear" title="Clear the entire list">Clear</button>
+                    </div>
+                    <p>Pin sections you want to come back to. Click the bookmark to jump straight there.</p>
+                    <div class="reading-list-wrap" id="reading-list-wrap"></div>
+                    <p class="reading-list-empty" id="reading-list-empty" hidden>Your reading list is empty. Add a section below to start.</p>
+                </div>
+            </div>
+
+            <div class="reading-picker-card">
+                <div class="reading-picker-head">
+                    <h3><i class="fas fa-list-ul"></i> Sections</h3>
+                    <div class="reading-picker-tools">
+                        <input type="text" class="reading-search" id="reading-search-input" placeholder="Search sections…">
+                        <span class="reading-picker-count" id="reading-picker-count">0 of 0</span>
+                    </div>
+                </div>
+                <div class="reading-filters" id="reading-filters">
+                    <button class="reading-filter-tag active" data-filter="all">All</button>
+                    <button class="reading-filter-tag" data-filter="Profile">Profile</button>
+                    <button class="reading-filter-tag" data-filter="Builds">Builds</button>
+                    <button class="reading-filter-tag" data-filter="Tool">Tools</button>
+                    <button class="reading-filter-tag" data-filter="Library">Libraries</button>
+                    <button class="reading-filter-tag" data-filter="Journal">Journal</button>
+                    <button class="reading-filter-tag" data-filter="Map">Map</button>
+                </div>
+                <div class="reading-picker-grid" id="reading-picker"></div>
+            </div>
+
+            <div class="reading-footer-card">
+                <h3><i class="fas fa-chart-simple"></i> Reading Stats</h3>
+                <div class="reading-stats">
+                    <div class="reading-stat">
+                        <span class="reading-stat-value" id="reading-stat-reads">0</span>
+                        <span class="reading-stat-label">Sections Read</span>
+                    </div>
+                    <div class="reading-stat">
+                        <span class="reading-stat-value" id="reading-stat-list">0</span>
+                        <span class="reading-stat-label">In Reading List</span>
+                    </div>
+                    <div class="reading-stat">
+                        <span class="reading-stat-value" id="reading-stat-prints">0</span>
+                        <span class="reading-stat-label">Prints</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reading Mode Floating Toolbar (Day 63) -->
+    <div class="reading-toolbar" id="reading-toolbar" hidden>
+        <span class="reading-toolbar-label"><i class="fas fa-book-open"></i> Reading Mode</span>
+        <button class="reading-toolbar-btn" id="reading-toolbar-print" title="Print this section (Ctrl/Cmd+P)"><i class="fas fa-print"></i> Print</button>
+        <button class="reading-toolbar-btn reading-toolbar-exit" id="reading-toolbar-exit" title="Exit reading mode (R or Esc)"><i class="fas fa-xmark"></i> Exit</button>
+    </div>
+
+    <!-- Reading Mode Toast (Day 63) -->
+    <div class="reading-toast" id="reading-toast" hidden></div>
 
 </body>
 </html>

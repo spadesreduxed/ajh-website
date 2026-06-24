@@ -739,3 +739,55 @@ body {
   border-color: rgba(0, 0, 0, 0.08);
   color: #4b5563;
 }
+
+/* ============================================================
+   Day 63 - Reading Mode light theme overrides
+   ============================================================ */
+[data-theme="light"] .reading-intro,
+[data-theme="light"] .reading-list-card,
+[data-theme="light"] .reading-search,
+[data-theme="light"] .reading-filter-tag,
+[data-theme="light"] .rp-card,
+[data-theme="light"] .reading-stat {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+[data-theme="light"] .reading-list-item,
+[data-theme="light"] .rp-card-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+[data-theme="light"] .reading-list-item:hover,
+[data-theme="light"] .rp-card-btn:hover { background: rgba(0, 0, 0, 0.07); }
+[data-theme="light"] .reading-toolbar {
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  color: #1a1a1a;
+}
+[data-theme="light"] .reading-toolbar-progress { background: rgba(0, 0, 0, 0.08); }
+[data-theme="light"] .reading-toolbar-pct,
+[data-theme="light"] .reading-toolbar-meta { color: #555; }
+[data-theme="light"] .reading-toolbar-btn { background: rgba(0, 0, 0, 0.05); border-color: rgba(0, 0, 0, 0.1); }
+[data-theme="light"] .reading-drawer-panel { background: #ffffff; border-left: 1px solid rgba(0, 0, 0, 0.08); }
+[data-theme="light"] .reading-drawer-head { border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
+[data-theme="light"] .reading-drawer-list li:hover { background: rgba(0, 0, 0, 0.04); }
+[data-theme="light"] .rp-card:hover { border-color: #6c63ff; }
+/* Day 63 - Reading Mode light theme overrides */
+[data-theme="light"] .reading-intro,
+[data-theme="light"] .reading-list-card,
+[data-theme="light"] .reading-picker-card,
+[data-theme="light"] .reading-footer-card {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+[data-theme="light"] .reading-search,
+[data-theme="light"] .reading-filter-tag,
+[data-theme="light"] .rp-card,
+[data-theme="light"] .reading-stat,
+[data-theme="light"] .reading-list-item {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+[data-theme="light"] .reading-list-item:hover,
+[data-theme="light"] .rp-card:hover { background: rgba(0, 0, 0, 0.08); }
+[data-theme="light"] .reading-toolbar { background: #2a2a2f; }
