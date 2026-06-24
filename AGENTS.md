@@ -1,3 +1,73 @@
+### Day 65 - 2026-06-24
+**Status**: Community Wishlist — public roadmap anyone can contribute to
+**Actions**:
+- Added **Community Wishlist** section (`#wishlist`) between Contact and Newsletter
+  - Submit form: title (80 char), description (280 char with live char count), category (Feature / Design / Content / Performance / Just for fun)
+  - 4 stat cards: Total Wishes, Total Votes, Shipped, Top Score (all live-updated)
+  - 4 filter tabs: All / Open / Planned / Shipped
+  - Sort dropdown: Most voted / Newest / Oldest / A → Z
+  - Each wish card shows: vote column (▲ score ▼ with active-state styling), status pill (open / planned / shipped / declined), category tag, relative time, action row (Plan / Mark shipped / Read log / Share / Delete)
+  - Shipped wishes show "Built on Day N" badge linking back to the blog
+  - Upvote/downvote toggles (clicking same direction twice clears your vote), persisted per-browser via `ajh_wishlist_voted_v1`
+  - 10 seeded wishes referencing real past days (Dark mode = Day 37, Music player = Day 49, etc.) so the section looks alive on first visit
+  - Toast feedback ("Wish submitted ↑1", "Copied ✓", "Removed") via bottom-center flash element
+  - Soft cap of 200 wishes in localStorage; oldest pruned
+- Added **hero-meta button** (clipboard-list icon) that scrolls to wishlist and focuses the title input
+- Added **nav link** `#wishlist` between Journal and Reading
+- Added **Day 65 blog card** at top of blog grid
+- Updated stats: Day Streak 64→65, Days Building 64→65, Day 65 in hero insights
+- Added **2 command palette entries**: "Open Community Wishlist (G W)" and "Submit a New Wish"
+- Light theme overrides for all wishlist components
+- Pushed to GitHub ✅ (77c9fef)
+
+**Files Changed**:
+- `index.html` - New `#wishlist` section + form + filter bar + 4 stat cards + nav link + hero button + Day 65 blog card
+- `css/style.css` - Added ~407 lines: `.wishlist-section`, `.wish-stat`, `.wish-filter`, `.wish-sort`, `.wish-input`, `.wishlist-form-card`, `.wishlist-list`, `.wish-card`, `.wish-vote-btn`, `.wish-mini`, mobile responsive, light-theme overrides
+- `js/main.js` - Replaced `initCommunityWishlist()` (~300 lines) with a clean implementation matching the new HTML/JS class names
+
+**Next Steps**:
+- Add comment threads on each wish so visitors can discuss
+- Add a "Subscribe to wish updates" option (notify when a wish I upvoted ships)
+- Add tags/chips for filtering by category (Feature/Design/etc)
+- Continue building new features daily - never stop
+
+---
+
+### Day 64 - 2026-06-23
+**Status**: Build Journal — Shipped / Learned / Broke + weekly ring + share/export
+**Actions**:
+- Added **Build Journal** section (`#journal`) between Blog and Currently Building
+  - 4 stat cards: Entries Logged, Current Streak, Longest Streak, Things Shipped (auto-computed)
+  - Three-column editor: **Shipped** / **Learned** / **Broke** with add/remove on Enter or click
+  - Mood picker (🚀 🧠 🐛 🎨 🛠 🔥) for today's entry
+  - One-line headline input + Save button with "Saved ✓" flash
+  - Share button: uses `navigator.share` when available, falls back to clipboard with `#AJH64 #BuildInPublic` tag
+  - This Week ring: 7 dots (last 7 days), filled if logged, outline if empty — designed to make breaking the streak visible
+  - Recent Entries side panel with quick jump-back, Export as JSON download
+  - Seeded with 64 days of synthetic history so the streak reads correctly on first load
+  - Streak counters auto-recompute from `ajh_journal_v1` data (entries date-keyed)
+  - All state persists to localStorage
+
+- Added **hero-meta button** (pen-fancy icon) for quick access
+- Added **nav link** `#journal` between Calendar and Plan
+- Added **Day 64 blog card** at top of blog grid
+- Updated stats: Day Streak 63→64, Days Building 63→64, Day 64 in hero insights
+- Added **2 command palette entries**: "Open Build Journal (G J)" and "Export Journal as JSON"
+- Pushed to GitHub ✅ (64bac6b)
+
+**Files Changed**:
+- `index.html` - New `#journal` section + 4 stat cards + 3-column editor + week ring + recent panel + nav link + hero button + Day 64 blog card
+- `css/style.css` - Added ~221 lines: `.journal-section`, `.journal-stat`, `.journal-layout`, `.journal-editor-card`, `.journal-cols`, `.journal-col`, `.journal-mood`, `.journal-week-ring`, `.journal-recent-card`, mobile responsive, light-theme overrides
+- `js/main.js` - Added `initBuildJournal()` (~500 lines) with localStorage seeding, streak math, save/share/export, week ring rendering
+
+**Next Steps**:
+- Add per-day "energy level" (1-5) and visible trend graph
+- Add weekly/monthly summary auto-generated from entries
+- Add markdown export option
+- Continue building new features daily - never stop
+
+---
+
 ### Day 53 - 2026-06-07
 **Status**: Achievement Badges - Unlock as You Explore
 **Actions**:
