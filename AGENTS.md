@@ -1,3 +1,48 @@
+### Day 66 - 2026-06-25
+**Status**: On This Day — 365 Days of Builder Wisdom
+**Actions**:
+- Added **On This Day** section (`#wisdom`) between Quotes and FAQ
+  - 365 builder principles deterministically generated from a 200+ curated seed bank (Engineering / Craft / Discipline / Mindset / Shipping)
+  - Today’s card auto-loads based on day-of-year (so it stays the same all day)
+  - Large quote card with #number, category badge, and contextual ending line
+  - Prev / Next buttons to browse the deck (filter-aware: only navigates within filtered set)
+  - **Filter chips**: All / Engineering / Craft / Discipline / Mindset / Shipping (live filter)
+  - **Today** button jumps back to day-of-year; **Random** jumps to a random card; **Bookmarks** toggle shows only saved
+  - 4 stat cards: Day of Year (e.g. #176), Bookmarks, Shared, Cards Viewed (live updated)
+  - **Bookmark / Copy / Share / Flip** actions on the card
+    - Bookmark persists to localStorage (`ajh_wisdom_v1`)
+    - Copy uses clipboard with execCommand fallback
+    - Share uses navigator.share if available, else clipboard
+    - Flip reveals a rotating catalog of closing thoughts (e.g. "Filed under: things that compound.")
+  - Keyboard shortcuts (when wisdom is in viewport): ←/→ navigate, F flips, B bookmarks
+  - Compact **wisdom bank** below the main card showing nearby cards (jump-back chips)
+  - Mobile responsive: stage stacks vertically, nav buttons move below card
+- Added **nav link** `#wisdom` between Quotes and FAQ
+- Added **hero-meta button** (feather-pointed icon) that scrolls to wisdom
+- Added **2 command palette entries**: "Open On This Day Wisdom (G O)" and "Random Wisdom Card"
+- Updated stats: Day Streak 65→66, Days Building 65→66, Features Built 60→61
+- Added **Day 66 blog card** at top of blog grid
+- Light-theme overrides for all wisdom components
+- Mobile responsive + reduced-motion friendly
+
+**Files Changed**:
+- `index.html` - New `#wisdom` section (stats, filters, controls, card stage, bank, nav link, hero button, Day 66 blog card)
+- `css/style.css` - Added ~420 lines for `.wisdom-section`, `.wisdom-summary`, `.wisdom-stat`, `.wisdom-controls`, `.wisdom-filter`, `.wisdom-tool-btn`, `.wisdom-stage`, `.wisdom-card`, `.wisdom-card-corner`, `.wisdom-card-actions`, `.wisdom-nav`, `.wisdom-counter`, `.wisdom-bank`, light-theme overrides, mobile responsive
+- `js/main.js` - Added `initDailyWisdom()` (~520 lines) with seed bank (200+ entries), deterministic LCG expansion to 365, day-of-year logic, deck navigation, filter, bookmarks (localStorage), share/copy/flip, keyboard shortcuts, command palette hooks; wired into DOMContentLoaded
+
+**Next Steps**:
+- Add a daily email export (publish today’s card to subscribers)
+- Add streak tracking for “read a card every day” — make it another badge
+- Add per-category mini collections (a “Craft 5-pack” etc.)
+- Add ability to submit your own wisdom and merge into the local bank
+- Continue building new features daily - never stop
+
+---
+
+# AJH GitHub Pages
+
+---
+
 ### Day 65 - 2026-06-24
 **Status**: Community Wishlist — public roadmap anyone can contribute to
 **Actions**:

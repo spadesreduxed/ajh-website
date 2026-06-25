@@ -740,6 +740,8 @@ function initCommandPalette() {
     { id: 'tool-journal-export', label: 'Export Journal as JSON', icon: 'fa-download', category: 'Tools', action: () => document.getElementById('journal-export-btn')?.click() },
     { id: 'tool-wishlist', label: 'Open Community Wishlist', icon: 'fa-clipboard-list', shortcut: 'G W', category: 'Tools', action: () => scrollTo('#wishlist') },
     { id: 'tool-wishlist-new', label: 'Submit a New Wish', icon: 'fa-plus-circle', category: 'Tools', action: () => document.getElementById('wishlist-hero-btn')?.click() },
+    { id: 'tool-wisdom', label: 'Open On This Day Wisdom', icon: 'fa-feather-pointed', shortcut: 'G O', category: 'Tools', action: () => scrollTo('#wisdom') },
+    { id: 'tool-wisdom-random', label: 'Random Wisdom Card', icon: 'fa-shuffle', category: 'Tools', action: () => document.getElementById('wisdom-random-btn')?.click() },
     
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -4324,7 +4326,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initReadingMode();
   initBuildJournal();
   initCommunityWishlist();
-  console.log("⚡ AJH Website loaded - Day 64: Build Journal + Day 65: Community Wishlist");
+  initDailyWisdom();
+  console.log("⚡ AJH Website loaded - Day 65: Community Wishlist + Day 66: On This Day Wisdom");
 });
 /* ============================================================
    Day 61: Time Capsule Vault
@@ -6364,3 +6367,517 @@ function initCommunityWishlist() {
   wireFilters();
   wireHero();
 }
+/* ============================================================ */
+/* Day 66 — On This Day / Builder Wisdom                         */
+/* ============================================================ */
+
+function initDailyWisdom() {
+  const CARD_KEY = 'ajh_wisdom_v1';
+  const STATS_KEY = 'ajh_wisdom_stats_v1';
+  const VIEWED_KEY = 'ajh_wisdom_viewed_v1';
+
+  // ---- 365 builder principles (curated bank + deterministic extension) ----
+  // Each entry: { text, category }
+  const SEED = [
+    { t: 'Ship the smallest useful thing today.', c: 'Shipping' },
+    { t: 'If it is worth doing, it is worth doing badly first.', c: 'Mindset' },
+    { t: 'Delete is the cheapest feature you can ship.', c: 'Engineering' },
+    { t: 'A spec is a story you tell yourself to delay writing code.', c: 'Craft' },
+    { t: 'Discipline equals freedom. The structure is the ladder.', c: 'Discipline' },
+    { t: 'Perfection is a moving target. Done is a direction.', c: 'Shipping' },
+    { t: 'The best debugging tool is a clear head and a fresh log.', c: 'Engineering' },
+    { t: 'Make it work, make it right, make it fast — in that order.', c: 'Craft' },
+    { t: 'A commit message is a love letter to your future self.', c: 'Craft' },
+    { t: 'Write code for the next person to read. That person is you.', c: 'Craft' },
+    { t: 'Tests are a gift to the version of you that ships at 2am.', c: 'Engineering' },
+    { t: 'Boring tech is a feature, not a failure.', c: 'Engineering' },
+    { t: 'You do not have a performance problem until you measure one.', c: 'Engineering' },
+    { t: 'Read the error message twice before you read the docs once.', c: 'Engineering' },
+    { t: 'Reproductions are the bridge between "weird" and "fixed".', c: 'Engineering' },
+    { t: 'The fastest code is the code you do not write.', c: 'Engineering' },
+    { t: 'Refactor when the third example appears, not the first.', c: 'Craft' },
+    { t: 'Naming is the design. The variable name is the API.', c: 'Craft' },
+    { t: 'Comments explain why, not what. Code is what.', c: 'Craft' },
+    { t: 'Small functions, small commits, small bets — same principle.', c: 'Craft' },
+    { t: 'A long branch is a slow goodbye.', c: 'Discipline' },
+    { t: 'Merge daily. The trunk is the truth.', c: 'Discipline' },
+    { t: 'Daily beats dramatic. Streaks beat sprints.', c: 'Discipline' },
+    { t: 'One commit per day is better than one commit per quarter.', c: 'Discipline' },
+    { t: 'Show up. The muse rewards attendance.', c: 'Mindset' },
+    { t: 'Build for the version of you that is tired.', c: 'Mindset' },
+    { t: 'Tired? Ship the smallest unit. Proud? Ship the next one.', c: 'Shipping' },
+    { t: 'Velocity is a function of clarity, not talent.', c: 'Craft' },
+    { t: 'Plan in days, build in hours, ship in minutes.', c: 'Shipping' },
+    { t: 'If you cannot explain it to a friend, you cannot ship it.', c: 'Craft' },
+    { t: 'Every bug is a story with two characters: code and intent.', c: 'Engineering' },
+    { t: 'Good software is a museum of decisions you can read.', c: 'Craft' },
+    { t: 'Logs are the diary. Make them kind to strangers.', c: 'Engineering' },
+    { t: 'APIs are conversations. Be brief, be kind, be clear.', c: 'Craft' },
+    { t: 'Users do not want features. They want outcomes.', c: 'Mindset' },
+    { t: 'A feature is only a feature once someone uses it.', c: 'Shipping' },
+    { t: 'The version users have is sacred. The version users get is negotiable.', c: 'Shipping' },
+    { t: 'Backward compatibility is respect with teeth.', c: 'Engineering' },
+    { t: 'Roll forward is cheaper than roll back. Almost always.', c: 'Engineering' },
+    { t: 'A failing test is the first line of a fix.', c: 'Engineering' },
+    { t: 'You cannot optimize what you cannot measure.', c: 'Engineering' },
+    { t: 'Latency is a tax on every action. Keep the rate low.', c: 'Engineering' },
+    { t: 'Accessibility is not a feature. It is a floor.', c: 'Craft' },
+    { t: 'Mobile is not a viewport. It is a constraint set.', c: 'Craft' },
+    { t: 'Performance is a UX feature you cannot see.', c: 'Engineering' },
+    { t: 'A 100ms delay is felt. A 1s delay is forgiven. A 10s delay is left.', c: 'Engineering' },
+    { t: 'Caching is a memory. Choose what to remember.', c: 'Engineering' },
+    { t: 'Premature optimization is the root, but premature shipping is too.', c: 'Shipping' },
+    { t: 'Versioning is the contract. Read it before you write.', c: 'Engineering' },
+    { t: 'A readme is a handshake. A changelog is a promise.', c: 'Craft' },
+    { t: 'Documentation is the second product.', c: 'Craft' },
+    { t: 'If the docs are wrong, the feature is broken.', c: 'Craft' },
+    { t: 'Stable is a velocity feature.', c: 'Engineering' },
+    { t: 'The right amount of complexity is the least you can get away with.', c: 'Craft' },
+    { t: 'Every abstraction is a tax on the next reader.', c: 'Craft' },
+    { t: 'There are two hard problems: cache invalidation and naming.', c: 'Craft' },
+    { t: 'Off-by-one is the universe trolling you.', c: 'Engineering' },
+    { t: 'Edge cases are where users live.', c: 'Craft' },
+    { t: 'When in doubt, print. When sure, print again.', c: 'Engineering' },
+    { t: 'A good error tells the user what to do next.', c: 'Craft' },
+    { t: 'Empty states teach more than populated ones.', c: 'Craft' },
+    { t: 'Defaults are decisions the user did not make.', c: 'Craft' },
+    { t: 'A keyboard shortcut is a love letter to power users.', c: 'Craft' },
+    { t: 'A undo button is an apology for the future.', c: 'Craft' },
+    { t: 'Search is the universal interface. Build it well.', c: 'Craft' },
+    { t: 'Persistence is the feature. The rest is the surface.', c: 'Engineering' },
+    { t: 'A localStorage write is a promise to future visitors.', c: 'Engineering' },
+    { t: 'Schema migrations are the scars of growth. Keep them clean.', c: 'Engineering' },
+    { t: 'Migrations are not a phase. They are the project.', c: 'Engineering' },
+    { t: 'Indexes are the gift you give your future queries.', c: 'Engineering' },
+    { t: 'A transaction is a handshake. Commit or rollback, never both.', c: 'Engineering' },
+    { t: 'A bug you cannot reproduce is a story you have not heard.', c: 'Engineering' },
+    { t: 'Reproduce. Reduce. Rewrite. Release.', c: 'Engineering' },
+    { t: 'Bisect is your time machine. Use it.', c: 'Engineering' },
+    { t: 'A feature flag is a permission slip. Use it sparingly.', c: 'Engineering' },
+    { t: 'The road to legacy is paved with quick fixes.', c: 'Engineering' },
+    { t: 'Tech debt is a tax. Pay it on time or pay it with interest.', c: 'Discipline' },
+    { t: 'Every TODO is a future you are borrowing from.', c: 'Discipline' },
+    { t: 'Discipline is choosing what you will not do.', c: 'Discipline' },
+    { t: 'Habits outlast motivation. Build the loop.', c: 'Discipline' },
+    { t: 'Small habits compound like interest.', c: 'Discipline' },
+    { t: 'One percent better daily is thirty-eight times better yearly.', c: 'Mindset' },
+    { t: 'The streak is not the goal. The streak is the side effect.', c: 'Mindset' },
+    { t: 'A daily build beats a weekly brainstorm.', c: 'Discipline' },
+    { t: 'The first hour is the most expensive. Spend it on thinking.', c: 'Craft' },
+    { t: 'Plan for the version of the project that exists in three months.', c: 'Craft' },
+    { t: 'Future-proofing is the most expensive feature.', c: 'Engineering' },
+    { t: 'The best time to add observability was at the start.', c: 'Engineering' },
+    { t: 'Logs are the ground truth. Metrics are the highlights.', c: 'Engineering' },
+    { t: 'A dashboard is a question with knobs.', c: 'Engineering' },
+    { t: 'Alerts should page humans, not their curiosity.', c: 'Engineering' },
+    { t: 'A clean terminal is a clean mind.', c: 'Craft' },
+    { t: 'Tabs are a tax. Spaces are peace.', c: 'Craft' },
+    { t: 'Linters are critics who never sleep.', c: 'Engineering' },
+    { t: 'Formatters end arguments. Use them.', c: 'Discipline' },
+    { t: 'The CI is the bouncer. The PR is the ID.', c: 'Engineering' },
+    { t: 'A green build is a small celebration. Have one.', c: 'Mindset' },
+    { t: 'A red build is a small tragedy. Acknowledge it.', c: 'Mindset' },
+    { t: 'Ship often. Sleep well. Repeat.', c: 'Shipping' },
+    { t: 'A daily deploy is the cheapest insurance.', c: 'Shipping' },
+    { t: 'Production is the only environment that matters.', c: 'Engineering' },
+    { t: 'A backup you never tested is a wish.', c: 'Engineering' },
+    { t: 'A runbook you never wrote is a prayer.', c: 'Engineering' },
+    { t: 'Security is a feature you cannot see but everyone depends on.', c: 'Engineering' },
+    { t: 'Authorship is the most important security control.', c: 'Engineering' },
+    { t: 'Secrets in code are postcards for attackers.', c: 'Engineering' },
+    { t: 'Rotate keys like you rotate tires: on schedule.', c: 'Engineering' },
+    { t: 'Input is guilty until proven innocent.', c: 'Engineering' },
+    { t: 'Output is innocent until compared.', c: 'Engineering' },
+    { t: 'Privacy is a feature. Consent is a process.', c: 'Craft' },
+    { t: 'A user who feels respected is a user who returns.', c: 'Mindset' },
+    { t: 'Onboarding is the first 60 seconds of respect.', c: 'Craft' },
+    { t: 'Empty states are tiny tutorials.', c: 'Craft' },
+    { t: 'A loading state is a promise to the user.', c: 'Craft' },
+    { t: 'Animation explains what words cannot.', c: 'Craft' },
+    { t: 'Whitespace is the cheapest design tool.', c: 'Craft' },
+    { t: 'Color is a vocabulary. Use it intentionally.', c: 'Craft' },
+    { t: 'Type is the user interface of the user interface.', c: 'Craft' },
+    { t: 'A button is a sentence. Make it active.', c: 'Craft' },
+    { t: 'A link is a door. Make it obvious where it goes.', c: 'Craft' },
+    { t: 'A modal is a conversation interrupter. Use sparingly.', c: 'Craft' },
+    { t: 'A toast is a whisper, not a shout.', c: 'Craft' },
+    { t: 'A notification is a tap on the shoulder, not a punch.', c: 'Craft' },
+    { t: 'Good UX is the absence of "where am I?" moments.', c: 'Craft' },
+    { t: 'A great UI has fewer features, not more.', c: 'Craft' },
+    { t: 'A great product removes steps, not adds buttons.', c: 'Craft' },
+    { t: 'A great API removes surprises, not just parameters.', c: 'Engineering' },
+    { t: 'A great docs page removes guesses.', c: 'Craft' },
+    { t: 'A great changelog removes fear of upgrading.', c: 'Craft' },
+    { t: 'A great on-call removes panic.', c: 'Engineering' },
+    { t: 'A great backlog removes guilt.', c: 'Discipline' },
+    { t: 'A great team removes meetings.', c: 'Discipline' },
+    { t: 'A great standup is 5 minutes and one decision.', c: 'Discipline' },
+    { t: 'A great review is two comments and a thank you.', c: 'Craft' },
+    { t: 'A great comment is the one that prevents the next bug.', c: 'Craft' },
+    { t: 'A great test is the one that fails when it should.', c: 'Engineering' },
+    { t: 'A great name is the one you remember a year from now.', c: 'Craft' },
+    { t: 'A great error is the one you can copy and paste to a search engine.', c: 'Craft' },
+    { t: 'A great log is the one you can read in the dark.', c: 'Engineering' },
+    { t: 'A great metric is the one a stakeholder can act on.', c: 'Engineering' },
+    { t: 'A great goal is the one you can finish before lunch.', c: 'Mindset' },
+    { t: 'A great streak is the one you do not notice until it is huge.', c: 'Mindset' },
+    { t: 'A great commit is the one you do not have to explain.', c: 'Craft' },
+    { t: 'A great PR is the one that gets approved in a coffee break.', c: 'Craft' },
+    { t: 'A great review is a compliment sandwich you can skip.', c: 'Craft' },
+    { t: 'A great rewrite is the one you do not have to do.', c: 'Engineering' },
+    { t: 'A great deprecation is the one nobody notices.', c: 'Engineering' },
+    { t: 'A great migration is the one with a script.', c: 'Engineering' },
+    { t: 'A great dashboard is the one you open once a week.', c: 'Engineering' },
+    { t: 'A great alert is the one that wakes you for the right reason.', c: 'Engineering' },
+    { t: 'A great runbook is the one you write while calm.', c: 'Engineering' },
+    { t: 'A great postmortem is the one without blame.', c: 'Engineering' },
+    { t: 'A great decision is the one you can explain in a tweet.', c: 'Discipline' },
+    { t: 'A great meeting is the one that ends early.', c: 'Discipline' },
+    { t: 'A great spec is the one that fits on one page.', c: 'Craft' },
+    { t: 'A great design is the one that fits on one screen.', c: 'Craft' },
+    { t: 'A great pitch is the one that fits in one sentence.', c: 'Mindset' },
+    { t: 'A great name is the one that fits in one word.', c: 'Craft' },
+    { t: 'A great function is the one that does one thing.', c: 'Craft' },
+    { t: 'A great class is the one with one reason to change.', c: 'Craft' },
+    { t: 'A great module is the one you can delete in an afternoon.', c: 'Engineering' },
+    { t: 'A great dependency is the one you can replace in a day.', c: 'Engineering' },
+    { t: 'A great monorepo is the one that compiles in a minute.', c: 'Engineering' },
+    { t: 'A great microfrontend is the one nobody can tell is one.', c: 'Engineering' },
+    { t: 'A great API is the one that does not need a client library.', c: 'Engineering' },
+    { t: 'A great SDK is the one you can vendor in a weekend.', c: 'Engineering' },
+    { t: 'A great CLI is the one with --help that is actually helpful.', c: 'Craft' },
+    { t: 'A great README is the one with a GIF.', c: 'Craft' },
+    { t: 'A great landing page is the one with one button.', c: 'Craft' },
+    { t: 'A great 404 is the one that does not feel like a 404.', c: 'Craft' },
+    { t: 'A great error boundary is the one that says sorry gracefully.', c: 'Engineering' },
+    { t: 'A great fallback is the one the user prefers.', c: 'Craft' },
+    { t: 'A great cache miss is the one you logged.', c: 'Engineering' },
+    { t: 'A great retry has a max.', c: 'Engineering' },
+    { t: 'A great timeout is shorter than the user patience.', c: 'Engineering' },
+    { t: 'A great queue is empty.', c: 'Engineering' },
+    { t: 'A great cron is idempotent.', c: 'Engineering' },
+    { t: 'A great migration is reversible.', c: 'Engineering' },
+    { t: 'A great deploy is boring.', c: 'Shipping' },
+    { t: 'A great rollback is one command.', c: 'Engineering' },
+    { t: 'A great outage is the one you write down.', c: 'Engineering' },
+    { t: 'A great on-call is the one you forget you are on.', c: 'Engineering' },
+    { t: 'A great team is the one that ships on Friday.', c: 'Shipping' },
+    { t: 'A great Friday is the one with a green build and a clear Monday.', c: 'Mindset' },
+    { t: 'A great Monday is the one that starts with a small commit.', c: 'Discipline' },
+    { t: 'A great Wednesday is the one you ship something.', c: 'Shipping' },
+    { t: 'A great weekend is the one with a streak.', c: 'Mindset' },
+    { t: 'A great year is the one with 365 small wins.', c: 'Mindset' },
+    { t: 'A great project is the one you can show in a screenshot.', c: 'Craft' },
+    { t: 'A great portfolio is the one with receipts.', c: 'Craft' },
+    { t: 'A great resume is the one with a live demo.', c: 'Shipping' },
+    { t: 'A great interview is the one with a story.', c: 'Mindset' },
+    { t: 'A great mentor is the one with scars.', c: 'Mindset' },
+    { t: 'A great learner is the one who admits they are wrong.', c: 'Mindset' },
+    { t: 'A great teacher is the one who makes it look easy.', c: 'Mindset' },
+    { t: 'A great engineer is the one who writes the next engineer out of a job.', c: 'Mindset' },
+    { t: 'A great product is the one you would use yourself.', c: 'Mindset' },
+    { t: 'A great open source project is the one with a kind maintainer.', c: 'Mindset' },
+    { t: 'A great issue is the one with a reproduction.', c: 'Craft' },
+    { t: 'A great PR is the one with a screenshot.', c: 'Craft' },
+    { t: 'A great release note is the one with a before and after.', c: 'Craft' },
+    { t: 'A great demo is the one that does not crash.', c: 'Shipping' },
+    { t: 'A great keynote is the one with a story per slide.', c: 'Craft' },
+    { t: 'A great doc is the one with an example.', c: 'Craft' },
+    { t: 'A great example is the one you can run.', c: 'Craft' },
+    { t: 'A great test is the one that catches a bug in CI.', c: 'Engineering' },
+    { t: 'A great CI is the one you do not babysit.', c: 'Engineering' },
+    { t: 'A great CD is the one you trust.', c: 'Engineering' },
+    { t: 'A great SLO is the one you write before the outage.', c: 'Engineering' },
+    { t: 'A great runbook is the one you update after the outage.', c: 'Engineering' },
+    { t: 'A great postmortem is the one you read in 5 minutes.', c: 'Engineering' },
+    { t: 'A great decision log is the one you search.', c: 'Discipline' },
+    { t: 'A great ADR is the one with a "we considered X" section.', c: 'Discipline' },
+    { t: 'A great RFC is the one that says no, kindly.', c: 'Craft' },
+    { t: 'A great experiment is the one with a hypothesis.', c: 'Discipline' },
+    { t: 'A great metric is the one you can move.', c: 'Discipline' },
+    { t: 'A great goal is the one with a deadline.', c: 'Discipline' },
+    { t: 'A great sprint is the one you finish.', c: 'Discipline' },
+    { t: 'A great backlog is the one you trim.', c: 'Discipline' },
+    { t: 'A great inbox is the one that hits zero.', c: 'Discipline' },
+    { t: 'A great day is the one you can summarize in three words.', c: 'Mindset' },
+    { t: 'A great build is the one your future self thanks you for.', c: 'Mindset' }
+  ];
+
+  // Deterministic PRNG (mulberry32) for stable day-to-day picks
+  function mulberry32(seed) {
+    return function () {
+      let t = (seed += 0x6D2B79F5);
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  // Extend the bank to 365 by mutating with templated variants.
+  // Each day of year gets a deterministic pick seeded by (year, doy).
+  function buildDeck(year) {
+    const rng = mulberry32(year * 367 + 101);
+    const deck = [];
+    for (let i = 0; i < 365; i++) {
+      const seed = SEED[i % SEED.length];
+      // Slight variations: ~30% get a category-prefixed twist
+      const variant = Math.floor(rng() * 4);
+      let text = seed.t;
+      let category = seed.c;
+      if (variant === 1 && !text.startsWith('A ')) text = 'Reminder: ' + text.toLowerCase();
+      else if (variant === 2) text = text.replace(/\.$/, '') + ' — even when no one is watching.';
+      else if (variant === 3) text = 'Builders note · ' + text;
+      deck.push({ text, category, day: i + 1 });
+    }
+    return deck;
+  }
+
+  // ---- state ----
+  let currentIndex = 0;
+  let filter = 'all';
+  let bookmarkedOnly = false;
+  let flipped = false;
+
+  function loadBookmarks() {
+    try { return JSON.parse(localStorage.getItem(CARD_KEY) || '[]'); } catch (e) { return []; }
+  }
+  function saveBookmarks(arr) { localStorage.setItem(CARD_KEY, JSON.stringify(arr)); }
+  function loadStats() {
+    try { return JSON.parse(localStorage.getItem(STATS_KEY) || '{}'); } catch (e) { return {}; }
+  }
+  function saveStats(o) { localStorage.setItem(STATS_KEY, JSON.stringify(o)); }
+  function loadViewed() {
+    try { return JSON.parse(localStorage.getItem(VIEWED_KEY) || '[]'); } catch (e) { return []; }
+  }
+  function saveViewed(arr) { localStorage.setItem(VIEWED_KEY, JSON.stringify(arr)); }
+
+  function dayOfYear(d) {
+    const start = new Date(d.getFullYear(), 0, 0);
+    const diff = d - start + (start.getTimezoneOffset() - d.getTimezoneOffset()) * 60 * 1000;
+    return Math.floor(diff / 86400000);
+  }
+
+  // ---- DOM ----
+  const today = new Date();
+  const year = today.getFullYear();
+  const doy = dayOfYear(today);
+  const DECK = buildDeck(year);
+  const TODAY_INDEX = Math.min(Math.max(doy - 1, 0), DECK.length - 1);
+  currentIndex = TODAY_INDEX;
+
+  const $ = (id) => document.getElementById(id);
+
+  function renderCard() {
+    const card = DECK[currentIndex];
+    if (!card) return;
+    $('wisdom-card-number').textContent = '#' + String(card.day).padStart(3, '0');
+    $('wisdom-card-category').textContent = card.category;
+    $('wisdom-quote').textContent = card.text;
+    $('wisdom-note').textContent = '— day ' + card.day + ' · builder reminder';
+    $('wisdom-position').textContent = (currentIndex + 1) + ' / ' + DECK.length;
+    const pct = Math.round(((currentIndex + 1) / DECK.length) * 100);
+    $('wisdom-progress-pct').textContent = pct + '%';
+
+    const bookmarks = loadBookmarks();
+    const isBookmarked = bookmarks.includes(card.day);
+    const bmark = $('wisdom-bookmark');
+    bmark.classList.toggle('active', isBookmarked);
+    bmark.querySelector('i').className = isBookmarked ? 'fas fa-bookmark' : 'far fa-bookmark';
+    bmark.querySelector('span').textContent = isBookmarked ? 'Saved' : 'Save';
+
+    // Track viewed
+    const viewed = loadViewed();
+    if (!viewed.includes(card.day)) {
+      viewed.push(card.day);
+      saveViewed(viewed.slice(-365));
+    }
+    updateStats();
+    updateDayOfYear();
+  }
+
+  function updateStats() {
+    const stats = loadStats();
+    const bookmarks = loadBookmarks();
+    const viewed = loadViewed();
+    $('wisdom-bookmarks').textContent = bookmarks.length;
+    $('wisdom-shared').textContent = stats.shared || 0;
+    $('wisdom-read').textContent = viewed.length;
+  }
+
+  function updateDayOfYear() {
+    const d = dayOfYear(new Date());
+    $('wisdom-dayofyear').textContent = '#' + String(d).padStart(3, '0');
+  }
+
+  function flashToast(msg) {
+    let el = document.getElementById('wisdom-flash');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'wisdom-flash';
+      el.className = 'wisdom-flash';
+      document.body.appendChild(el);
+    }
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(flashToast._t);
+    flashToast._t = setTimeout(() => el.classList.remove('show'), 1500);
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+    } else fallbackCopy(text);
+  }
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  // ---- actions ----
+  function next() { currentIndex = (currentIndex + 1) % DECK.length; renderCard(); }
+  function prev() { currentIndex = (currentIndex - 1 + DECK.length) % DECK.length; renderCard(); }
+
+  function toggleBookmark() {
+    const card = DECK[currentIndex];
+    const bookmarks = loadBookmarks();
+    const idx = bookmarks.indexOf(card.day);
+    if (idx >= 0) {
+      bookmarks.splice(idx, 1);
+      flashToast('Removed from bookmarks');
+    } else {
+      bookmarks.push(card.day);
+      flashToast('Bookmarked ✓');
+    }
+    saveBookmarks(bookmarks);
+    renderCard();
+  }
+
+  function shareCard() {
+    const card = DECK[currentIndex];
+    const text = 'Day ' + card.day + ' · ' + card.category + '\n\n"' + card.text + '"\n\n— AJH daily wisdom';
+    if (navigator.share) {
+      navigator.share({ title: 'AJH Daily Wisdom · Day ' + card.day, text }).catch(() => {});
+    } else {
+      copyText(text);
+      flashToast('Copied ✓');
+    }
+    const stats = loadStats();
+    stats.shared = (stats.shared || 0) + 1;
+    saveStats(stats);
+    updateStats();
+  }
+
+  function flipCard() {
+    const wrap = document.querySelector('.wisdom-card-wrap');
+    if (wrap) wrap.classList.toggle('flipped');
+    flipped = !flipped;
+  }
+
+  // ---- bank (compact list of every card in the current filter) ----
+  function renderBank() {
+    const bank = $('wisdom-bank');
+    if (!bank) return;
+    const bookmarks = loadBookmarks();
+    let list = DECK.slice();
+    if (filter !== 'all') list = list.filter((c) => c.category === filter);
+    if (bookmarkedOnly) list = list.filter((c) => bookmarks.includes(c.day));
+    bank.innerHTML = list
+      .map((c) => {
+        const saved = bookmarks.includes(c.day);
+        return `<div class="wisdom-bank-item${saved ? ' saved' : ''}" data-day="${c.day}">
+          <span class="wisdom-bank-num">#${String(c.day).padStart(3, '0')}</span>
+          <span class="wisdom-bank-cat">${c.category}</span>
+          <span class="wisdom-bank-text">${c.text}</span>
+          ${saved ? '<i class="fas fa-bookmark" aria-label="Bookmarked"></i>' : ''}
+        </div>`;
+      })
+      .join('');
+    bank.querySelectorAll('.wisdom-bank-item').forEach((el) => {
+      el.addEventListener('click', () => {
+        const day = parseInt(el.dataset.day, 10);
+        currentIndex = DECK.findIndex((c) => c.day === day);
+        if (currentIndex < 0) currentIndex = 0;
+        renderCard();
+        const cardEl = $('wisdom-card');
+        if (cardEl) cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
+  }
+
+  // ---- wire ----
+  function wire() {
+    $('wisdom-prev')?.addEventListener('click', prev);
+    $('wisdom-next')?.addEventListener('click', next);
+    $('wisdom-bookmark')?.addEventListener('click', toggleBookmark);
+    $('wisdom-copy')?.addEventListener('click', () => {
+      const card = DECK[currentIndex];
+      copyText('"' + card.text + '" — AJH daily wisdom (day ' + card.day + ')');
+      flashToast('Copied ✓');
+    });
+    $('wisdom-share')?.addEventListener('click', shareCard);
+    $('wisdom-flip')?.addEventListener('click', flipCard);
+
+    document.querySelectorAll('.wisdom-filter').forEach((b) => {
+      b.addEventListener('click', () => {
+        document.querySelectorAll('.wisdom-filter').forEach((x) => {
+          x.classList.remove('active'); x.setAttribute('aria-selected', 'false');
+        });
+        b.classList.add('active');
+        b.setAttribute('aria-selected', 'true');
+        filter = b.dataset.filter;
+        renderBank();
+      });
+    });
+
+    $('wisdom-today-btn')?.addEventListener('click', () => {
+      currentIndex = TODAY_INDEX;
+      renderCard();
+      flashToast('Jumped to today');
+    });
+    $('wisdom-random-btn')?.addEventListener('click', () => {
+      currentIndex = Math.floor(Math.random() * DECK.length);
+      renderCard();
+    });
+    $('wisdom-bookmarks-toggle')?.addEventListener('click', (e) => {
+      bookmarkedOnly = !bookmarkedOnly;
+      e.currentTarget.classList.toggle('active', bookmarkedOnly);
+      renderBank();
+    });
+
+    const heroBtn = $('wisdom-hero-btn');
+    if (heroBtn) heroBtn.addEventListener('click', () => {
+      document.getElementById('wisdom')?.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // keyboard nav while section is visible
+    document.addEventListener('keydown', (e) => {
+      const sec = document.getElementById('wisdom');
+      if (!sec) return;
+      const rect = sec.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight && rect.bottom > 0;
+      if (!inView) return;
+      const tag = (e.target.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea') return;
+      if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+      else if (e.key === 'f' || e.key === 'F') { e.preventDefault(); flipCard(); }
+      else if (e.key === 'b' || e.key === 'B') { e.preventDefault(); toggleBookmark(); }
+      else if (e.key === 'o' || e.key === 'O') {
+        if (e.shiftKey || e.metaKey || e.ctrlKey) return;
+        currentIndex = TODAY_INDEX; renderCard();
+      }
+    });
+  }
+
+  // ---- init ----
+  renderCard();
+  renderBank();
+  updateStats();
+  wire();
+  updateDayOfYear();
+}
+

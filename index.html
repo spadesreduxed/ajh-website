@@ -116,6 +116,7 @@
             <li><a href="#wishlist">Wishlist</a></li>
             <li><a href="#reading">Reading</a></li>
             <li><a href="#quotes">Quotes</a></li>
+            <li><a href="#wisdom">Wisdom</a></li>
             <li><a href="#stats">Stats</a></li>
             <li><a href="#journey">Journey</a></li>
             <li><a href="#faq">FAQ</a></li>
@@ -210,6 +211,9 @@
                 <button class="plan-btn" id="wishlist-hero-btn" aria-label="Community wishlist" title="Open Community Wishlist (W)">
                     <i class="fas fa-clipboard-list"></i>
                 </button>
+                <button class="plan-btn" id="wisdom-hero-btn" aria-label="On this day wisdom" title="Open Daily Wisdom (O)">
+                    <i class="fas fa-feather-pointed"></i>
+                </button>
             </div>
             <div class="hero-stats">
                 <div class="stat">
@@ -248,11 +252,11 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 65</span>
+                    <span class="insight-value">Day 66</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
-                    <span class="insight-value">65</span>
+                    <span class="insight-value">66</span>
                     <span class="insight-label">streak</span>
                 </div>
             </div>
@@ -734,7 +738,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="65">0</div>
+                    <div class="stat-number" data-count="66">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -755,7 +759,7 @@
                 </div>
                 <div class="stat-card large">
                     <i class="fas fa-rocket"></i>
-                    <div class="stat-number" data-count="60">0</div>
+                    <div class="stat-number" data-count="61">0</div>
                     <div class="stat-label">Features Built</div>
                     <div class="stat-sublabel">And counting...</div>
                 </div>
@@ -1324,6 +1328,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">26</span>
+                        <span class="blog-month">June 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 66</span>
+                        <h3>On This Day — 365 Days of Builder Wisdom</h3>
+                        <p>Day 66 ships <em>On This Day</em>: a daily-rotating wisdom card plus a swipeable 365-card deck of builder principles. Today's card auto-loads based on day-of-year (so it stays the same all day), with the option to swipe through every principle ever shipped, bookmark favorites, copy to clipboard, or share via Web Share API. Filter by category (Engineering / Craft / Discipline / Mindset / Shipping), keyboard arrows to navigate, and a counter shows progress through the year. Cards are seeded from a 365-entry bank covering everything from <em>"delete is the cheapest feature"</em> to <em>"ship the smallest useful thing today"</em>. All bookmarks persist to localStorage. Click <kbd>O</kbd> in the command palette to jump straight in.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">25</span>
@@ -2200,6 +2215,85 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- On This Day Section (Day 66) -->
+    <section id="wisdom" class="section wisdom-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-feather-pointed"></i> Daily Wisdom</span>
+                <h2 class="section-title">On This Day</h2>
+                <p class="section-subtitle">One builder principle for every day of the year. Today's card is locked to the calendar — flip through the rest when you need a spark.</p>
+            </div>
+
+            <div class="wisdom-summary">
+                <div class="wisdom-stat">
+                    <div class="wisdom-stat-value" id="wisdom-dayofyear">—</div>
+                    <div class="wisdom-stat-label">Day of Year</div>
+                </div>
+                <div class="wisdom-stat">
+                    <div class="wisdom-stat-value" id="wisdom-bookmarks">0</div>
+                    <div class="wisdom-stat-label">Bookmarks</div>
+                </div>
+                <div class="wisdom-stat">
+                    <div class="wisdom-stat-value" id="wisdom-shared">0</div>
+                    <div class="wisdom-stat-label">Shared</div>
+                </div>
+                <div class="wisdom-stat">
+                    <div class="wisdom-stat-value" id="wisdom-read">0</div>
+                    <div class="wisdom-stat-label">Cards Viewed</div>
+                </div>
+            </div>
+
+            <div class="wisdom-controls">
+                <div class="wisdom-filters" id="wisdom-filters">
+                    <button class="wisdom-filter active" data-filter="all" aria-selected="true">All</button>
+                    <button class="wisdom-filter" data-filter="Engineering" aria-selected="false">Engineering</button>
+                    <button class="wisdom-filter" data-filter="Craft" aria-selected="false">Craft</button>
+                    <button class="wisdom-filter" data-filter="Discipline" aria-selected="false">Discipline</button>
+                    <button class="wisdom-filter" data-filter="Mindset" aria-selected="false">Mindset</button>
+                    <button class="wisdom-filter" data-filter="Shipping" aria-selected="false">Shipping</button>
+                </div>
+                <div class="wisdom-tools">
+                    <button class="wisdom-tool-btn" id="wisdom-today-btn" title="Jump to today's card"><i class="fas fa-calendar-day"></i> Today</button>
+                    <button class="wisdom-tool-btn" id="wisdom-random-btn" title="Random card"><i class="fas fa-shuffle"></i> Random</button>
+                    <button class="wisdom-tool-btn" id="wisdom-bookmarks-toggle" title="Show only bookmarked"><i class="fas fa-bookmark"></i> Bookmarks</button>
+                </div>
+            </div>
+
+            <div class="wisdom-stage">
+                <button class="wisdom-nav wisdom-prev" id="wisdom-prev" aria-label="Previous card"><i class="fas fa-chevron-left"></i></button>
+                <div class="wisdom-card-wrap">
+                    <div class="wisdom-card" id="wisdom-card">
+                        <div class="wisdom-card-corner wisdom-card-corner-tl"><i class="fas fa-feather-pointed"></i></div>
+                        <div class="wisdom-card-corner wisdom-card-corner-br"><i class="fas fa-feather-pointed"></i></div>
+                        <div class="wisdom-card-number" id="wisdom-card-number">#001</div>
+                        <div class="wisdom-card-category" id="wisdom-card-category">Craft</div>
+                        <div class="wisdom-card-body">
+                            <blockquote class="wisdom-quote" id="wisdom-quote">Ship the smallest useful thing today.</blockquote>
+                            <p class="wisdom-note" id="wisdom-note">— a builder's reminder</p>
+                        </div>
+                        <div class="wisdom-card-actions">
+                            <button class="wisdom-action" id="wisdom-bookmark" aria-label="Bookmark"><i class="far fa-bookmark"></i> <span>Save</span></button>
+                            <button class="wisdom-action" id="wisdom-copy" aria-label="Copy"><i class="fas fa-copy"></i> <span>Copy</span></button>
+                            <button class="wisdom-action" id="wisdom-share" aria-label="Share"><i class="fas fa-share-nodes"></i> <span>Share</span></button>
+                            <button class="wisdom-action" id="wisdom-flip" aria-label="Flip"><i class="fas fa-rotate"></i> <span>Flip</span></button>
+                        </div>
+                    </div>
+                </div>
+                <button class="wisdom-nav wisdom-next" id="wisdom-next" aria-label="Next card"><i class="fas fa-chevron-right"></i></button>
+            </div>
+
+            <div class="wisdom-counter">
+                <span id="wisdom-position">1 / 365</span>
+                <span class="wisdom-divider">·</span>
+                <span id="wisdom-progress-pct">0%</span>
+                <span class="wisdom-divider">·</span>
+                <span id="wisdom-key-hint"><kbd>←</kbd> <kbd>→</kbd> to navigate · <kbd>F</kbd> to flip · <kbd>B</kbd> to bookmark</span>
+            </div>
+
+            <div class="wisdom-bank" id="wisdom-bank"></div>
         </div>
     </section>
 
