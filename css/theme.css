@@ -791,3 +791,20 @@ body {
 [data-theme="light"] .reading-list-item:hover,
 [data-theme="light"] .rp-card:hover { background: rgba(0, 0, 0, 0.08); }
 [data-theme="light"] .reading-toolbar { background: #2a2a2f; }
+
+/* Day 67: Pixel Art Studio light theme */
+[data-theme="light"] .pixelart-stat { background: rgba(0, 0, 0, 0.03); border-color: rgba(0, 0, 0, 0.08); }
+[data-theme="light"] .pixelart-canvas-wrap { background: #f7f5f0; border-color: rgba(0, 0, 0, 0.1); }
+[data-theme="light"] .pixelart-grid { background: rgba(0, 0, 0, 0.06); border-color: rgba(0, 0, 0, 0.1); }
+[data-theme="light"] .pixelart-tool-group,
+[data-theme="light"] .pixelart-palette,
+[data-theme="light"] .pixelart-meta { background: rgba(0, 0, 0, 0.03); border-color: rgba(0, 0, 0, 0.08); }
+[data-theme="light"] .pixelart-tool { color: #4a4538; }
+[data-theme="light"] .pixelart-tool:hover { background: rgba(0, 0, 0, 0.05); color: #1a1815; }
+[data-theme="light"] .pixelart-side { background: rgba(0, 0, 0, 0.03); border-color: rgba(0, 0, 0, 0.08); }
+[data-theme="light"] .pixelart-side-title { color: #1a1815; }
+[data-theme="light"] .pixelart-thumb { background: #f7f5f0; border-color: rgba(0, 0, 0, 0.1); }
+[data-theme="light"] .pixelart-modal-card { background: #f7f5f0; border-color: rgba(0, 0, 0, 0.15); }
+[data-theme="light"] .pixelart-modal-card h3 { color: #1a1815; }
+[data-theme="light"] .pixelart-modal-input { background: #fff; border-color: rgba(0, 0, 0, 0.15); color: #1a1815; }
+[data-theme="light"] .pixelart-toast { background: #fff; border-color: rgba(0, 0, 0, 0.15); color: #8a6a2a; }

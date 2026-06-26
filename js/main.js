@@ -742,6 +742,8 @@ function initCommandPalette() {
     { id: 'tool-wishlist-new', label: 'Submit a New Wish', icon: 'fa-plus-circle', category: 'Tools', action: () => document.getElementById('wishlist-hero-btn')?.click() },
     { id: 'tool-wisdom', label: 'Open On This Day Wisdom', icon: 'fa-feather-pointed', shortcut: 'G O', category: 'Tools', action: () => scrollTo('#wisdom') },
     { id: 'tool-wisdom-random', label: 'Random Wisdom Card', icon: 'fa-shuffle', category: 'Tools', action: () => document.getElementById('wisdom-random-btn')?.click() },
+    { id: 'tool-pixelart', label: 'Open Pixel Art Studio', icon: 'fa-palette', shortcut: 'G X', category: 'Tools', action: () => window.ajhPixelArtOpen && window.ajhPixelArtOpen() },
+    { id: 'tool-pixelart-clear', label: 'Clear Pixel Canvas', icon: 'fa-trash', category: 'Tools', action: () => document.getElementById('pixelart-clear-btn')?.click() },
     
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -3213,7 +3215,13 @@ function initBuildAssistant() {
     { d: 58, title: 'Build Assistant',              date: '2026-06-18', tags: ['meta','tools','ship','milestone'],       level: 4, desc: 'A chat assistant that knows about every one of the 58 days.' },
     { d: 59, title: 'Bookmark Cards',               date: '2026-06-19', tags: ['meta','tools','ship','milestone'],       level: 4, desc: 'Every section on this site now has a generated share card with title, icon, description, and a one-click copy link. Pin, sort, search, and pop open the detail modal to share.' },
     { d: 60, title: 'Site Constellation',           date: '2026-06-20', tags: ['meta','tools','ship','milestone'],       level: 4, desc: 'A 27-node interactive graph of every section on this site, organized into 4 categories with 59 edges connecting related sections. Drag, zoom, search, filter, click to jump.' },
-    { d: 61, title: 'Time Capsule Vault',           date: '2026-06-21', tags: ['meta','tools','ship','milestone','new'], level: 4, desc: 'Write a note to your future self. Seal it with a date, and the vault keeps it locked until then. Live countdowns, mood tags, shareable previews, and a Next Unlock tile that ticks down in real time.' }
+    { d: 61, title: 'Time Capsule Vault',           date: '2026-06-21', tags: ['meta','tools','ship','milestone','new'], level: 4, desc: 'Write a note to your future self. Seal it with a date, and the vault keeps it locked until then. Live countdowns, mood tags, shareable previews, and a Next Unlock tile that ticks down in real time.' },
+    { d: 62, title: 'Theme Studio',                 date: '2026-06-22', tags: ['meta','tools','design','ship'],           level: 4, desc: 'Live CSS-variable customizer with 6 named presets, save-your-own themes that persist to localStorage, share-as-URL hash, and a randomize button.' },
+    { d: 63, title: 'Reading Mode + Reading List',  date: '2026-06-23', tags: ['ux','content','tools','ship'],           level: 3, desc: 'Distraction-free reading with a per-section progress bar, a personal Reading List, auto word-count + read-time, and a print stylesheet.' },
+    { d: 64, title: 'Build Journal',                date: '2026-06-24', tags: ['productivity','tools','meta'],           level: 4, desc: 'A structured daily log with three columns (Shipped / Learned / Broke), mood picker, weekly ring, and JSON export.' },
+    { d: 65, title: 'Community Wishlist',           date: '2026-06-25', tags: ['community','tools','meta','ship'],      level: 4, desc: 'A public roadmap anyone can submit to. Upvote / downvote, sort by votes or recency, mark as planned or shipped.' },
+    { d: 66, title: 'On This Day Wisdom',           date: '2026-06-26', tags: ['content','inspiration','meta'],         level: 3, desc: '365 builder principles deterministically generated from a curated seed bank, with day-of-year anchor, filter, bookmarks, share, and flip.' },
+    { d: 67, title: 'Pixel Art Studio',             date: '2026-06-26', tags: ['creator','fun','tools','ship','new'],   level: 4, desc: 'A 16x16 pixel editor with paint / erase / fill / eyedropper tools, a 16-color palette, undo/redo stack, PNG export, share-as-URL, and a saved pieces gallery.' }
   ];
 
   // ---- DOM ----
@@ -3634,6 +3642,7 @@ function initBookmarkCards() {
     { id: 'api-status', icon: 'fa-server', title: 'API Status Dashboard', tag: 'Realtime', desc: 'Live monitoring of GitHub, Vault API, Games DB, and the proxy network. Updates every 30 seconds.' },
     { id: 'music', icon: 'fa-music', title: 'Music Player', tag: 'Lo-fi', desc: 'Built-in player with a visualizer, five demo tracks, play/pause/shuffle/repeat, and Space to toggle.' },
     { id: 'assistant', icon: 'fa-robot', title: 'Build Assistant', tag: 'AI Chat', desc: 'Press A to open the chat. It knows every one of the 59 build days and can answer by day, date, or tag.' },
+    { id: 'pixelart', icon: 'fa-palette', title: 'Pixel Art Studio', tag: 'Creator', desc: 'A 16x16 pixel editor with paint / erase / fill / eyedropper, 16-color palette, undo/redo, PNG export, share-as-URL, and a saved pieces gallery. Press X to jump in.' },
   ];
 
   let state = {
@@ -3926,6 +3935,7 @@ function initConstellation() {
     { id: 'assistant', label: 'Assistant', category: 'tools', icon: 'fa-robot', desc: 'Chat with the build — knows every build day.', tag: 'AI Chat' },
     { id: 'bookmarks', label: 'Bookmarks', category: 'tools', icon: 'fa-bookmark', desc: 'Share cards for every section. Pin, search, share.', tag: 'Shareable' },
     { id: 'constellation', label: 'Constellation', category: 'data', icon: 'fa-diagram-project', desc: 'You are here. This interactive graph of every section.', tag: 'Milestone' },
+    { id: 'pixelart', label: 'Pixel Art Studio', category: 'tools', icon: 'fa-palette', desc: 'A 16x16 pixel editor — paint, save, share.', tag: 'Creator' },
   ];
 
   // EDGES — relationships between sections (this → that)
@@ -3938,7 +3948,7 @@ function initConstellation() {
     ['journey', 'blog'], ['journey', 'achievements'],
     ['plan', 'productivity'], ['plan', 'snippets'],
     ['productivity', 'plan'], ['productivity', 'current'],
-    ['snippets', 'projects'], ['snippets', 'assistant'],
+    ['snippets', 'projects'], ['snippets', 'assistant'], ['snippets', 'pixelart'],
     ['calendar', 'blog'], ['calendar', 'assistant'], ['calendar', 'badges'], ['calendar', 'stats'],
     ['badges', 'achievements'], ['badges', 'challenge'], ['badges', 'stats'],
     ['challenge', 'badges'], ['challenge', 'current'],
@@ -3952,7 +3962,7 @@ function initConstellation() {
     ['newsletter', 'blog'], ['newsletter', 'contact'],
     ['current', 'plan'], ['current', 'blog'],
     ['gallery', 'projects'], ['gallery', 'demos'],
-    ['constellation', 'home'], ['constellation', 'bookmarks'], ['constellation', 'calendar'],
+    ['constellation', 'home'], ['constellation', 'bookmarks'], ['constellation', 'calendar'], ['pixelart', 'home'], ['pixelart', 'snippets'], ['pixelart', 'assistant'],
     ['contact', 'home'], ['contact', 'newsletter'],
   ];
 
@@ -4327,7 +4337,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBuildJournal();
   initCommunityWishlist();
   initDailyWisdom();
-  console.log("⚡ AJH Website loaded - Day 65: Community Wishlist + Day 66: On This Day Wisdom");
+  console.log("⚡ AJH Website loaded - Day 66: On This Day Wisdom + Day 67: Pixel Art Studio");
 });
 /* ============================================================
    Day 61: Time Capsule Vault
@@ -6080,7 +6090,7 @@ function initCommunityWishlist() {
     { id: 'w-seed-6', title: 'A reading mode that strips out the chrome', desc: 'Type scales up, nav fades, focus on words.', category: 'design', status: 'shipped', shippedDay: 63, score: 19, voters: [], created: 1719000000000 },
     { id: 'w-seed-7', title: 'Daily journal — shipped / learned / broke', desc: 'A structured log of every build day.', category: 'feature', status: 'shipped', shippedDay: 64, score: 26, voters: [], created: 1719500000000 },
     { id: 'w-seed-8', title: 'Public wishlist so visitors can steer what gets built next', desc: 'You are looking at it.', category: 'feature', status: 'shipped', shippedDay: 65, score: 12, voters: [], created: 1719900000000 },
-    { id: 'w-seed-9', title: 'A way to compare two build days side by side', desc: 'Pick any two days, see features shipped side by side.', category: 'fun', status: 'open', score: 7, voters: [], created: 1720000000000 },
+    { id: 'w-seed-9', title: 'A pixel art editor for fun little logos', desc: '16x16 grid, palette, save and share.', category: 'fun', status: 'shipped', shippedDay: 67, score: 21, voters: [], created: 1720000000000 },
     { id: 'w-seed-10', title: 'Keyboard shortcut cheatsheet overlay (press ?)', desc: 'A searchable panel of every shortcut.', category: 'feature', status: 'open', score: 14, voters: [], created: 1720100000000 },
     { id: 'w-seed-11', title: 'RSS feed for the build log', desc: 'Subscribe in your reader and never miss a day.', category: 'content', status: 'open', score: 8, voters: [], created: 1720200000000 },
     { id: 'w-seed-12', title: 'Way to comment on a specific build day', desc: 'Threaded discussion per calendar entry.', category: 'content', status: 'planned', score: 5, voters: [], created: 1720300000000 },

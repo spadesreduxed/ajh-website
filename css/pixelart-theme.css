@@ -1,0 +1,18 @@
+/* Day 67: Pixel Art Studio light theme overrides */
+[data-theme="light"] .pixelart-stat { background: rgba(0, 0, 0, 0.03); border-color: rgba(0, 0, 0, 0.08); }
+[data-theme="light"] .pixelart-canvas-wrap { background: #f7f5f0; border-color: rgba(0, 0, 0, 0.1); }
+[data-theme="light"] .pixelart-grid { background: rgba(0, 0, 0, 0.06); border-color: rgba(0, 0, 0, 0.1); }
+[data-theme="light"] .pixelart-tool-group,
+[data-theme="light"] .pixelart-palette,
+[data-theme="light"] .pixelart-meta { background: rgba(0, 0, 0, 0.03); border-color: rgba(0, 0, 0, 0.08); }
+[data-theme="light"] .pixelart-color-name,
+[data-theme="light"] .pixelart-thumb-label { color: #5a554c; }
+[data-theme="light"] .pixelart-tool { color: #4a453c; }
+[data-theme="light"] .pixelart-tool:hover { background: rgba(0, 0, 0, 0.05); color: #1a1815; }
+[data-theme="light"] .pixelart-side { background: rgba(0, 0, 0, 0.02); border-color: rgba(0, 0, 0, 0.08); }
+[data-theme="light"] .pixelart-thumb { background: #f7f5f0; border-color: rgba(0, 0, 0, 0.08); }
+[data-theme="light"] .pixelart-modal-card { background: #f7f5f0; }
+[data-theme="light"] .pixelart-modal-card h3 { color: #1a1815; }
+[data-theme="light"] .pixelart-modal-card p { color: #5a554c; }
+[data-theme="light"] .pixelart-modal-input { background: rgba(0, 0, 0, 0.04); border-color: rgba(0, 0, 0, 0.12); color: #1a1815; }
+[data-theme="light"] .pixelart-toast { background: #2a2a2f; }
