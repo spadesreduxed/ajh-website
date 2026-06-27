@@ -1,0 +1,31 @@
+/* Day 68: Daily Pixel Challenge light theme overrides */
+[data-theme="light"] .dc-stat { background: rgba(0, 0, 0, 0.03); border-color: rgba(0, 0, 0, 0.08); }
+[data-theme="light"] .dc-card {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.95) 0%, rgba(247, 245, 240, 0.95) 100%);
+  border-color: rgba(216, 166, 87, 0.35);
+  box-shadow: 0 20px 50px -25px rgba(120, 90, 40, 0.25);
+}
+[data-theme="light"] .dc-prompt-title { color: #1a1815; }
+[data-theme="light"] .dc-prompt-sub { color: #6a6358; }
+[data-theme="light"] .dc-date { color: #6a6358; }
+[data-theme="light"] .dc-status {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #4a453c;
+}
+[data-theme="light"] .dc-card.dc-done .dc-status {
+  border-color: rgba(58, 157, 124, 0.4);
+  background: rgba(58, 157, 124, 0.06);
+  color: #3a9d7c;
+}
+[data-theme="light"] .dc-side { background: rgba(0, 0, 0, 0.02); border-color: rgba(0, 0, 0, 0.08); }
+[data-theme="light"] .dc-side-title { color: #1a1815; }
+[data-theme="light"] .dc-side-hint { color: #6a6358; }
+[data-theme="light"] .dc-recent-item { background: rgba(0, 0, 0, 0.02); border-color: rgba(0, 0, 0, 0.06); color: #4a453c; }
+[data-theme="light"] .dc-recent-item:hover { background: rgba(0, 0, 0, 0.04); }
+[data-theme="light"] .dc-recent-empty { color: #6a6358; }
+[data-theme="light"] .dc-action-btn { background: rgba(0, 0, 0, 0.04); border-color: rgba(0, 0, 0, 0.1); color: #1a1815; }
+[data-theme="light"] .dc-action-btn:hover { background: rgba(0, 0, 0, 0.07); }
+[data-theme="light"] .dc-stat-label { color: #6a6358; }
+[data-theme="light"] .dc-footer-hint { color: #6a6358; }
+[data-theme="light"] .dc-footer-hint kbd { background: rgba(0, 0, 0, 0.06); border-color: rgba(0, 0, 0, 0.15); color: #1a1815; }

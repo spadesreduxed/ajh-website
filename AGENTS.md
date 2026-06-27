@@ -1,3 +1,54 @@
+## Build Log
+
+### Day 68 - 2026-06-27
+**Status**: Daily Pixel Challenge — 250 prompts, one per day
+**Actions**:
+- Added **Daily Pixel Challenge** section (`#dailychallenge`) right after the Pixel Art Studio
+  - 250-prompt bank across 8 categories: Object (39), Creature (40), Food (35), Scene (30), Icon (34), Character (25), Nature (25), Tech (20)
+  - Each prompt has a category badge (color-coded) + difficulty pill (Easy / Medium / Hard)
+  - Today's prompt auto-loads based on day-of-year (deterministic, stays the same all day)
+  - **Reroll button** swaps today's prompt for a random one (per-day override map in localStorage)
+  - **Start Drawing button** jumps to Pixel Art Studio with the prompt pre-filled in the Save modal
+  - **Mark Done toggle** tracks today's completion (with confetti burst on completion via the existing confetti hook)
+  - **Share button** posts today's challenge to Web Share API / clipboard
+  - **Export JSON** dumps the entire challenge log (today's prompt, stats, completed days, full bank) to a downloadable file
+- **Live stats summary** (4 cards): Current Streak / Completed Days / Rerolls / Bank Size — all persist to localStorage (`ajh_challenge_done_v1`, `ajh_challenge_stats_v1`)
+- **Prompt history grid** showing the last 14 days with day-of-year, prompt title, category color, and a done-pending checkmark
+- **Keyboard shortcut**: press `D` while the section is in view to reroll today's prompt
+- **Toast feedback** using the existing pixel-art toast (lightweight reuse, no new dependency)
+- **Modal "Start Drawing" flow** that calls `window.ajhPixelArtOpen()` then pre-fills `pixelart-modal-input` after a 200ms delay — couples the two sections without modifying pixelart.js
+- Mobile-responsive grid (1-column on mobile, 2 on tablet, 3 on desktop)
+- Light-theme overrides added to a separate `dailychallenge-theme.css` file
+- New `js/dailychallenge.js` (~600 lines, standalone IIFE) wired into DOMContentLoaded
+- New `css/dailychallenge.css` (397 lines) and `css/dailychallenge-theme.css` (31 lines of light-theme overrides) — same modular pattern as Day 67
+- Added **nav link** `#dailychallenge` between Pixel Art and Quotes
+- Added **hero-meta button** (dice icon, `dailychallenge-hero-btn`) that scrolls to the section
+- Added **Day 68 blog card** at the top of the blog grid (hero entry: "Daily Pixel Challenge — 250 Prompts, One Per Day")
+- Updated stats: Day Streak 67→68, Days Building 67→68, Features Built 63→64, Day 68 in hero insights
+- Added **3 command palette entries**: "Open Daily Challenge (G D)", "Reroll Daily Challenge", "Mark Today's Challenge Done"
+- **Build Assistant** knowledge base extended with Day 68 entry — assistant now answers questions about every day from Day 1 → Day 68
+- **Bookmark Cards** list extended with the Daily Challenge entry
+- **Site Constellation** extended with a new `dailychallenge` node and 3 edges (to home, pixelart, productivity)
+- **Community Wishlist** seeded with a Day 68 reference wish (achievement: "A daily pixel art prompt to actually use the studio")
+- **Console log** updated to "Day 67: Pixel Art Studio + Day 68: Daily Pixel Challenge"
+
+**Files Changed**:
+- `index.html` - new `#dailychallenge` section (~80 lines), new nav link, new hero-meta button, Day 68 blog card, stat increments, 2 new `<link>` and 1 new `<script>` tags
+- `css/dailychallenge.css` (new) - 397 lines for `.dailychallenge-section`, `.dc-summary`, `.dc-stat`, `.dc-card`, `.dc-card-corner-*`, `.dc-card-badges`, `.dc-palette-swatch`, `.dc-card-meta`, `.dc-card-body`, `.dc-actions`, `.dc-history`, `.dc-history-grid`, `.dc-history-item`, `.dc-history-day`, `.dc-history-prompt`, mobile responsive
+- `css/dailychallenge-theme.css` (new) - 31 lines of `[data-theme="light"]` overrides
+- `js/dailychallenge.js` (new) - ~600 lines with `init()` function (state, render, renderOverride, computeStreak, rerollToday, toggleDone, openPixelArt, shareChallenge, exportJSON, showToast, attachEvents, keyboard shortcut, expose `window.ajhDailyChallengeOpen`)
+- `js/main.js` - 3 new command palette commands, console log updated, 1 new BUILDS entry (Day 68), 1 new BOOKMARKS entry, 1 new NODES entry + 3 new EDGES, 1 new seeded wishlist item
+
+**Next Steps**:
+- Add a "challenge streak" badge that unlocks at 7 / 30 / 100 days
+- Add a community gallery where users can submit their completed pixel art for each prompt
+- Add an "export as prompt card PNG" button for social sharing
+- Add a "yesterday's prompt" link for users who missed a day
+- Add per-category streaks (e.g. "10 Food prompts in a row")
+- Continue building new features daily - never stop
+
+---
+
 ### Day 67 - 2026-06-26
 **Status**: Pixel Art Studio — 16×16 editor with palette, save/share/export
 **Actions**:

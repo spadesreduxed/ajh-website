@@ -46,6 +46,8 @@
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/pixelart.css">
     <link rel="stylesheet" href="css/pixelart-theme.css">
+    <link rel="stylesheet" href="css/dailychallenge.css">
+    <link rel="stylesheet" href="css/dailychallenge-theme.css">
 </head>
 <body>
     <!-- Loading Screen -->
@@ -118,6 +120,7 @@
             <li><a href="#wishlist">Wishlist</a></li>
             <li><a href="#reading">Reading</a></li>
             <li><a href="#pixelart">Pixel Art</a></li>
+            <li><a href="#dailychallenge">Daily Challenge</a></li>
             <li><a href="#quotes">Quotes</a></li>
             <li><a href="#wisdom">Wisdom</a></li>
             <li><a href="#stats">Stats</a></li>
@@ -219,6 +222,9 @@
                 </button>
                 <button class="plan-btn" id="pixelart-hero-btn" aria-label="Pixel art studio" title="Open Pixel Art Studio (X)">
                     <i class="fas fa-palette"></i>
+                </button>
+                <button class="plan-btn" id="dailychallenge-hero-btn" aria-label="Daily pixel challenge" title="Open Daily Pixel Challenge (D)">
+                    <i class="fas fa-dice"></i>
                 </button>
             </div>
             <div class="hero-stats">
@@ -744,7 +750,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="67">0</div>
+                    <div class="stat-number" data-count="68">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -765,7 +771,7 @@
                 </div>
                 <div class="stat-card large">
                     <i class="fas fa-rocket"></i>
-                    <div class="stat-number" data-count="62">0</div>
+                    <div class="stat-number" data-count="63">0</div>
                     <div class="stat-label">Features Built</div>
                     <div class="stat-sublabel">And counting...</div>
                 </div>
@@ -1334,6 +1340,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">27</span>
+                        <span class="blog-month">June 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 68</span>
+                        <h3>Daily Pixel Challenge — 250 Prompts, One Per Day</h3>
+                        <p>Day 68 ships the <em>Daily Pixel Challenge</em>: a rotating daily prompt that pairs with the Pixel Art Studio. Today's challenge auto-loads based on day-of-year and stays the same all day, sourced from a 250-prompt bank across 8 categories (Object, Creature, Food, Scene, Icon, Character, Nature, Tech). Hit <em>Reroll</em> if today's prompt isn't speaking to you, then <em>Start Drawing</em> to jump straight into the Pixel Art Studio with the challenge name pre-filled. Streak counter, completion tracking, and prompt history persist to localStorage; share today's challenge to social or export the whole log as JSON. Press <kbd>D</kbd> in the section to reroll, or open from the command palette.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">26</span>
@@ -2568,6 +2585,7 @@
 
     <script src="js/main.js"></script>
     <script src="js/pixelart.js"></script>
+    <script src="js/dailychallenge.js"></script>
 
 
 
@@ -3686,6 +3704,88 @@
     </div>
 
     <div class="pixelart-toast" id="pixelart-toast" hidden></div>
+
+    <!-- Daily Pixel Challenge (Day 68) -->
+    <section id="dailychallenge" class="section dailychallenge-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-dice"></i> Day 68 Challenge</span>
+                <h2 class="section-title">Daily Pixel Challenge</h2>
+                <p class="section-subtitle">A new pixel art prompt every day. Paint it in the studio.</p>
+            </div>
+
+            <div class="dc-summary">
+                <div class="dc-stat">
+                    <span class="dc-stat-value" id="dc-streak">0</span>
+                    <span class="dc-stat-label">Current Streak 🔥</span>
+                </div>
+                <div class="dc-stat">
+                    <span class="dc-stat-value" id="dc-completed">0</span>
+                    <span class="dc-stat-label">Challenges Done</span>
+                </div>
+                <div class="dc-stat">
+                    <span class="dc-stat-value" id="dc-reroll">0</span>
+                    <span class="dc-stat-label">Rerolls Used</span>
+                </div>
+                <div class="dc-stat">
+                    <span class="dc-stat-value" id="dc-total">250</span>
+                    <span class="dc-stat-label">Prompts in Bank</span>
+                </div>
+            </div>
+
+            <div class="dc-layout">
+                <div class="dc-stage">
+                    <div class="dc-card" id="dc-card">
+                        <div class="dc-card-corner dc-card-corner-tl">
+                            <span class="dc-day-number" id="dc-day">#—</span>
+                            <span class="dc-card-date" id="dc-date">—</span>
+                        </div>
+                        <div class="dc-card-corner dc-card-corner-br">
+                            <span class="dc-palette-swatch" id="dc-palette-swatch"></span>
+                            <span class="dc-card-meta">Daily Pixel Challenge</span>
+                        </div>
+                        <div class="dc-card-badges">
+                            <span class="dc-badge dc-category" id="dc-category">Object</span>
+                            <span class="dc-badge dc-difficulty" id="dc-difficulty">Easy</span>
+                        </div>
+                        <h3 class="dc-prompt-title" id="dc-prompt-title">Loading...</h3>
+                        <p class="dc-prompt-sub" id="dc-prompt-sub">Daily pixel art prompt — day — of the year</p>
+                        <div class="dc-progress" id="dc-progress">Not yet started</div>
+                    </div>
+
+                    <div class="dc-controls">
+                        <button class="dc-btn dc-btn-primary" id="dc-start-btn" title="Open Pixel Art Studio with today's prompt pre-filled">
+                            <i class="fas fa-paintbrush"></i> Start Drawing
+                        </button>
+                        <button class="dc-btn" id="dc-reroll-btn" title="Get a new prompt for today (D)">
+                            <i class="fas fa-shuffle"></i> Reroll
+                        </button>
+                        <button class="dc-btn" id="dc-done-btn" title="Mark today's challenge as done">
+                            <i class="fas fa-circle-check"></i> <span id="dc-progress-label">Mark as done</span>
+                        </button>
+                        <button class="dc-btn" id="dc-share-btn" title="Share today's prompt">
+                            <i class="fas fa-share-nodes"></i> Share
+                        </button>
+                        <button class="dc-btn" id="dc-export-btn" title="Export challenge log as JSON">
+                            <i class="fas fa-file-export"></i> Export
+                        </button>
+                    </div>
+
+                    <p class="dc-hint">
+                        <i class="fas fa-lightbulb"></i>
+                        Tip: Press <kbd>D</kbd> in this section to reroll today's prompt.
+                        Prompts are deterministic by day-of-year, so the same prompt sticks all day.
+                    </p>
+                </div>
+
+                <aside class="dc-side">
+                    <h3 class="dc-side-title">Recent Challenges</h3>
+                    <p class="dc-side-hint">Click any day to see what the prompt was. Completed days get a checkmark.</p>
+                    <div class="dc-history" id="dc-history"></div>
+                </aside>
+            </div>
+        </div>
+    </section>
 
 </body>
 </html>
