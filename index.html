@@ -43,6 +43,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/receipts.css">
+    <link rel="stylesheet" href="css/receipts-theme.css">
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/pixelart.css">
     <link rel="stylesheet" href="css/pixelart-theme.css">
@@ -121,6 +123,7 @@
             <li><a href="#reading">Reading</a></li>
             <li><a href="#pixelart">Pixel Art</a></li>
             <li><a href="#dailychallenge">Daily Challenge</a></li>
+            <li><a href="#receipts">Receipts</a></li>
             <li><a href="#quotes">Quotes</a></li>
             <li><a href="#wisdom">Wisdom</a></li>
             <li><a href="#stats">Stats</a></li>
@@ -223,8 +226,11 @@
                 <button class="plan-btn" id="pixelart-hero-btn" aria-label="Pixel art studio" title="Open Pixel Art Studio (X)">
                     <i class="fas fa-palette"></i>
                 </button>
-                <button class="plan-btn" id="dailychallenge-hero-btn" aria-label="Daily pixel challenge" title="Open Daily Pixel Challenge (D)">
+                <button class="plan-btn" id="dailychallenge-hero-btn" aria-label="Daily pixel challenge" title="Today's pixel challenge (D)">
                     <i class="fas fa-dice"></i>
+                </button>
+                <button class="plan-btn" id="receipts-hero-btn" aria-label="Build receipts" title="Generate a printable build receipt (B)">
+                    <i class="fas fa-receipt"></i>
                 </button>
             </div>
             <div class="hero-stats">
@@ -750,7 +756,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="68">0</div>
+                    <div class="stat-number" data-count="69">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -771,7 +777,7 @@
                 </div>
                 <div class="stat-card large">
                     <i class="fas fa-rocket"></i>
-                    <div class="stat-number" data-count="63">0</div>
+                    <div class="stat-number" data-count="64">0</div>
                     <div class="stat-label">Features Built</div>
                     <div class="stat-sublabel">And counting...</div>
                 </div>
@@ -1340,6 +1346,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">28</span>
+                        <span class="blog-month">June 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 69</span>
+                        <h3>Build Receipts — Print Your Streak</h3>
+                        <p>Day 69 ships <em>Build Receipts</em>: a printable, shareable receipt for any day of the build. Pick today, dig up day 1, or hit <em>Random</em> for a surprise. Each receipt is styled like classic thermal paper — perforated edges, monospace font, barcode, dotted dividers, dotted impact meter. <em>Print</em>, <em>Copy as Text</em>, <em>Share</em> via Web Share, or <em>Download</em> a .txt file. Search across 68 days by title / tag / day number, filter by Featured / Ship / Design / Tools / Meta / Milestone, and step through days with <kbd>←</kbd> / <kbd>→</kbd>. Stats (printed, shared, copied) persist to localStorage. Hit <kbd>R</kbd> in the section for a random receipt.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">27</span>
@@ -2586,6 +2603,7 @@
     <script src="js/main.js"></script>
     <script src="js/pixelart.js"></script>
     <script src="js/dailychallenge.js"></script>
+    <script src="js/receipts.js"></script>
 
 
 
@@ -3618,7 +3636,7 @@
     <section id="pixelart" class="section pixelart-section">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag"><i class="fas fa-palette"></i> 67-Day Streak</span>
+                <span class="section-tag"><i class="fas fa-palette"></i> 68-Day Streak</span>
                 <h2 class="section-title">Pixel Art Studio</h2>
                 <p class="section-subtitle">A 16&times;16 pixel editor — paint, save, share</p>
             </div>
@@ -3784,6 +3802,168 @@
                     <div class="dc-history" id="dc-history"></div>
                 </aside>
             </div>
+        </div>
+    </section>
+
+    <!-- Day 69: Build Receipts -->
+    <section id="receipts" class="section receipts-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-receipt"></i> Day 69 Build</span>
+                <h2 class="section-title">Build Receipts</h2>
+                <p class="section-subtitle">A printable, shareable receipt for any day of the build. Pull one for today, or dig up day 1.</p>
+            </div>
+
+            <div class="receipts-summary">
+                <div class="receipt-stat">
+                    <span class="receipt-stat-num" id="receipts-total">68</span>
+                    <span class="receipt-stat-label">Receipts Available</span>
+                </div>
+                <div class="receipt-stat">
+                    <span class="receipt-stat-num" id="receipts-printed">0</span>
+                    <span class="receipt-stat-label">Times Printed</span>
+                </div>
+                <div class="receipt-stat">
+                    <span class="receipt-stat-num" id="receipts-shared">0</span>
+                    <span class="receipt-stat-label">Times Shared</span>
+                </div>
+                <div class="receipt-stat">
+                    <span class="receipt-stat-num" id="receipts-copied">0</span>
+                    <span class="receipt-stat-label">Times Copied</span>
+                </div>
+            </div>
+
+            <div class="receipts-toolbar">
+                <div class="receipts-search-wrap">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="receipts-search" class="receipts-search" placeholder="Search by day #, title, tag, or year…" />
+                </div>
+                <div class="receipts-filters" id="receipts-filters">
+                    <button class="receipt-chip active" data-filter="all">All</button>
+                    <button class="receipt-chip" data-filter="featured">⭐ Featured</button>
+                    <button class="receipt-chip" data-filter="ship">🚢 Ship</button>
+                    <button class="receipt-chip" data-filter="design">🎨 Design</button>
+                    <button class="receipt-chip" data-filter="tools">🛠 Tools</button>
+                    <button class="receipt-chip" data-filter="meta">🧠 Meta</button>
+                    <button class="receipt-chip" data-filter="milestone">🏁 Milestone</button>
+                </div>
+                <div class="receipts-toolbar-actions">
+                    <button class="receipt-btn" id="receipts-random" title="Random receipt (R)">
+                        <i class="fas fa-shuffle"></i> Random
+                    </button>
+                    <button class="receipt-btn receipt-btn-primary" id="receipts-today" title="Today's receipt (T)">
+                        <i class="fas fa-calendar-day"></i> Today
+                    </button>
+                </div>
+            </div>
+
+            <div class="receipts-layout">
+                <div class="receipts-stage" id="receipts-stage">
+                    <div class="receipt-paper" id="receipt-paper">
+                        <div class="receipt-perforation receipt-perforation-top"></div>
+                        <div class="receipt-header">
+                            <div class="receipt-brand">
+                                <span class="receipt-logo">▲</span>
+                                <span class="receipt-brand-name">AJH BUILD CO.</span>
+                            </div>
+                            <div class="receipt-meta-top">
+                                <span>RECEIPT #<strong id="rcpt-num">069</strong></span>
+                                <span>2026</span>
+                            </div>
+                        </div>
+                        <div class="receipt-divider"></div>
+                        <div class="receipt-row receipt-title-row">
+                            <span class="receipt-label">DAY</span>
+                            <span class="receipt-value" id="rcpt-day">Day 69</span>
+                        </div>
+                        <div class="receipt-row">
+                            <span class="receipt-label">DATE</span>
+                            <span class="receipt-value" id="rcpt-date">Sun, Jun 28 2026</span>
+                        </div>
+                        <div class="receipt-row">
+                            <span class="receipt-label">TITLE</span>
+                            <span class="receipt-value receipt-title" id="rcpt-title">Build Receipts</span>
+                        </div>
+                        <div class="receipt-row">
+                            <span class="receipt-label">IMPACT</span>
+                            <span class="receipt-value" id="rcpt-impact">
+                                <span class="rcpt-impact-dot"></span>
+                                <span class="rcpt-impact-dot"></span>
+                                <span class="rcpt-impact-dot"></span>
+                                <span class="rcpt-impact-dot"></span>
+                            </span>
+                        </div>
+                        <div class="receipt-row">
+                            <span class="receipt-label">STREAK</span>
+                            <span class="receipt-value" id="rcpt-streak">69 days</span>
+                        </div>
+                        <div class="receipt-divider"></div>
+                        <div class="receipt-section-title">FEATURES SHIPPED</div>
+                        <ul class="receipt-items" id="rcpt-items">
+                            <li>1 × feature shipped</li>
+                        </ul>
+                        <div class="receipt-divider"></div>
+                        <div class="receipt-section-title">TAGS</div>
+                        <div class="receipt-tags" id="rcpt-tags">
+                            <span class="rcpt-tag">meta</span>
+                        </div>
+                        <div class="receipt-divider"></div>
+                        <div class="receipt-row">
+                            <span class="receipt-label">COMMITS</span>
+                            <span class="receipt-value" id="rcpt-commits">1</span>
+                        </div>
+                        <div class="receipt-row">
+                            <span class="receipt-label">FEATURES</span>
+                            <span class="receipt-value" id="rcpt-feature-count">1</span>
+                        </div>
+                        <div class="receipt-row">
+                            <span class="receipt-label">TAGS</span>
+                            <span class="receipt-value" id="rcpt-tag-count">1</span>
+                        </div>
+                        <div class="receipt-row receipt-total">
+                            <span class="receipt-label">DAYS IN</span>
+                            <span class="receipt-value" id="rcpt-days-in">69</span>
+                        </div>
+                        <div class="receipt-divider"></div>
+                        <div class="receipt-section-title">DESCRIPTION</div>
+                        <p class="receipt-desc" id="rcpt-desc">—</p>
+                        <div class="receipt-divider"></div>
+                        <div class="receipt-footer">
+                            <div class="receipt-barcode" id="rcpt-barcode"></div>
+                            <div class="receipt-thanks">★ THANK YOU FOR BUILDING ★</div>
+                            <div class="receipt-policy">No refunds. No regrets. Day by day.</div>
+                            <div class="receipt-id" id="rcpt-id">AJH-2026-069</div>
+                        </div>
+                        <div class="receipt-perforation receipt-perforation-bottom"></div>
+                    </div>
+                </div>
+
+                <aside class="receipts-side">
+                    <h3 class="receipts-side-title">Receipt Index</h3>
+                    <p class="receipts-side-hint">Click any day to print that receipt. Recent days at the top.</p>
+                    <div class="receipts-list" id="receipts-list"></div>
+                </aside>
+            </div>
+
+            <div class="receipts-actions">
+                <button class="receipt-btn receipt-btn-primary" id="receipt-print">
+                    <i class="fas fa-print"></i> Print
+                </button>
+                <button class="receipt-btn" id="receipt-copy">
+                    <i class="fas fa-copy"></i> Copy as Text
+                </button>
+                <button class="receipt-btn" id="receipt-share">
+                    <i class="fas fa-share-alt"></i> Share
+                </button>
+                <button class="receipt-btn" id="receipt-download">
+                    <i class="fas fa-download"></i> Download .txt
+                </button>
+            </div>
+
+            <p class="receipts-hint">
+                <i class="fas fa-lightbulb"></i>
+                Tip: <kbd>T</kbd> for today's receipt, <kbd>R</kbd> for random, <kbd>←</kbd>/<kbd>→</kbd> to step through days. Print it out and stick it on the wall.
+            </p>
         </div>
     </section>
 

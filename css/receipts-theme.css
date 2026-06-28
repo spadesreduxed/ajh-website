@@ -1,0 +1,80 @@
+/* ============================================================
+   Day 69: Build Receipts — Light Theme Overrides
+   ============================================================ */
+[data-theme="light"] .receipts-summary .receipt-stat {
+  background: #fff;
+  border-color: rgba(0,0,0,0.1);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+}
+[data-theme="light"] .receipts-toolbar {
+  background: #fff;
+  border-color: rgba(0,0,0,0.1);
+}
+[data-theme="light"] .receipts-search {
+  background: #f7f5f0;
+  border-color: rgba(0,0,0,0.1);
+  color: #1a1815;
+}
+[data-theme="light"] .receipt-chip {
+  background: rgba(0,0,0,0.04);
+  border-color: rgba(0,0,0,0.08);
+  color: #4a4538;
+}
+[data-theme="light"] .receipt-chip:hover {
+  background: rgba(0,0,0,0.08);
+}
+[data-theme="light"] .receipt-chip.active {
+  background: #1a1815;
+  color: #f7f5f0;
+}
+[data-theme="light"] .receipt-btn {
+  background: #f7f5f0;
+  border-color: rgba(0,0,0,0.12);
+  color: #1a1815;
+}
+[data-theme="light"] .receipt-btn:hover {
+  background: #ece9e2;
+}
+[data-theme="light"] .receipt-btn-primary {
+  background: #1a1815;
+  color: #f7f5f0;
+}
+[data-theme="light"] .receipts-side {
+  background: #fff;
+  border-color: rgba(0,0,0,0.1);
+}
+[data-theme="light"] .receipt-item {
+  border-color: rgba(0,0,0,0.08);
+  color: #4a4538;
+}
+[data-theme="light"] .receipt-item:hover,
+[data-theme="light"] .receipt-item.active {
+  background: rgba(0,0,0,0.04);
+}
+[data-theme="light"] .receipt-paper {
+  background: #fbf9f4;
+  color: #1a1815;
+}
+[data-theme="light"] .receipt-divider {
+  border-bottom-color: rgba(0,0,0,0.2);
+  background-image: linear-gradient(to right, rgba(0,0,0,0.25) 50%, transparent 50%);
+}
+[data-theme="light"] .receipt-label {
+  color: #6a6458;
+}
+[data-theme="light"] .receipt-value {
+  color: #1a1815;
+}
+[data-theme="light"] .rcpt-impact-dot {
+  background: rgba(0,0,0,0.08);
+}
+[data-theme="light"] .rcpt-impact-dot.on {
+  background: #b8862a;
+}
+[data-theme="light"] .rcpt-tag {
+  background: rgba(0,0,0,0.06);
+  color: #4a4538;
+}
+[data-theme="light"] .receipt-barcode .bc-bar {
+  background: #1a1815;
+}
