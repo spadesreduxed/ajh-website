@@ -4,21 +4,29 @@ A daily-built GitHub Pages website that grows better every day.
 
 **Live Site**: https://ajhs.github.io
 
-## Latest Build - Day 69 (2026-06-28)
+## Latest Build - Day 71 (2026-06-30)
 
-### 2026 Web Design Features Added:
-- **Glassmorphism** cards with backdrop blur effects
-- **Bento Grid** layout system (12-column responsive)
-- **Kinetic Typography** with floating animation + mouse parallax
-- **Morphing Blob Background** following cursor
-- **Neon Glow Text** effects
-- **Animated Gradient Borders** with rotating colors
-- **Liquid Button** ripple effects on click
-- **Magnetic Button** hover effects
-- **3D Card Tilt** effects with perspective transforms
-- **Noise Texture Overlay** for subtle grain
-- **Enhanced Particle System** with connecting lines
-- **Page Transitions** with slide animations
+### Step Sequencer
+- **16-step x 8-track** beat machine built on the Web Audio API
+- Tracks: Kick, Snare, Hi-Hat, Open Hat, Tom, Clap, Rim, Cowbell — all synthesized in real time, no audio files
+- **Click cells to toggle, drag to paint** across rows of the grid
+- **Play / Pause / Stop** transport with **BPM (60-200)** and **Swing (0-60%)** sliders
+- **4-slot pattern bank** (A/B/C/D) with Save and Load, plus a name field
+- **Mute / Solo** per track
+- **Shareable URL** — encodes pattern + BPM + swing into a `?seq=` param so a link replays the beat
+- **JSON import / export** for full portability
+- Keyboard shortcuts: <kbd>Space</kbd> play/pause, <kbd>R</kbd> randomize, <kbd>N</kbd> clear, <kbd>1</kbd>-<kbd>4</kbd> switch bank
+- Active playhead highlights the current step and column; first beat of each bar gets an accent
+- State persists to `localStorage`
+
+## Latest Build - Day 70 (2026-06-29)
+
+### Soundboard
+- **26-pad soundboard** built on the Web Audio API, no audio files
+- Categories: UI, Arcade, Synth, Nature, Retro, Voice
+- Master Volume, Reverb, Playback Speed, and Oscillator Wave controls
+- Live waveform canvas + favorites with localStorage persistence
+- Keyboard shortcuts on every pad, plus Space (stop all) and F (favorite)
 
 ## Projects
 

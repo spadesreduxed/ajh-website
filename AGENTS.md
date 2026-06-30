@@ -1,5 +1,80 @@
 ## Build Log
 
+### Day 71 - 2026-06-30
+**Status**: Step Sequencer — 16-step x 8-track beat machine in the browser
+**Actions**:
+- Added **Step Sequencer** section (`#sequencer`) right after the Soundboard
+  - 8 synthesized tracks: Kick, Snare, Hi-Hat, Open Hat, Tom, Clap, Rim, Cowbell — all generated with oscillators + filtered noise, no audio files
+  - 16-step grid; click to toggle, drag to paint a whole row
+  - Transport: Play / Pause / Stop / Clear / Randomize
+  - BPM slider 60-200 (default 120), Swing slider 0-60%
+  - Mute + Solo buttons per track, with visual state
+  - 4-slot pattern bank (A/B/C/D) with Save, Load, and a name field
+  - Per-cell color from the track palette; active cells glow with `--track-color`
+  - Animated playhead highlights the current step + a translucent column for the whole beat group; accent on first step of every bar
+  - **Shareable URL** — encodes pattern + BPM + swing into a `?seq=` base64 param, opening the URL replays the beat
+  - **JSON export / import** for portable patterns
+  - Keyboard shortcuts: <kbd>Space</kbd> play/pause, <kbd>R</kbd> randomize, <kbd>N</kbd> clear, <kbd>1</kbd>-<kbd>4</kbd> switch bank
+  - Stats counters: BPM, current Step, 8 Tracks, 4 Pattern Slots
+  - State (BPM, swing, pattern, bank, mute/solo) persists to localStorage
+  - Toast feedback for every action (share copied, pattern saved, etc.)
+  - Wired into the command palette ("Open Step Sequencer", "Play", "Stop", "Export")
+  - Added a new bookmark card "Step Sequencer" with audio tag
+  - Added a hero meta button (drum icon) that scrolls to the sequencer
+  - Added **nav link** `#sequencer` between Soundboard and Quotes
+  - Mobile responsive: stat grid collapses to 2 cols, grid stays horizontally scrollable on small screens
+- Stats bumped: Day Streak 70→71, Features Built 64→65
+- Day 71 blog entry added at the top of the blog grid
+
+**Files Changed**:
+- `index.html` - new `#sequencer` section (summary cards, transport, BPM/swing controls, grid wrap, pattern bank, name/share/import/export row, hint paragraph), new nav link, hero meta button, Day 71 blog entry, stat increments
+- `css/sequencer.css` - new file, 455 lines: `.sequencer-section`, `.seq-summary`, `.seq-stat`, `.seq-toolbar`, `.seq-transport`, `.seq-btn`, `.seq-bpm`, `.seq-swing`, `.seq-stage`, `.seq-grid` (CSS Grid `80px repeat(16, 1fr)`), `.seq-row-label`, `.seq-row-icon`, `.seq-row-btn` (mute/solo), `.seq-cell` (active/playhead/beaten), `.seq-meta`, `.seq-pads`, `.seq-pad`, `.seq-name-input`, `.seq-hint`, `.seq-toast`, mobile breakpoints
+- `css/sequencer-theme.css` - new file, 124 lines of light-theme overrides
+- `js/sequencer.js` - new file, 671 lines: TRACKS definitions, DEFAULT_PATTERN, scheduler using `setTimeout` lookahead + `AudioContext` scheduling, `triggerVoice()` for kick/snare/hat/clap/cowbell with bandpass noise + freq-sweep oscillator, drag-to-paint cell logic, mute/solo, 4-slot bank save/load, base64 URL share, JSON import/export, keyboard shortcuts, toast helper, `init()` wired to DOMContentLoaded
+- `js/main.js` - 3 new command palette commands + a new bookmark card
+- `README.md` - documented Day 70 and Day 71
+
+**Git Push Status**: Pending push (commit Day 71 next)
+
+**Next Steps**:
+- Add a per-step probability slider (so cells sometimes play, sometimes don't — groove feel)
+- Add pattern chaining (play A → B → C in order, then loop)
+- Add a "tap tempo" button that infers BPM from the user's tap timing
+- Add more tracks (synth bass, lead, chord)
+- Visualize the played steps as a per-track mini-history strip
+- Add per-track volume sliders
+- Add swing per-track (e.g. only the hi-hat swings)
+- Add a "humanize" button that nudges timing/velocity randomly
+- Continue building new features daily - never stop
+
+### Day 70 - 2026-06-29
+**Status**: Soundboard — 26-pad Web Audio synth, no audio files
+**Actions**:
+- Added **Soundboard** section (`#soundboard`) with 26 synthesized pads across 6 categories: UI, Arcade, Synth, Nature, Retro, Voice
+  - Each pad synthesizes its own sound: blips (UI clicks), coin/jump/laser/powerup/hit/gameover, power-chord / ambient pad / arpeggio / sub bass, rain / wind / birds / thunder, retro beep / dial-up / typewriter, pop / chime
+  - Per-pad keyboard shortcuts (1-9, 0, then q-t, u-p, a-d, f-g)
+  - **Click or keypress** triggers the sound; favorites persist to localStorage
+  - Master controls: Volume, Reverb, Playback Speed, Oscillator Wave
+  - Live waveform canvas that visualizes the most recent sound
+  - **Stop All** kills every active source; **Shuffle** fires a random pad; **Favorites** filter view
+  - Stats: Pads Loaded, Times Played, Favorites, Master Volume
+  - 7 category chips (All, UI, Arcade, Synth, Nature, Retro, Voice)
+  - Persists volume, reverb, rate, wave, favorites, and times-played to localStorage
+- Added a hero meta button (volume icon) to jump to the soundboard
+- Added a new bookmark card "Soundboard" with Audio tag
+- Added a "Soundboard" nav link between Receipts and Quotes
+- Stats: Day Streak 69→70, Features Built unchanged
+- Day 70 blog entry added
+
+**Files Changed**:
+- `index.html` - new `#soundboard` section (~85 lines), new nav link, hero button, blog entry, stat increment
+- `css/soundboard.css` - new file, 488 lines
+- `css/soundboard-theme.css` - new file, 133 lines
+- `js/soundboard.js` - new file, 644 lines (PADS data, voice functions, favorites, master gain, category filtering, keyboard shortcuts, localStorage)
+- `js/main.js` - 3 new command palette commands + a new bookmark card
+
+**Git Push Status**: ✅ Committed (a908d1c)
+
 ### Day 69 - 2026-06-28
 **Status**: Build Receipts — Printable thermal-paper receipts for every build day
 **Actions**:

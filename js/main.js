@@ -750,6 +750,10 @@ function initCommandPalette() {
     { id: 'tool-soundboard-open', label: 'Open Soundboard', icon: 'fa-music', category: 'Tools', action: () => window.ajhSoundboardOpen && window.ajhSoundboardOpen() },
     { id: 'tool-soundboard-random', label: 'Play Random', icon: 'fa-shuffle', category: 'Tools', action: () => document.getElementById('sb-shuffle')?.click() },
     { id: 'tool-soundboard-stop', label: 'Stop All Sounds', icon: 'fa-stop', category: 'Tools', action: () => window.ajhSoundboardStop && window.ajhSoundboardStop() },
+    { id: 'tool-sequencer-open', label: 'Open Step Sequencer', icon: 'fa-drum', category: 'Tools', action: () => window.ajhSequencerOpen && window.ajhSequencerOpen() },
+    { id: 'tool-sequencer-play', label: 'Toggle Play / Stop', icon: 'fa-play', category: 'Tools', action: () => document.getElementById('seq-play')?.click() },
+    { id: 'tool-sequencer-clear', label: 'Clear Pattern', icon: 'fa-trash', category: 'Tools', action: () => document.getElementById('seq-clear')?.click() },
+    { id: 'tool-sequencer-randomize', label: 'Randomize Pattern', icon: 'fa-shuffle', category: 'Tools', action: () => document.getElementById('seq-random')?.click() },
     
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -3652,6 +3656,7 @@ function initBookmarkCards() {
     { id: 'pixelart', icon: 'fa-palette', title: 'Pixel Art Studio', tag: 'Creator', desc: 'A 16x16 pixel editor with paint / erase / fill / eyedropper, 16-color palette, undo/redo, PNG export, share-as-URL, and a saved pieces gallery. Press X to jump in.' },
     { id: 'dailychallenge', icon: 'fa-dice', title: 'Daily Challenge', tag: 'Daily', desc: 'A daily-rotating pixel art prompt that pairs with the Studio.' },
     { id: 'soundboard', icon: 'fa-music', title: 'Soundboard', tag: 'Audio', desc: 'A collection of sounds for the site. Play random, stop all, and open the board.' },
+    { id: 'sequencer', icon: 'fa-drum', title: 'Step Sequencer', tag: 'Audio', desc: 'A 16-step, 8-track beat machine. Click cells to toggle, hit play, and share the pattern. Press M to open.' },
   ];
 
   let state = {
