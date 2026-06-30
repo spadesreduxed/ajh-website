@@ -1,0 +1,134 @@
+/* ============================================================
+   Day 70: Soundboard — Light Theme Overrides
+   ============================================================ */
+
+[data-theme="light"] .soundboard-section {
+  background: linear-gradient(160deg, rgba(168, 85, 247, 0.06), rgba(34, 211, 238, 0.05));
+}
+
+[data-theme="light"] .sb-stat {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(20, 14, 40, 0.08);
+  box-shadow: 0 2px 6px rgba(20, 14, 40, 0.04);
+}
+
+[data-theme="light"] .sb-stat-label {
+  color: rgba(20, 14, 40, 0.55);
+}
+
+[data-theme="light"] .sb-chip {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(20, 14, 40, 0.10);
+  color: rgba(20, 14, 40, 0.78);
+}
+
+[data-theme="light"] .sb-chip:hover {
+  background: rgba(168, 85, 247, 0.12);
+  color: #2c1d4e;
+}
+
+[data-theme="light"] .sb-chip.active {
+  color: #fff;
+}
+
+[data-theme="light"] .sb-btn {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(20, 14, 40, 0.10);
+  color: rgba(20, 14, 40, 0.85);
+}
+
+[data-theme="light"] .sb-btn:hover {
+  background: rgba(168, 85, 247, 0.10);
+  color: #2c1d4e;
+}
+
+[data-theme="light"] .sb-btn-primary {
+  color: #fff;
+}
+
+[data-theme="light"] .sb-stage {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(20, 14, 40, 0.10);
+  box-shadow: 0 16px 40px -24px rgba(20, 14, 40, 0.18);
+}
+
+[data-theme="light"] .sb-display {
+  background: rgba(20, 14, 40, 0.04);
+  border: 1px solid rgba(20, 14, 40, 0.08);
+}
+
+[data-theme="light"] .sb-display-msg {
+  color: rgba(20, 14, 40, 0.55);
+}
+
+[data-theme="light"] .sb-waveform {
+  background: rgba(20, 14, 40, 0.04);
+  border: 1px solid rgba(20, 14, 40, 0.06);
+}
+
+[data-theme="light"] .sb-pad {
+  background: linear-gradient(160deg, #ffffff, #f3eefb);
+  border: 1px solid rgba(20, 14, 40, 0.08);
+  color: #1a0f33;
+}
+
+[data-theme="light"] .sb-pad-title {
+  color: #1a0f33;
+}
+
+[data-theme="light"] .sb-pad-cat {
+  color: rgba(20, 14, 40, 0.55);
+}
+
+[data-theme="light"] .sb-pad-key {
+  background: rgba(20, 14, 40, 0.08);
+  border: 1px solid rgba(20, 14, 40, 0.15);
+  color: rgba(20, 14, 40, 0.85);
+}
+
+[data-theme="light"] .sb-pad-fav {
+  color: rgba(20, 14, 40, 0.35);
+}
+
+[data-theme="light"] .sb-pad-fav.is-fav {
+  color: #ec4899;
+}
+
+[data-theme="light"] .sb-pad-empty {
+  color: rgba(20, 14, 40, 0.55);
+  border-color: rgba(20, 14, 40, 0.15);
+}
+
+[data-theme="light"] .sb-control label {
+  color: rgba(20, 14, 40, 0.6);
+}
+
+[data-theme="light"] .sb-control select {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(20, 14, 40, 0.12);
+  color: #1a0f33;
+  background-image: linear-gradient(45deg, transparent 50%, rgba(20, 14, 40, 0.6) 50%),
+    linear-gradient(135deg, rgba(20, 14, 40, 0.6) 50%, transparent 50%);
+}
+
+[data-theme="light"] .sb-control input[type="range"]::-webkit-slider-runnable-track {
+  background: rgba(20, 14, 40, 0.10);
+}
+
+[data-theme="light"] .sb-control input[type="range"]::-moz-range-track {
+  background: rgba(20, 14, 40, 0.10);
+}
+
+[data-theme="light"] .sb-hint {
+  color: rgba(20, 14, 40, 0.55);
+}
+
+[data-theme="light"] .sb-hint kbd {
+  background: rgba(20, 14, 40, 0.08);
+  border: 1px solid rgba(20, 14, 40, 0.15);
+  color: rgba(20, 14, 40, 0.85);
+}
+
+[data-theme="light"] .sb-controls {
+  border-top-color: rgba(20, 14, 40, 0.08);
+}

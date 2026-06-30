@@ -45,6 +45,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/receipts.css">
     <link rel="stylesheet" href="css/receipts-theme.css">
+    <link rel="stylesheet" href="css/soundboard.css">
+    <link rel="stylesheet" href="css/soundboard-theme.css">
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/pixelart.css">
     <link rel="stylesheet" href="css/pixelart-theme.css">
@@ -124,6 +126,7 @@
             <li><a href="#pixelart">Pixel Art</a></li>
             <li><a href="#dailychallenge">Daily Challenge</a></li>
             <li><a href="#receipts">Receipts</a></li>
+            <li><a href="#soundboard">Soundboard</a></li>
             <li><a href="#quotes">Quotes</a></li>
             <li><a href="#wisdom">Wisdom</a></li>
             <li><a href="#stats">Stats</a></li>
@@ -231,6 +234,9 @@
                 </button>
                 <button class="plan-btn" id="receipts-hero-btn" aria-label="Build receipts" title="Generate a printable build receipt (B)">
                     <i class="fas fa-receipt"></i>
+                </button>
+                <button class="plan-btn" id="soundboard-hero-btn" aria-label="Soundboard" title="Open the Soundboard (S)">
+                    <i class="fas fa-volume-high"></i>
                 </button>
             </div>
             <div class="hero-stats">
@@ -756,7 +762,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="69">0</div>
+                    <div class="stat-number" data-count="70">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -1346,6 +1352,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">29</span>
+                        <span class="blog-month">June 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 70</span>
+                        <h3>Soundboard — Pocket Studio in the Browser</h3>
+                        <p>Day 70 ships the <em>Soundboard</em>: a 24-pad soundboard built on the Web Audio API, with no audio files &mdash; everything is synthesized in real time. Six categories (UI, Arcade, Synth, Nature, Retro, Voice) plus filters and favorites. Each pad shows a live waveform and a keyboard shortcut. Master controls for volume, reverb, playback speed, and oscillator wave. Press <kbd>1</kbd>&ndash;<kbd>9</kbd>/<kbd>0</kbd> to fire pads, <kbd>Space</kbd> to stop all, <kbd>F</kbd> to favorite. Plays, favorites, and preferences persist to localStorage.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">28</span>
@@ -2604,6 +2621,7 @@
     <script src="js/pixelart.js"></script>
     <script src="js/dailychallenge.js"></script>
     <script src="js/receipts.js"></script>
+    <script src="js/soundboard.js"></script>
 
 
 
@@ -3963,6 +3981,103 @@
             <p class="receipts-hint">
                 <i class="fas fa-lightbulb"></i>
                 Tip: <kbd>T</kbd> for today's receipt, <kbd>R</kbd> for random, <kbd>←</kbd>/<kbd>→</kbd> to step through days. Print it out and stick it on the wall.
+            </p>
+        </div>
+    </section>
+
+    <!-- Day 70: Soundboard -->
+    <section id="soundboard" class="section soundboard-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-volume-high"></i> Day 70 Build</span>
+                <h2 class="section-title">Soundboard</h2>
+                <p class="section-subtitle">A pocket soundboard of UI clicks, arcade blips, synth chords, and ambient textures — built with the Web Audio API. Tap a pad or hit a key to play.</p>
+            </div>
+
+            <div class="sb-summary">
+                <div class="sb-stat">
+                    <span class="sb-stat-num" id="sb-pads">26</span>
+                    <span class="sb-stat-label">Pads Loaded</span>
+                </div>
+                <div class="sb-stat">
+                    <span class="sb-stat-num" id="sb-played">0</span>
+                    <span class="sb-stat-label">Times Played</span>
+                </div>
+                <div class="sb-stat">
+                    <span class="sb-stat-num" id="sb-favs">0</span>
+                    <span class="sb-stat-label">Favorites</span>
+                </div>
+                <div class="sb-stat">
+                    <span class="sb-stat-num" id="sb-vol">80%</span>
+                    <span class="sb-stat-label">Master Volume</span>
+                </div>
+            </div>
+
+            <div class="sb-toolbar">
+                <div class="sb-cats" id="sb-cats">
+                    <button class="sb-chip active" data-cat="all">All</button>
+                    <button class="sb-chip" data-cat="ui">🖱 UI</button>
+                    <button class="sb-chip" data-cat="arcade">🕹 Arcade</button>
+                    <button class="sb-chip" data-cat="synth">🎹 Synth</button>
+                    <button class="sb-chip" data-cat="nature">🌿 Nature</button>
+                    <button class="sb-chip" data-cat="retro">📼 Retro</button>
+                    <button class="sb-chip" data-cat="voice">🗣 Voice</button>
+                </div>
+                <div class="sb-toolbar-actions">
+                    <button class="sb-btn" id="sb-shuffle" title="Shuffle a random pad">
+                        <i class="fas fa-shuffle"></i> Shuffle
+                    </button>
+                    <button class="sb-btn" id="sb-favs-only" title="Show favorites only">
+                        <i class="fas fa-heart"></i> Favorites
+                    </button>
+                    <button class="sb-btn sb-btn-primary" id="sb-stop-all" title="Stop every playing sound">
+                        <i class="fas fa-stop"></i> Stop
+                    </button>
+                </div>
+            </div>
+
+            <div class="sb-stage">
+                <div class="sb-display" id="sb-display">
+                    <div class="sb-display-msg" id="sb-display-msg">
+                        <i class="fas fa-hand-pointer"></i>
+                        Tap a pad or press a key to play a sound
+                    </div>
+                    <div class="sb-display-now" id="sb-display-now"></div>
+                    <div class="sb-waveform" id="sb-waveform">
+                        <canvas id="sb-waveform-canvas" width="800" height="80"></canvas>
+                    </div>
+                </div>
+
+                <div class="sb-grid" id="sb-grid"></div>
+
+                <div class="sb-controls">
+                    <div class="sb-control">
+                        <label for="sb-vol-input"><i class="fas fa-volume-high"></i> Volume</label>
+                        <input type="range" id="sb-vol-input" min="0" max="100" value="80" />
+                    </div>
+                    <div class="sb-control">
+                        <label for="sb-reverb-input"><i class="fas fa-mountain"></i> Reverb</label>
+                        <input type="range" id="sb-reverb-input" min="0" max="100" value="20" />
+                    </div>
+                    <div class="sb-control">
+                        <label for="sb-rate-input"><i class="fas fa-gauge-high"></i> Speed</label>
+                        <input type="range" id="sb-rate-input" min="50" max="200" value="100" />
+                    </div>
+                    <div class="sb-control">
+                        <label for="sb-wave-input"><i class="fas fa-wave-square"></i> Wave</label>
+                        <select id="sb-wave-input">
+                            <option value="sine">Sine</option>
+                            <option value="square">Square</option>
+                            <option value="sawtooth">Sawtooth</option>
+                            <option value="triangle">Triangle</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <p class="sb-hint">
+                <i class="fas fa-lightbulb"></i>
+                Tip: each pad has a keyboard shortcut (printed on the pad). Press <kbd>Space</kbd> to stop all sounds, <kbd>F</kbd> to favorite the playing pad, <kbd>1</kbd>-<kbd>9</kbd>/<kbd>0</kbd> to fire pads in the current view.
             </p>
         </div>
     </section>

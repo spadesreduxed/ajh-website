@@ -747,6 +747,9 @@ function initCommandPalette() {
     { id: 'tool-dailychallenge', label: 'Open Daily Challenge', icon: 'fa-dice', shortcut: 'G D', category: 'Tools', action: () => window.ajhDailyChallengeOpen && window.ajhDailyChallengeOpen() },
     { id: 'tool-dailychallenge-reroll', label: 'Reroll Daily Challenge', icon: 'fa-shuffle', category: 'Tools', action: () => document.getElementById('dc-reroll-btn')?.click() },
     { id: 'tool-dailychallenge-done', label: 'Mark Today\'s Challenge Done', icon: 'fa-circle-check', category: 'Tools', action: () => document.getElementById('dc-done-btn')?.click() },
+    { id: 'tool-soundboard-open', label: 'Open Soundboard', icon: 'fa-music', category: 'Tools', action: () => window.ajhSoundboardOpen && window.ajhSoundboardOpen() },
+    { id: 'tool-soundboard-random', label: 'Play Random', icon: 'fa-shuffle', category: 'Tools', action: () => document.getElementById('sb-shuffle')?.click() },
+    { id: 'tool-soundboard-stop', label: 'Stop All Sounds', icon: 'fa-stop', category: 'Tools', action: () => window.ajhSoundboardStop && window.ajhSoundboardStop() },
     
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -3648,6 +3651,7 @@ function initBookmarkCards() {
     { id: 'assistant', icon: 'fa-robot', title: 'Build Assistant', tag: 'AI Chat', desc: 'Press A to open the chat. It knows every one of the 59 build days and can answer by day, date, or tag.' },
     { id: 'pixelart', icon: 'fa-palette', title: 'Pixel Art Studio', tag: 'Creator', desc: 'A 16x16 pixel editor with paint / erase / fill / eyedropper, 16-color palette, undo/redo, PNG export, share-as-URL, and a saved pieces gallery. Press X to jump in.' },
     { id: 'dailychallenge', icon: 'fa-dice', title: 'Daily Challenge', tag: 'Daily', desc: 'A daily-rotating pixel art prompt that pairs with the Studio.' },
+    { id: 'soundboard', icon: 'fa-music', title: 'Soundboard', tag: 'Audio', desc: 'A collection of sounds for the site. Play random, stop all, and open the board.' },
   ];
 
   let state = {
