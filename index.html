@@ -49,6 +49,10 @@
     <link rel="stylesheet" href="css/soundboard-theme.css">
     <link rel="stylesheet" href="css/sequencer.css">
     <link rel="stylesheet" href="css/sequencer-theme.css">
+    <link rel="stylesheet" href="css/forge.css">
+    <link rel="stylesheet" href="css/forge-theme.css">
+    <link rel="stylesheet" href="css/lab.css">
+    <link rel="stylesheet" href="css/lab-theme.css">
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/pixelart.css">
     <link rel="stylesheet" href="css/pixelart-theme.css">
@@ -130,6 +134,8 @@
             <li><a href="#receipts">Receipts</a></li>
             <li><a href="#soundboard">Soundboard</a></li>
             <li><a href="#sequencer">Sequencer</a></li>
+            <li><a href="#forge">Forge</a></li>
+            <li><a href="#lab">Lab</a></li>
             <li><a href="#quotes">Quotes</a></li>
             <li><a href="#wisdom">Wisdom</a></li>
             <li><a href="#stats">Stats</a></li>
@@ -244,6 +250,12 @@
                 <button class="plan-btn" id="sequencer-hero-btn" aria-label="Step sequencer" title="Open the Step Sequencer (M)">
                     <i class="fas fa-drum"></i>
                 </button>
+                <button class="plan-btn" id="forge-hero-btn" aria-label="The Forge" title="Open The Forge build reflection studio (F)">
+                    <i class="fas fa-fire"></i>
+                </button>
+                <button class="plan-btn" id="lab-hero-btn" aria-label="Lab notebook" title="Open the Lab Notebook hypothesis log (L)">
+                    <i class="fas fa-flask"></i>
+                </button>
             </div>
             <div class="hero-stats">
                 <div class="stat">
@@ -251,7 +263,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="67">0</span>
+                    <span class="stat-value" data-count="73">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -262,7 +274,7 @@
             <div class="daily-streak">
                 <span class="streak-icon">🔥</span>
                 <div class="streak-info">
-                    <span class="streak-count">67 days</span>
+                    <span class="streak-count">73 days</span>
                     <span class="streak-label">Daily Streak</span>
                 </div>
             </div>
@@ -768,7 +780,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="71">0</div>
+                    <div class="stat-number" data-count="73">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -789,7 +801,7 @@
                 </div>
                 <div class="stat-card large">
                     <i class="fas fa-rocket"></i>
-                    <div class="stat-number" data-count="65">0</div>
+                    <div class="stat-number" data-count="66">0</div>
                     <div class="stat-label">Features Built</div>
                     <div class="stat-sublabel">And counting...</div>
                 </div>
@@ -1358,6 +1370,28 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">2</span>
+                        <span class="blog-month">July 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 73</span>
+                        <h3>Lab Notebook — Hypothesis Log for Builders</h3>
+                        <p>Day 73 ships the <em>Lab Notebook</em>: a build hypothesis log where every bet gets a write-up. Each experiment has a title, a one-line <em>if I add X, then Y</em> hypothesis, a result, a 1-5 confidence rating, a status (Draft → Running → Validated / Falsified / Parked), a date, and tag chips. The Library tab lists everything with status filters, a tag search, and a sort selector. The Board tab shows a 3-column Now / Validated / Parked kanban so you can see what's actually live vs. what's shipped. Four summary tiles track Total experiments, Validated, Running, and your Kill Rate. Every card has a one-click <em>Share</em> (tweet-sized text), <em>Copy</em>, and an inline <em>Advance</em> button that walks the experiment through Draft → Running → Validated / Falsified / Parked. JSON import/export, reset-to-seed, and full localStorage persistence. Press <kbd>L</kbd> in the section to jump in, or open from the command palette.</p>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">1</span>
+                        <span class="blog-month">July 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 72</span>
+                        <h3>The Forge — A Build Reflection Studio</h3>
+                        <p>Day 72 ships <em>The Forge</em>: a Build Reflection Studio that turns each day's ship into a tiny ritual. Rate your build on five axes (Difficulty, Pride, Reach, Polish, Fun), write a 280-character note about what shipped / broke / surprised you, and stamp it with one of six tags (Ship, Fix, Design, Tool, Meta, Milestone) and a mood emoji (🔥 💡 🛠️ 🎯 🤯 😴). The Forge shows your running weekly average, a 7-day mini-heatmap of reflection energy, the day-of-year average across all 72 builds, and the longest reflection streak. Each entry is shareable as a tweet or downloadable as a JSON card. Reflections persist to localStorage and are <em>private to you</em> — no server, no tracking. Press <kbd>F</kbd> in the section to jump to the write-card.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">30</span>
@@ -2640,6 +2674,8 @@
     <script src="js/receipts.js"></script>
     <script src="js/soundboard.js"></script>
     <script src="js/sequencer.js"></script>
+    <script src="js/forge.js"></script>
+    <script src="js/lab.js"></script>
 
 
 
@@ -4201,6 +4237,383 @@
             </p>
         </div>
     </section>
+
+    <!-- Day 72 - The Forge: Build Reflection Studio -->
+    <section id="forge" class="section forge-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Reflect</span>
+                <h2 class="section-title">The Forge</h2>
+                <p class="section-subtitle">A 30-second reflection after every build. Rate, write, ship, repeat.</p>
+            </div>
+
+            <div class="forge-summary">
+                <div class="forge-stat">
+                    <span class="forge-stat-num" id="forge-count">0</span>
+                    <span class="forge-stat-label">Reflections</span>
+                </div>
+                <div class="forge-stat">
+                    <span class="forge-stat-num" id="forge-week-avg">—</span>
+                    <span class="forge-stat-label">7-Day Avg</span>
+                </div>
+                <div class="forge-stat">
+                    <span class="forge-stat-num" id="forge-streak">0</span>
+                    <span class="forge-stat-label">Day Streak</span>
+                </div>
+                <div class="forge-stat">
+                    <span class="forge-stat-num" id="forge-best">—</span>
+                    <span class="forge-stat-label">Best Day</span>
+                </div>
+            </div>
+
+            <div class="forge-toolbar">
+                <div class="forge-tabs" id="forge-tabs">
+                    <button class="forge-tab active" data-tab="today"><i class="fas fa-fire"></i> Today's Build</button>
+                    <button class="forge-tab" data-tab="history"><i class="fas fa-clock-rotate-left"></i> History</button>
+                    <button class="forge-tab" data-tab="focus"><i class="fas fa-bullseye"></i> 5-Min Focus</button>
+                </div>
+                <div class="forge-meta">
+                    <span class="forge-date" id="forge-date">—</span>
+                </div>
+            </div>
+
+            <!-- TODAY TAB -->
+            <div class="forge-panel active" id="forge-panel-today">
+                <div class="forge-card forge-rate-card">
+                    <h3 class="forge-card-title"><i class="fas fa-star"></i> Rate this build</h3>
+                    <p class="forge-card-sub">Five dimensions, five numbers. Be honest — this is just for you.</p>
+                    <div class="forge-ratings" id="forge-ratings">
+                        <div class="forge-rating">
+                            <div class="forge-rating-head">
+                                <span class="forge-rating-label">Difficulty</span>
+                                <span class="forge-rating-desc">How hard was it?</span>
+                            </div>
+                            <div class="forge-rating-row" data-key="difficulty" data-rating>
+                                <button class="forge-pip" data-val="1">1</button>
+                                <button class="forge-pip" data-val="2">2</button>
+                                <button class="forge-pip" data-val="3">3</button>
+                                <button class="forge-pip" data-val="4">4</button>
+                                <button class="forge-pip" data-val="5">5</button>
+                            </div>
+                        </div>
+                        <div class="forge-rating">
+                            <div class="forge-rating-head">
+                                <span class="forge-rating-label">Pride</span>
+                                <span class="forge-rating-desc">How proud are you of it?</span>
+                            </div>
+                            <div class="forge-rating-row" data-key="pride" data-rating>
+                                <button class="forge-pip" data-val="1">1</button>
+                                <button class="forge-pip" data-val="2">2</button>
+                                <button class="forge-pip" data-val="3">3</button>
+                                <button class="forge-pip" data-val="4">4</button>
+                                <button class="forge-pip" data-val="5">5</button>
+                            </div>
+                        </div>
+                        <div class="forge-rating">
+                            <div class="forge-rating-head">
+                                <span class="forge-rating-label">Reach</span>
+                                <span class="forge-rating-desc">How many will see it?</span>
+                            </div>
+                            <div class="forge-rating-row" data-key="reach" data-rating>
+                                <button class="forge-pip" data-val="1">1</button>
+                                <button class="forge-pip" data-val="2">2</button>
+                                <button class="forge-pip" data-val="3">3</button>
+                                <button class="forge-pip" data-val="4">4</button>
+                                <button class="forge-pip" data-val="5">5</button>
+                            </div>
+                        </div>
+                        <div class="forge-rating">
+                            <div class="forge-rating-head">
+                                <span class="forge-rating-label">Polish</span>
+                                <span class="forge-rating-desc">How clean is the finish?</span>
+                            </div>
+                            <div class="forge-rating-row" data-key="polish" data-rating>
+                                <button class="forge-pip" data-val="1">1</button>
+                                <button class="forge-pip" data-val="2">2</button>
+                                <button class="forge-pip" data-val="3">3</button>
+                                <button class="forge-pip" data-val="4">4</button>
+                                <button class="forge-pip" data-val="5">5</button>
+                            </div>
+                        </div>
+                        <div class="forge-rating">
+                            <div class="forge-rating-head">
+                                <span class="forge-rating-label">Fun</span>
+                                <span class="forge-rating-desc">Did you enjoy the work?</span>
+                            </div>
+                            <div class="forge-rating-row" data-key="fun" data-rating>
+                                <button class="forge-pip" data-val="1">1</button>
+                                <button class="forge-pip" data-val="2">2</button>
+                                <button class="forge-pip" data-val="3">3</button>
+                                <button class="forge-pip" data-val="4">4</button>
+                                <button class="forge-pip" data-val="5">5</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="forge-total">
+                        <span class="forge-total-label">Total</span>
+                        <span class="forge-total-value" id="forge-total">0 / 25</span>
+                        <span class="forge-total-grade" id="forge-grade">—</span>
+                    </div>
+                </div>
+
+                <div class="forge-card forge-write-card">
+                    <h3 class="forge-card-title"><i class="fas fa-feather"></i> What shipped?</h3>
+                    <p class="forge-card-sub">One line. Future-you will thank present-you.</p>
+                    <div class="forge-write">
+                        <textarea id="forge-text" maxlength="280" placeholder="Shipped the soundboard. Each pad is a real Web Audio synth, no audio files..."></textarea>
+                        <div class="forge-write-foot">
+                            <div class="forge-tags" id="forge-tags">
+                                <button class="forge-tag" data-tag="Ship">Ship</button>
+                                <button class="forge-tag" data-tag="Fix">Fix</button>
+                                <button class="forge-tag" data-tag="Design">Design</button>
+                                <button class="forge-tag" data-tag="Tool">Tool</button>
+                                <button class="forge-tag" data-tag="Meta">Meta</button>
+                                <button class="forge-tag" data-tag="Milestone">Milestone</button>
+                            </div>
+                            <span class="forge-charcount" id="forge-charcount">0 / 280</span>
+                        </div>
+                    </div>
+                    <div class="forge-actions">
+                        <button class="btn btn-primary forge-save-btn" id="forge-save">
+                            <i class="fas fa-fire"></i> Forge this day
+                        </button>
+                        <button class="btn forge-clear-btn" id="forge-clear">
+                            <i class="fas fa-eraser"></i> Clear
+                        </button>
+                        <button class="btn forge-share-btn" id="forge-share" disabled>
+                            <i class="fas fa-share-nodes"></i> Share
+                        </button>
+                    </div>
+                </div>
+
+                <div class="forge-card forge-mood-card">
+                    <h3 class="forge-card-title"><i class="fas fa-face-smile"></i> Mood</h3>
+                    <p class="forge-card-sub">How did this build feel?</p>
+                    <div class="forge-moods" id="forge-moods">
+                        <button class="forge-mood" data-mood="tired" title="Tired"><span>🥱</span><em>Tired</em></button>
+                        <button class="forge-mood" data-mood="steady" title="Steady"><span>😌</span><em>Steady</em></button>
+                        <button class="forge-mood" data-mood="flow" title="In flow"><span>🌀</span><em>Flow</em></button>
+                        <button class="forge-mood" data-mood="fired" title="Fired up"><span>🔥</span><em>Fired</em></button>
+                        <button class="forge-mood" data-mood="eureka" title="Eureka"><span>💡</span><em>Eureka</em></button>
+                        <button class="forge-mood" data-mood="ship" title="Shipped"><span>🚀</span><em>Ship</em></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HISTORY TAB -->
+            <div class="forge-panel" id="forge-panel-history">
+                <div class="forge-history-controls">
+                    <div class="forge-history-filters" id="forge-filters">
+                        <button class="forge-filter active" data-filter="all">All</button>
+                        <button class="forge-filter" data-filter="Ship">Ship</button>
+                        <button class="forge-filter" data-filter="Fix">Fix</button>
+                        <button class="forge-filter" data-filter="Design">Design</button>
+                        <button class="forge-filter" data-filter="Tool">Tool</button>
+                        <button class="forge-filter" data-filter="Meta">Meta</button>
+                        <button class="forge-filter" data-filter="Milestone">Milestone</button>
+                    </div>
+                    <div class="forge-history-sort">
+                        <select id="forge-sort" aria-label="Sort reflections">
+                            <option value="newest">Newest first</option>
+                            <option value="oldest">Oldest first</option>
+                            <option value="best">Highest rated</option>
+                            <option value="worst">Lowest rated</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="forge-heatmap" id="forge-heatmap">
+                    <!-- 14-day mini heatmap rendered by JS -->
+                </div>
+                <div class="forge-history-list" id="forge-history-list">
+                    <!-- Filled by JS -->
+                </div>
+                <div class="forge-history-empty" id="forge-history-empty" hidden>
+                    <i class="fas fa-feather"></i>
+                    <h3>No reflections yet</h3>
+                    <p>Switch to <em>Today's Build</em> and forge your first one — it takes 30 seconds.</p>
+                </div>
+            </div>
+
+            <!-- FOCUS TAB -->
+            <div class="forge-panel" id="forge-panel-focus">
+                <div class="forge-focus-card">
+                    <h3 class="forge-card-title"><i class="fas fa-bullseye"></i> 5-Minute Forge Block</h3>
+                    <p class="forge-card-sub">Pick one small thing. Work only on it. When the timer ends, stop and reflect.</p>
+                    <div class="forge-focus-input">
+                        <input type="text" id="forge-focus-task" maxlength="80" placeholder="What are you forging right now?">
+                    </div>
+                    <div class="forge-focus-stage">
+                        <div class="forge-focus-ring" id="forge-focus-ring">
+                            <div class="forge-focus-ring-inner">
+                                <span class="forge-focus-time" id="forge-focus-time">05:00</span>
+                                <span class="forge-focus-task-display" id="forge-focus-task-display">—</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="forge-focus-actions">
+                        <button class="btn btn-primary" id="forge-focus-start"><i class="fas fa-play"></i> Start</button>
+                        <button class="btn" id="forge-focus-pause" disabled><i class="fas fa-pause"></i> Pause</button>
+                        <button class="btn" id="forge-focus-reset"><i class="fas fa-redo"></i> Reset</button>
+                    </div>
+                    <p class="forge-focus-hint" id="forge-focus-hint">
+                        <i class="fas fa-lightbulb"></i> Tip: press <kbd>Enter</kbd> in the input to start, <kbd>Space</kbd> to pause.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Day 73 - Lab Notebook: Build Hypothesis Log -->
+    <section id="lab" class="section lab-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-flask"></i> Experiments</span>
+                <h2 class="section-title">Lab Notebook</h2>
+                <p class="section-subtitle">Every build is a hypothesis. Capture the bet, the result, and how confident you were — so a year from now you'll know which instincts to trust.</p>
+            </div>
+
+            <div class="lab-summary">
+                <div class="lab-stat">
+                    <i class="fas fa-vial"></i>
+                    <div class="lab-stat-num" id="lab-count">0</div>
+                    <div class="lab-stat-label">Experiments</div>
+                </div>
+                <div class="lab-stat">
+                    <i class="fas fa-check-double"></i>
+                    <div class="lab-stat-num" id="lab-validated">0</div>
+                    <div class="lab-stat-label">Validated</div>
+                </div>
+                <div class="lab-stat">
+                    <i class="fas fa-bolt"></i>
+                    <div class="lab-stat-num" id="lab-running">0</div>
+                    <div class="lab-stat-label">Running</div>
+                </div>
+                <div class="lab-stat">
+                    <i class="fas fa-skull-crossbones"></i>
+                    <div class="lab-stat-num" id="lab-kill-rate">0%</div>
+                    <div class="lab-stat-label">Kill Rate</div>
+                </div>
+            </div>
+
+            <div class="lab-toolbar">
+                <div class="lab-tabs" id="lab-tabs">
+                    <button class="lab-tab active" data-tab="grid"><i class="fas fa-grip"></i> Grid</button>
+                    <button class="lab-tab" data-tab="board"><i class="fas fa-columns"></i> Kanban</button>
+                </div>
+                <div class="lab-meta">
+                    <span class="lab-date" id="lab-date">—</span>
+                </div>
+            </div>
+
+            <!-- GRID TAB -->
+            <div class="lab-panel active" data-panel="grid">
+                <div class="lab-controls">
+                    <div class="lab-filters" role="tablist" aria-label="Filter experiments">
+                        <button class="lab-filter active" data-filter="all" role="tab">All</button>
+                        <button class="lab-filter" data-filter="draft">Draft</button>
+                        <button class="lab-filter" data-filter="running">Running</button>
+                        <button class="lab-filter" data-filter="validated">Validated</button>
+                        <button class="lab-filter" data-filter="falsified">Falsified</button>
+                        <button class="lab-filter" data-filter="parked">Parked</button>
+                    </div>
+                    <div class="lab-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="lab-search-input" placeholder="Search hypotheses, results, tags..." aria-label="Search experiments" />
+                    </div>
+                    <select id="lab-sort" class="lab-sort" aria-label="Sort experiments">
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                        <option value="confidence">Confidence</option>
+                        <option value="title">A → Z</option>
+                    </select>
+                </div>
+
+                <div class="lab-actions">
+                    <button class="lab-action-btn primary" id="lab-new-btn"><i class="fas fa-plus"></i> New experiment</button>
+                    <button class="lab-action-btn" id="lab-reset-btn" title="Reset to seed library"><i class="fas fa-rotate-left"></i> Reset Library</button>
+                    <button class="lab-action-btn" id="lab-export-btn" title="Download JSON"><i class="fas fa-download"></i> Export</button>
+                    <button class="lab-action-btn" id="lab-import-btn" title="Import JSON"><i class="fas fa-upload"></i> Import</button>
+                    <input type="file" id="lab-import-file" accept="application/json" hidden />
+                </div>
+
+                <div class="lab-grid" id="lab-grid" data-filter="all" data-sort="newest"></div>
+                <div class="lab-empty" id="lab-empty" hidden>
+                    <i class="fas fa-vial"></i>
+                    <h3>No experiments match</h3>
+                    <p>Try a different filter — or log your first hypothesis.</p>
+                </div>
+            </div>
+
+            <!-- BOARD TAB -->
+            <div class="lab-panel" data-panel="board">
+                <div class="lab-board" id="lab-board"></div>
+                <p class="lab-hint"><i class="fas fa-lightbulb"></i> Click a card to open it. The board groups <strong>Now</strong> (running + draft), <strong>Validated</strong>, and <strong>Parked / Killed</strong> so you can see momentum at a glance.</p>
+            </div>
+
+            <p class="lab-hint"><i class="fas fa-keyboard"></i> Press <kbd>N</kbd> in the section to log a new experiment. Press <kbd>/</kbd> to focus search. <kbd>Esc</kbd> closes the modal.</p>
+        </div>
+    </section>
+
+    <!-- Day 73 - Lab Modal + Toast -->
+    <div class="lab-toast" id="lab-toast" role="status" aria-live="polite"></div>
+    <div class="lab-modal" id="lab-modal" aria-hidden="true">
+        <div class="lab-modal-backdrop" data-lab-close></div>
+        <div class="lab-modal-card" role="dialog" aria-modal="true" aria-labelledby="lab-modal-title">
+            <button class="lab-modal-close" data-lab-close aria-label="Close"><i class="fas fa-times"></i></button>
+            <div class="lab-modal-head">
+                <h3 id="lab-modal-title">New experiment</h3>
+                <p id="lab-modal-sub">Capture the bet, the result, and how confident you are.</p>
+            </div>
+            <div class="lab-modal-body">
+                <div class="lab-field">
+                    <label for="lab-field-title">Title</label>
+                    <input type="text" id="lab-field-title" maxlength="80" placeholder="e.g. 'If I add a beat sequencer, the page feels more alive'" />
+                </div>
+                <div class="lab-field-row">
+                    <div class="lab-field">
+                        <label for="lab-field-date">Date</label>
+                        <input type="date" id="lab-field-date" />
+                    </div>
+                    <div class="lab-field">
+                        <label for="lab-field-status">Status</label>
+                        <select id="lab-field-status">
+                            <option value="draft">Draft</option>
+                            <option value="running">Running</option>
+                            <option value="validated">Validated</option>
+                            <option value="falsified">Falsified</option>
+                            <option value="parked">Parked</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="lab-field">
+                    <label for="lab-field-hypo">Hypothesis</label>
+                    <textarea id="lab-field-hypo" maxlength="500" rows="3" placeholder="If I add / change / remove X, then Y will happen because..."></textarea>
+                </div>
+                <div class="lab-field">
+                    <label for="lab-field-result">Result / What I observed</label>
+                    <textarea id="lab-field-result" maxlength="500" rows="3" placeholder="What actually happened? What did you learn?"></textarea>
+                </div>
+                <div class="lab-field">
+                    <label for="lab-field-tags">Tags (comma-separated)</label>
+                    <input type="text" id="lab-field-tags" placeholder="ui, perf, audio" />
+                </div>
+                <div class="lab-field">
+                    <label>Confidence (1-5)</label>
+                    <div class="lab-confidence" id="lab-confidence">
+                        <button type="button" class="lab-confidence-pip" data-val="1">1</button>
+                        <button type="button" class="lab-confidence-pip" data-val="2">2</button>
+                        <button type="button" class="lab-confidence-pip" data-val="3">3</button>
+                        <button type="button" class="lab-confidence-pip" data-val="4">4</button>
+                        <button type="button" class="lab-confidence-pip" data-val="5">5</button>
+                    </div>
+                </div>
+            </div>
+            <div class="lab-modal-foot">
+                <button class="lab-modal-btn ghost" data-lab-close>Cancel</button>
+                <button class="lab-modal-btn primary" id="lab-save-btn"><i class="fas fa-flask"></i> Save experiment</button>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
