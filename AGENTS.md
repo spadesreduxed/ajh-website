@@ -1,5 +1,56 @@
 ## Build Log
 
+### Day 73 - 2026-07-02
+**Status**: Lab Notebook — Treat every build as a hypothesis
+**Actions**:
+- Added **Lab Notebook** section (`#lab`) after The Forge — a Build Hypothesis Log
+  - 5-status lifecycle: **Draft** → **Running** → **Validated** / **Falsified** / **Parked**
+  - Each experiment card shows: title, date, hypothesis (the bet), result (the data), confidence (1–5 stars), status pill, tag pills
+  - 10 seeded experiments from the build's history (Soundboard, Step Sequencer, Command Palette, Calendar Heatmap, On This Day, Pixel Art Studio, Build Receipts, Music Player, Daily Plan Board, Code Snippets Vault) — each with realistic hypothesis/result/tags/confidence reflecting the real build outcome
+  - **4-card summary stats**: Experiments, Validated, Running, Kill Rate (% falsified)
+  - **Two view modes**:
+    - **Grid** — full cards with hypothesis + result + confidence + actions
+    - **Kanban** — three columns (Now / Validated / Parked) with mini-cards, click any to open
+  - **Search** across title, hypothesis, result, AND tags (debounced)
+  - **6 filter chips**: All / Draft / Running / Validated / Falsified / Parked
+  - **4 sort modes**: Newest / Oldest / Confidence / A → Z
+  - **New Experiment modal**: title, hypothesis textarea, result textarea, tags CSV, status select, date picker, **5-pip confidence selector** (click to rate, click same to clear)
+  - **Edit Experiment** reuses the same modal pre-filled
+  - **Delete Experiment** with one-click removal
+  - **Reset Library** restores the 10 starter experiments
+  - **JSON export** (downloads `ajh-lab-experiments-YYYY-MM-DD.json`) and **JSON import** (file picker) for portable notebooks
+  - **Share card** — generates a tweet-sized "Lab Card" with the experiment + confidence + result snippet (clipboard with toast feedback)
+  - **Per-experiment status pill color-coding**: running=teal, validated=green, falsified=red, parked=gray, draft=neutral
+  - Footer stats: Total / Showing / Confidence Avg
+  - All state persists to localStorage (`ajh_lab_v1` + `ajh_lab_views_v1` + `ajh_lab_stats_v1`)
+  - Empty state with friendly icon and message when no experiments match
+  - Mobile-responsive grid (1 column on mobile, 2 on tablet, 3 on desktop)
+  - Light theme overrides added to `lab-theme.css`
+  - Toast feedback for every action (saved, deleted, imported, shared, copied)
+- Added **nav link** `#lab` after Forge
+- Added **hero meta button** (flask icon) that scrolls to the Lab Notebook section
+- Added **3 new command palette commands**: "Open Lab Notebook", "New Lab Experiment", "Lab - Switch to Kanban"
+- Added **4 new bookmark cards** to the Bookmark section: Lab Notebook (Tools tag), New Experiment (Action tag), Lab Kanban (View tag), Lab Stats (Data tag)
+- Updated stats: Day Streak 72→73, Days Building 68→73, Features Built 65→66
+- Added **Day 73 blog entry** at top of blog grid
+
+**Files Changed**:
+- `index.html` - New `#lab` section (4 stat cards, 2-tab toolbar with Grid/Kanban, full filters/search/sort row, action buttons, 10-card grid, 3-column kanban, hint paragraph, full new-experiment modal with title/hypothesis/result/tags/status/date/confidence pips, toast), new nav link, hero meta button, Day 73 blog entry, stat increments
+- `css/lab.css` - new file, ~720 lines: `.lab-section` (gradient bg + radial glows), `.lab-summary` (4-card grid), `.lab-toolbar`, `.lab-tabs`, `.lab-controls` (filters + search + sort), `.lab-actions` (4 action buttons), `.lab-grid` (3-col responsive), `.lab-card` (status pill, hypothesis body, result body, confidence bar, tags, action row), `.lab-board` (3-col kanban), `.lab-col`, `.lab-mini-card`, `.lab-empty`, `.lab-modal` (overlay + card), `.lab-form` (label + input/textarea/select grid), `.lab-confidence` (5-pip grid), `.lab-toast` (slide-in from bottom), light theme overrides
+- `css/lab-theme.css` - new file, ~192 lines of light-theme overrides for every component
+- `js/lab.js` - new file, ~608 lines: SEED array of 10 realistic experiments, load/save, `renderCards()` (search + filter + sort), `renderBoard()` (3-col kanban), `renderSummary()` (4 stats), `openModal()` (new or edit, prefill all fields), `closeModal()`, `saveFromModal()` (validate + persist), `deleteExperiment()`, `exportJSON()`, `importJSON()`, `shareExperiment()` (clipboard), `init()` wired to DOMContentLoaded (tabs, filters, sort, search, action buttons, modal close, confidence pips, hero button, expose `window.ajhLabOpen` / `ajhLabNew`)
+- `js/main.js` - 3 new command palette commands + 4 new bookmark cards
+
+**Git Push Status**: ✅ Pushed to GitHub (abe0624)
+
+**Next Steps**:
+- Add a confidence-vs-result scatter plot (visualizing calibration)
+- Add experiment linking (one experiment validates another, or falsifies a parent)
+- Add a "next experiment" suggestion based on what's parked / falsified
+- Add CSV export (for spreadsheet analysis)
+- Add a per-experiment thread (notes over time as the experiment evolves)
+- Continue building new features daily - never stop
+
 ### Day 71 - 2026-06-30
 **Status**: Step Sequencer — 16-step x 8-track beat machine in the browser
 **Actions**:

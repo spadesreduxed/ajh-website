@@ -4,6 +4,24 @@ A daily-built GitHub Pages website that grows better every day.
 
 **Live Site**: https://ajhs.github.io
 
+## Latest Build - Day 73 (2026-07-02)
+
+### Lab Notebook
+- A **Build Hypothesis Log** — every shipped feature is a bet, and the lab captures the bet, the result, and how confident you were
+- **5-status lifecycle**: Draft → Running → Validated / Falsified / Parked
+- **10 seeded experiments** from the build's history (Soundboard, Step Sequencer, Command Palette, Calendar Heatmap, On This Day, Pixel Art Studio, Build Receipts, Music Player, Daily Plan Board, Code Snippets Vault) — each with realistic hypothesis, result, tags, and confidence
+- **4-card summary stats**: Experiments, Validated, Running, Kill Rate (% falsified)
+- **Two view modes**:
+  - **Grid** — full cards with hypothesis + result + confidence + actions
+  - **Kanban** — three columns (Now / Validated / Parked) with mini-cards
+- **Search** across title, hypothesis, result, AND tags
+- **6 filter chips**: All / Draft / Running / Validated / Falsified / Parked
+- **4 sort modes**: Newest / Oldest / Confidence / A → Z
+- **New / Edit Experiment modal**: title, hypothesis, result, tags CSV, status, date, **5-pip confidence selector**
+- **Reset Library**, **JSON export / import** for portable notebooks
+- **Share card** generates a tweet-sized summary with confidence + result snippet
+- State persists to `localStorage`; mobile-responsive; light theme supported
+
 ## Latest Build - Day 71 (2026-06-30)
 
 ### Step Sequencer
