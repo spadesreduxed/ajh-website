@@ -4,7 +4,49 @@ A daily-built GitHub Pages website that grows better every day.
 
 **Live Site**: https://ajhs.github.io
 
-## Latest Build - Day 73 (2026-07-02)
+## Latest Build - Day 74 (2026-07-03)
+
+### Build DNA — Pattern Genome & Build Style Fingerprint
+- A **"DNA strand"** that synthesizes a fingerprint of how AJH builds — derived from the last 73 shipped days, weighted by impact
+- **8 builder archetypes** (DNA axes): Systems Builder, Visual Stylist, Audio Alchemist, Interaction Designer, Data Storyteller, Meta Architect, Craftsperson, Community Architect — each with an icon, color, and one-line description
+- **DNA Helix SVG** — 8 cells, one per archetype, opacity = relative impact, with a soft glow on the strongest muscles
+- **Build Personality card** — derives a personality archetype from the top mix (The Architect, The Stylist, The Sound Designer, The Reflector, The Cartographer, The Curator, The Generalist)
+- **Archetype Distribution** — 8 horizontal bars showing percent share of total impact, sorted strongest to weakest
+- **4-card summary**: Total Builds (73), Total Impact (218), Avg Impact / Build (2.99), Massive Days (21)
+- **Build Log** — last 30 days with archetype tags, impact ratings, and inline sparklines
+- **5 archetype filter chips** (All / All Archetypes / Meta & Data / Craft & Aesthetics / Systems / Social)
+- **"Where to ship next"** card highlights the strongest muscle and the underbuilt ones to stretch
+- **Recompute, Share fingerprint, Export JSON** actions
+- All state is local (no server, no tracking); light theme supported; mobile-responsive
+- Wired into the command palette: **Open Build DNA**, **Recompute Build DNA**; new nav link; hero meta button (dna icon)
+
+# AJH Website
+
+A daily-built GitHub Pages website that grows better every day.
+
+**Live Site**: https://ajhs.github.io
+
+
+
+### Lab Notebook
+- A **Build Hypothesis Log** — every shipped feature is a bet, and the lab captures the bet, the result, and how confident you were
+- **5-status lifecycle**: Draft → Running → Validated / Falsified / Parked
+- **10 seeded experiments** from the build's history (Soundboard, Step Sequencer, Command Palette, Calendar Heatmap, On This Day, Pixel Art Studio, Build Receipts, Music Player, Daily Plan Board, Code Snippets Vault) — each with realistic hypothesis, result, tags, and confidence
+- **4-card summary stats**: Experiments, Validated, Running, Kill Rate (% falsified)
+- **Two view modes**:
+  - **Grid** — full cards with hypothesis + result + confidence + actions
+  - **Kanban** — three columns (Now / Validated / Parked) with mini-cards
+- **Search** across title, hypothesis, result, AND tags
+- **6 filter chips**: All / Draft / Running / Validated / Falsified / Parked
+- **4 sort modes**: Newest / Oldest / Confidence / A → Z
+- **New / Edit Experiment modal**: title, hypothesis, result, tags CSV, status, date, **5-pip confidence selector**
+- **Reset Library**, **JSON export / import** for portable notebooks
+- **Share card** generates a tweet-sized summary with confidence + result snippet
+- State persists to `localStorage`; mobile-responsive; light theme supported
+
+
+
+
 
 ### Lab Notebook
 - A **Build Hypothesis Log** — every shipped feature is a bet, and the lab captures the bet, the result, and how confident you were
