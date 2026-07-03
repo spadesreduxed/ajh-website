@@ -53,6 +53,8 @@
     <link rel="stylesheet" href="css/forge-theme.css">
     <link rel="stylesheet" href="css/lab.css">
     <link rel="stylesheet" href="css/lab-theme.css">
+    <link rel="stylesheet" href="css/dna.css">
+    <link rel="stylesheet" href="css/dna-theme.css">
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/pixelart.css">
     <link rel="stylesheet" href="css/pixelart-theme.css">
@@ -136,6 +138,7 @@
             <li><a href="#sequencer">Sequencer</a></li>
             <li><a href="#forge">Forge</a></li>
             <li><a href="#lab">Lab</a></li>
+            <li><a href="#dna">DNA</a></li>
             <li><a href="#quotes">Quotes</a></li>
             <li><a href="#wisdom">Wisdom</a></li>
             <li><a href="#stats">Stats</a></li>
@@ -256,6 +259,9 @@
                 <button class="plan-btn" id="lab-hero-btn" aria-label="Lab notebook" title="Open the Lab Notebook hypothesis log (L)">
                     <i class="fas fa-flask"></i>
                 </button>
+                <button class="plan-btn" id="dna-hero-btn" aria-label="Build DNA" title="Open Build DNA — your pattern genome (D N A)">
+                    <i class="fas fa-dna"></i>
+                </button>
             </div>
             <div class="hero-stats">
                 <div class="stat">
@@ -263,7 +269,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="73">0</span>
+                    <span class="stat-value" data-count="74">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -274,7 +280,7 @@
             <div class="daily-streak">
                 <span class="streak-icon">🔥</span>
                 <div class="streak-info">
-                    <span class="streak-count">73 days</span>
+                    <span class="streak-count">74 days</span>
                     <span class="streak-label">Daily Streak</span>
                 </div>
             </div>
@@ -780,7 +786,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="73">0</div>
+                    <div class="stat-number" data-count="74">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -801,7 +807,7 @@
                 </div>
                 <div class="stat-card large">
                     <i class="fas fa-rocket"></i>
-                    <div class="stat-number" data-count="66">0</div>
+                    <div class="stat-number" data-count="67">0</div>
                     <div class="stat-label">Features Built</div>
                     <div class="stat-sublabel">And counting...</div>
                 </div>
@@ -1370,6 +1376,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">3</span>
+                        <span class="blog-month">July 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 74</span>
+                        <h3>Build DNA — Your Pattern Genome</h3>
+                        <p>Day 74 ships <em>Build DNA</em>: a living fingerprint of the build. A two-strand SVG helix renders 8 builder archetypes (Systems, Visual, Audio, Craft, Meta, Data, Experiment, Speed) as colored nucleotides — each strand a profile of the build's actual character. The DNA auto-computes from your tag history, recent features, archetype dominance, and rhythm: a 4-card summary shows Strand, Personality, Cadence, and Diversity. The Personality card surfaces one of 6 archetypes (Polymath, Craftsperson, Audio Hacker, Meta Builder, Steady Hand, Wild Card) based on which DNA strand is loudest. An 8-bar Archetype Breakdown ranks each category by % of build time, with a 1-5 dominance score. A legend explains every color, a focus card highlights the most under-built or most-needed area, and a build log feed shows the last 12 builds with their DNA sparkline. Press <kbd>N</kbd> in the section to recompute, or open from the command palette.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">2</span>
@@ -4615,5 +4632,104 @@
         </div>
     </div>
 
+    <!-- Day 74 - Build DNA: Pattern Genome & Build Style Fingerprint -->
+    <section id="dna" class="section dna-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-dna"></i> Build DNA</span>
+                <h2 class="section-title">Your Pattern Genome</h2>
+                <p class="section-subtitle">A living fingerprint of the build. What you ship, what you ship it for, and what it says about how you think.</p>
+            </div>
+
+            <div class="dna-summary" id="dna-summary">
+                <div class="dna-stat">
+                    <i class="fas fa-code-branch"></i>
+                    <div class="dna-stat-num" id="dna-total-builds">0</div>
+                    <div class="dna-stat-label">Total Builds</div>
+                </div>
+                <div class="dna-stat">
+                    <i class="fas fa-bolt"></i>
+                    <div class="dna-stat-num" id="dna-total-impact">0</div>
+                    <div class="dna-stat-label">Total Impact</div>
+                </div>
+                <div class="dna-stat">
+                    <i class="fas fa-chart-line"></i>
+                    <div class="dna-stat-num" id="dna-avg-impact">0.0</div>
+                    <div class="dna-stat-label">Avg Impact / Build</div>
+                </div>
+                <div class="dna-stat">
+                    <i class="fas fa-fire"></i>
+                    <div class="dna-stat-num" id="dna-big-days">0</div>
+                    <div class="dna-stat-label">Massive Days</div>
+                </div>
+            </div>
+
+            <div class="dna-stage">
+                <div class="dna-card dna-strand-card">
+                    <h3 class="dna-card-title"><i class="fas fa-wave-square"></i> The Helix</h3>
+                    <p class="dna-card-sub">8 axes of how you build. The taller the arc, the more that muscle is trained.</p>
+                    <svg class="dna-strand-svg" id="dna-strand-svg" viewBox="0 0 800 240" preserveAspectRatio="xMidYMid meet"></svg>
+                    <div class="dna-legend" id="dna-legend"></div>
+                </div>
+
+                <div class="dna-card dna-personality" id="dna-personality"></div>
+            </div>
+
+            <div class="dna-card dna-archetypes" id="dna-archetypes"></div>
+
+            <div class="dna-card dna-focus" id="dna-focus">
+                <div class="dna-focus-head">
+                    <h3 class="dna-focus-title"><i class="fas fa-bullseye"></i> Where to ship next
+                        <span class="dna-focus-day" id="dna-focus-day">Day 74</span>
+                    </h3>
+                </div>
+                <p class="dna-focus-body" id="dna-focus-body">
+                    Analyzing the last 74 days of builds to suggest your next growth area.
+                </p>
+                <div class="dna-focus-areas" id="dna-focus-areas"></div>
+                <div class="dna-focus-actions">
+                    <button class="dna-focus-btn primary" id="dna-recompute-btn">
+                        <i class="fas fa-rotate"></i> Recompute DNA
+                    </button>
+                    <button class="dna-focus-btn" id="dna-share-btn">
+                        <i class="fas fa-share-nodes"></i> Share Fingerprint
+                    </button>
+                    <button class="dna-focus-btn" id="dna-export-btn">
+                        <i class="fas fa-download"></i> Export JSON
+                    </button>
+                </div>
+            </div>
+
+            <div class="dna-card" style="margin-top:14px">
+                <h3 class="dna-log-title"><i class="fas fa-list"></i> Build Log</h3>
+                <div class="dna-log-toolbar">
+                    <div class="dna-log-filters" id="dna-log-filters">
+                        <button class="dna-log-filter active" data-filter="all">All</button>
+                        <button class="dna-log-filter" data-filter="systems+visual+audio+interactive+data+meta+craft+social">All Archetypes</button>
+                        <button class="dna-log-filter" data-filter="meta+data">Meta &amp; Data</button>
+                        <button class="dna-log-filter" data-filter="visual+audio+craft">Craft &amp; Aesthetics</button>
+                        <button class="dna-log-filter" data-filter="systems+interactive">Systems</button>
+                        <button class="dna-log-filter" data-filter="social">Social</button>
+                    </div>
+                    <div>
+                        <button class="dna-log-btn" data-dna-view="15"><i class="fas fa-compress"></i> 15</button>
+                        <button class="dna-log-btn" data-dna-view="30"><i class="fas fa-list"></i> 30</button>
+                        <button class="dna-log-btn" data-dna-view="74"><i class="fas fa-expand"></i> All</button>
+                    </div>
+                </div>
+                <div class="dna-log" id="dna-log"></div>
+            </div>
+
+            <p class="dna-hint">
+                <i class="fas fa-keyboard"></i>
+                Press <kbd>D</kbd> then <kbd>N</kbd> then <kbd>A</kbd> to jump here · <kbd>R</kbd><kbd>C</kbd> recomputes · Data is local — no server, no tracking.
+            </p>
+        </div>
+    </section>
+
+    <div class="dna-toast" id="dna-toast" role="status" aria-live="polite"></div>
+
+
+    <script src="js/dna.js" defer></script>
 </body>
 </html>

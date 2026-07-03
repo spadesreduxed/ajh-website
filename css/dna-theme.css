@@ -1,0 +1,211 @@
+/* ============================================================
+   Day 74: Build DNA — Light theme overrides
+   ============================================================ */
+
+[data-theme="light"] .dna-section {
+  background: linear-gradient(160deg, rgba(168, 85, 247, 0.06), rgba(236, 72, 153, 0.04));
+}
+
+[data-theme="light"] .dna-section::before {
+  background:
+    radial-gradient(circle at 20% 25%, rgba(168, 85, 247, 0.10), transparent 42%),
+    radial-gradient(circle at 80% 75%, rgba(236, 72, 153, 0.08), transparent 44%);
+}
+
+[data-theme="light"] .dna-stat {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(168, 85, 247, 0.18);
+}
+
+[data-theme="light"] .dna-stat-num {
+  color: #1e1b4b;
+}
+
+[data-theme="light"] .dna-stat-label {
+  color: #5b4b7d;
+}
+
+[data-theme="light"] .dna-card {
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(168, 85, 247, 0.20);
+}
+
+[data-theme="light"] .dna-card-title,
+[data-theme="light"] .dna-log-title {
+  color: #1e1b4b;
+}
+
+[data-theme="light"] .dna-card-sub {
+  color: #5b4b7d;
+}
+
+[data-theme="light"] .dna-personality {
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(168, 85, 247, 0.20);
+}
+
+[data-theme="light"] .dna-personality-name {
+  color: #1e1b4b;
+}
+
+[data-theme="light"] .dna-personality-sub,
+[data-theme="light"] .dna-personality-blurb {
+  color: #5b4b7d;
+}
+
+[data-theme="light"] .dna-trait {
+  background: rgba(168, 85, 247, 0.08);
+  border-color: rgba(168, 85, 247, 0.20);
+  color: #4c1d95;
+}
+
+[data-theme="light"] .dna-arch {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(168, 85, 247, 0.20);
+}
+
+[data-theme="light"] .dna-arch-label,
+[data-theme="light"] .dna-arch-meta {
+  color: #5b4b7d;
+}
+
+[data-theme="light"] .dna-arch-pct {
+  color: #1e1b4b;
+}
+
+[data-theme="light"] .dna-arch-bar {
+  background: rgba(168, 85, 247, 0.10);
+}
+
+[data-theme="light"] .dna-focus {
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.10), rgba(168, 85, 247, 0.08));
+  border-color: rgba(236, 72, 153, 0.20);
+}
+
+[data-theme="light"] .dna-focus-title {
+  color: #1e1b4b;
+}
+
+[data-theme="light"] .dna-focus-day {
+  background: rgba(236, 72, 153, 0.18);
+  color: #9d174d;
+}
+
+[data-theme="light"] .dna-focus-body {
+  color: #4c1d95;
+}
+
+[data-theme="light"] .dna-focus-body strong {
+  color: #9d174d;
+}
+
+[data-theme="light"] .dna-focus-area {
+  background: rgba(168, 85, 247, 0.08);
+  border-color: rgba(168, 85, 247, 0.20);
+  color: #4c1d95;
+}
+
+[data-theme="light"] .dna-focus-area.urgent {
+  background: rgba(236, 72, 153, 0.16);
+  border-color: rgba(236, 72, 153, 0.30);
+  color: #9d174d;
+}
+
+[data-theme="light"] .dna-focus-area.underbuilt {
+  background: rgba(168, 85, 247, 0.14);
+  border-color: rgba(168, 85, 247, 0.30);
+  color: #6b21a8;
+}
+
+[data-theme="light"] .dna-focus-btn {
+  background: rgba(168, 85, 247, 0.10);
+  border-color: rgba(168, 85, 247, 0.30);
+  color: #4c1d95;
+}
+
+[data-theme="light"] .dna-focus-btn:hover {
+  background: rgba(236, 72, 153, 0.16);
+  border-color: rgba(236, 72, 153, 0.36);
+  color: #9d174d;
+}
+
+[data-theme="light"] .dna-focus-btn.primary {
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.24), rgba(168, 85, 247, 0.20));
+  border-color: rgba(236, 72, 153, 0.40);
+  color: #6b21a8;
+}
+
+[data-theme="light"] .dna-log-filter {
+  background: rgba(255, 255, 255, 0.70);
+  border-color: rgba(168, 85, 247, 0.18);
+  color: #5b4b7d;
+}
+
+[data-theme="light"] .dna-log-filter.active {
+  background: rgba(168, 85, 247, 0.18);
+  color: #4c1d95;
+  border-color: rgba(168, 85, 247, 0.40);
+}
+
+[data-theme="light"] .dna-log-btn {
+  background: rgba(168, 85, 247, 0.08);
+  border-color: rgba(168, 85, 247, 0.20);
+  color: #4c1d95;
+}
+
+[data-theme="light"] .dna-log-item {
+  background: rgba(255, 255, 255, 0.65);
+  border-color: rgba(168, 85, 247, 0.14);
+}
+
+[data-theme="light"] .dna-log-item:hover {
+  background: rgba(168, 85, 247, 0.10);
+  border-color: rgba(168, 85, 247, 0.30);
+}
+
+[data-theme="light"] .dna-log-day {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.30), rgba(236, 72, 153, 0.24));
+  border-color: rgba(168, 85, 247, 0.40);
+}
+
+[data-theme="light"] .dna-log-day-num {
+  color: #1e1b4b;
+}
+
+[data-theme="light"] .dna-log-day-label {
+  color: #5b4b7d;
+}
+
+[data-theme="light"] .dna-log-name {
+  color: #1e1b4b;
+}
+
+[data-theme="light"] .dna-log-meta {
+  color: #6b4a8c;
+}
+
+[data-theme="light"] .dna-log-tag {
+  background: rgba(168, 85, 247, 0.14);
+  border-color: rgba(168, 85, 247, 0.30);
+  color: #4c1d95;
+}
+
+[data-theme="light"] .dna-log-empty {
+  color: #6b4a8c;
+}
+
+[data-theme="light"] .dna-toast {
+  background: rgba(255, 255, 255, 0.96);
+  color: #1e1b4b;
+  border-color: rgba(168, 85, 247, 0.40);
+}
+
+[data-theme="light"] .dna-hint {
+  color: #6b4a8c;
+}
+
+[data-theme="light"] .dna-hint kbd {
+  background: rgba(168, 85, 247, 0.10);
+  border-color: rgba(168, 85, 247, 0.30);
+  color: #4c1d95;
+}

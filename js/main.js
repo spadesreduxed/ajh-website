@@ -760,6 +760,9 @@ function initCommandPalette() {
     { id: 'tool-lab-open', label: 'Open Lab Notebook', icon: 'fa-flask', shortcut: 'G L', category: 'Tools', action: () => window.ajhLabOpen && window.ajhLabOpen() },
     { id: 'tool-lab-new', label: 'New Lab Experiment', icon: 'fa-plus', category: 'Tools', action: () => window.ajhLabNew && window.ajhLabNew() },
     { id: 'tool-lab-board', label: 'Lab Board View', icon: 'fa-columns', category: 'Tools', action: () => window.ajhLabOpen && window.ajhLabOpen('board') },
+    { id: 'tool-dna-open', label: 'Open Build DNA', icon: 'fa-dna', shortcut: 'G D', category: 'Tools', action: () => window.ajhDnaOpen && window.ajhDnaOpen() },
+    { id: 'tool-dna-recompute', label: 'Recompute Build DNA', icon: 'fa-rotate', category: 'Tools', action: () => window.ajhDnaRecompute && window.ajhDnaRecompute() },
+    { id: 'tool-dna-share', label: 'Share Build DNA Card', icon: 'fa-share', category: 'Tools', action: () => window.ajhDnaShare && window.ajhDnaShare() },
     
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -3678,6 +3681,9 @@ function initBookmarkCards() {
     { id: 'dailychallenge', icon: 'fa-dice', title: 'Daily Challenge', tag: 'Daily', desc: 'A daily-rotating pixel art prompt that pairs with the Studio.' },
     { id: 'soundboard', icon: 'fa-music', title: 'Soundboard', tag: 'Audio', desc: 'A collection of sounds for the site. Play random, stop all, and open the board.' },
     { id: 'sequencer', icon: 'fa-drum', title: 'Step Sequencer', tag: 'Audio', desc: 'A 16-step, 8-track beat machine. Click cells to toggle, hit play, and share the pattern. Press M to open.' },
+    { id: 'forge', icon: 'fa-fire-burner', title: 'The Forge', tag: 'Reflection', desc: 'A build reflection studio. Five-axis rating, 280-char note, mood emoji, weekly and all-time stats. Press F to write today.' },
+    { id: 'lab', icon: 'fa-flask', title: 'Lab Notebook', tag: 'Hypotheses', desc: 'A build hypothesis log: if I add X, then Y. Draft, running, validated, falsified, parked. Kill rate, kanban, JSON I/O. Press L to open.' },
+    { id: 'dna', icon: 'fa-dna', title: 'Build DNA', tag: 'Patterns', desc: 'Your build style as a strand: 8 archetype axes, personality verdict, focus card, archetypes bar, and a live build log. Press G D.' },
   ];
 
   let state = {
