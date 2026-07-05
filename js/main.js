@@ -766,7 +766,12 @@ function initCommandPalette() {
     { id: 'tool-cs-open', label: 'Open Constellation Map', icon: 'fa-star', shortcut: 'G S', category: 'Tools', action: () => window.ajhConstellation75Open && window.ajhConstellation75Open() },
     { id: 'tool-cs-burst', label: 'Constellation: Toggle Fireworks Burst', icon: 'fa-fire', category: 'Tools', action: () => window.ajhConstellation75Burst && window.ajhConstellation75Burst() },
     { id: 'tool-cs-export', label: 'Constellation: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => document.getElementById('cs-export')?.click() },
-    
+
+    // Day 76: Build Trail
+    { id: 'tool-trail-open', label: 'Open Build Trail', icon: 'fa-timeline', shortcut: 'G T', category: 'Tools', action: () => window.ajhTrail && window.ajhTrail.scrollToToday && (document.getElementById('trail')?.scrollIntoView({ behavior: 'smooth' }), setTimeout(() => window.ajhTrail.scrollToToday(), 400)) },
+    { id: 'tool-trail-today', label: 'Build Trail: Fly to Today', icon: 'fa-bullseye', category: 'Tools', action: () => window.ajhTrail && window.ajhTrail.scrollToToday && window.ajhTrail.scrollToToday() },
+    { id: 'tool-trail-export', label: 'Build Trail: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhTrail && window.ajhTrail.export && window.ajhTrail.export() },
+
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
     { id: 'page-discord', label: 'Join Discord', icon: 'fab fa-discord', category: 'Pages', action: () => window.open('https://discord.gg/UnDrzQQksw', '_blank') },
@@ -3688,6 +3693,7 @@ function initBookmarkCards() {
     { id: 'lab', icon: 'fa-flask', title: 'Lab Notebook', tag: 'Hypotheses', desc: 'A build hypothesis log: if I add X, then Y. Draft, running, validated, falsified, parked. Kill rate, kanban, JSON I/O. Press L to open.' },
     { id: 'dna', icon: 'fa-dna', title: 'Build DNA', tag: 'Patterns', desc: 'Your build style as a strand: 8 archetype axes, personality verdict, focus card, archetypes bar, and a live build log. Press G D.' },
     { id: 'constellation75', icon: 'fa-star', title: 'Constellation Map', tag: 'Sky', desc: 'All 75 build days as a starfield. 8 archetype clusters, impact-sized stars, click to read each build, fireworks burst mode, JSON export. Press G S.' },
+    { id: 'trail', icon: 'fa-timeline', title: 'Build Trail', tag: 'Chronological', desc: 'A horizontal ribbon of all 76 build days, in time order. Filter by archetype, jump to today, fire the leaderboard, export as JSON. Press G T.' },
   ];
 
   let state = {

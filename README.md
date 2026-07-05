@@ -4,7 +4,26 @@ A daily-built GitHub Pages website that grows better every day.
 
 **Live Site**: https://ajhs.github.io
 
-## Latest Build - Day 75 (2026-07-04)
+## Latest Build - Day 76 (2026-07-05)
+
+### Build Trail — 76 days laid end to end
+- A **horizontal chronological ribbon** of every shipped build day — the third lens on the same data after Calendar (vertical), DNA (genome), and Constellation (sky)
+- **76 day cards** laid out left-to-right by date, grouped by month (Apr, May, Jun, Jul) with era labels
+- Each card shows: day number, short date, name, 5-dot impact meter, archetype icon, color-coded by archetype
+- **Click any day** → side panel slides in with full details: day #, name, formatted date, archetype, impact, magnitude, and "Read in build log" / "Share this day" actions
+- **10 filter chips**: All 76 / Today / 8 per-archetype filters (Systems, Visual, Audio, Interactive, Data, Meta, Craft, Social)
+- **4 quick actions**: Today (fly to day 76), Start (jump to day 1), End (jump to day 76), Export (download JSON)
+- **4 summary stats**: 76 Days on Trail, 3.01 Avg Impact, 23 Massive Days
+- **Top Builds leaderboard** — top 5 highest-impact days ranked
+- **Horizontal progress bar** below the rail shows scroll position
+- **Edge fade gradients** on the left/right hint that more content lives off-screen
+- localStorage persists filter choice and visits counter
+- Mobile responsive; light theme supported; keyboard nav (Esc closes panel, Tab focuses a day, Enter opens it)
+- Wired into the command palette: **Open Build Trail** (G T), **Build Trail: Jump to Today** (T), **Build Trail: Export JSON**; new nav link "Trail"; hero meta button (timeline icon); new bookmark card "Build Trail" (Timeline)
+- Public API exposed on `window.ajhTrail` (open(day), scrollToToday(), export()) and `ajh-command` event listener for command palette integration
+
+## Latest Build - Day 75 (2026-07-05)
+
 
 ### Constellation Map — 75 build days as a starfield
 - A **starfield visualization** of every shipped build day — 75 stars plotted across an interactive sky

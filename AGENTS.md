@@ -1,3 +1,46 @@
+### Day 76 - 2026-07-05
+**Status**: Build Trail - 76 days laid end to end
+
+**Actions**:
+- Added **Build Trail** section (`#trail`) at the end of the page - a horizontal chronological ribbon of every shipped build day, scrollable sideways
+- Each day is a **compact card** showing day number (D1, D2, ...), short date, build name, archetype icon, and 5 impact dots
+- **76 cards** (Day 1 = 2026-04-22 through Day 76 = 2026-07-05) connected by a continuous CSS-styled trail line
+- Cards are **sized by impact** (small / solid / big / massive / stellar tiers) and **tinted by archetype** using the 8 DNA archetype colors
+- **Today's card (Day 76) is highlighted** in green with a continuous pulse glow effect
+- **10 filter chips** (All 76 / Today / 8 archetype filters) instantly filter cards by category with smooth show/hide
+- **Top Builds by Impact leaderboard** shows the 5 highest-impact days as a ranked list
+- **Click any day** opens a side detail panel with day number, build name, formatted date, archetype, full impact stats, description, share button, and "Read in build log" link
+- **4 stat tiles**: Total Days (76), Avg Impact (3.01), Massive Days (23), Today's Day (76)
+- **4 action buttons**: Today (fly to current day), Start (jump to Day 1), End (jump to Day 76), Export (JSON download of the full trail)
+- **Progress bar** at the bottom of the trail shows scroll position within the ribbon
+- **localStorage persistence** for filter choice and visits counter
+- **Keyboard accessible**: Tab to focus any day, Enter to read it, Esc to close the panel
+- **Public API** exposed on window (`ajhTrail.open(day)`, `ajhTrail.scrollToToday()`, `ajhTrail.export()`) and command event listener (`ajh-command` with `trail-open` and `trail-export`)
+- **3 new command palette commands**: "Open Build Trail" (G T), "Build Trail: Fly to Today" (T), "Build Trail: Export as JSON"
+- **New nav link** "Trail" in the main nav
+- **New hero meta button** (timeline icon) that scrolls to the Build Trail section
+- **New bookmark card** "Build Trail" with Chronological tag
+- **Day 76 blog entry** added at top of blog grid
+- **Stats updated**: Day Streak 75->76, Days Building 75->76, Features Built 68->69
+
+**Files Changed**:
+- `index.html` - new `#trail` section (4 summary stats, 10-chip toolbar, 4 action buttons, trail stage with edges and progress bar, leaderboard, hint, detail panel with backdrop), new nav link, hero meta button, Day 76 blog entry, stat increments, CSS link tags, deferred `<script src="js/trail.js">`
+- `css/trail.css` - new file, ~720 lines: section gradient, summary grid, toolbar + chips + action buttons, stage with rail/edge/progress, era labels, card variants (today, stellar, massive, hidden), impact dots, leaderboard, detail panel slide-in, toast, hint, mobile responsive, reduced-motion
+- `css/trail-theme.css` - new file, ~210 lines of light-theme overrides
+- `js/trail.js` - new file, ~685 lines: IIFE with ARCHETYPES (8 with colors and icons), BUILDS seed (76 entries), storage helpers, dayDate/fmtMonth/fmtShort helpers, cardClass/cardHTML/eraHTML, renderRail, applyFilter, renderChips, bindCards, openDetail/closeDetail, shareDay/copyText, scrollToToday, scrollToStart, scrollToEnd, exportJSON, renderSummary, renderLeaderboard, renderProgress, init, public API exposed on window, command event listener
+- `js/main.js` - 3 new command palette entries + 1 new bookmark card
+- `README.md` - documented Day 76 in the "Latest Build" section
+- `AGENTS.md` - this entry
+
+**Next Steps**:
+- Add a "trail mode" that animates the path drawing across cards in time order
+- Add per-month era dividers with bigger visual treatment
+- Add a "share this trail" link that encodes the current filter in the URL
+- Add a heatmap of the trail showing build intensity by week
+- Continue building new features daily - never stop
+
+---
+
 ### Day 75 - 2026-07-04
 **Status**: Constellation Map — 75 build days as a starfield
 

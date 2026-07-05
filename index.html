@@ -57,6 +57,8 @@
     <link rel="stylesheet" href="css/dna-theme.css">
     <link rel="stylesheet" href="css/constellation.css">
     <link rel="stylesheet" href="css/constellation-theme.css">
+    <link rel="stylesheet" href="css/trail.css">
+    <link rel="stylesheet" href="css/trail-theme.css">
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/pixelart.css">
     <link rel="stylesheet" href="css/pixelart-theme.css">
@@ -142,6 +144,7 @@
             <li><a href="#lab">Lab</a></li>
             <li><a href="#dna">DNA</a></li>
             <li><a href="#constellation75">Stars</a></li>
+            <li><a href="#trail">Trail</a></li>
             <li><a href="#quotes">Quotes</a></li>
             <li><a href="#wisdom">Wisdom</a></li>
             <li><a href="#stats">Stats</a></li>
@@ -217,7 +220,7 @@
                 <button class="plan-btn" id="snippets-btn" aria-label="Browse code snippets" title="Browse code snippets">
                     <i class="fas fa-code"></i>
                 </button>
-                <button class="plan-btn" id="calendar-btn" aria-label="Build calendar" title="View 57-day build calendar">
+                <button class="plan-btn" id="calendar-btn" aria-label="Build calendar" title="View 76-day build calendar">
                     <i class="fas fa-calendar-days"></i>
                 </button>
                 <button class="plan-btn" id="themestudio-hero-btn" aria-label="Theme studio" title="Customize the site theme (T)">
@@ -268,6 +271,9 @@
                 <button class="plan-btn" id="constellation75-hero-btn" aria-label="Constellation map" title="Open the Constellation Map (G S)">
                     <i class="fas fa-star"></i>
                 </button>
+                <button class="plan-btn" id="trail-hero-btn" aria-label="Build trail" title="Open the Build Trail — chronological ribbon (G T)">
+                    <i class="fas fa-timeline"></i>
+                </button>
             </div>
             <div class="hero-stats">
                 <div class="stat">
@@ -275,7 +281,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="75">0</span>
+                    <span class="stat-value" data-count="76">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -286,7 +292,7 @@
             <div class="daily-streak">
                 <span class="streak-icon">🔥</span>
                 <div class="streak-info">
-                    <span class="streak-count">74 days</span>
+                    <span class="streak-count">76 days</span>
                     <span class="streak-label">Daily Streak</span>
                 </div>
             </div>
@@ -306,11 +312,11 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 67</span>
+                    <span class="insight-value">Day 76</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
-                    <span class="insight-value">67</span>
+                    <span class="insight-value">76</span>
                     <span class="insight-label">streak</span>
                 </div>
             </div>
@@ -1382,6 +1388,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">5</span>
+                        <span class="blog-month">July 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 76</span>
+                        <h3>Build Trail — 76 Days Laid End to End</h3>
+                        <p>Day 76 ships the <em>Build Trail</em>: a horizontal chronological ribbon of every shipped build day — the third lens on the same data after the Constellation Map (sky) and Build DNA (genome). 76 day cards laid out in time order, grouped by month with era labels (April, May, June, July), each card showing day number, short date, build name, archetype icon, and a 5-dot impact meter. Massive days get a glow ring, today's card pulses on the rail, and a top-builds leaderboard crowns the highest-impact days. Mouse wheel and arrow keys scroll the rail sideways, <kbd>T</kbd> flies to today, Start/End jump to the boundaries, filter chips narrow by archetype, and every card opens a full detail panel with the build's full name, date, archetype, impact, and a Read in build log link. Progress bar tracks horizontal scroll, JSON export dumps the full snapshot, and localStorage remembers the filter, visits, and view position. 76 days laid end to end — the shape of the build, in time.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">4</span>
@@ -4731,7 +4748,7 @@
                     <div>
                         <button class="dna-log-btn" data-dna-view="15"><i class="fas fa-compress"></i> 15</button>
                         <button class="dna-log-btn" data-dna-view="30"><i class="fas fa-list"></i> 30</button>
-                        <button class="dna-log-btn" data-dna-view="74"><i class="fas fa-expand"></i> All</button>
+                        <button class="dna-log-btn" data-dna-view="76"><i class="fas fa-expand"></i> All</button>
                     </div>
                 </div>
                 <div class="dna-log" id="dna-log"></div>
@@ -4752,7 +4769,7 @@
             <div class="section-header">
                 <span class="section-tag"><i class="fas fa-sparkles"></i> Day 75</span>
                 <h2 class="section-title">Constellation Map</h2>
-                <p class="section-subtitle">Seventy-five build days, plotted as a starfield. Eight archetype clusters. Connect the dots. Click any star to read what shipped that day.</p>
+                <p class="section-subtitle">Seventy-six build days, plotted as a starfield. Eight archetype clusters. Connect the dots. Click any star to read what shipped that day.</p>
             </div>
 
             <div class="cs-summary">
@@ -4798,7 +4815,78 @@
         </div>
     </section>
 
+    <!-- Day 76 - Build Trail: horizontal chronological ribbon of all 76 build days -->
+    <section id="trail" class="section trail-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-timeline"></i> Day 76</span>
+                <h2 class="section-title">Build Trail</h2>
+                <p class="section-subtitle">Seventy-six build days laid out in time. Scroll sideways, jump to a month, fly to today, or click any day to read the full entry.</p>
+            </div>
+
+            <div class="trail-summary">
+                <div class="trail-stat">
+                    <span class="trail-stat-num" id="trail-stat-total">0</span>
+                    <span class="trail-stat-label">Days on Trail</span>
+                </div>
+                <div class="trail-stat">
+                    <span class="trail-stat-num" id="trail-stat-day">0</span>
+                    <span class="trail-stat-label">Today</span>
+                </div>
+                <div class="trail-stat">
+                    <span class="trail-stat-num" id="trail-stat-avg">0.00</span>
+                    <span class="trail-stat-label">Avg Impact</span>
+                </div>
+                <div class="trail-stat">
+                    <span class="trail-stat-num" id="trail-stat-massive">0</span>
+                    <span class="trail-stat-label">Massive Days</span>
+                </div>
+            </div>
+
+            <div class="trail-toolbar">
+                <div class="trail-filter-chips" id="trail-filter-chips" role="tablist" aria-label="Filter trail"></div>
+                <div class="trail-actions">
+                    <button class="trail-action-btn" id="trail-today-btn" title="Fly to today (T)"><i class="fas fa-bullseye"></i> <span>Today</span></button>
+                    <button class="trail-action-btn" id="trail-start-btn" title="Jump to start (Home)"><i class="fas fa-backward-step"></i> <span>Start</span></button>
+                    <button class="trail-action-btn" id="trail-end-btn" title="Jump to end (End)"><i class="fas fa-forward-step"></i> <span>End</span></button>
+                    <button class="trail-action-btn" id="trail-export-btn" title="Export trail as JSON"><i class="fas fa-download"></i> <span>Export</span></button>
+                </div>
+            </div>
+
+            <div class="trail-stage" id="trail-stage">
+                <div class="trail-rail" id="trail-rail"></div>
+                <div class="trail-edge trail-edge-left" aria-hidden="true"></div>
+                <div class="trail-edge trail-edge-right" aria-hidden="true"></div>
+                <div class="trail-progress" aria-hidden="true">
+                    <div class="trail-progress-fill" id="trail-progress-fill"></div>
+                </div>
+            </div>
+
+            <div class="trail-leaderboard">
+                <div class="trail-leaderboard-head">
+                    <i class="fas fa-trophy"></i>
+                    <span>Top Builds by Impact</span>
+                </div>
+                <ol class="trail-leaderboard-list" id="trail-leaderboard-list"></ol>
+            </div>
+
+            <p class="trail-hint">
+                <i class="fas fa-keyboard"></i>
+                <kbd>Tab</kbd> to focus a day · <kbd>Enter</kbd> to read it · <kbd>Esc</kbd> to close the panel · scroll sideways or use the filter chips · 76 days and counting.
+            </p>
+        </div>
+
+        <div class="trail-detail-backdrop" id="trail-detail-backdrop" aria-hidden="true"></div>
+        <div class="trail-detail-panel" id="trail-detail-panel" aria-hidden="true">
+            <button class="trail-detail-close" id="trail-detail-close" aria-label="Close detail"><i class="fas fa-times"></i></button>
+            <div class="trail-detail-body" id="trail-detail-body"></div>
+        </div>
+
+        <div class="trail-toast" id="trail-toast" role="status" aria-live="polite"></div>
+    </section>
+
     <script src="js/dna.js" defer></script>
     <script src="js/constellation.js" defer></script>
+    <script src="js/trail.js" defer></script>
 </body>
 </html>
