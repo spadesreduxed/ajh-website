@@ -4,65 +4,37 @@ A daily-built GitHub Pages website that grows better every day.
 
 **Live Site**: https://ajhs.github.io
 
+## Latest Build - Day 75 (2026-07-04)
+
+### Constellation Map — 75 build days as a starfield
+- A **starfield visualization** of every shipped build day — 75 stars plotted across an interactive sky
+- **8 archetype clusters** (Systems, Visual, Audio, Interactive, Data, Meta, Craft, Social) — each star is placed near its archetype's zone with controlled jitter
+- **Stars are sized by impact** (2-12px radius) and tinted by archetype; massive days (impact 5) get an extra glow + a "Day N" label; today's star is ringed
+- **Constellation lines** connect consecutive days in time order when combined impact is high — the path of the build is a faint trail through the sky
+- **Click any star** → side panel slides in with day, name, formatted date, archetype pill, impact stat, magnitude (Small / Solid / Big / Massive / Stellar), and "Read in build log" + "Share this star" buttons
+- **12 filter chips**: All 75 / Last 10 / Big Days / Massive + 8 per-archetype filters
+- **Burst mode** spawns colored spark-ray fireworks on top stars every 1.6s
+- **Stats card**: Total Stars (75), Avg Impact (3.16), Massive (3), Big Days (26)
+- **JSON export** downloads the full snapshot as `ajh-constellation75-YYYY-MM-DD.json`
+- localStorage persists filter choice, burst mode, and visits counter
+- Mobile responsive; light theme supported; keyboard nav (Esc to close, Tab to focus, Enter to open)
+- Wired into the command palette: **Open Constellation Map** (G S), **Toggle Burst Mode**; new nav link "Stars"; hero meta button (sparkles icon); new bookmark card
+- Bonus: also fixed a Theme Studio bug where `.ts-modal` had `display: grid` overriding the `[hidden]` attribute — now `display: none` when hidden
+
 ## Latest Build - Day 74 (2026-07-03)
 
 ### Build DNA — Pattern Genome & Build Style Fingerprint
 - A **"DNA strand"** that synthesizes a fingerprint of how AJH builds — derived from the last 73 shipped days, weighted by impact
 - **8 builder archetypes** (DNA axes): Systems Builder, Visual Stylist, Audio Alchemist, Interaction Designer, Data Storyteller, Meta Architect, Craftsperson, Community Architect — each with an icon, color, and one-line description
 - **DNA Helix SVG** — 8 cells, one per archetype, opacity = relative impact, with a soft glow on the strongest muscles
-- **Build Personality card** — derives a personality archetype from the top mix (The Architect, The Stylist, The Sound Designer, The Reflector, The Cartographer, The Curator, The Generalist)
+- **Build Personality card** — derives a personality archetype from the top mix
 - **Archetype Distribution** — 8 horizontal bars showing percent share of total impact, sorted strongest to weakest
-- **4-card summary**: Total Builds (73), Total Impact (218), Avg Impact / Build (2.99), Massive Days (21)
+- **4-card summary**: Total Builds, Total Impact, Avg Impact / Build, Massive Days
 - **Build Log** — last 30 days with archetype tags, impact ratings, and inline sparklines
-- **5 archetype filter chips** (All / All Archetypes / Meta & Data / Craft & Aesthetics / Systems / Social)
+- **5 archetype filter chips** + 3 view-size buttons
 - **"Where to ship next"** card highlights the strongest muscle and the underbuilt ones to stretch
 - **Recompute, Share fingerprint, Export JSON** actions
-- All state is local (no server, no tracking); light theme supported; mobile-responsive
-- Wired into the command palette: **Open Build DNA**, **Recompute Build DNA**; new nav link; hero meta button (dna icon)
-
-# AJH Website
-
-A daily-built GitHub Pages website that grows better every day.
-
-**Live Site**: https://ajhs.github.io
-
-
-
-### Lab Notebook
-- A **Build Hypothesis Log** — every shipped feature is a bet, and the lab captures the bet, the result, and how confident you were
-- **5-status lifecycle**: Draft → Running → Validated / Falsified / Parked
-- **10 seeded experiments** from the build's history (Soundboard, Step Sequencer, Command Palette, Calendar Heatmap, On This Day, Pixel Art Studio, Build Receipts, Music Player, Daily Plan Board, Code Snippets Vault) — each with realistic hypothesis, result, tags, and confidence
-- **4-card summary stats**: Experiments, Validated, Running, Kill Rate (% falsified)
-- **Two view modes**:
-  - **Grid** — full cards with hypothesis + result + confidence + actions
-  - **Kanban** — three columns (Now / Validated / Parked) with mini-cards
-- **Search** across title, hypothesis, result, AND tags
-- **6 filter chips**: All / Draft / Running / Validated / Falsified / Parked
-- **4 sort modes**: Newest / Oldest / Confidence / A → Z
-- **New / Edit Experiment modal**: title, hypothesis, result, tags CSV, status, date, **5-pip confidence selector**
-- **Reset Library**, **JSON export / import** for portable notebooks
-- **Share card** generates a tweet-sized summary with confidence + result snippet
-- State persists to `localStorage`; mobile-responsive; light theme supported
-
-
-
-
-
-### Lab Notebook
-- A **Build Hypothesis Log** — every shipped feature is a bet, and the lab captures the bet, the result, and how confident you were
-- **5-status lifecycle**: Draft → Running → Validated / Falsified / Parked
-- **10 seeded experiments** from the build's history (Soundboard, Step Sequencer, Command Palette, Calendar Heatmap, On This Day, Pixel Art Studio, Build Receipts, Music Player, Daily Plan Board, Code Snippets Vault) — each with realistic hypothesis, result, tags, and confidence
-- **4-card summary stats**: Experiments, Validated, Running, Kill Rate (% falsified)
-- **Two view modes**:
-  - **Grid** — full cards with hypothesis + result + confidence + actions
-  - **Kanban** — three columns (Now / Validated / Parked) with mini-cards
-- **Search** across title, hypothesis, result, AND tags
-- **6 filter chips**: All / Draft / Running / Validated / Falsified / Parked
-- **4 sort modes**: Newest / Oldest / Confidence / A → Z
-- **New / Edit Experiment modal**: title, hypothesis, result, tags CSV, status, date, **5-pip confidence selector**
-- **Reset Library**, **JSON export / import** for portable notebooks
-- **Share card** generates a tweet-sized summary with confidence + result snippet
-- State persists to `localStorage`; mobile-responsive; light theme supported
+- All state is local; light theme supported; mobile-responsive
 
 ## Latest Build - Day 71 (2026-06-30)
 
@@ -112,13 +84,13 @@ A daily-built GitHub Pages website that grows better every day.
 
 - **Page Loading Screen** - Animated loading overlay with progress bar and pulsing brand icon
 - **Theme System** - Toggle between dark and light modes with localStorage persistence
-- **Search Functionality** - Full-screen search modal with keyboard shortcuts (/ or K to open)
-- **Project Demos** - Interactive demo cards with modal iframe previews for live projects
-- **Scroll to Top** - Smooth scroll-to-top button appears after scrolling
+- **Search Functionality** - Full-screen search modal with keyboard shortcuts
+- **Project Demos** - Interactive demo cards with modal iframe previews
+- **Scroll to Top** - Smooth scroll-to-top button
 - **Contact Form** - Functional contact form with Formspree integration
 - **Newsletter Signup** - Email subscription for daily build updates
 - **Project Gallery** - Visual showcase of projects with links
-- **Keyboard Shortcuts** - Press `?` to see shortcuts panel (T for theme, etc.)
+- **Keyboard Shortcuts** - Press `?` to see shortcuts panel
 - Responsive navigation with mobile hamburger menu
 - Hero section with floating code window animation
 - Scroll-triggered fade-in animations
@@ -129,14 +101,14 @@ A daily-built GitHub Pages website that grows better every day.
 - Floating particle effects
 - Timeline section
 - Stats counter section
-- Blog section with 5 daily build entries
+- Blog section with all daily build entries
 - Full keyboard accessibility
 - SEO optimized with meta tags and Twitter cards
 - Sitemap.xml for search engine crawling
 - robots.txt for crawler directives
 - Service worker for offline support
 - Custom SVG favicon with brand identity
-- PWA manifest for installability (install as app)
+- PWA manifest for installability
 - Custom app icons (192x192 and 512x512)
 - RSS/Atom feed for blog updates
 
@@ -145,27 +117,45 @@ A daily-built GitHub Pages website that grows better every day.
 ```
 ajh-website/
 ├── index.html      # Main HTML page
-├── css/
-│   ├── style.css  # Core styles + responsive
-│   └── theme.css  # Light/dark theme variables
-├── js/
-│   └── main.js    # JavaScript functionality
+├── 404.html        # Custom 404
+├── css/            # 30+ CSS files (one per major feature)
+├── js/             # 12+ JS files (one per major feature)
 ├── images/         # Image assets
 └── README.md       # This file
 ```
 
 ## Sections
 
-1. **Home** - Hero with code window animation
-2. **About** - Developer, Daily Builder, Gaming Hub Creator, Bronx Native
-3. **Projects** - Featured projects with links
-4. **Skills** - Frontend, Backend, DevOps, Specialties
-5. **Stats** - Animated counters
-6. **Journey** - Timeline of AJ's history
-7. **Demos** - Interactive project preview cards with modal
-8. **Blog** - 5 latest build entries
-9. **Contact** - Get in touch
-10. **Newsletter** - Subscribe for updates
+- **Home** - Hero with code window animation
+- **About** - Developer, Daily Builder, Gaming Hub Creator, Bronx Native
+- **Current** - What I'm working on right now
+- **Projects** - Featured projects with detail modals
+- **Skills** - Frontend, Backend, DevOps, Specialties (with animated bars)
+- **Stats** - Bento grid of animated counters
+- **Plan** - Daily Plan Board (Now / Next / Later)
+- **Snippets** - Code Snippets Vault (CRUD + filter + copy)
+- **Bookmarks** - 30+ share cards for every section
+- **Constellation** - 27-node interactive graph of every section
+- **Themes** - Theme Studio (live CSS variable customizer)
+- **Assistant** - Build Assistant chatbot
+- **Journal** - Build Journal (Shipped / Learned / Broke)
+- **Wishlist** - Community wishlist with voting
+- **Reading** - Reading Mode + Reading List
+- **Pixel Art** - 16x16 pixel art studio
+- **Daily Challenge** - Daily rotating pixel prompt
+- **Receipts** - Printable build receipts (thermal style)
+- **Soundboard** - 26-pad Web Audio synth
+- **Sequencer** - 16-step x 8-track beat machine
+- **Forge** - Build reflection studio
+- **Lab** - Lab Notebook (hypothesis log)
+- **DNA** - Build DNA (pattern genome)
+- **Stars** - Constellation Map (75-day starfield)
+- **Quotes** - Daily Quote Vault
+- **Wisdom** - On This Day wisdom deck
+- **Demos** - Project demos with iframe previews
+- **Blog** - 75 daily build entries
+- **Contact** - Get in touch
+- **Newsletter** - Subscribe for updates
 
 ## Accessibility
 

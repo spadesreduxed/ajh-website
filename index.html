@@ -55,6 +55,8 @@
     <link rel="stylesheet" href="css/lab-theme.css">
     <link rel="stylesheet" href="css/dna.css">
     <link rel="stylesheet" href="css/dna-theme.css">
+    <link rel="stylesheet" href="css/constellation.css">
+    <link rel="stylesheet" href="css/constellation-theme.css">
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/pixelart.css">
     <link rel="stylesheet" href="css/pixelart-theme.css">
@@ -139,6 +141,7 @@
             <li><a href="#forge">Forge</a></li>
             <li><a href="#lab">Lab</a></li>
             <li><a href="#dna">DNA</a></li>
+            <li><a href="#constellation75">Stars</a></li>
             <li><a href="#quotes">Quotes</a></li>
             <li><a href="#wisdom">Wisdom</a></li>
             <li><a href="#stats">Stats</a></li>
@@ -262,6 +265,9 @@
                 <button class="plan-btn" id="dna-hero-btn" aria-label="Build DNA" title="Open Build DNA — your pattern genome (D N A)">
                     <i class="fas fa-dna"></i>
                 </button>
+                <button class="plan-btn" id="constellation75-hero-btn" aria-label="Constellation map" title="Open the Constellation Map (G S)">
+                    <i class="fas fa-star"></i>
+                </button>
             </div>
             <div class="hero-stats">
                 <div class="stat">
@@ -269,7 +275,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="74">0</span>
+                    <span class="stat-value" data-count="75">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -786,7 +792,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="74">0</div>
+                    <div class="stat-number" data-count="75">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -807,7 +813,7 @@
                 </div>
                 <div class="stat-card large">
                     <i class="fas fa-rocket"></i>
-                    <div class="stat-number" data-count="67">0</div>
+                    <div class="stat-number" data-count="68">0</div>
                     <div class="stat-label">Features Built</div>
                     <div class="stat-sublabel">And counting...</div>
                 </div>
@@ -1279,7 +1285,7 @@
                     <div class="productivity-widget streak-widget">
                         <div class="streak-visual" id="streak-visual">
                             <span class="streak-flame">🔥</span>
-                            <span class="streak-number" id="streak-number">64</span>
+                            <span class="streak-number" id="streak-number">75</span>
                             <span class="streak-label">days</span>
                         </div>
                     </div>
@@ -1376,6 +1382,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">4</span>
+                        <span class="blog-month">July 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 75</span>
+                        <h3>Constellation Map — 75 Days as a Starfield</h3>
+                        <p>Day 75 ships the <em>Constellation Map</em>: every build day rendered as a star in an interactive sky. 75 stars spread across 8 archetype clusters (Systems, Visual, Audio, Interactive, Data, Meta, Craft, Social), each one sized by impact and tinted by archetype. Massive days glow brighter, recent days pulse on hover, and a constellation of faint lines traces the path of the build through time. Click any star to read that day's build in a side panel — date, archetype, impact, magnitude, share-this-star. Filter chips switch between All 75, Last 10, Big Days, Massive, and per-archetype views. A fireworks Burst mode spawns colored spark rays on top stars every 1.6s. Stats card shows Total Stars, Avg Impact, Massive Days, Big Days, and a persistent visits counter. JSON export, keyboard nav, light theme, mobile responsive. Press <kbd>Esc</kbd> to close the panel, or jump from the command palette (G S).</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">3</span>
@@ -4729,7 +4746,59 @@
 
     <div class="dna-toast" id="dna-toast" role="status" aria-live="polite"></div>
 
+    <!-- Day 75 - Constellation Map: 75 stars, 8 archetype clusters, click to read -->
+    <section id="constellation75" class="section cs-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-sparkles"></i> Day 75</span>
+                <h2 class="section-title">Constellation Map</h2>
+                <p class="section-subtitle">Seventy-five build days, plotted as a starfield. Eight archetype clusters. Connect the dots. Click any star to read what shipped that day.</p>
+            </div>
+
+            <div class="cs-summary">
+                <div class="cs-stat">
+                    <span class="cs-stat-num" id="cs-stat-total">0</span>
+                    <span class="cs-stat-label">Stars</span>
+                </div>
+                <div class="cs-stat">
+                    <span class="cs-stat-num" id="cs-stat-avg">0.00</span>
+                    <span class="cs-stat-label">Avg Impact</span>
+                </div>
+                <div class="cs-stat">
+                    <span class="cs-stat-num" id="cs-stat-massive">0</span>
+                    <span class="cs-stat-label">Massive</span>
+                </div>
+                <div class="cs-stat">
+                    <span class="cs-stat-num" id="cs-stat-big">0</span>
+                    <span class="cs-stat-label">Big Days</span>
+                </div>
+            </div>
+
+            <div class="cs-toolbar">
+                <div class="cs-filter-chips" id="cs-filter-chips" role="tablist" aria-label="Filter constellation"></div>
+                <div class="cs-actions">
+                    <button class="cs-btn" id="cs-burst" title="Toggle fireworks on massive stars"><i class="fas fa-fire"></i> <span>Burst</span></button>
+                    <button class="cs-btn" id="cs-reset-view" title="Show all 75 stars"><i class="fas fa-rotate-left"></i> <span>Reset</span></button>
+                    <button class="cs-btn" id="cs-export" title="Export constellation as JSON"><i class="fas fa-download"></i> <span>Export</span></button>
+                </div>
+            </div>
+
+            <div class="cs-sky-wrap">
+                <svg class="cs-sky" id="cs-sky" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Constellation map of 75 build days"></svg>
+            </div>
+
+            <p class="cs-hint">
+                <i class="fas fa-keyboard"></i>
+                <kbd>Tab</kbd> to focus a star · <kbd>Enter</kbd> to read it · <kbd>Esc</kbd> to close the panel · 75 days and counting.
+            </p>
+        </div>
+
+        <div class="cs-panel" id="cs-panel" aria-hidden="true">
+            <div class="cs-panel-body" id="cs-panel-body"></div>
+        </div>
+    </section>
 
     <script src="js/dna.js" defer></script>
+    <script src="js/constellation.js" defer></script>
 </body>
 </html>

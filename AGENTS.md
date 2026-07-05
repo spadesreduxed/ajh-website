@@ -1,3 +1,131 @@
+### Day 75 - 2026-07-04
+**Status**: Constellation Map — 75 build days as a starfield
+
+**Actions**:
+- Added **Constellation Map** section (`#constellation75`) after Build DNA — a starfield visualization of every shipped build day, plotted across 8 archetype clusters
+- **75 stars** placed via seeded pseudo-random positioning near their archetype's cluster center (Systems, Visual, Audio, Interactive, Data, Meta, Craft, Social) with controlled jitter
+- **Star sizing by impact** (2-12px radius), tinted by archetype color; massive days (impact 5) get extra glow + a "Day N" label; today's star is ringed for current-build emphasis
+- **8 cluster halos** rendered as SVG radial gradients with archetype labels
+- **Constellation lines** connect consecutive days in time order when combined impact is high (≥6) — the path of the build is a faint trail through the sky
+- **Click any star** → side panel slides in with day, name, formatted date, archetype pill, impact stat, magnitude (Small / Solid / Big / Massive / Stellar), and "Read in build log" + "Share this star" buttons
+- **12 filter chips**: All 75 / Last 10 / Big Days / Massive + 8 per-archetype filters
+- **Burst mode** spawns colored spark-ray fireworks on top stars every 1.6s (toggleable, persists in localStorage)
+- **Stats card**: Total Stars (75), Avg Impact (3.16), Massive (3), Big Days (26)
+- **JSON export** downloads the full snapshot as `ajh-constellation75-YYYY-MM-DD.json`
+- localStorage persists filter choice, burst mode, and visits counter
+- **Hero meta button** (sparkles icon) scrolls to the section
+- **2 new command palette commands**: "Open Constellation Map" (G S), "Toggle Burst Mode"
+- **1 new bookmark card**: Constellation Map (Sky)
+- **Stats updated**: Day Streak 74→75, Days Building 74→75, Features Built 67→68
+- **Day 75 blog entry** added at top of blog grid
+- **Light theme overrides** in `constellation-theme.css` (35 lines) and dark-theme base in `constellation.css` (375 lines)
+- **Bonus fix**: Theme Studio's `.ts-modal[hidden] { display: none; }` was missing — modals were always visible behind `display: grid`. Added the override.
+
+**Files Changed**:
+- `index.html` — new `#constellation75` section (4 summary stats, toolbar with 12 filter chips + 3 action buttons, 1000x700 SVG sky, detail panel, hint), new nav link "Stars", hero meta button, Day 75 blog entry, stat increments, CSS link tags, deferred `<script src="js/constellation.js">`
+- `css/constellation.css` — new file, 375 lines: section gradient, summary grid, toolbar + chips, sky/cluster/star SVG styles, twinkle animation, burst spark animation, detail panel slide-in, stat tiles, action buttons, panel banner, toast, hint, mobile responsive, print styles
+- `css/constellation-theme.css` — new file, 35 lines of light-theme overrides
+- `css/style.css` — fixed `.ts-modal[hidden] { display: none; }` (Theme Studio modal was always showing)
+- `js/constellation.js` — new file, 490 lines: IIFE with ARCHETYPES (8), STARS (75), STORAGE, positionStars, applyFilter, renderSky, bindStars, openStar, closePanel, shareStar, copyText, setBurst, spawnBurst, renderSummary, renderFilterChips, init, exportJSON, toast, public API exposed on window (`ajhConstellation75Open`, `ajhConstellation75Burst`)
+- `js/main.js` — 2 new command palette commands + 1 new bookmark card
+- `README.md` — documented Day 75 in the "Latest Build" section
+- `AGENTS.md` — this entry
+
+**Next Steps**:
+- Add a "trail mode" that animates the constellation lines drawing across the sky in time order
+- Add hover tooltips with the full day name on the star (currently uses native `<title>`)
+- Add a "share this constellation" link that encodes the current filter + view state in the URL
+- Add a "birthday" highlight on the anniversary of the first build (Day 1, 2026-04-22)
+- Continue building new features daily - never stop
+
+---
+### Day 75 - 2026-07-04
+**Status**: Constellation Map — 75 build days as a starfield
+
+**Actions**:
+- Added **Constellation Map** section (`#constellation75`) after Build DNA — a starfield visualization of every shipped build day, plotted across 8 archetype clusters
+- **75 stars** placed via seeded pseudo-random positioning near their archetype's cluster center (Systems, Visual, Audio, Interactive, Data, Meta, Craft, Social) with controlled jitter
+- **Star sizing by impact** (2-12px radius), tinted by archetype color; massive days (impact 5) get extra glow + a "Day N" label; today's star is ringed for current-build emphasis
+- **8 cluster halos** rendered as SVG radial gradients with archetype labels
+- **Constellation lines** connect consecutive days in time order when combined impact is high (≥6) — the path of the build is a faint trail through the sky
+- **Click any star** → side panel slides in with day, name, formatted date, archetype pill, impact stat, magnitude (Small / Solid / Big / Massive / Stellar), and "Read in build log" + "Share this star" buttons
+- **12 filter chips**: All 75 / Last 10 / Big Days / Massive + 8 per-archetype filters
+- **Burst mode** spawns colored spark-ray fireworks on top stars every 1.6s (toggleable, persists in localStorage)
+- **Stats card**: Total Stars (75), Avg Impact (3.16), Massive (3), Big Days (26)
+- **JSON export** downloads the full snapshot as `ajh-constellation75-YYYY-MM-DD.json`
+- localStorage persists filter choice, burst mode, and visits counter
+- **Hero meta button** (sparkles icon) scrolls to the section
+- **2 new command palette commands**: "Open Constellation Map" (G S), "Toggle Burst Mode"
+- **1 new bookmark card**: Constellation Map (Sky)
+- **Stats updated**: Day Streak 74→75, Days Building 74→75, Features Built 67→68
+- **Day 75 blog entry** added at top of blog grid
+- **Light theme overrides** in `constellation-theme.css` (35 lines) and dark-theme base in `constellation.css` (375 lines)
+- **Bonus fix**: Theme Studio's `.ts-modal[hidden] { display: none; }` was missing — modals were always visible behind `display: grid`. Added the override.
+
+**Files Changed**:
+- `index.html` — new `#constellation75` section (4 summary stats, toolbar with 12 filter chips + 3 action buttons, 1000x700 SVG sky, detail panel, hint), new nav link "Stars", hero meta button, Day 75 blog entry, stat increments, CSS link tags, deferred `<script src="js/constellation.js">`
+- `css/constellation.css` — new file, 375 lines: section gradient, summary grid, toolbar + chips, sky/cluster/star SVG styles, twinkle animation, burst spark animation, detail panel slide-in, stat tiles, action buttons, panel banner, toast, hint, mobile responsive, print styles
+- `css/constellation-theme.css` — new file, 35 lines of light-theme overrides
+- `css/style.css` — fixed `.ts-modal[hidden] { display: none; }` (Theme Studio modal was always showing)
+- `js/constellation.js` — new file, 490 lines: IIFE with ARCHETYPES (8), STARS (75), STORAGE, positionStars, applyFilter, renderSky, bindStars, openStar, closePanel, shareStar, copyText, setBurst, spawnBurst, renderSummary, renderFilterChips, init, exportJSON, toast, public API exposed on window (`ajhConstellation75Open`, `ajhConstellation75Burst`)
+- `js/main.js` — 2 new command palette commands + 1 new bookmark card
+- `README.md` — documented Day 75 in the "Latest Build" section
+- `AGENTS.md` — this entry
+
+**Next Steps**:
+- Add a "trail mode" that animates the constellation lines drawing across the sky in time order
+- Add hover tooltips with the full day name on the star (currently uses native `<title>`)
+- Add a "share this constellation" link that encodes the current filter + view state in the URL
+- Add a "birthday" highlight on the anniversary of the first build (Day 1, 2026-04-22)
+- Continue building new features daily - never stop
+
+---
+### Day 75 - 2026-07-04
+**Status**: Constellation Map — 75 build days as a starfield
+
+**Actions**:
+- Added **Constellation Map** section (`#constellation75`) after Build DNA — a starfield visualization of every shipped build day, plotted across 8 archetype clusters
+- **75 stars** placed via seeded pseudo-random positioning near their archetype's cluster center (Systems, Visual, Audio, Interactive, Data, Meta, Craft, Social) with controlled jitter
+- **Star sizing by impact** (2-12px radius), tinted by archetype color; massive days (impact 5) get extra glow + a "Day N" label; today's star is ringed for current-build emphasis
+- **8 cluster halos** rendered as SVG radial gradients with archetype labels
+- **Constellation lines** connect consecutive days in time order when combined impact is high (≥6) — the path of the build is a faint trail through the sky
+- **Click any star** → side panel slides in with day, name, formatted date, archetype pill, impact stat, magnitude (Small / Solid / Big / Massive / Stellar), and "Read in build log" + "Share this star" buttons
+- **12 filter chips**: All 75 / Last 10 / Big Days / Massive + 8 per-archetype filters
+- **Burst mode** spawns colored spark-ray fireworks on top stars every 1.6s (toggleable, persists in localStorage)
+- **Stats card**: Total Stars (75), Avg Impact (3.16), Massive (3), Big Days (26)
+- **JSON export** downloads the full snapshot as `ajh-constellation75-YYYY-MM-DD.json`
+- localStorage persists filter choice, burst mode, and visits counter
+- **Hero meta button** (sparkles icon) scrolls to the section
+- **2 new command palette commands**: "Open Constellation Map" (G S), "Toggle Burst Mode"
+- **1 new bookmark card**: Constellation Map (Sky)
+- **Stats updated**: Day Streak 74→75, Days Building 74→75, Features Built 67→68
+- **Day 75 blog entry** added at top of blog grid
+- **Light theme overrides** in `constellation-theme.css` (35 lines) and dark-theme base in `constellation.css` (375 lines)
+- **Bonus fix**: Theme Studio's `.ts-modal[hidden] { display: none; }` was missing — modals were always visible behind `display: grid`. Added the override.
+
+**Files Changed**:
+- `index.html` — new `#constellation75` section (4 summary stats, toolbar with 12 filter chips + 3 action buttons, 1000x700 SVG sky, detail panel, hint), new nav link "Stars", hero meta button, Day 75 blog entry, stat increments, CSS link tags, deferred `<script src="js/constellation.js">`
+- `css/constellation.css` — new file, 375 lines: section gradient, summary grid, toolbar + chips, sky/cluster/star SVG styles, twinkle animation, burst spark animation, detail panel slide-in, stat tiles, action buttons, panel banner, toast, hint, mobile responsive, print styles
+- `css/constellation-theme.css` — new file, 35 lines of light-theme overrides
+- `css/style.css` — fixed `.ts-modal[hidden] { display: none; }` (Theme Studio modal was always showing)
+- `js/constellation.js` — new file, 490 lines: IIFE with ARCHETYPES (8), STARS (75), STORAGE, positionStars, applyFilter, renderSky, bindStars, openStar, closePanel, shareStar, copyText, setBurst, spawnBurst, renderSummary, renderFilterChips, init, exportJSON, toast, public API exposed on window (`ajhConstellation75Open`, `ajhConstellation75Burst`)
+- `js/main.js` — 2 new command palette commands + 1 new bookmark card
+- `README.md` — documented Day 75 in the "Latest Build" section
+- `AGENTS.md` — this entry
+
+**Next Steps**:
+- Add a "trail mode" that animates the constellation lines drawing across the sky in time order
+- Add hover tooltips with the full day name on the star (currently uses native `<title>`)
+- Add a "share this constellation" link that encodes the current filter + view state in the URL
+- Add a "birthday" highlight on the anniversary of the first build (Day 1, 2026-04-22)
+- Continue building new features daily - never stop
+
+---
+### Day 75 - 2026-07-04
+
+---
+## Build Log
+
 ### Day 74 - 2026-07-03
 **Status**: Build DNA — Pattern Genome & Build Style Fingerprint
 

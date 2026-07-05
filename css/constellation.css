@@ -1,0 +1,375 @@
+/* ============================================================
+   Day 75 — Constellation Map
+   A starfield of 75 build days. CSS-driven glow + twinkle;
+   positions and shapes are SVG-driven in js/constellation.js.
+   ============================================================ */
+
+.cs-section {
+  position: relative;
+  background: linear-gradient(180deg, #05060d 0%, #0a0b18 50%, #0d0a1c 100%);
+  overflow: hidden;
+  padding: 80px 0 100px;
+}
+
+.cs-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 20%, rgba(168, 85, 247, 0.16), transparent 45%),
+    radial-gradient(ellipse at 85% 70%, rgba(59, 130, 246, 0.14), transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(236, 72, 153, 0.05), transparent 60%);
+  pointer-events: none;
+}
+
+.cs-section .container { position: relative; z-index: 1; }
+
+.cs-section .section-header { text-align: center; margin-bottom: 28px; }
+.cs-section .section-title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #f5f1e8 0%, #c0a8ff 40%, #6db5ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
+}
+.cs-section .section-subtitle { color: #9aa3b3; margin-top: 8px; }
+
+/* ---------- summary stats ---------- */
+.cs-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 22px 0 24px;
+}
+.cs-stat {
+  padding: 16px 14px;
+  border-radius: 12px;
+  background: rgba(20, 22, 38, 0.72);
+  border: 1px solid rgba(168, 85, 247, 0.18);
+  text-align: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+.cs-stat:hover { transform: translateY(-2px); border-color: rgba(168, 85, 247, 0.45); }
+.cs-stat-num {
+  display: block;
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: #c0a8ff;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.cs-stat-label {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.74rem;
+  color: #9aa3b3;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ---------- toolbar ---------- */
+.cs-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding: 12px 16px;
+  background: rgba(15, 17, 28, 0.6);
+  border: 1px solid rgba(168, 85, 247, 0.14);
+  border-radius: 14px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.cs-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+.cs-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: rgba(40, 42, 64, 0.5);
+  border: 1px solid rgba(168, 85, 247, 0.18);
+  color: #cdd6e0;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+.cs-chip:hover { border-color: var(--chip-color, #a855f7); color: var(--chip-color, #a855f7); }
+.cs-chip.active {
+  background: var(--chip-color, #a855f7);
+  color: #0a0b18;
+  border-color: var(--chip-color, #a855f7);
+  font-weight: 700;
+}
+.cs-chip i { font-size: 0.78rem; }
+
+.cs-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.cs-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 10px;
+  background: rgba(40, 42, 64, 0.5);
+  border: 1px solid rgba(168, 85, 247, 0.18);
+  color: #cdd6e0;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+.cs-btn:hover { border-color: #a855f7; color: #c0a8ff; background: rgba(40, 42, 64, 0.85); }
+.cs-btn.active { background: linear-gradient(135deg, #a855f7, #ec4899); color: #0a0b18; border-color: transparent; font-weight: 700; }
+.cs-btn i { font-size: 0.82rem; }
+
+/* ---------- sky ---------- */
+.cs-sky-wrap {
+  position: relative;
+  width: 100%;
+  border-radius: 18px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(20, 22, 40, 0.7), rgba(5, 6, 13, 0.95));
+  border: 1px solid rgba(168, 85, 247, 0.18);
+  overflow: hidden;
+  margin-bottom: 16px;
+  box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+.cs-sky {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1000 / 700;
+}
+.cs-cluster-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  pointer-events: none;
+}
+.cs-line {
+  filter: drop-shadow(0 0 4px rgba(168, 85, 247, 0.4));
+  pointer-events: none;
+}
+
+/* ---------- stars ---------- */
+.cs-star { cursor: pointer; outline: none; transition: transform 0.18s ease; }
+.cs-star .cs-star-core {
+  transition: opacity 0.2s ease, r 0.2s ease;
+  animation: cs-twinkle ease-in-out infinite alternate;
+  transform-origin: center;
+}
+.cs-star .cs-star-glow {
+  filter: blur(4px);
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.cs-star:hover .cs-star-core { opacity: 1 !important; }
+.cs-star:hover .cs-star-glow { opacity: 1.2 !important; }
+.cs-star:hover .cs-star-label { opacity: 1 !important; }
+.cs-star:focus .cs-star-core { opacity: 1 !important; stroke: #fff; stroke-width: 1.5; }
+.cs-star-massive .cs-star-core { animation-name: cs-twinkle-strong; }
+.cs-star-big .cs-star-glow { filter: blur(6px); }
+.cs-star-dim .cs-star-core { opacity: 0.08 !important; }
+.cs-star-dim .cs-star-glow { opacity: 0.05 !important; }
+.cs-star-current .cs-star-core { stroke: #fff; stroke-width: 1; }
+.cs-star-label { pointer-events: none; transition: opacity 0.2s ease; font-family: inherit; }
+
+@keyframes cs-twinkle {
+  0% { opacity: var(--cs-min, 0.6); transform: scale(0.94); }
+  100% { opacity: var(--cs-max, 1); transform: scale(1.06); }
+}
+@keyframes cs-twinkle-strong {
+  0%, 100% { opacity: 0.85; transform: scale(1); filter: drop-shadow(0 0 6px currentColor); }
+  50% { opacity: 1; transform: scale(1.12); filter: drop-shadow(0 0 14px currentColor); }
+}
+
+/* ---------- burst sparks ---------- */
+.cs-burst-spark { pointer-events: none; animation: cs-burst-fade 1.2s ease-out forwards; }
+.cs-burst-spark line { animation: cs-burst-line 1.2s ease-out forwards; }
+.cs-burst-spark circle { animation: cs-burst-flash 1.2s ease-out forwards; }
+@keyframes cs-burst-fade { 0% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes cs-burst-line {
+  0% { stroke-dasharray: 0 80; stroke-dashoffset: 0; }
+  100% { stroke-dasharray: 80 0; stroke-dashoffset: -80; }
+}
+@keyframes cs-burst-flash {
+  0% { r: 4; opacity: 1; }
+  50% { r: 12; opacity: 0.6; }
+  100% { r: 0; opacity: 0; }
+}
+
+/* ---------- detail panel ---------- */
+.cs-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(5, 6, 13, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.cs-panel.open { opacity: 1; pointer-events: auto; }
+.cs-panel-body {
+  width: 100%;
+  max-width: 420px;
+  height: 100%;
+  padding: 32px 28px;
+  background: linear-gradient(180deg, rgba(20, 22, 40, 0.96), rgba(8, 10, 22, 0.98));
+  border-left: 1px solid rgba(168, 85, 247, 0.25);
+  box-shadow: -24px 0 60px -20px rgba(0, 0, 0, 0.7);
+  overflow-y: auto;
+  position: relative;
+  transform: translateX(40px);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.cs-panel.open .cs-panel-body { transform: translateX(0); }
+.cs-panel-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(168, 85, 247, 0.12);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  color: #cdd6e0;
+  font-size: 1.4rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.18s ease;
+}
+.cs-panel-close:hover { background: rgba(168, 85, 247, 0.25); color: #fff; transform: rotate(90deg); }
+.cs-panel-arch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--arch-color) 18%, transparent);
+  border: 1px solid color-mix(in srgb, var(--arch-color) 35%, transparent);
+  color: var(--arch-color);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.cs-panel-arch i { font-size: 0.85rem; }
+.cs-panel-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #f5f1e8;
+  margin: 0 0 6px 0;
+  line-height: 1.2;
+}
+.cs-panel-date { color: #9aa3b3; font-size: 0.9rem; margin: 0 0 22px 0; }
+.cs-panel-date i { color: #a855f7; margin-right: 6px; }
+.cs-panel-stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.cs-panel-stat {
+  background: rgba(20, 22, 40, 0.6);
+  border: 1px solid rgba(168, 85, 247, 0.15);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.cs-panel-stat-num { font-size: 1.1rem; font-weight: 700; color: #f5f1e8; }
+.cs-panel-stat-label { font-size: 0.78rem; color: #9aa3b3; text-transform: uppercase; letter-spacing: 0.06em; }
+.cs-panel-actions { display: flex; flex-direction: column; gap: 10px; }
+.cs-panel-actions .cs-btn { justify-content: center; padding: 10px; font-size: 0.9rem; }
+.cs-panel-banner {
+  margin-top: 18px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, rgba(168, 85, 247, 0.18), rgba(236, 72, 153, 0.18));
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  color: #f0d8ff;
+  font-size: 0.86rem;
+  text-align: center;
+}
+.cs-panel-banner i { color: #ffd166; margin-right: 6px; }
+
+/* ---------- toast ---------- */
+.cs-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: rgba(20, 22, 40, 0.95);
+  color: #f5f1e8;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  font-size: 0.9rem;
+  font-weight: 500;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
+  box-shadow: 0 8px 30px -8px rgba(168, 85, 247, 0.4);
+}
+.cs-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ---------- hint ---------- */
+.cs-hint {
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.82rem;
+  margin-top: 16px;
+  padding: 0 16px;
+}
+.cs-hint kbd {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(168, 85, 247, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  font-family: inherit;
+  font-size: 0.78rem;
+  color: #c0a8ff;
+  margin: 0 2px;
+}
+.cs-hint i { color: #a855f7; margin-right: 6px; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 880px) {
+  .cs-toolbar { flex-direction: column; align-items: stretch; }
+  .cs-actions { width: 100%; justify-content: space-between; }
+  .cs-summary { grid-template-columns: repeat(2, 1fr); }
+  .cs-panel-body { max-width: 100%; padding: 28px 20px; }
+}
+@media (max-width: 480px) {
+  .cs-summary { grid-template-columns: 1fr; }
+  .cs-sky { height: 380px; }
+  .cs-sky .cs-star-label { font-size: 9px; }
+  .cs-chip span { display: none; }
+  .cs-chip i { font-size: 0.95rem; }
+  .cs-actions .cs-btn span { display: none; }
+}
+
+/* ---------- print ---------- */
+@media print {
+  .cs-toolbar, .cs-panel, .cs-toast, .cs-hint { display: none; }
+  .cs-sky { background: #fff; }
+  .cs-sky .cs-star-glow, .cs-sky .cs-cluster-label, .cs-sky .cs-line { display: none; }
+}

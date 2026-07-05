@@ -763,6 +763,9 @@ function initCommandPalette() {
     { id: 'tool-dna-open', label: 'Open Build DNA', icon: 'fa-dna', shortcut: 'G D', category: 'Tools', action: () => window.ajhDnaOpen && window.ajhDnaOpen() },
     { id: 'tool-dna-recompute', label: 'Recompute Build DNA', icon: 'fa-rotate', category: 'Tools', action: () => window.ajhDnaRecompute && window.ajhDnaRecompute() },
     { id: 'tool-dna-share', label: 'Share Build DNA Card', icon: 'fa-share', category: 'Tools', action: () => window.ajhDnaShare && window.ajhDnaShare() },
+    { id: 'tool-cs-open', label: 'Open Constellation Map', icon: 'fa-star', shortcut: 'G S', category: 'Tools', action: () => window.ajhConstellation75Open && window.ajhConstellation75Open() },
+    { id: 'tool-cs-burst', label: 'Constellation: Toggle Fireworks Burst', icon: 'fa-fire', category: 'Tools', action: () => window.ajhConstellation75Burst && window.ajhConstellation75Burst() },
+    { id: 'tool-cs-export', label: 'Constellation: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => document.getElementById('cs-export')?.click() },
     
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -3684,6 +3687,7 @@ function initBookmarkCards() {
     { id: 'forge', icon: 'fa-fire-burner', title: 'The Forge', tag: 'Reflection', desc: 'A build reflection studio. Five-axis rating, 280-char note, mood emoji, weekly and all-time stats. Press F to write today.' },
     { id: 'lab', icon: 'fa-flask', title: 'Lab Notebook', tag: 'Hypotheses', desc: 'A build hypothesis log: if I add X, then Y. Draft, running, validated, falsified, parked. Kill rate, kanban, JSON I/O. Press L to open.' },
     { id: 'dna', icon: 'fa-dna', title: 'Build DNA', tag: 'Patterns', desc: 'Your build style as a strand: 8 archetype axes, personality verdict, focus card, archetypes bar, and a live build log. Press G D.' },
+    { id: 'constellation75', icon: 'fa-star', title: 'Constellation Map', tag: 'Sky', desc: 'All 75 build days as a starfield. 8 archetype clusters, impact-sized stars, click to read each build, fireworks burst mode, JSON export. Press G S.' },
   ];
 
   let state = {
