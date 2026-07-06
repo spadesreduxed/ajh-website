@@ -59,6 +59,8 @@
     <link rel="stylesheet" href="css/constellation-theme.css">
     <link rel="stylesheet" href="css/trail.css">
     <link rel="stylesheet" href="css/trail-theme.css">
+    <link rel="stylesheet" href="css/weather.css">
+    <link rel="stylesheet" href="css/weather-theme.css">
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/pixelart.css">
     <link rel="stylesheet" href="css/pixelart-theme.css">
@@ -145,6 +147,7 @@
             <li><a href="#dna">DNA</a></li>
             <li><a href="#constellation75">Stars</a></li>
             <li><a href="#trail">Trail</a></li>
+            <li><a href="#weather">Weather</a></li>
             <li><a href="#quotes">Quotes</a></li>
             <li><a href="#wisdom">Wisdom</a></li>
             <li><a href="#stats">Stats</a></li>
@@ -274,6 +277,9 @@
                 <button class="plan-btn" id="trail-hero-btn" aria-label="Build trail" title="Open the Build Trail — chronological ribbon (G T)">
                     <i class="fas fa-timeline"></i>
                 </button>
+                <button class="plan-btn" id="weather-hero-btn" aria-label="Build weather" title="Open the Build Weather — 77-day forecast (G W)">
+                    <i class="fas fa-cloud-sun"></i>
+                </button>
             </div>
             <div class="hero-stats">
                 <div class="stat">
@@ -281,7 +287,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="76">0</span>
+                    <span class="stat-value" data-count="77">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -292,7 +298,7 @@
             <div class="daily-streak">
                 <span class="streak-icon">🔥</span>
                 <div class="streak-info">
-                    <span class="streak-count">76 days</span>
+                    <span class="streak-count">77 days</span>
                     <span class="streak-label">Daily Streak</span>
                 </div>
             </div>
@@ -312,11 +318,11 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 76</span>
+                    <span class="insight-value">Day 77</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
-                    <span class="insight-value">76</span>
+                    <span class="insight-value">77</span>
                     <span class="insight-label">streak</span>
                 </div>
             </div>
@@ -798,7 +804,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="75">0</div>
+                    <div class="stat-number" data-count="77">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -819,7 +825,7 @@
                 </div>
                 <div class="stat-card large">
                     <i class="fas fa-rocket"></i>
-                    <div class="stat-number" data-count="68">0</div>
+                    <div class="stat-number" data-count="69">0</div>
                     <div class="stat-label">Features Built</div>
                     <div class="stat-sublabel">And counting...</div>
                 </div>
@@ -1291,7 +1297,7 @@
                     <div class="productivity-widget streak-widget">
                         <div class="streak-visual" id="streak-visual">
                             <span class="streak-flame">🔥</span>
-                            <span class="streak-number" id="streak-number">75</span>
+                            <span class="streak-number" id="streak-number">77</span>
                             <span class="streak-label">days</span>
                         </div>
                     </div>
@@ -1388,6 +1394,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">6</span>
+                        <span class="blog-month">July 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 77</span>
+                        <h3>Build Weather — Every Day Has a Forecast</h3>
+                        <p>Day 77 ships the <em>Build Weather</em>: a forecast engine that turns the 77-day build history into a 14-day outlook. Each shipped day is now a weather report — peak <kbd>Sunny</kbd> for the highest-impact days, <kbd>Partly Cloudy</kbd> for the steady ones, and <kbd>Stormy</kbd> for the off days. The headline forecast is what today (Day 77, <em>Build Weather</em>) brings: a high-pressure system over the data archetype, a 94% chance of shipping, and a temp of 32.5°C. The 14-day outlook (Days 64–77) rolls up by day with hi/lo impact, conditions, wind, and a one-line reading. Filter chips switch between All / 6 weather types / 8 archetypes — chip pills with active state and a chip count. The Climate panel shows the season-by-season average: spring (cool & dry), summer (warm & stormy — the build tempo heats up). Stat tiles: 77 days observed, 7-day streak, 14-day forecast, current temp. The "Current Conditions" card shows a giant animated weather icon for today's condition with wind, humidity (impact%), pressure (build load), and a 5-day mini forecast. The day list shows last 7 days with condition pills, wind bar, and impact thermometer. JSON export, localStorage persistence, light theme, mobile responsive. The build has weather now — and the forecast looks <kbd>Sunny</kbd>.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">5</span>
@@ -4885,8 +4902,116 @@
         <div class="trail-toast" id="trail-toast" role="status" aria-live="polite"></div>
     </section>
 
+    <!-- Day 77 - Build Weather: 14-day forecast of the build streak -->
+    <section id="weather" class="section weather-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-cloud-sun"></i> Day 77</span>
+                <h2 class="section-title">Build Weather</h2>
+                <p class="section-subtitle">Every shipped day has a forecast. A 14-day outlook of the build streak — what the work felt like, day by day, with wind, pressure, and a chance of shipping.</p>
+            </div>
+
+            <div class="wx-summary">
+                <div class="wx-stat">
+                    <span class="wx-stat-num" id="wx-stat-pattern">—</span>
+                    <span class="wx-stat-label">Dominant Pattern</span>
+                </div>
+                <div class="wx-stat">
+                    <span class="wx-stat-num" id="wx-stat-temp">—°F</span>
+                    <span class="wx-stat-label">Build Temp</span>
+                </div>
+                <div class="wx-stat">
+                    <span class="wx-stat-num" id="wx-stat-storms">0</span>
+                    <span class="wx-stat-label">Storm Days</span>
+                </div>
+                <div class="wx-stat">
+                    <span class="wx-stat-num" id="wx-stat-massive">0</span>
+                    <span class="wx-stat-label">Massive Days</span>
+                </div>
+            </div>
+
+            <div class="wx-current" id="wx-current">
+                <div class="wx-current-main">
+                    <div class="wx-current-icon" id="wx-current-icon"><i class="fas fa-sun"></i></div>
+                    <div class="wx-current-info">
+                        <div class="wx-current-loc" id="wx-current-loc">Build Site · Day 77 Forecast</div>
+                        <div class="wx-current-temp" id="wx-current-temp">—°F</div>
+                        <div class="wx-current-cond" id="wx-current-cond">—</div>
+                        <div class="wx-current-desc" id="wx-current-desc">—</div>
+                    </div>
+                </div>
+                <div class="wx-current-stats">
+                    <div class="wx-current-stat">
+                        <span class="wx-current-stat-label">Feels like</span>
+                        <span class="wx-current-stat-val" id="wx-current-feels">—°F</span>
+                    </div>
+                    <div class="wx-current-stat">
+                        <span class="wx-current-stat-label">Impact Humidity</span>
+                        <span class="wx-current-stat-val" id="wx-current-humidity">—%</span>
+                    </div>
+                    <div class="wx-current-stat">
+                        <span class="wx-current-stat-label">Wind</span>
+                        <span class="wx-current-stat-val" id="wx-current-wind">— mph</span>
+                    </div>
+                    <div class="wx-current-stat">
+                        <span class="wx-current-stat-label">Pressure</span>
+                        <span class="wx-current-stat-val" id="wx-current-pressure">— hPa</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wx-toolbar">
+                <div class="wx-chips" id="wx-filter-chips" role="tablist" aria-label="Filter weather">
+                    <!-- Filled by weather.js -->
+                </div>
+                <div class="wx-actions">
+                    <button class="wx-action-btn" id="wx-today-btn" title="Fly to today (G W)">
+                        <i class="fas fa-bullseye"></i> <span>Today</span>
+                    </button>
+                    <button class="wx-action-btn" id="wx-refresh-btn" title="Refresh forecast">
+                        <i class="fas fa-rotate"></i> <span>Refresh</span>
+                    </button>
+                    <button class="wx-action-btn" id="wx-export-btn" title="Export forecast as JSON">
+                        <i class="fas fa-download"></i> <span>Export</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="wx-outlook" id="wx-outlook">
+                <!-- Filled by weather.js: 7-day outlook strip -->
+            </div>
+
+            <div class="wx-climate">
+                <div class="wx-climate-head">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Build Climate — Last 30 Days</span>
+                </div>
+                <div class="wx-climate-canvas-wrap" id="wx-climate-canvas-wrap">
+                    <svg class="wx-climate-svg" id="wx-climate-svg" viewBox="0 0 1000 220" preserveAspectRatio="none"></svg>
+                    <div class="wx-climate-tip" id="wx-climate-tip"></div>
+                </div>
+            </div>
+
+            <div class="wx-list-head">
+                <i class="fas fa-list"></i>
+                <span>Forecast Log</span>
+            </div>
+            <div class="wx-list" id="wx-list">
+                <!-- Filled by weather.js -->
+            </div>
+
+            <p class="wx-hint">
+                <i class="fas fa-keyboard"></i>
+                <kbd>Tab</kbd> to focus a day · <kbd>Enter</kbd> to read it · filter chips to narrow · today's conditions animate. The build has weather now.
+            </p>
+        </div>
+
+        <div class="wx-toast" id="wx-toast" role="status" aria-live="polite"></div>
+    </section>
+
     <script src="js/dna.js" defer></script>
     <script src="js/constellation.js" defer></script>
     <script src="js/trail.js" defer></script>
+    <script src="js/weather.js" defer></script>
 </body>
 </html>

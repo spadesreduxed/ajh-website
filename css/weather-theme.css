@@ -1,0 +1,160 @@
+/* ============================================================
+   Day 77: Build Weather — light theme overrides
+   ============================================================ */
+
+[data-theme="light"] .weather-section {
+  background:
+    radial-gradient(1100px 600px at 12% 8%, rgba(56, 189, 248, 0.18), transparent 60%),
+    radial-gradient(900px 600px at 88% 92%, rgba(168, 85, 247, 0.14), transparent 60%),
+    radial-gradient(800px 500px at 50% 50%, rgba(245, 158, 11, 0.08), transparent 70%),
+    linear-gradient(180deg, #f1f5fb 0%, #e9eef8 100%);
+}
+
+[data-theme="light"] .weather-section::before {
+  background-image:
+    radial-gradient(1px 1px at 12% 22%, rgba(15, 23, 42, 0.18) 50%, transparent 100%),
+    radial-gradient(1px 1px at 28% 64%, rgba(15, 23, 42, 0.12) 50%, transparent 100%),
+    radial-gradient(1px 1px at 47% 12%, rgba(15, 23, 42, 0.20) 50%, transparent 100%),
+    radial-gradient(1px 1px at 65% 78%, rgba(15, 23, 42, 0.14) 50%, transparent 100%),
+    radial-gradient(1px 1px at 81% 28%, rgba(15, 23, 42, 0.13) 50%, transparent 100%),
+    radial-gradient(1px 1px at 92% 62%, rgba(15, 23, 42, 0.18) 50%, transparent 100%),
+    radial-gradient(1px 1px at 6% 88%, rgba(15, 23, 42, 0.12) 50%, transparent 100%),
+    radial-gradient(1px 1px at 38% 38%, rgba(15, 23, 42, 0.15) 50%, transparent 100%),
+    radial-gradient(1px 1px at 73% 51%, rgba(15, 23, 42, 0.18) 50%, transparent 100%);
+  opacity: 0.45;
+}
+
+[data-theme="light"] .weather-section .section-title {
+  background: linear-gradient(90deg, #0284c7 0%, #7c3aed 50%, #b45309 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+[data-theme="light"] .weather-section .section-subtitle {
+  color: rgba(15, 23, 42, 0.7);
+}
+
+[data-theme="light"] .weather-section .section-tag {
+  background: rgba(56, 189, 248, 0.12);
+  color: #0284c7;
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+[data-theme="light"] .wx-current-main {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.16), rgba(168, 85, 247, 0.10));
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: 0 18px 60px -20px rgba(56, 189, 248, 0.3);
+}
+
+[data-theme="light"] .wx-current-loc { color: #0284c7; }
+[data-theme="light"] .wx-current-temp { color: #0f172a; }
+[data-theme="light"] .wx-current-cond { color: #b45309; }
+[data-theme="light"] .wx-current-desc { color: rgba(15, 23, 42, 0.7); }
+
+[data-theme="light"] .wx-mini {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(56, 189, 248, 0.2);
+}
+
+[data-theme="light"] .wx-mini-label { color: rgba(15, 23, 42, 0.55); }
+[data-theme="light"] .wx-mini-value { color: #0f172a; }
+
+[data-theme="light"] .wx-stat {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(56, 189, 248, 0.18);
+}
+
+[data-theme="light"] .wx-stat-num { color: #0f172a; }
+[data-theme="light"] .wx-stat-label { color: rgba(15, 23, 42, 0.6); }
+[data-theme="light"] .wx-stat-sub { color: #0284c7; }
+
+[data-theme="light"] .wx-day {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(56, 189, 248, 0.18);
+}
+
+[data-theme="light"] .wx-day:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+[data-theme="light"] .wx-day-name { color: #475569; }
+[data-theme="light"] .wx-day-temp { color: #0f172a; }
+[data-theme="light"] .wx-day-cond { color: rgba(15, 23, 42, 0.65); }
+
+[data-theme="light"] .wx-day.wx-day-today {
+  border-color: rgba(245, 158, 11, 0.5);
+  background: linear-gradient(180deg, rgba(245, 158, 11, 0.10), rgba(255, 255, 255, 0.7));
+}
+
+[data-theme="light"] .wx-climate {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(56, 189, 248, 0.18);
+}
+
+[data-theme="light"] .wx-climate-title { color: #0f172a; }
+[data-theme="light"] .wx-climate-legend { color: rgba(15, 23, 42, 0.65); }
+
+[data-theme="light"] .wx-climate-canvas-wrap {
+  background: linear-gradient(180deg, rgba(241, 245, 251, 0.7), rgba(255, 255, 255, 0.6));
+  border-color: rgba(56, 189, 248, 0.12);
+}
+
+[data-theme="light"] .wx-chip {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(56, 189, 248, 0.22);
+  color: #475569;
+}
+
+[data-theme="light"] .wx-chip:hover {
+  color: #0f172a;
+  border-color: rgba(56, 189, 248, 0.5);
+}
+
+[data-theme="light"] .wx-chip.active {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.18), rgba(168, 85, 247, 0.18));
+  color: #0f172a;
+  border-color: rgba(56, 189, 248, 0.6);
+}
+
+[data-theme="light"] .wx-action-btn {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(56, 189, 248, 0.22);
+  color: #475569;
+}
+
+[data-theme="light"] .wx-action-btn:hover {
+  background: rgba(255, 255, 255, 0.9);
+  color: #0f172a;
+  border-color: rgba(56, 189, 248, 0.5);
+}
+
+[data-theme="light"] .wx-card {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(56, 189, 248, 0.16);
+}
+
+[data-theme="light"] .wx-card:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+[data-theme="light"] .wx-card-day { color: rgba(15, 23, 42, 0.6); }
+[data-theme="light"] .wx-card-name { color: #0f172a; }
+[data-theme="light"] .wx-card-desc { color: rgba(15, 23, 42, 0.7); }
+[data-theme="light"] .wx-card-stat-label { color: rgba(15, 23, 42, 0.55); }
+[data-theme="light"] .wx-card-stat-value { color: #0f172a; }
+[data-theme="light"] .wx-card-stats { border-top-color: rgba(56, 189, 248, 0.18); }
+
+[data-theme="light"] .wx-foot { color: rgba(15, 23, 42, 0.55); }
+[data-theme="light"] .wx-foot kbd {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(56, 189, 248, 0.3);
+  color: #0f172a;
+}
+
+[data-theme="light"] .wx-toast {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(56, 189, 248, 0.5);
+  color: #0f172a;
+}

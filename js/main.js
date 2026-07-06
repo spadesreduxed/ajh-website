@@ -772,6 +772,12 @@ function initCommandPalette() {
     { id: 'tool-trail-today', label: 'Build Trail: Fly to Today', icon: 'fa-bullseye', category: 'Tools', action: () => window.ajhTrail && window.ajhTrail.scrollToToday && window.ajhTrail.scrollToToday() },
     { id: 'tool-trail-export', label: 'Build Trail: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhTrail && window.ajhTrail.export && window.ajhTrail.export() },
 
+    // Day 77: Build Weather
+    { id: 'tool-weather-open', label: 'Open Build Weather', icon: 'fa-cloud-sun', shortcut: 'G W', category: 'Tools', action: () => window.ajhWeather && window.ajhWeather.open && (document.getElementById('weather')?.scrollIntoView({ behavior: 'smooth' }), setTimeout(() => window.ajhWeather.open(window.ajhWeather.today || 77), 400)) },
+    { id: 'tool-weather-today', label: 'Build Weather: Fly to Today', icon: 'fa-bullseye', category: 'Tools', action: () => window.ajhWeather && window.ajhWeather.open && window.ajhWeather.open(window.ajhWeather.today || 77) },
+    { id: 'tool-weather-share', label: 'Build Weather: Share Today\'s Forecast', icon: 'fa-share', category: 'Tools', action: () => window.ajhWeather && window.ajhWeather.share && window.ajhWeather.share() },
+    { id: 'tool-weather-export', label: 'Build Weather: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhWeather && window.ajhWeather.export && window.ajhWeather.export() },
+
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
     { id: 'page-discord', label: 'Join Discord', icon: 'fab fa-discord', category: 'Pages', action: () => window.open('https://discord.gg/UnDrzQQksw', '_blank') },
@@ -3694,6 +3700,7 @@ function initBookmarkCards() {
     { id: 'dna', icon: 'fa-dna', title: 'Build DNA', tag: 'Patterns', desc: 'Your build style as a strand: 8 archetype axes, personality verdict, focus card, archetypes bar, and a live build log. Press G D.' },
     { id: 'constellation75', icon: 'fa-star', title: 'Constellation Map', tag: 'Sky', desc: 'All 75 build days as a starfield. 8 archetype clusters, impact-sized stars, click to read each build, fireworks burst mode, JSON export. Press G S.' },
     { id: 'trail', icon: 'fa-timeline', title: 'Build Trail', tag: 'Chronological', desc: 'A horizontal ribbon of all 76 build days, in time order. Filter by archetype, jump to today, fire the leaderboard, export as JSON. Press G T.' },
+    { id: 'weather', icon: 'fa-cloud-sun', title: 'Build Weather', tag: 'Forecast', desc: 'All 77 build days as a 7-day rolling forecast. Today\'s outlook, climate cards by archetype, conditions (Sunny/Cloudy/Stormy/...), temp & humidity, share card, export as JSON. Press G W.' },
   ];
 
   let state = {

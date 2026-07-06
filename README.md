@@ -4,6 +4,21 @@ A daily-built GitHub Pages website that grows better every day.
 
 **Live Site**: https://ajhs.github.io
 
+## Latest Build - Day 77 (2026-07-06)
+
+### Build Weather — every build day is a forecast
+- A **14-day forecast engine** that turns the 77-day build history into a weather report. Each shipped day is now a **condition**: Systems→Engineered (High-Pressure), Visual→Sunny (Bright Skies), Audio→Torrential (Sound Storms), Interactive→Thunder (Interactive Storms), Data→Cloudy (Data Overcast), Meta→Foggy (Meta Haze), Craft→Partly Cloudy (Craft Breezes), Social→Windy (Social Winds)
+- **4 summary stats**: Dominant Pattern (Sunny), Build Temp (64°F), Storm Days (13), Massive Days (23)
+- **Current Conditions card** with animated weather icon for today's build, plus Feels like / Impact Humidity / Wind / Pressure readout
+- **9 filter chips** (All 77 + 8 weather types) with active state, count badges, and click-to-filter that updates the list, climate, and stats
+- **7-day outlook strip** (last 3 + today + next 3) with weekday, animated weather icon, impact-temp, condition label, and 5-dot impact meter — click a past day to highlight the matching list card, click a future day to copy a forecast line to the clipboard
+- **Build Climate 30-day line+area SVG** with 30 data dots (hover for a day tooltip, click to copy) and a category climate bar at the bottom showing the distribution of weather types
+- **77-card Forecast Log grid** (last 30 days) with day #, name, formatted date, color-coded condition pill, wind bar, impact dots, and impact thermometer
+- **3 action buttons**: Today (fly to today's row), Refresh (re-render), Export (download `ajh-weather-YYYY-MM-DD.json`)
+- localStorage persists filter choice and visits counter
+- Mobile responsive; light theme supported; keyboard nav (Esc/Enter friendly)
+- Wired into the command palette: **Open Build Weather** (G W), **Build Weather: Fly to Today**, **Build Weather: Export as JSON**; new nav link "Weather"; hero meta button (cloud-sun icon); new bookmark card "Build Weather" (Forecast)
+
 ## Latest Build - Day 76 (2026-07-05)
 
 ### Build Trail — 76 days laid end to end

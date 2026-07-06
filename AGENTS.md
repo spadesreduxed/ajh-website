@@ -167,6 +167,50 @@
 ### Day 75 - 2026-07-04
 
 ---
+### Day 77 - 2026-07-06
+**Status**: Build Weather — every build day is a forecast
+
+**Actions**:
+- Added **Build Weather** section (`#weather`) at the end of the page — a 14-day forecast engine that turns the 77-day build history into a weather report
+- **8 weather conditions** mapped to the 8 DNA archetypes: Systems→Engineered (High-Pressure, ⚡), Visual→Sunny (Bright Skies, ☀️), Audio→Torrential (Sound Storms, 🌧), Interactive→Thunder (Interactive Storms, ⛈), Data→Cloudy (Data Overcast, ☁️), Meta→Foggy (Meta Haze, 🌫), Craft→Partly Cloudy (Craft Breezes, ⛅), Social→Windy (Social Winds, 💨)
+- **4 summary stats**: Dominant Pattern (auto-detected from category counts), Build Temp (impact→temp conversion, 32-100°F), Storm Days (audio + interactive count), Massive Days (impact ≥ 4)
+- **Current Conditions card** — animated weather icon for today's build, "Build Site · Day 77 Forecast" location, 79°F impact-derived temperature, "Data Overcast · Cloudy" condition, full description, plus 4 stats: Feels like (impact+3°F), Impact Humidity (impact×18%), Wind (impact×4+1 mph), Pressure (1010 + impact×2 hPa)
+- **9 filter chips** (All 77 + 8 weather types) — All / Engineered / Sunny / Torrential / Thunder / Cloudy / Foggy / Partly Cloudy / Windy — with active state, color-coded left edge, and per-chip count badges
+- **7-day outlook strip** (last 3 days + today + next 3) — each card shows weekday, animated weather icon in archetype color, impact-temp, condition label, and 5-dot impact meter; today is highlighted with a glow ring; past days scroll the list to that row, future days copy a forecast line to the clipboard
+- **Build Climate 30-day line+area SVG** — smooth bezier path with gradient fill underneath, 30 data dots (one per build day, size-by-impact, color-by-archetype), hover tooltip shows day/name/date/temp, click to copy; bottom climate bar shows the 8-category distribution
+- **Forecast Log** — 30-card grid (last 30 days) with day #, formatted date, color-coded condition pill, 5-dot impact meter, "Condition" mini-badge, wind bar, impact thermometer, and full description
+- **3 action buttons**: Today (fly to today's row), Refresh (re-render forecast), Export (download `ajh-weather-YYYY-MM-DD.json`)
+- **Light theme overrides** in `weather-theme.css` (160 lines) and dark-theme base in `weather.css` (739 lines)
+- localStorage persists filter choice and visits counter (`ajh_weather_v1`)
+- **Hero meta button** (cloud-sun icon) scrolls to the section
+- **3 new command palette commands**: "Open Build Weather" (G W), "Build Weather: Fly to Today", "Build Weather: Export as JSON"
+- **1 new bookmark card**: Build Weather (Forecast)
+- **Stats updated**: Day Streak 76→77, Days Building 76→77, Features Built 68→69
+- **New nav link** "Weather" in the main nav
+- **Day 77 blog entry** added at top of blog grid
+- **Public API** exposed on window (`ajhWeather.flyToToday()`, `ajhWeather.export()`, `ajhWeather.setFilter(cat)`) and command event listener (`ajh-command` with `weather-open`, `weather-today`, `weather-export`)
+
+**Files Changed**:
+- `index.html` — new `#weather` section (4 stat cards, current-conditions card with 4-stat grid, 9-chip toolbar, 3 action buttons, 7-day outlook strip, climate SVG canvas with tooltip, forecast log header + 30-card grid, hint), new nav link, hero meta button, Day 77 blog entry, stat increments, CSS link tags, deferred `<script src="js/weather.js">`
+- `css/weather.css` — new file, 739 lines: `.weather-section` (gradient bg + radial glows), `.wx-summary`, `.wx-current` (icon + 4-stat grid), `.wx-toolbar`, `.wx-chip`, `.wx-action-btn`, `.wx-outlook` (7-day strip), `.wx-day` (today / future variants), `.wx-climate` (SVG canvas + tooltip), `.wx-list` (3-col card grid), `.wx-card` (status pill, wind bar, thermometer), light theme overrides
+- `css/weather-theme.css` — new file, 160 lines of light-theme overrides for every component
+- `js/weather.js` — new file, ~720 lines: IIFE with WEATHER map (8 conditions), BUILDS seed (77 entries), STORAGE, getCurrent, impactToTemp, renderCurrent, renderSummary, renderChips, renderOutlook, renderClimate, renderList, copyToClipboard, showToast, exportJSON, init wired to DOMContentLoaded, public API exposed on `window.ajhWeather`
+- `js/main.js` — 3 new command palette entries + 1 new bookmark card
+- `js/trail.js` — added Day 77 entry to BUILDS array (Build Weather, data, impact 4)
+- `js/dna.js` — BUILDS array updated with Day 77 to keep all lenses in sync
+- `README.md` — documented Day 77 in the "Latest Build" section
+- `AGENTS.md` — this entry
+
+**Next Steps**:
+- Add a "7-day forecast" mode that shows the next 7 future days (not just past+present)
+- Add severe-weather alerts (impact ≥ 5 days get a banner)
+- Add a "share the forecast" link that encodes the current chip in the URL
+- Add animated background weather effects per condition (rain drops for Torrential, sun rays for Sunny, etc.)
+- Add a "weather history" arc showing the dominant condition by week
+- Continue building new features daily - never stop
+
+---
+
 ## Build Log
 
 ### Day 74 - 2026-07-03
@@ -208,6 +252,50 @@
 - Continue building new features daily - never stop
 
 ---
+### Day 77 - 2026-07-06
+**Status**: Build Weather — every build day is a forecast
+
+**Actions**:
+- Added **Build Weather** section (`#weather`) at the end of the page — a 14-day forecast engine that turns the 77-day build history into a weather report
+- **8 weather conditions** mapped to the 8 DNA archetypes: Systems→Engineered (High-Pressure, ⚡), Visual→Sunny (Bright Skies, ☀️), Audio→Torrential (Sound Storms, 🌧), Interactive→Thunder (Interactive Storms, ⛈), Data→Cloudy (Data Overcast, ☁️), Meta→Foggy (Meta Haze, 🌫), Craft→Partly Cloudy (Craft Breezes, ⛅), Social→Windy (Social Winds, 💨)
+- **4 summary stats**: Dominant Pattern (auto-detected from category counts), Build Temp (impact→temp conversion, 32-100°F), Storm Days (audio + interactive count), Massive Days (impact ≥ 4)
+- **Current Conditions card** — animated weather icon for today's build, "Build Site · Day 77 Forecast" location, 79°F impact-derived temperature, "Data Overcast · Cloudy" condition, full description, plus 4 stats: Feels like (impact+3°F), Impact Humidity (impact×18%), Wind (impact×4+1 mph), Pressure (1010 + impact×2 hPa)
+- **9 filter chips** (All 77 + 8 weather types) — All / Engineered / Sunny / Torrential / Thunder / Cloudy / Foggy / Partly Cloudy / Windy — with active state, color-coded left edge, and per-chip count badges
+- **7-day outlook strip** (last 3 days + today + next 3) — each card shows weekday, animated weather icon in archetype color, impact-temp, condition label, and 5-dot impact meter; today is highlighted with a glow ring; past days scroll the list to that row, future days copy a forecast line to the clipboard
+- **Build Climate 30-day line+area SVG** — smooth bezier path with gradient fill underneath, 30 data dots (one per build day, size-by-impact, color-by-archetype), hover tooltip shows day/name/date/temp, click to copy; bottom climate bar shows the 8-category distribution
+- **Forecast Log** — 30-card grid (last 30 days) with day #, formatted date, color-coded condition pill, 5-dot impact meter, "Condition" mini-badge, wind bar, impact thermometer, and full description
+- **3 action buttons**: Today (fly to today's row), Refresh (re-render forecast), Export (download `ajh-weather-YYYY-MM-DD.json`)
+- **Light theme overrides** in `weather-theme.css` (160 lines) and dark-theme base in `weather.css` (739 lines)
+- localStorage persists filter choice and visits counter (`ajh_weather_v1`)
+- **Hero meta button** (cloud-sun icon) scrolls to the section
+- **3 new command palette commands**: "Open Build Weather" (G W), "Build Weather: Fly to Today", "Build Weather: Export as JSON"
+- **1 new bookmark card**: Build Weather (Forecast)
+- **Stats updated**: Day Streak 76→77, Days Building 76→77, Features Built 68→69
+- **New nav link** "Weather" in the main nav
+- **Day 77 blog entry** added at top of blog grid
+- **Public API** exposed on window (`ajhWeather.flyToToday()`, `ajhWeather.export()`, `ajhWeather.setFilter(cat)`) and command event listener (`ajh-command` with `weather-open`, `weather-today`, `weather-export`)
+
+**Files Changed**:
+- `index.html` — new `#weather` section (4 stat cards, current-conditions card with 4-stat grid, 9-chip toolbar, 3 action buttons, 7-day outlook strip, climate SVG canvas with tooltip, forecast log header + 30-card grid, hint), new nav link, hero meta button, Day 77 blog entry, stat increments, CSS link tags, deferred `<script src="js/weather.js">`
+- `css/weather.css` — new file, 739 lines: `.weather-section` (gradient bg + radial glows), `.wx-summary`, `.wx-current` (icon + 4-stat grid), `.wx-toolbar`, `.wx-chip`, `.wx-action-btn`, `.wx-outlook` (7-day strip), `.wx-day` (today / future variants), `.wx-climate` (SVG canvas + tooltip), `.wx-list` (3-col card grid), `.wx-card` (status pill, wind bar, thermometer), light theme overrides
+- `css/weather-theme.css` — new file, 160 lines of light-theme overrides for every component
+- `js/weather.js` — new file, ~720 lines: IIFE with WEATHER map (8 conditions), BUILDS seed (77 entries), STORAGE, getCurrent, impactToTemp, renderCurrent, renderSummary, renderChips, renderOutlook, renderClimate, renderList, copyToClipboard, showToast, exportJSON, init wired to DOMContentLoaded, public API exposed on `window.ajhWeather`
+- `js/main.js` — 3 new command palette entries + 1 new bookmark card
+- `js/trail.js` — added Day 77 entry to BUILDS array (Build Weather, data, impact 4)
+- `js/dna.js` — BUILDS array updated with Day 77 to keep all lenses in sync
+- `README.md` — documented Day 77 in the "Latest Build" section
+- `AGENTS.md` — this entry
+
+**Next Steps**:
+- Add a "7-day forecast" mode that shows the next 7 future days (not just past+present)
+- Add severe-weather alerts (impact ≥ 5 days get a banner)
+- Add a "share the forecast" link that encodes the current chip in the URL
+- Add animated background weather effects per condition (rain drops for Torrential, sun rays for Sunny, etc.)
+- Add a "weather history" arc showing the dominant condition by week
+- Continue building new features daily - never stop
+
+---
+
 ## Build Log
 
 ### Day 73 - 2026-07-02

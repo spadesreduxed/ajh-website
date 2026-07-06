@@ -129,6 +129,7 @@
         { day: 74, name: 'Build DNA (Pattern Genome)',             category: 'data',        impact: 4 },
         { day: 75, name: 'Constellation Map (75 Stars)',           category: 'visual',      impact: 4 },
         { day: 76, name: 'Build Trail (Chronological Ribbon)',     category: 'data',        impact: 3 },
+        { day: 77, name: 'Build Weather (Forecast Engine)',        category: 'data',        impact: 4 },
     ];
 
     // Build descriptions (short) for detail panel
