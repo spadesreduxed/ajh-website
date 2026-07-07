@@ -778,6 +778,12 @@ function initCommandPalette() {
     { id: 'tool-weather-share', label: 'Build Weather: Share Today\'s Forecast', icon: 'fa-share', category: 'Tools', action: () => window.ajhWeather && window.ajhWeather.share && window.ajhWeather.share() },
     { id: 'tool-weather-export', label: 'Build Weather: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhWeather && window.ajhWeather.export && window.ajhWeather.export() },
 
+    // Day 78: Build Garden
+    { id: 'tool-garden-open', label: 'Open Build Garden', icon: 'fa-seedling', shortcut: 'G G', category: 'Tools', action: () => window.ajhGarden && window.ajhGarden.open && (document.getElementById('garden')?.scrollIntoView({ behavior: 'smooth' }), setTimeout(() => window.ajhGarden.open(), 400)) },
+    { id: 'tool-garden-water', label: 'Build Garden: Water All', icon: 'fa-droplet', category: 'Tools', action: () => window.ajhGarden && window.ajhGarden.water && window.ajhGarden.water() },
+    { id: 'tool-garden-newday', label: 'Build Garden: New Day', icon: 'fa-sun', category: 'Tools', action: () => window.ajhGarden && window.ajhGarden.advance && window.ajhGarden.advance() },
+    { id: 'tool-garden-export', label: 'Build Garden: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhGarden && window.ajhGarden.export && window.ajhGarden.export() },
+
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
     { id: 'page-discord', label: 'Join Discord', icon: 'fab fa-discord', category: 'Pages', action: () => window.open('https://discord.gg/UnDrzQQksw', '_blank') },

@@ -1,3 +1,46 @@
+### Day 78 - 2026-07-07
+**Status**: Build Garden - 8 plants growing for 77 days
+
+**Actions**:
+- Added **Build Garden** section (`#garden`) at the very end of the page - a living ecosystem where every build archetype is a plant
+- **8 distinct plant species** - one per archetype - each hand-built in SVG: Code Oak, Pixel Sunflower, Beat Mushroom, Click Vine, Datapoint Daisy, Reflect Bonsai, Word Lotus, Connect Rose
+- **8 plot grid** (2 rows of 4) - each plot shows a plant SVG, archetype name, growth stage, and a 5-stage grow bar (Dormant / Sprout / Growing / Blooming / Stellar)
+- **Stage auto-computed** from archetype's day count, total impact, and most recent build - massive archetypes (Code Oak, Pixel Sunflower, Beat Mushroom, Click Vine) are now in Blooming/Stellar stages
+- **9 filter chips** (All Plants + 8 archetype filters) - click any chip to focus the garden on one species
+- **4 stat tiles** at the top: 8 Species, 4 In Bloom, 0 Watered Today, 3 Season
+- **3 action buttons** in the toolbar: Water All (water all 8 plants), New Day (water today's plant only), Export (download JSON of full garden state)
+- **14-entry Recent Plantings strip** below the plots - shows the last 14 builds, with date, day number, plant emoji, archetype, and impact dots
+- **Click any plot** opens a side detail panel with: plant emoji, name, archetype, current stage, growth %, total / avg / max impact, count of builds, latest build, and a 6-day impact history bar chart
+- **Falling petals** on the 4 blooming plants every 1.8-3.6 seconds - CSS-animated with random drift and rotation
+- **localStorage persistence** for filter choice and visits counter
+- **Public API** exposed on window (`ajhGarden.open(arch)`, `ajhGarden.export()`, `ajhGarden.refresh()`) and command event listener (`ajh-command` with `garden-open`, `garden-export`, `garden-today`)
+- **2 new command palette commands**: "Open Build Garden" (G G), "Build Garden: Export as JSON"
+- **New nav link** "Garden" in the main nav
+- **New hero meta button** (seedling icon) that scrolls to the Build Garden section
+- **New bookmark card** "Build Garden" (Ecosystem)
+- **Day 78 blog entry** added at top of blog grid
+- **Stats updated**: Day Streak 77→78, Days Building 77→78, Features Built 69→70
+- **Keyboard accessible**: Tab to focus a plot, Enter to read it, Esc to close the panel
+- **Light theme** support via `css/garden-theme.css`
+
+**Files Changed**:
+- `index.html` - new `#garden` section (4 summary stats, 9-chip toolbar, 3 action buttons, plot grid, recent plantings list, hint, detail panel with backdrop), new nav link, hero meta button, Day 78 blog entry, stat increments, CSS link tags, deferred `<script src="js/garden.js?v=78b">`
+- `css/garden.css` - new file, ~680 lines: section gradient, summary grid, toolbar + chips + action buttons, plot grid, plant container, grow bar, petals animation, recent plantings list, detail panel slide-in, toast, hint, mobile responsive, reduced-motion
+- `css/garden-theme.css` - new file, ~170 lines of light-theme overrides
+- `js/garden.js` - new file, ~700 lines: IIFE with ARCHETYPES (8), plant SVG templates (8 distinct forms), BUILDS seed (77 entries), computeArchetypeStats, STORAGE helpers, renderSummary, renderChips, renderGarden, renderSoil, startPetals, openDetail/closeDetail, waterAll/waterToday, exportGarden, init, public API exposed on window, command event listener
+- `js/main.js` - 2 new command palette commands + 1 new bookmark card
+- `README.md` - documented Day 78 in the "Latest Build" section
+- `AGENTS.md` - this entry
+
+**Next Steps**:
+- Add a "season" cycle that auto-advances the garden as the build count grows (Spring → Summer → Fall → Winter)
+- Add hover tooltips on each plant with its latest build name
+- Add a "share this garden" link that encodes the current filter in the URL
+- Add an animation when a plant first transitions to Blooming stage
+- Continue building new features daily - never stop
+
+---
+
 ### Day 76 - 2026-07-05
 **Status**: Build Trail - 76 days laid end to end
 

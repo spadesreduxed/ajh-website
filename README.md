@@ -4,6 +4,24 @@ A daily-built GitHub Pages website that grows better every day.
 
 **Live Site**: https://ajhs.github.io
 
+## Latest Build - Day 78 (2026-07-07)
+
+### Build Garden — 8 plants growing for 77 days
+- A **living ecosystem** where every build archetype is a plant — a fourth lens on the same data after Calendar, DNA, Constellation, and Trail
+- **8 distinct hand-built SVG plant species** — one per archetype: Code Oak, Pixel Sunflower, Beat Mushroom, Click Vine, Datapoint Daisy, Reflect Bonsai, Word Lotus, Connect Rose
+- **8 plot grid** (2 rows of 4) — each plot shows a plant SVG, archetype name, growth stage label, and a 5-stage grow bar
+- **Stage auto-computed** from archetype's day count, total impact, and most recent build (Dormant / Sprout / Growing / Blooming / Stellar)
+- **9 filter chips** (All Plants + 8 archetype filters) — click any chip to focus the garden on one species
+- **4 stat tiles** at the top: Species (8), In Bloom (4), Watered Today, Season
+- **3 action buttons**: Water All (water all 8 plants), New Day (water today's plant), Export (download JSON)
+- **14-entry Recent Plantings strip** below the plots — shows the last 14 builds with date, day number, plant emoji, archetype, and impact dots
+- **Click any plot** → side detail panel slides in with plant emoji, name, archetype, current stage, growth %, total / avg / max impact, build count, latest build, and a 6-day impact history bar chart
+- **Falling petals** on the 4 blooming plants every 1.8-3.6 seconds — CSS-animated with random drift
+- localStorage persists filter choice and visits counter
+- Mobile responsive; light theme supported; keyboard nav (Esc closes panel, Tab focuses a plot, Enter opens it)
+- Wired into the command palette: **Open Build Garden** (G G), **Build Garden: Export as JSON**; new nav link "Garden"; hero meta button (seedling icon); new bookmark card "Build Garden" (Ecosystem)
+- Public API exposed on `window.ajhGarden` (open(arch), export(), refresh()) and `ajh-command` event listener for command palette integration
+
 ## Latest Build - Day 77 (2026-07-06)
 
 ### Build Weather — every build day is a forecast

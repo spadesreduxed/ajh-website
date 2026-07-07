@@ -280,6 +280,9 @@
                 <button class="plan-btn" id="weather-hero-btn" aria-label="Build weather" title="Open the Build Weather — 77-day forecast (G W)">
                     <i class="fas fa-cloud-sun"></i>
                 </button>
+                <button class="plan-btn" id="garden-hero-btn" aria-label="Build garden" title="Open the Build Garden — 8 plants, 77 days (G G)">
+                    <i class="fas fa-seedling"></i>
+                </button>
             </div>
             <div class="hero-stats">
                 <div class="stat">
@@ -825,7 +828,7 @@
                 </div>
                 <div class="stat-card large">
                     <i class="fas fa-rocket"></i>
-                    <div class="stat-number" data-count="69">0</div>
+                    <div class="stat-number" data-count="70">0</div>
                     <div class="stat-label">Features Built</div>
                     <div class="stat-sublabel">And counting...</div>
                 </div>
@@ -1394,6 +1397,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">7</span>
+                        <span class="blog-month">July 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 78</span>
+                        <h3>Build Garden — 8 Plants Growing for 77 Days</h3>
+                        <p>Day 78 ships the <em>Build Garden</em>: a living plot where every archetype is a plant and every shipped day is a watering. Eight <kbd>species</kbd> take root across two rows of four — <kbd>Rose</kbd> (Visual, hot pink petals), <kbd>Sunflower</kbd> (Audio, towering gold), <kbd>Bonsai</kbd> (Systems, sculpted trunk), <kbd>Mushroom</kbd> (Interactive, glowing cap), <kbd>Lotus</kbd> (Data, floating blossom), <kbd>Cactus</kbd> (Meta, spiny and stoic), <kbd>Oak</kbd> (Craft, broad canopy), and <kbd>Vine</kbd> (Social, sprawling tendrils). Each plant is <em>SVG</em>-drawn, scales with the most-recent build in that archetype, and is tinted by impact (drought → sprout → bud → bloom). Stat tiles: 8 species, in-bloom count, watered-today count, and a season indicator that rolls with the build week. <kbd>Water All</kbd> triggers a rain animation, <kbd>New Day</kbd> advances time and blooms the latest plant, <kbd>Export</kbd> dumps the full snapshot as <kbd>ajh-garden-YYYY-MM-DD.json</kbd>. A 14-day "Recent Plantings" feed lists the last builds with their species, date, and impact dots. Click any plant to open a detail panel with archetype stats, last-7-day growth log, and a "Read in build log" link. localStorage persistence, light theme, mobile responsive. Press <kbd>G G</kbd> to open — the build has soil now.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">6</span>
@@ -5009,9 +5023,88 @@
         <div class="wx-toast" id="wx-toast" role="status" aria-live="polite"></div>
     </section>
 
+    <!-- Day 78 - Build Garden: every archetype is a plant -->
+    <section id="garden" class="section garden-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-seedling"></i> Day 78</span>
+                <h2 class="section-title">Build Garden</h2>
+                <p class="section-subtitle">Every build archetype is a living plant. Eight plots, eight species, 77 days of growth — water them, watch them bloom.</p>
+            </div>
+
+            <div class="garden-stats">
+                <div class="garden-stat">
+                    <i class="fas fa-leaf"></i>
+                    <div class="garden-stat-num" id="garden-stat-species">8</div>
+                    <div class="garden-stat-label">Species</div>
+                </div>
+                <div class="garden-stat">
+                    <i class="fas fa-spa"></i>
+                    <div class="garden-stat-num" id="garden-stat-blooming">0</div>
+                    <div class="garden-stat-label">In Bloom</div>
+                </div>
+                <div class="garden-stat">
+                    <i class="fas fa-droplet"></i>
+                    <div class="garden-stat-num" id="garden-stat-watered">0</div>
+                    <div class="garden-stat-label">Watered Today</div>
+                </div>
+                <div class="garden-stat">
+                    <i class="fas fa-mountain-sun"></i>
+                    <div class="garden-stat-num" id="garden-stat-season">0</div>
+                    <div class="garden-stat-label">Season</div>
+                </div>
+            </div>
+
+            <div class="garden-toolbar">
+                <div class="garden-chips" id="garden-filter-chips" role="tablist" aria-label="Filter garden">
+                    <!-- Filled by garden.js -->
+                </div>
+                <div class="garden-actions">
+                    <button class="garden-action-btn" id="garden-water-btn" title="Water all plants">
+                        <i class="fas fa-droplet"></i> <span>Water All</span>
+                    </button>
+                    <button class="garden-action-btn" id="garden-day-btn" title="Advance one day">
+                        <i class="fas fa-sun"></i> <span>New Day</span>
+                    </button>
+                    <button class="garden-action-btn" id="garden-export-btn" title="Export garden as JSON">
+                        <i class="fas fa-download"></i> <span>Export</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="garden-stage" id="garden-stage" aria-label="Build garden view">
+                <!-- Filled by garden.js: 8 plots, 2 rows of 4 -->
+            </div>
+
+            <div class="garden-soil">
+                <div class="garden-soil-head">
+                    <i class="fas fa-clock-rotate-left"></i>
+                    <span>Recent Plantings — Last 14 days</span>
+                </div>
+                <div class="garden-soil-list" id="garden-soil-list">
+                    <!-- Filled by garden.js -->
+                </div>
+            </div>
+
+            <p class="garden-hint">
+                <i class="fas fa-keyboard"></i>
+                <kbd>Tab</kbd> to focus a plot · <kbd>Enter</kbd> to read it · <kbd>W</kbd> to water today's plant · <kbd>G</kbd> after <kbd>G</kbd> opens Garden · filter chips to focus a species. The build has soil now.
+            </p>
+        </div>
+
+        <div class="garden-detail-backdrop" id="garden-detail-backdrop" aria-hidden="true"></div>
+        <div class="garden-detail-panel" id="garden-detail-panel" aria-hidden="true">
+            <button class="garden-detail-close" id="garden-detail-close" aria-label="Close detail"><i class="fas fa-times"></i></button>
+            <div class="garden-detail-body" id="garden-detail-body"></div>
+        </div>
+
+        <div class="garden-toast" id="garden-toast" role="status" aria-live="polite"></div>
+    </section>
+
     <script src="js/dna.js" defer></script>
     <script src="js/constellation.js" defer></script>
     <script src="js/trail.js" defer></script>
     <script src="js/weather.js" defer></script>
+    <script src="js/garden.js?v=78b" defer></script>
 </body>
 </html>
