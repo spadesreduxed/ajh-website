@@ -4,6 +4,24 @@ A daily-built GitHub Pages website that grows better every day.
 
 **Live Site**: https://ajhs.github.io
 
+## Latest Build - Day 79 (2026-07-08)
+
+### Build Tape — A vintage cassette for 78 days of builds
+- A **fully-rendered cassette deck** for the 79-day build streak — every build day is a track
+- **Side-A label** reads `AJH // 2026`, with a side band, stripes, and a dynamic build count + average impact
+- **Two reels** that actually spin when you press play (left clockwise, right counter-clockwise) at a speed that matches the build tempo — 6 spokes each, real CSS animation
+- **Magnetic ribbon** between the reels slides left-to-right as each track plays
+- **3-digit mechanical counter** ticks up with each track + SIDE A / SIDE B label that flips when you run out of room
+- **5 transport buttons**: Rewind, Previous, Play/Pause, Next, Fast-Forward
+- **3 action buttons**: Flip Side, Shuffle, Export JSON
+- **9 filter chips** (All 79 + 8 archetype filters) — click to focus the tape on a category
+- **Tracklist** lists all 79 builds with day number, name, archetype icon, impact dots, short date, and a play button; the active track has a pulsing dot
+- **Keyboard shortcuts**: Space (play/pause), Left/Right (prev/next), Shift+Left/Right (±5), F (flip), 0 (rewind), 9 (fast-forward)
+- localStorage persists position, side, filter, speed, shuffle, visits counter
+- Mobile responsive; light theme supported
+- Wired into the command palette: **Open Build Tape** (G P), **Build Tape: Play / Pause**, **Build Tape: Export as JSON**; new nav link "Tape"; hero meta button (compact-disc icon); new bookmark card "Build Tape" (Mixtape)
+- Public API exposed on `window.ajhTape` (play, pause, toggle, next, prev, rewind, fastForward, jumpTo, exportJSON, setFilter, state, open) and `ajh-command` event listener for command palette integration
+
 ## Latest Build - Day 78 (2026-07-07)
 
 ### Build Garden — 8 plants growing for 77 days

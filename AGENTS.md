@@ -1,3 +1,53 @@
+### Day 79 - 2026-07-08
+**Status**: Build Tape - vintage cassette player for 78 days of builds
+
+**Actions**:
+- Added **Build Tape** section (`#tape`) at the end of the page - a vintage cassette deck where every build day is a track
+- **79 tracks** in BUILDS seed (Day 1 = 2026-04-22 through Day 79 = 2026-07-08), tinted by 8 archetypes
+- **Hand-built cassette deck** in CSS - side-A label reads "AJH // 2026", stripes band, two reels with 6 spokes each that actually spin (left clockwise, right counter-clockwise) at a speed that matches the build tempo, magnetic ribbon between the reels slides left-to-right as each track plays
+- **Tape window** with reel-window-tape showing visible ribbon and stripes
+- **Chrome transport head** below the reels with 2 pins
+- **3-digit mechanical counter** that ticks up with each track + SIDE A / SIDE B label that flips when you run out of room
+- **4 stat tiles**: 79 Tracks, 265 Total Impact, Now Playing day, Runtime clock
+- **Now Playing card** with day number, build name, archetype tag, date, impact dots, progress bar, and description
+- **5 transport buttons**: Rewind, Previous, Play/Pause, Next, Fast-Forward
+- **3 action buttons**: Flip Side, Shuffle, Export JSON
+- **9 filter chips** (All 79 + 8 archetype filters) - click to focus the tape on a category
+- **Tracklist** lists all 79 builds with day number, name, archetype icon, impact dots, short date, and a play button; the active track has a pulsing dot
+- **Keyboard shortcuts**: Space (play/pause), Left/Right (prev/next), Shift+Left/Right (±5), F (flip), 0 (rewind), 9 (fast-forward)
+- **localStorage persistence** for position, side, filter, speed, shuffle, visits counter
+- **Public API** exposed on window (`ajhTape.play`, `pause`, `toggle`, `next`, `prev`, `rewind`, `fastForward`, `jumpTo`, `exportJSON`, `setFilter`, `state`, `open`) and command event listener (`ajh-command` with `tape-play`, `tape-jump`, `tape-export`)
+- **3 new command palette commands**: "Open Build Tape" (G P), "Build Tape: Play / Pause", "Build Tape: Export as JSON"
+- **New nav link** "Tape" in the main nav
+- **New hero meta button** (compact-disc icon) that scrolls to the Build Tape section - click handler wired
+- **New bookmark card** "Build Tape" (Mixtape)
+- **Day 79 blog entry** added at top of blog grid
+- **Stats updated**: Day Streak 78→79, Features Built 71→72
+- **Light theme** support via `css/tape-theme.css`
+- **Fixed bugs**: (1) `tape-label-sub` div was missing id so the dynamic count never updated — added id. (2) `renderCassette()` referenced undefined `total` symbol — switched to `BUILDS.length`. (3) `tape-hero-btn` and `garden-hero-btn` had no click handler — added `initDay78HeroButtons()` and wired it into the main DOMContentLoaded init.
+- **Verified end-to-end in headless browser**: 79 tracks render, all controls work, play / pause / next / jumpTo / flip / shuffle / filter / export all functional, hero button scrolls to section, light theme overrides apply
+
+**Files Changed**:
+- `index.html` - new `#tape` section (4 summary stats, full cassette SVG/CSS deck + window + reels + counter + transport + now-playing card + 9-chip toolbar + 3 action buttons + tracklist + hint), new nav link, hero meta button, Day 79 blog entry, stat increments, CSS link tags, deferred `<script src="js/tape.js?v=100">`, added id="tape-label-sub" so dynamic text updates
+- `css/tape.css` - new file, ~946 lines: section gradient, summary grid, body / deck / label / window / reels / spokes / head / counter / now-playing / progress / controls / chips / actions / tracklist / toast / hint / mobile responsive / reduced-motion
+- `css/tape-theme.css` - new file, ~198 lines of light-theme overrides
+- `js/tape.js` - new file, ~490 lines: IIFE with ARCHETYPE_COLORS (8), ARCHETYPE_ICONS (8), BUILDS seed (79 entries), storage helpers, format helpers, renderSummary, renderChips, renderCassette, renderTracklist, renderReels, renderProgress, updateSideLabel, player logic (play/pause/toggle/next/prev/rewind/ff/jumpTo), state save, keyboard handlers, IntersectionObserver for in-view detection, public API on window, command event listener
+- `test-tape.html` - new test harness page (boot-only, error trap on, init probe after 1s) used during development to verify the cassette initializes
+- `js/main.js` - added `initDay78HeroButtons()` that wires `#garden-hero-btn` and `#tape-hero-btn` to scroll-into-view, registered in DOMContentLoaded
+- `js/garden.js` - `TODAY_DAY` 78→79
+- `AGENTS.md` - this entry
+- `README.md` - documented Day 79 in the "Latest Build" section
+
+**Next Steps**:
+- Add a real audio layer: tiny Web Audio beeps that play one tone per build, pitched by impact and timbre by archetype
+- Add a "tape end" celebration when both sides complete
+- Add a "tape auto-flip" that plays side B after side A finishes
+- Add a per-track waveform generated from the build name hash
+- Add share-as-link to a specific day on the tape
+- Continue building new features daily - never stop
+
+---
+
 ### Day 78 - 2026-07-07
 **Status**: Build Garden - 8 plants growing for 77 days
 
