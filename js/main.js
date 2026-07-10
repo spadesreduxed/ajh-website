@@ -783,6 +783,9 @@ function initCommandPalette() {
     { id: 'tool-garden-water', label: 'Build Garden: Water All', icon: 'fa-droplet', category: 'Tools', action: () => window.ajhGarden && window.ajhGarden.water && window.ajhGarden.water() },
     { id: 'tool-garden-newday', label: 'Build Garden: New Day', icon: 'fa-sun', category: 'Tools', action: () => window.ajhGarden && window.ajhGarden.advance && window.ajhGarden.advance() },
     { id: 'tool-garden-export', label: 'Build Garden: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhGarden && window.ajhGarden.export && window.ajhGarden.export() },
+    { id: 'tool-tape-open', label: 'Open Build Tape', icon: 'fa-compact-disc', shortcut: 'G P', category: 'Tools', action: () => window.ajhTape && window.ajhTape.open && window.ajhTape.open() },
+    { id: 'tool-tape-toggle', label: 'Build Tape: Play / Pause', icon: 'fa-play', category: 'Tools', action: () => window.ajhTape && window.ajhTape.toggle && window.ajhTape.toggle() },
+    { id: 'tool-tape-export', label: 'Build Tape: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhTape && window.ajhTape.exportJSON && window.ajhTape.exportJSON() },
 
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -1121,8 +1124,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initBuildCalendar();
   initBuildAssistant();
   initBookmarkCards();
+  initDay78HeroButtons();
 
-  console.log('⚡ AJH Website loaded - Day 69: Build Receipts');
+  console.log('⚡ AJH Website loaded - Day 79: Build Tape');
 });
 
 // Day 48 - Daily Challenge + API Status
@@ -3707,6 +3711,7 @@ function initBookmarkCards() {
     { id: 'constellation75', icon: 'fa-star', title: 'Constellation Map', tag: 'Sky', desc: 'All 75 build days as a starfield. 8 archetype clusters, impact-sized stars, click to read each build, fireworks burst mode, JSON export. Press G S.' },
     { id: 'trail', icon: 'fa-timeline', title: 'Build Trail', tag: 'Chronological', desc: 'A horizontal ribbon of all 76 build days, in time order. Filter by archetype, jump to today, fire the leaderboard, export as JSON. Press G T.' },
     { id: 'weather', icon: 'fa-cloud-sun', title: 'Build Weather', tag: 'Forecast', desc: 'All 77 build days as a 7-day rolling forecast. Today\'s outlook, climate cards by archetype, conditions (Sunny/Cloudy/Stormy/...), temp & humidity, share card, export as JSON. Press G W.' },
+    { id: 'tape', icon: 'fa-compact-disc', title: 'Build Tape', tag: 'Mixtape', desc: 'A vintage cassette player for 78 days of builds. Spinning reels, sliding tape, side A/B, prev/next/flip, shuffle, runtime clock, share the soundtrack. Press G P.' },
   ];
 
   let state = {
@@ -6957,3 +6962,22 @@ function initDailyWisdom() {
   updateDayOfYear();
 }
 
+// ============================================
+// DAY 78/79: BUILD GARDEN + BUILD TAPE — hero button wiring
+// ============================================
+function initDay78HeroButtons() {
+  const gardenBtn = document.getElementById('garden-hero-btn');
+  if (gardenBtn) {
+    gardenBtn.addEventListener('click', () => {
+      const target = document.getElementById('garden');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+  const tapeBtn = document.getElementById('tape-hero-btn');
+  if (tapeBtn) {
+    tapeBtn.addEventListener('click', () => {
+      const target = document.getElementById('tape');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+}

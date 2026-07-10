@@ -1,0 +1,946 @@
+/* ============================================================
+   Day 79: Build Tape — every build day is a track on a cassette.
+   79 days, two reels, one playing tape.
+   ============================================================ */
+
+.tape-section {
+    --tape-bg-1: #0d0820;
+    --tape-bg-2: #1a0f2e;
+    --tape-bg-3: #2d1b4e;
+    --tape-accent: #f59e0b;
+    --tape-accent-2: #ef4444;
+    --tape-card: rgba(20, 14, 36, 0.78);
+    --tape-border: rgba(245, 158, 11, 0.22);
+    --tape-reel: #1f1530;
+    --tape-reel-2: #2a1d3f;
+    --tape-shell: #2a1d3f;
+    --tape-shell-2: #3d2a5a;
+    --tape-label: #f5e8c8;
+    --tape-fg: #f5e8c8;
+    --tape-muted: #8b7a9e;
+    position: relative;
+    background:
+        radial-gradient(ellipse at 20% 0%, rgba(245, 158, 11, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 100%, rgba(239, 68, 68, 0.06) 0%, transparent 50%),
+        linear-gradient(160deg, var(--tape-bg-1) 0%, var(--tape-bg-2) 50%, var(--tape-bg-3) 100%);
+    overflow: hidden;
+}
+
+.tape-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle at 10% 20%, rgba(245, 158, 11, 0.08) 0 1px, transparent 2px),
+        radial-gradient(circle at 30% 60%, rgba(239, 68, 68, 0.06) 0 1px, transparent 2px),
+        radial-gradient(circle at 60% 30%, rgba(168, 85, 247, 0.08) 0 1px, transparent 2px),
+        radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.08) 0 1px, transparent 2px);
+    background-size: 200px 200px, 240px 240px, 180px 180px, 220px 220px;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.tape-section .container {
+    position: relative;
+    z-index: 1;
+}
+
+.tape-section .section-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.tape-section .section-title {
+    color: var(--tape-fg);
+    background: linear-gradient(90deg, #f5e8c8 0%, #f59e0b 50%, #ef4444 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.tape-section .section-tag {
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid var(--tape-accent);
+    color: #fcd34d;
+}
+
+.tape-section .section-subtitle {
+    color: var(--tape-muted);
+}
+
+/* ---------- Stat tiles ---------- */
+.tape-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 30px;
+}
+
+.tape-stat {
+    background: var(--tape-card);
+    border: 1px solid var(--tape-border);
+    border-radius: 14px;
+    padding: 18px 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+.tape-stat:hover {
+    transform: translateY(-2px);
+    border-color: var(--tape-accent);
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.18);
+}
+
+.tape-stat i {
+    font-size: 24px;
+    color: var(--tape-accent);
+    margin-bottom: 6px;
+    filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.4));
+}
+
+.tape-stat-num {
+    font-family: 'Courier New', 'Menlo', monospace;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--tape-fg);
+    line-height: 1;
+    margin-bottom: 4px;
+    text-shadow: 0 0 12px rgba(245, 158, 11, 0.3);
+}
+
+.tape-stat-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--tape-muted);
+    font-weight: 600;
+}
+
+/* ---------- Cassette body layout ---------- */
+.tape-body {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+/* ---------- Cassette deck ---------- */
+.tape-deck {
+    background: linear-gradient(180deg, var(--tape-shell) 0%, var(--tape-shell-2) 50%, var(--tape-shell) 100%);
+    border-radius: 22px;
+    padding: 28px 24px 22px;
+    border: 1px solid rgba(245, 232, 200, 0.12);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+        0 18px 60px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.tape-deck::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(90deg, transparent 0, transparent 2px, rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 3px);
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* The cassette label (top) */
+.tape-label {
+    background: var(--tape-label);
+    color: #1a0f2e;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    text-align: left;
+    --cassette-color: var(--tape-accent);
+    border-left: 6px solid var(--cassette-color);
+}
+
+.tape-label-band {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: #6b5d40;
+    margin-bottom: 4px;
+    font-weight: 700;
+}
+
+.tape-label-title {
+    font-family: 'Courier New', monospace;
+    font-size: 22px;
+    font-weight: 800;
+    color: #1a0f2e;
+    margin-bottom: 2px;
+    letter-spacing: -0.01em;
+}
+
+.tape-label-sub {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: #6b5d40;
+    letter-spacing: 0.06em;
+}
+
+.tape-label-stripes {
+    display: flex;
+    gap: 2px;
+    margin-top: 8px;
+    opacity: 0.25;
+}
+
+.tape-label-stripes span {
+    flex: 1;
+    height: 3px;
+    background: #1a0f2e;
+    border-radius: 1px;
+}
+
+/* The reel window */
+.tape-window {
+    background: var(--tape-reel);
+    border-radius: 14px;
+    padding: 26px 20px 22px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    align-items: center;
+    position: relative;
+    border: 1px solid rgba(245, 232, 200, 0.08);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
+    min-height: 160px;
+}
+
+.tape-reel {
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 50% 50%, var(--tape-reel-2) 0 28px, var(--tape-reel) 30px 100%);
+    border: 5px solid #1a0f2e;
+    position: relative;
+    box-shadow:
+        0 0 0 3px var(--tape-label),
+        0 0 0 5px rgba(0, 0, 0, 0.5),
+        0 8px 24px rgba(0, 0, 0, 0.45);
+    transition: transform 0.05s linear;
+    margin: 0 auto;
+}
+
+.tape-reel-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tape-reel-spokes {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(0deg);
+}
+
+.tape-reel-spokes span {
+    position: absolute;
+    width: 4px;
+    height: 50px;
+    background: var(--tape-label);
+    border-radius: 2px;
+    top: 50%;
+    left: 50%;
+    transform-origin: 50% 0;
+    opacity: 0.65;
+}
+
+.tape-reel-spokes span:nth-child(1) { transform: translate(-50%, 0) rotate(0deg); }
+.tape-reel-spokes span:nth-child(2) { transform: translate(-50%, 0) rotate(60deg); }
+.tape-reel-spokes span:nth-child(3) { transform: translate(-50%, 0) rotate(120deg); }
+.tape-reel-spokes span:nth-child(4) { transform: translate(-50%, 0) rotate(180deg); }
+.tape-reel-spokes span:nth-child(5) { transform: translate(-50%, 0) rotate(240deg); }
+.tape-reel-spokes span:nth-child(6) { transform: translate(-50%, 0) rotate(300deg); }
+
+.tape-reel-hole {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    background: var(--tape-accent);
+    border: 2px solid var(--tape-label);
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
+}
+
+.tape-reel.spin-left {
+    animation: tape-reel-spin-cw 2.4s linear infinite;
+}
+
+.tape-reel.spin-right {
+    animation: tape-reel-spin-ccw 2.4s linear infinite;
+}
+
+@keyframes tape-reel-spin-cw {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes tape-reel-spin-ccw {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+
+/* The tape ribbon between reels */
+.tape-window-tape {
+    position: relative;
+    height: 36px;
+    background: linear-gradient(180deg, #0a0512 0%, #1a0f2e 50%, #0a0512 100%);
+    border-radius: 4px;
+    border: 1px solid rgba(245, 232, 200, 0.12);
+    box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.tape-window-tape::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(90deg, transparent 0, transparent 6px, rgba(245, 158, 11, 0.04) 6px, rgba(245, 158, 11, 0.04) 7px);
+}
+
+.tape-window-stripes {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+}
+
+.tape-window-stripes span {
+    flex: 1;
+    height: 2px;
+    background: rgba(245, 232, 200, 0.12);
+}
+
+/* The chrome head */
+.tape-head {
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 38px;
+    height: 40px;
+    background: linear-gradient(180deg, #6b7280, #374151);
+    border-radius: 6px 6px 8px 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+
+.tape-head::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 18px;
+    height: 18px;
+    background: #1f2937;
+    border-radius: 50%;
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.2);
+}
+
+.tape-head-pin {
+    display: none;
+}
+
+/* Counters */
+.tape-counters {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 18px;
+}
+
+.tape-counter {
+    display: flex;
+    gap: 4px;
+    font-family: 'Courier New', monospace;
+}
+
+.tape-counter-digit {
+    background: #0a0512;
+    border: 1px solid var(--tape-border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    color: var(--tape-accent);
+    font-size: 22px;
+    font-weight: 800;
+    min-width: 28px;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(245, 158, 11, 0.6);
+    letter-spacing: 0.05em;
+}
+
+.tape-counter-side {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: var(--tape-accent-2);
+    background: #0a0512;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+}
+
+.tape-counter-side.on {
+    animation: side-glow 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes side-glow {
+    from { box-shadow: 0 0 0 rgba(239, 68, 68, 0); }
+    to { box-shadow: 0 0 18px rgba(239, 68, 68, 0.5); }
+}
+
+/* ---------- Now Playing card ---------- */
+.tape-now-playing {
+    background: var(--tape-card);
+    border: 1px solid var(--tape-border);
+    border-radius: 16px;
+    padding: 22px 22px 18px;
+    backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    --cassette-color: var(--tape-accent);
+    border-top: 4px solid var(--cassette-color);
+}
+
+.tape-np-label {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--tape-accent);
+    letter-spacing: 0.24em;
+    font-weight: 700;
+    text-shadow: 0 0 6px rgba(245, 158, 11, 0.4);
+}
+
+.tape-np-day {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: var(--tape-muted);
+    font-weight: 700;
+    margin-top: -4px;
+}
+
+.tape-np-name {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--tape-fg);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+}
+
+.tape-np-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin: 4px 0 6px;
+}
+
+.tape-np-arch {
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid var(--tape-accent);
+    color: #fcd34d;
+    border-radius: 6px;
+    padding: 3px 9px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.tape-np-date {
+    font-size: 12px;
+    color: var(--tape-muted);
+}
+
+.tape-np-impact {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: var(--tape-accent);
+    font-weight: 700;
+}
+
+.tape-np-progress {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--tape-border);
+    border-radius: 6px;
+    height: 6px;
+    overflow: hidden;
+    margin-top: 4px;
+}
+
+.tape-np-progress-bar {
+    background: linear-gradient(90deg, var(--tape-accent) 0%, var(--tape-accent-2) 100%);
+    height: 100%;
+    width: 0;
+    transition: width 0.2s linear;
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
+}
+
+.tape-np-desc {
+    font-size: 12px;
+    color: var(--tape-muted);
+    line-height: 1.5;
+    margin-top: 4px;
+    font-style: italic;
+}
+
+/* ---------- Transport controls ---------- */
+.tape-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    background: var(--tape-card);
+    border: 1px solid var(--tape-border);
+    border-radius: 18px;
+    padding: 14px 20px;
+    backdrop-filter: blur(8px);
+}
+
+.tape-btn {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--tape-border);
+    color: var(--tape-fg);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 16px;
+}
+
+.tape-btn:hover {
+    background: rgba(245, 158, 11, 0.18);
+    border-color: var(--tape-accent);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+}
+
+.tape-btn:active {
+    transform: translateY(0);
+}
+
+.tape-btn-play {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, var(--tape-accent) 0%, var(--tape-accent-2) 100%);
+    color: #fff;
+    border-color: var(--tape-accent);
+    font-size: 22px;
+    box-shadow: 0 4px 18px rgba(245, 158, 11, 0.4);
+}
+
+.tape-btn-play:hover {
+    background: linear-gradient(135deg, #fbbf24 0%, #f87171 100%);
+    box-shadow: 0 6px 22px rgba(245, 158, 11, 0.55);
+}
+
+.tape-btn-play.playing {
+    animation: play-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes play-pulse {
+    0%, 100% { box-shadow: 0 4px 18px rgba(245, 158, 11, 0.4); }
+    50% { box-shadow: 0 4px 28px rgba(245, 158, 11, 0.7); }
+}
+
+/* ---------- Toolbar / chips / actions ---------- */
+.tape-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+}
+
+.tape-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tape-chip {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--tape-border);
+    color: var(--tape-fg);
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    --chip-color: var(--tape-accent);
+    border-left: 3px solid var(--chip-color);
+}
+
+.tape-chip:hover {
+    background: rgba(245, 158, 11, 0.12);
+    transform: translateY(-1px);
+}
+
+.tape-chip.active {
+    background: var(--chip-color);
+    color: #1a0f2e;
+    border-color: var(--chip-color);
+    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+}
+
+.tape-chip-count {
+    background: rgba(255, 255, 255, 0.12);
+    color: inherit;
+    border-radius: 999px;
+    padding: 1px 7px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.tape-chip.active .tape-chip-count {
+    background: rgba(0, 0, 0, 0.2);
+    color: #1a0f2e;
+}
+
+.tape-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.tape-action-btn {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--tape-border);
+    color: var(--tape-fg);
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.tape-action-btn:hover {
+    background: rgba(245, 158, 11, 0.15);
+    border-color: var(--tape-accent);
+    transform: translateY(-1px);
+}
+
+.tape-action-btn.active {
+    background: rgba(239, 68, 68, 0.22);
+    border-color: var(--tape-accent-2);
+    color: #fecaca;
+}
+
+/* ---------- Tracklist ---------- */
+.tape-tracklist {
+    background: var(--tape-card);
+    border: 1px solid var(--tape-border);
+    border-radius: 16px;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+    margin-bottom: 22px;
+}
+
+.tape-tracklist-head {
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid var(--tape-border);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--tape-fg);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+}
+
+.tape-tracklist-head i {
+    color: var(--tape-accent);
+}
+
+.tape-tracklist-side {
+    margin-left: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    background: rgba(245, 158, 11, 0.18);
+    color: var(--tape-accent);
+    border: 1px solid var(--tape-accent);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+}
+
+.tape-tracklist-list {
+    list-style: none;
+    margin: 0;
+    padding: 6px 0;
+    max-height: 480px;
+    overflow-y: auto;
+}
+
+.tape-tracklist-list::-webkit-scrollbar {
+    width: 8px;
+}
+.tape-tracklist-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+.tape-tracklist-list::-webkit-scrollbar-thumb {
+    background: var(--tape-accent);
+    border-radius: 4px;
+}
+
+.tape-track {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--tape-fg);
+    padding: 9px 20px;
+    display: grid;
+    grid-template-columns: 36px 1fr 24px 80px 80px 24px;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    --track-color: var(--tape-accent);
+    font-family: inherit;
+    text-align: left;
+}
+
+.tape-track:hover {
+    background: rgba(245, 158, 11, 0.08);
+    border-left-color: var(--track-color);
+}
+
+.tape-track.active {
+    background: rgba(245, 158, 11, 0.15);
+    border-left-color: var(--track-color);
+    border-left-width: 4px;
+    box-shadow: inset 0 0 12px rgba(245, 158, 11, 0.18);
+}
+
+.tape-track-num {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: var(--tape-muted);
+    font-weight: 700;
+}
+
+.tape-track.active .tape-track-num {
+    color: var(--tape-accent);
+}
+
+.tape-track-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--tape-fg);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tape-track.active .tape-track-name {
+    color: var(--tape-accent);
+}
+
+.tape-track-arch {
+    color: var(--tape-muted);
+    font-size: 11px;
+}
+
+.tape-track-arch i {
+    color: var(--track-color);
+}
+
+.tape-track-impact {
+    display: flex;
+    gap: 2px;
+}
+
+.tape-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(245, 232, 200, 0.12);
+}
+
+.tape-dot.on {
+    background: var(--track-color);
+    box-shadow: 0 0 6px var(--track-color);
+}
+
+.tape-track-date {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--tape-muted);
+    text-align: right;
+}
+
+.tape-track-go {
+    color: var(--tape-muted);
+    font-size: 11px;
+    text-align: right;
+    transition: all 0.2s ease;
+}
+
+.tape-track:hover .tape-track-go,
+.tape-track.active .tape-track-go {
+    color: var(--tape-accent);
+    transform: translateX(2px);
+}
+
+.tape-track.active .tape-track-go i {
+    animation: bounce 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes bounce {
+    from { transform: translateX(0); }
+    to { transform: translateX(3px); }
+}
+
+/* ---------- Hint ---------- */
+.tape-hint {
+    text-align: center;
+    color: var(--tape-muted);
+    font-size: 13px;
+    margin-top: 20px;
+}
+
+.tape-hint kbd {
+    background: rgba(245, 158, 11, 0.18);
+    border: 1px solid var(--tape-accent);
+    color: #fcd34d;
+    font-family: 'Courier New', monospace;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* ---------- Toast ---------- */
+.tape-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(60px);
+    background: var(--tape-shell);
+    color: var(--tape-fg);
+    border: 1px solid var(--tape-accent);
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    z-index: 1000;
+    opacity: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+}
+
+.tape-toast.on {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+    .tape-body {
+        grid-template-columns: 1fr;
+    }
+    .tape-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .tape-track {
+        grid-template-columns: 32px 1fr 70px 60px;
+    }
+    .tape-track-arch,
+    .tape-track-go {
+        display: none;
+    }
+    .tape-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .tape-actions {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .tape-reel {
+        width: 86px;
+        height: 86px;
+    }
+    .tape-reel-spokes span {
+        height: 36px;
+    }
+    .tape-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+    .tape-stat {
+        padding: 14px 10px;
+    }
+    .tape-stat-num {
+        font-size: 22px;
+    }
+    .tape-window {
+        padding: 16px 12px;
+    }
+    .tape-track {
+        grid-template-columns: 28px 1fr 60px;
+    }
+    .tape-track-date,
+    .tape-track-go {
+        display: none;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .tape-reel,
+    .tape-btn-play,
+    .tape-counter-side,
+    .tape-track.active .tape-track-go i {
+        animation: none !important;
+    }
+}

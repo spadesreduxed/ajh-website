@@ -7,7 +7,7 @@
     'use strict';
 
     const DAY1 = new Date(2026, 3, 22);
-    const TODAY_DAY = 78;
+    const TODAY_DAY = 79;
 
     // 8 plant types — one per archetype. Each is a layered SVG.
     function plantSVG(archetype) {
@@ -232,6 +232,7 @@
         { d: 76, a: 'data',        n: 'Build Trail',          i: 5 },
         { d: 77, a: 'data',        n: 'Build Weather',        i: 5 },
         { d: 78, a: 'data',        n: 'Build Garden',         i: 5 },
+        { d: 79, a: 'data',        n: 'Build Tape',           i: 5 },
     ];
 
     // Helpers

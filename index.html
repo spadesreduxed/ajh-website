@@ -61,6 +61,10 @@
     <link rel="stylesheet" href="css/trail-theme.css">
     <link rel="stylesheet" href="css/weather.css">
     <link rel="stylesheet" href="css/weather-theme.css">
+    <link rel="stylesheet" href="css/garden.css">
+    <link rel="stylesheet" href="css/garden-theme.css">
+    <link rel="stylesheet" href="css/tape.css?v=100">
+    <link rel="stylesheet" href="css/tape-theme.css?v=100">
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/pixelart.css">
     <link rel="stylesheet" href="css/pixelart-theme.css">
@@ -148,6 +152,8 @@
             <li><a href="#constellation75">Stars</a></li>
             <li><a href="#trail">Trail</a></li>
             <li><a href="#weather">Weather</a></li>
+            <li><a href="#garden">Garden</a></li>
+            <li><a href="#tape">Tape</a></li>
             <li><a href="#quotes">Quotes</a></li>
             <li><a href="#wisdom">Wisdom</a></li>
             <li><a href="#stats">Stats</a></li>
@@ -283,6 +289,9 @@
                 <button class="plan-btn" id="garden-hero-btn" aria-label="Build garden" title="Open the Build Garden — 8 plants, 77 days (G G)">
                     <i class="fas fa-seedling"></i>
                 </button>
+                <button class="plan-btn" id="tape-hero-btn" aria-label="Build tape" title="Open the Build Tape — a vintage cassette player (G P)">
+                    <i class="fas fa-compact-disc"></i>
+                </button>
             </div>
             <div class="hero-stats">
                 <div class="stat">
@@ -290,7 +299,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="77">0</span>
+                    <span class="stat-value" data-count="78">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -807,7 +816,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="77">0</div>
+                    <div class="stat-number" data-count="78">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -828,7 +837,7 @@
                 </div>
                 <div class="stat-card large">
                     <i class="fas fa-rocket"></i>
-                    <div class="stat-number" data-count="70">0</div>
+                    <div class="stat-number" data-count="71">0</div>
                     <div class="stat-label">Features Built</div>
                     <div class="stat-sublabel">And counting...</div>
                 </div>
@@ -1397,6 +1406,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">8</span>
+                        <span class="blog-month">July 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 79</span>
+                        <h3>Build Tape — A Vintage Cassette for 79 Days</h3>
+                        <p>Day 79 ships the <em>Build Tape</em>: a fully-rendered <em>cassette deck</em> for the 79-day build streak. A side-A label reads <kbd>AJH // 2026</kbd>, the reels actually <em>spin</em> when you press play (left reel's spokes rotate clockwise, right reel counter-clockwise at a speed that matches the build tempo), and the magnetic ribbon between them slides left-to-right as each track plays. The deck has a window with the spinning reels visible, a chrome transport head, a 3-digit mechanical counter that ticks up with each track, and a <kbd>Side A / Side B</kbd> label that flips when you run out of room. <kbd>Space</kbd> toggles play, <kbd>←</kbd>/<kbd>→</kbd> jumps prev/next, <kbd>Shift</kbd>+<kbd>←</kbd>/<kbd>→</kbd> jumps ±5 tracks, <kbd>F</kbd>lip side splits the tape into two halves (Days 1–40 / 41–79), and a real <em>shuffle</em> mode plays a randomized order. The Now Playing card shows the current build's day, name, archetype tag, date, and a progress bar; the tracklist below lists all 79 builds with a pulsing dot on the active track and impact dots tinted by archetype. Stat tiles: 79 Tracks, total impact, now-playing day, and the runtime clock. Auto-advance at end of side, localStorage remembers the last position and side, JSON export dumps the full tape. The build has a soundtrack now — and it's playing.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">7</span>
@@ -5101,10 +5121,166 @@
         <div class="garden-toast" id="garden-toast" role="status" aria-live="polite"></div>
     </section>
 
+    <!-- Day 79 - Build Tape: every build day is a track on a vintage cassette -->
+    <section id="tape" class="section tape-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-compact-disc"></i> Day 79</span>
+                <h2 class="section-title">Build Tape</h2>
+                <p class="section-subtitle">Every build day is a track on a vintage cassette. Press play, fast-forward, rewind, and listen to 78 days of shipping roll by.</p>
+            </div>
+
+            <div class="tape-stats">
+                <div class="tape-stat">
+                    <i class="fas fa-compact-disc"></i>
+                    <div class="tape-stat-num" id="tape-stat-tracks">0</div>
+                    <div class="tape-stat-label">Tracks</div>
+                </div>
+                <div class="tape-stat">
+                    <i class="fas fa-fire"></i>
+                    <div class="tape-stat-num" id="tape-stat-impact">0</div>
+                    <div class="tape-stat-label">Total Impact</div>
+                </div>
+                <div class="tape-stat">
+                    <i class="fas fa-circle-play"></i>
+                    <div class="tape-stat-num" id="tape-stat-now">—</div>
+                    <div class="tape-stat-label">Now Playing</div>
+                </div>
+                <div class="tape-stat">
+                    <i class="fas fa-clock"></i>
+                    <div class="tape-stat-num" id="tape-stat-time">00:00</div>
+                    <div class="tape-stat-label">Runtime</div>
+                </div>
+            </div>
+
+            <div class="tape-body">
+                <div class="tape-deck" id="tape-deck" aria-label="Cassette deck">
+                    <div class="tape-label">
+                        <div class="tape-label-band">SIDE A / SIDE B</div>
+                        <div class="tape-label-title">AJH // 2026</div>
+                        <div class="tape-label-sub" id="tape-label-sub">79 BUILDS · 4.07 AVG IMPACT</div>
+                        <div class="tape-label-stripes" aria-hidden="true">
+                            <span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
+
+                    <div class="tape-window" aria-hidden="true">
+                        <div class="tape-reel tape-reel-left" id="tape-reel-left">
+                            <div class="tape-reel-inner">
+                                <div class="tape-reel-spokes">
+                                    <span></span><span></span><span></span><span></span><span></span><span></span>
+                                </div>
+                                <div class="tape-reel-hole"></div>
+                            </div>
+                        </div>
+                        <div class="tape-window-tape" id="tape-window-tape">
+                            <div class="tape-window-stripes" aria-hidden="true">
+                                <span></span><span></span><span></span><span></span><span></span>
+                                <span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+                        <div class="tape-reel tape-reel-right" id="tape-reel-right">
+                            <div class="tape-reel-inner">
+                                <div class="tape-reel-spokes">
+                                    <span></span><span></span><span></span><span></span><span></span><span></span>
+                                </div>
+                                <div class="tape-reel-hole"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tape-head" id="tape-head" aria-hidden="true">
+                        <div class="tape-head-pin"></div>
+                        <div class="tape-head-pin"></div>
+                    </div>
+
+                    <div class="tape-counters">
+                        <div class="tape-counter">
+                            <div class="tape-counter-digit" id="tape-counter-1">0</div>
+                            <div class="tape-counter-digit" id="tape-counter-2">0</div>
+                            <div class="tape-counter-digit" id="tape-counter-3">0</div>
+                        </div>
+                        <div class="tape-counter-side" id="tape-counter-side">SIDE A</div>
+                    </div>
+                </div>
+
+                <div class="tape-now-playing">
+                    <div class="tape-np-label">NOW PLAYING</div>
+                    <div class="tape-np-day" id="tape-np-day">—</div>
+                    <div class="tape-np-name" id="tape-np-name">—</div>
+                    <div class="tape-np-meta">
+                        <span class="tape-np-arch" id="tape-np-arch">—</span>
+                        <span class="tape-np-date" id="tape-np-date">—</span>
+                        <span class="tape-np-impact" id="tape-np-impact">—</span>
+                    </div>
+                    <div class="tape-np-progress" aria-label="Track progress">
+                        <div class="tape-np-progress-bar" id="tape-np-progress-bar"></div>
+                    </div>
+                    <div class="tape-np-desc" id="tape-np-desc">—</div>
+                </div>
+            </div>
+
+            <div class="tape-controls" role="group" aria-label="Transport controls">
+                <button class="tape-btn" id="tape-rewind" title="Rewind to start" aria-label="Rewind">
+                    <i class="fas fa-backward-fast"></i>
+                </button>
+                <button class="tape-btn" id="tape-prev" title="Previous track" aria-label="Previous track">
+                    <i class="fas fa-backward-step"></i>
+                </button>
+                <button class="tape-btn tape-btn-play" id="tape-play" title="Play / Pause" aria-label="Play / Pause">
+                    <i class="fas fa-play" id="tape-play-icon"></i>
+                </button>
+                <button class="tape-btn" id="tape-next" title="Next track" aria-label="Next track">
+                    <i class="fas fa-forward-step"></i>
+                </button>
+                <button class="tape-btn" id="tape-fwd" title="Fast-forward to end" aria-label="Fast-forward">
+                    <i class="fas fa-forward-fast"></i>
+                </button>
+            </div>
+
+            <div class="tape-toolbar">
+                <div class="tape-chips" id="tape-chips" role="tablist" aria-label="Filter tape">
+                    <!-- Filled by tape.js -->
+                </div>
+                <div class="tape-actions">
+                    <button class="tape-action-btn" id="tape-flip" title="Flip the tape to side B">
+                        <i class="fas fa-rotate"></i> <span>Flip Side</span>
+                    </button>
+                    <button class="tape-action-btn" id="tape-shuffle" title="Shuffle playback">
+                        <i class="fas fa-shuffle"></i> <span>Shuffle</span>
+                    </button>
+                    <button class="tape-action-btn" id="tape-export" title="Export tape as JSON">
+                        <i class="fas fa-download"></i> <span>Export</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="tape-tracklist">
+                <div class="tape-tracklist-head">
+                    <i class="fas fa-list-ol"></i>
+                    <span>Tracklist</span>
+                    <span class="tape-tracklist-side" id="tape-tracklist-side">Side A</span>
+                </div>
+                <ol class="tape-tracklist-list" id="tape-tracklist-list">
+                    <!-- Filled by tape.js -->
+                </ol>
+            </div>
+
+            <p class="tape-hint">
+                <i class="fas fa-keyboard"></i>
+                <kbd>Space</kbd> play/pause · <kbd>←</kbd>/<kbd>→</kbd> prev/next · <kbd>Shift</kbd>+<kbd>←</kbd>/<kbd>→</kbd> ±5 · <kbd>F</kbd>lip side · <kbd>0</kbd> rewind · <kbd>9</kbd> fast-forward · <kbd>G</kbd> <kbd>P</kbd> opens Tape. The build has a soundtrack now.
+            </p>
+        </div>
+
+        <div class="tape-toast" id="tape-toast" role="status" aria-live="polite"></div>
+    </section>
+
     <script src="js/dna.js" defer></script>
     <script src="js/constellation.js" defer></script>
     <script src="js/trail.js" defer></script>
     <script src="js/weather.js" defer></script>
     <script src="js/garden.js?v=78b" defer></script>
+    <script src="js/tape.js?v=100" defer></script>
 </body>
 </html>

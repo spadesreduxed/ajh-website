@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html><head><title>test tape</title></head>
+<body>
+<div id="tape"></div>
+<div class="tape-stat-num" id="tape-stat-tracks">0</div>
+<div class="tape-stat-num" id="tape-stat-impact">0</div>
+<div class="tape-stat-num" id="tape-stat-now">—</div>
+<div class="tape-stat-num" id="tape-stat-time">00:00</div>
+<div class="tape-deck" id="tape-deck"></div>
+<div class="tape-reel" id="tape-reel-left"></div>
+<div class="tape-reel" id="tape-reel-right"></div>
+<div id="tape-head"></div>
+<div class="tape-counter-digit" id="tape-counter-1">0</div>
+<div class="tape-counter-digit" id="tape-counter-2">0</div>
+<div class="tape-counter-digit" id="tape-counter-3">0</div>
+<div class="tape-counter-side" id="tape-counter-side">SIDE A</div>
+<div class="tape-np-day" id="tape-np-day">—</div>
+<div class="tape-np-name" id="tape-np-name">—</div>
+<div class="tape-np-arch" id="tape-np-arch">—</div>
+<div class="tape-np-date" id="tape-np-date">—</div>
+<div class="tape-np-impact" id="tape-np-impact">—</div>
+<div class="tape-np-progress-bar" id="tape-np-progress-bar"></div>
+<div class="tape-np-desc" id="tape-np-desc">—</div>
+<button class="tape-btn" id="tape-rewind"></button>
+<button class="tape-btn" id="tape-prev"></button>
+<button class="tape-btn tape-btn-play" id="tape-play"></button>
+<button class="tape-btn" id="tape-next"></button>
+<button class="tape-btn" id="tape-fwd"></button>
+<div class="tape-chips" id="tape-chips"></div>
+<button class="tape-action-btn" id="tape-flip"></button>
+<button class="tape-action-btn" id="tape-shuffle"></button>
+<button class="tape-action-btn" id="tape-export"></button>
+<div class="tape-tracklist-side" id="tape-tracklist-side">Side A</div>
+<ol class="tape-tracklist-list" id="tape-tracklist-list"></ol>
+<div class="tape-toast" id="tape-toast"></div>
+<script>
+window.onerror = function(msg, src, line, col, err) {
+  document.body.innerHTML += '<pre>ERR: ' + msg + ' at ' + line + ':' + col + '\n' + (err && err.stack || '') + '</pre>';
+};
+</script>
+<script src="js/tape.js"></script>
+<script>
+setTimeout(() => {
+  document.body.innerHTML += '<pre>INIT: ' + JSON.stringify(window.__tapeInit || 'none') + '</pre>';
+}, 1000);
+</script>
+</body></html>

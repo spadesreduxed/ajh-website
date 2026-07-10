@@ -1,0 +1,198 @@
+/* ============================================================
+   Day 79: Build Tape — light theme overrides
+   ============================================================ */
+
+[data-theme="light"] .tape-section {
+  background: linear-gradient(180deg, #fdf6ec 0%, #f3e9da 100%);
+}
+
+[data-theme="light"] .tape-section::before {
+  background: radial-gradient(circle at 30% 20%, rgba(212, 165, 116, 0.25), transparent 60%),
+              radial-gradient(circle at 80% 70%, rgba(217, 119, 6, 0.18), transparent 60%);
+}
+
+[data-theme="light"] .tape-section .section-tag {
+  background: rgba(212, 165, 116, 0.18);
+  color: #92580f;
+  border-color: rgba(212, 165, 116, 0.4);
+}
+
+[data-theme="light"] .tape-stat,
+[data-theme="light"] .tape-current,
+[data-theme="light"] .tape-shell,
+[data-theme="light"] .tape-panel,
+[data-theme="light"] .tape-card,
+[data-theme="light"] .tape-jukebox,
+[data-theme="light"] .tape-toolbar,
+[data-theme="light"] .tape-tracklist {
+  background: rgba(255, 252, 245, 0.9);
+  border-color: rgba(180, 140, 100, 0.35);
+  color: #2a221a;
+  box-shadow: 0 4px 20px rgba(140, 90, 50, 0.08);
+}
+
+[data-theme="light"] .tape-stat-label,
+[data-theme="light"] .tape-jukebox-label,
+[data-theme="light"] .tape-track-meta,
+[data-theme="light"] .tape-detail-day,
+[data-theme="light"] .tape-card-day,
+[data-theme="light"] .tape-card-date,
+[data-theme="light"] .tape-card-name,
+[data-theme="light"] .tape-shell-info,
+[data-theme="light"] .tape-shell-side {
+  color: #5a4a38;
+}
+
+[data-theme="light"] .tape-stat-num {
+  color: #92580f;
+}
+
+[data-theme="light"] .tape-shell {
+  background: linear-gradient(135deg, #f8efe1 0%, #e8d5b0 100%);
+  border-color: #b08858;
+}
+
+[data-theme="light"] .tape-shell-label {
+  background: #fff;
+  color: #5a3a18;
+  border-color: #b08858;
+}
+
+[data-theme="light"] .tape-shell-label-name {
+  color: #92580f;
+}
+
+[data-theme="light"] .tape-reel {
+  background: #fff;
+  border-color: #5a3a18;
+}
+
+[data-theme="light"] .tape-reel-hub {
+  background: #2a221a;
+  border-color: #b08858;
+}
+
+[data-theme="light"] .tape-reel-spoke {
+  background: #b08858;
+}
+
+[data-theme="light"] .tape-window {
+  background: linear-gradient(180deg, #2a221a 0%, #1a140d 100%);
+  border-color: #b08858;
+}
+
+[data-theme="light"] .tape-ribbon {
+  background: #1a140d;
+  border-left-color: rgba(255, 255, 255, 0.05);
+  border-right-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="light"] .tape-control-btn {
+  background: linear-gradient(180deg, #f8efe1 0%, #e8d5b0 100%);
+  border-color: #b08858;
+  color: #5a3a18;
+}
+
+[data-theme="light"] .tape-control-btn:hover {
+  background: linear-gradient(180deg, #d4a574 0%, #b08858 100%);
+  color: #fff;
+}
+
+[data-theme="light"] .tape-control-btn.is-active {
+  background: linear-gradient(180deg, #b08858 0%, #92580f 100%);
+  color: #fff;
+}
+
+[data-theme="light"] .tape-control-btn.is-primary {
+  background: linear-gradient(180deg, #c2410c 0%, #92580f 100%);
+  color: #fff;
+}
+
+[data-theme="light"] .tape-progress {
+  background: rgba(180, 140, 100, 0.25);
+}
+
+[data-theme="light"] .tape-progress-bar {
+  background: linear-gradient(90deg, #c2410c, #d4a574);
+}
+
+[data-theme="light"] .tape-chip {
+  background: rgba(255, 252, 245, 0.7);
+  border-color: rgba(180, 140, 100, 0.4);
+  color: #5a3a18;
+}
+
+[data-theme="light"] .tape-chip:hover {
+  background: rgba(212, 165, 116, 0.25);
+  border-color: rgba(212, 165, 116, 0.6);
+}
+
+[data-theme="light"] .tape-chip.is-active {
+  background: linear-gradient(135deg, #d4a574 0%, #b08858 100%);
+  border-color: #92580f;
+  color: #fff;
+}
+
+[data-theme="light"] .tape-card {
+  color: #2a221a;
+}
+
+[data-theme="light"] .tape-card:hover {
+  background: rgba(212, 165, 116, 0.2);
+  border-color: #d4a574;
+}
+
+[data-theme="light"] .tape-card.is-playing {
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.3) 0%, rgba(180, 140, 100, 0.15) 100%);
+  border-color: #92580f;
+  box-shadow: 0 0 24px rgba(212, 165, 116, 0.4);
+}
+
+[data-theme="light"] .tape-card.is-massive {
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.15) 0%, rgba(180, 140, 100, 0.05) 100%);
+  border-color: rgba(217, 119, 6, 0.5);
+}
+
+[data-theme="light"] .tape-toast {
+  background: #2a221a;
+  color: #f3e9da;
+  border-color: #b08858;
+}
+
+[data-theme="light"] .tape-panel {
+  color: #2a221a;
+}
+
+[data-theme="light"] .tape-panel-day {
+  color: #92580f;
+}
+
+[data-theme="light"] .tape-panel-build {
+  color: #5a3a18;
+  border-bottom-color: rgba(180, 140, 100, 0.3);
+}
+
+[data-theme="light"] .tape-panel-meta {
+  color: #5a4a38;
+}
+
+[data-theme="light"] .tape-hint {
+  color: #5a4a38;
+}
+
+[data-theme="light"] .tape-hint kbd {
+  background: #fff;
+  border-color: #b08858;
+  color: #92580f;
+}
+
+[data-theme="light"] .tape-jukebox-btn {
+  background: rgba(180, 140, 100, 0.2);
+  border-color: rgba(180, 140, 100, 0.4);
+  color: #5a3a18;
+}
+
+[data-theme="light"] .tape-jukebox-btn:hover {
+  background: rgba(212, 165, 116, 0.4);
+  border-color: #92580f;
+}
