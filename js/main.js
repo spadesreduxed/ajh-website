@@ -786,6 +786,9 @@ function initCommandPalette() {
     { id: 'tool-tape-open', label: 'Open Build Tape', icon: 'fa-compact-disc', shortcut: 'G P', category: 'Tools', action: () => window.ajhTape && window.ajhTape.open && window.ajhTape.open() },
     { id: 'tool-tape-toggle', label: 'Build Tape: Play / Pause', icon: 'fa-play', category: 'Tools', action: () => window.ajhTape && window.ajhTape.toggle && window.ajhTape.toggle() },
     { id: 'tool-tape-export', label: 'Build Tape: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhTape && window.ajhTape.exportJSON && window.ajhTape.exportJSON() },
+    { id: 'tool-skyline-open', label: 'Open Build Skyline', icon: 'fa-city', shortcut: 'G Y', category: 'Tools', action: () => window.ajhSkyline && window.ajhSkyline.open && window.ajhSkyline.open() },
+    { id: 'tool-skyline-mode', label: 'Build Skyline: Cycle Day/Night', icon: 'fa-circle-half-stroke', category: 'Tools', action: () => window.ajhSkyline && window.ajhSkyline.cycleMode && window.ajhSkyline.cycleMode() },
+    { id: 'tool-skyline-export', label: 'Build Skyline: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhSkyline && window.ajhSkyline.exportJSON && window.ajhSkyline.exportJSON() },
 
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -3712,6 +3715,7 @@ function initBookmarkCards() {
     { id: 'trail', icon: 'fa-timeline', title: 'Build Trail', tag: 'Chronological', desc: 'A horizontal ribbon of all 76 build days, in time order. Filter by archetype, jump to today, fire the leaderboard, export as JSON. Press G T.' },
     { id: 'weather', icon: 'fa-cloud-sun', title: 'Build Weather', tag: 'Forecast', desc: 'All 77 build days as a 7-day rolling forecast. Today\'s outlook, climate cards by archetype, conditions (Sunny/Cloudy/Stormy/...), temp & humidity, share card, export as JSON. Press G W.' },
     { id: 'tape', icon: 'fa-compact-disc', title: 'Build Tape', tag: 'Mixtape', desc: 'A vintage cassette player for 78 days of builds. Spinning reels, sliding tape, side A/B, prev/next/flip, shuffle, runtime clock, share the soundtrack. Press G P.' },
+    { id: 'skyline', icon: 'fa-city', title: 'Build Skyline', tag: 'Cityscape', desc: 'All 80 build days as a city. Each day is a building, height by impact, lit windows from a seed, day/sunset/night cycle, sun & moon, click any building to read it, JSON export. Press G Y.' },
   ];
 
   let state = {
@@ -5310,6 +5314,7 @@ function initReadingMode() {
     { id: 'achievements', title: 'Achievements',        icon: 'fa-medal',        tag: 'Game',      blurb: 'Long-form milestones and trophies.' },
     { id: 'assistant',    title: 'Build Assistant',     icon: 'fa-robot',        tag: 'AI',        blurb: 'Chat with a knowledge-base of the build log.' },
     { id: 'constellation',title: 'Site Constellation',  icon: 'fa-diagram-project',tag: 'Map',     blurb: 'Every section, plotted as a 2D graph.' },
+    { id: 'skyline',      title: 'Build Skyline',      icon: 'fa-city',           tag: 'City',     blurb: '80 builds as a city — day, sunset, night.' },
   ];
 
   const $ = (s, r) => (r || document).querySelector(s);
@@ -6963,7 +6968,7 @@ function initDailyWisdom() {
 }
 
 // ============================================
-// DAY 78/79: BUILD GARDEN + BUILD TAPE — hero button wiring
+// DAY 78/79/80: BUILD GARDEN + BUILD TAPE + BUILD SKYLINE — hero button wiring
 // ============================================
 function initDay78HeroButtons() {
   const gardenBtn = document.getElementById('garden-hero-btn');
@@ -6977,6 +6982,13 @@ function initDay78HeroButtons() {
   if (tapeBtn) {
     tapeBtn.addEventListener('click', () => {
       const target = document.getElementById('tape');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+  const skylineBtn = document.getElementById('skyline-hero-btn');
+  if (skylineBtn) {
+    skylineBtn.addEventListener('click', () => {
+      const target = document.getElementById('skyline');
       if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }

@@ -65,6 +65,8 @@
     <link rel="stylesheet" href="css/garden-theme.css">
     <link rel="stylesheet" href="css/tape.css?v=100">
     <link rel="stylesheet" href="css/tape-theme.css?v=100">
+    <link rel="stylesheet" href="css/skyline.css?v=100">
+    <link rel="stylesheet" href="css/skyline-theme.css?v=100">
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/pixelart.css">
     <link rel="stylesheet" href="css/pixelart-theme.css">
@@ -154,6 +156,7 @@
             <li><a href="#weather">Weather</a></li>
             <li><a href="#garden">Garden</a></li>
             <li><a href="#tape">Tape</a></li>
+            <li><a href="#skyline">Skyline</a></li>
             <li><a href="#quotes">Quotes</a></li>
             <li><a href="#wisdom">Wisdom</a></li>
             <li><a href="#stats">Stats</a></li>
@@ -291,6 +294,9 @@
                 </button>
                 <button class="plan-btn" id="tape-hero-btn" aria-label="Build tape" title="Open the Build Tape — a vintage cassette player (G P)">
                     <i class="fas fa-compact-disc"></i>
+                </button>
+                <button class="plan-btn" id="skyline-hero-btn" aria-label="Build skyline" title="Open the Build Skyline — 80 buildings, day/night cycle (G Y)">
+                    <i class="fas fa-city"></i>
                 </button>
             </div>
             <div class="hero-stats">
@@ -837,7 +843,7 @@
                 </div>
                 <div class="stat-card large">
                     <i class="fas fa-rocket"></i>
-                    <div class="stat-number" data-count="71">0</div>
+                    <div class="stat-number" data-count="72">0</div>
                     <div class="stat-label">Features Built</div>
                     <div class="stat-sublabel">And counting...</div>
                 </div>
@@ -1406,6 +1412,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">9</span>
+                        <span class="blog-month">July 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 80</span>
+                        <h3>Build Skyline — 80 Buildings, One City, Day and Night</h3>
+                        <p>Day 80 ships the <em>Build Skyline</em>: the fourth lens on the same 80-day build history, after DNA, Constellation, Trail, Weather, Garden, and Tape. Every build is now a <em>building</em> in a single scrollable city — height by impact (2-dot buildings are short, 5-dot buildings are towers), width by name length, and a window grid that's <em>deterministically</em> lit from a seed so the city has the same glow every visit. Color is tinted by <em>archetype</em>: Systems purple, Visual pink, Audio blue, Interactive green, Data amber, Meta violet, Craft cyan, Social rose. A <em>sky</em> sits behind the city with stars, a sun, a moon, and a horizon glow — a Day / Sunset / Night toggle (or a draggable time slider) moves the sun across the sky, fades the stars in and out, and shifts the ground glow. Stat tiles: 80 buildings, total impact, lit windows count, and the tallest build (Day 79 — Build Tape). Filter chips narrow the city to one archetype. Click any building to open a focus panel with day, name, archetype tag, date, impact dots, and a "Jump to this building" button. Spotlight mode hops a random building into focus, the time toggle pauses the day-night cycle, and <kbd>Export</kbd> dumps the full skyline as JSON. <kbd>G Y</kbd> opens the city — the build has a downtown now, and the lights are on.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">8</span>
@@ -5276,11 +5293,119 @@
         <div class="tape-toast" id="tape-toast" role="status" aria-live="polite"></div>
     </section>
 
+    <!-- Day 80 - Build Skyline: every build day is a building in a city -->
+    <section id="skyline" class="section skyline-section sky-mode-night">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-city"></i> Day 80</span>
+                <h2 class="section-title">Build Skyline</h2>
+                <p class="section-subtitle">Eighty builds, eighty buildings, one city. Walk the block. Watch the lights come on.</p>
+            </div>
+
+            <div class="sky-stats">
+                <div class="sky-stat">
+                    <i class="fas fa-building"></i>
+                    <div class="sky-stat-num" id="sky-stat-buildings">0</div>
+                    <div class="sky-stat-label">Buildings</div>
+                </div>
+                <div class="sky-stat">
+                    <i class="fas fa-fire"></i>
+                    <div class="sky-stat-num" id="sky-stat-impact">0</div>
+                    <div class="sky-stat-label">Total Impact</div>
+                </div>
+                <div class="sky-stat">
+                    <i class="fas fa-lightbulb"></i>
+                    <div class="sky-stat-num" id="sky-stat-windows">0</div>
+                    <div class="sky-stat-label">Lit Windows</div>
+                </div>
+                <div class="sky-stat">
+                    <i class="fas fa-tower-broadcast" id="sky-stat-antenna-icon"></i>
+                    <div class="sky-stat-num" id="sky-stat-tallest">—</div>
+                    <div class="sky-stat-label">Tallest</div>
+                </div>
+            </div>
+
+            <div class="sky-sky">
+                <div class="sky-stars" aria-hidden="true"></div>
+                <div class="sky-sun" id="sky-sun" aria-hidden="true"></div>
+                <div class="sky-moon" id="sky-moon" aria-hidden="true"></div>
+                <div class="sky-horizon" aria-hidden="true"></div>
+            </div>
+
+            <div class="sky-toolbar">
+                <div class="sky-modes" role="group" aria-label="Time of day">
+                    <button class="sky-mode-btn" data-mode="day" aria-label="Day mode"><i class="fas fa-sun"></i> Day</button>
+                    <button class="sky-mode-btn" data-mode="sunset" aria-label="Sunset mode"><i class="fas fa-cloud-sun"></i> Sunset</button>
+                    <button class="sky-mode-btn is-active" data-mode="night" aria-label="Night mode"><i class="fas fa-moon"></i> Night</button>
+                </div>
+                <div class="sky-time-wrap">
+                    <label for="sky-time-slider">Time</label>
+                    <input type="range" class="sky-time-slider" id="sky-time-slider" min="0" max="100" value="80" aria-label="Time of day slider">
+                    <span class="sky-time-readout" id="sky-time-readout">22:24</span>
+                </div>
+                <button class="sky-mode-btn sky-time-toggle" id="sky-time-toggle" aria-label="Pause time"><i class="fas fa-pause"></i> <span id="sky-time-toggle-label">Pause Time</span></button>
+            </div>
+
+            <div class="sky-chips" id="sky-chips" role="tablist" aria-label="Filter skyline">
+                <!-- Filled by skyline.js -->
+            </div>
+
+            <div class="sky-actions">
+                <button class="sky-action-btn" id="sky-jump-today" title="Jump to today's building">
+                    <i class="fas fa-circle-dot"></i> <span>Today</span>
+                </button>
+                <button class="sky-action-btn" id="sky-shuffle" title="Spotlight a random building">
+                    <i class="fas fa-shuffle"></i> <span>Spotlight</span>
+                </button>
+                <button class="sky-action-btn" id="sky-export" title="Export skyline as JSON">
+                    <i class="fas fa-download"></i> <span>Export</span>
+                </button>
+            </div>
+
+            <div class="sky-stage" id="sky-stage" aria-label="Skyline of all 80 builds">
+                <div class="sky-ground" aria-hidden="true"></div>
+                <!-- Buildings rendered by skyline.js -->
+            </div>
+
+            <p class="sky-hint">
+                <i class="fas fa-keyboard"></i>
+                <kbd>G</kbd> <kbd>Y</kbd> open Skyline · click any building to read its build · <kbd>←</kbd>/<kbd>→</kbd> step prev/next · <kbd>T</kbd> today · <kbd>D</kbd>/<kbd>S</kbd>/<kbd>N</kbd> day/sunset/night · the city grows every day.
+            </p>
+        </div>
+
+        <div class="sky-focus-back" id="sky-focus-back" aria-hidden="true"></div>
+        <div class="sky-focus" id="sky-focus" role="dialog" aria-modal="true" aria-labelledby="sky-focus-title" hidden>
+            <button class="sky-focus-close" id="sky-focus-close" aria-label="Close building detail"><i class="fas fa-xmark"></i></button>
+            <div class="sky-focus-emoji" id="sky-focus-emoji" aria-hidden="true">🏢</div>
+            <div class="sky-focus-day" id="sky-focus-day">—</div>
+            <h3 class="sky-focus-title" id="sky-focus-title">—</h3>
+            <div class="sky-focus-name" id="sky-focus-name">—</div>
+            <div class="sky-focus-meta">
+                <span class="sky-focus-tag" id="sky-focus-tag">—</span>
+                <span class="sky-focus-date" id="sky-focus-date">—</span>
+                <span class="sky-focus-arch" id="sky-focus-arch">—</span>
+            </div>
+            <div class="sky-focus-impact" id="sky-focus-impact" aria-label="Impact"></div>
+            <div class="sky-focus-stats">
+                <span class="sky-focus-pct" id="sky-focus-pct">0% of city</span>
+                <span class="sky-focus-coord" id="sky-focus-coord">#00</span>
+            </div>
+            <p class="sky-focus-desc" id="sky-focus-desc">—</p>
+            <div class="sky-focus-rows" id="sky-focus-rows">
+                <!-- Filled by skyline.js -->
+            </div>
+            <button class="sky-focus-jump" id="sky-focus-jump"><i class="fas fa-circle-dot"></i> Jump to this building</button>
+        </div>
+
+        <div class="sky-toast" id="sky-toast" role="status" aria-live="polite"></div>
+    </section>
+
     <script src="js/dna.js" defer></script>
     <script src="js/constellation.js" defer></script>
     <script src="js/trail.js" defer></script>
     <script src="js/weather.js" defer></script>
     <script src="js/garden.js?v=78b" defer></script>
     <script src="js/tape.js?v=100" defer></script>
+    <script src="js/skyline.js?v=100" defer></script>
 </body>
 </html>

@@ -4,6 +4,23 @@ A daily-built GitHub Pages website that grows better every day.
 
 **Live Site**: https://ajhs.github.io
 
+## Latest Build - Day 80 (2026-07-11)
+
+### Build Skyline — 80 buildings, one city, day and night
+- A **single scrollable city** where every build day is a building — the fourth lens on the same 80-day build history after Calendar, DNA, Constellation, Trail, Weather, Garden, and Tape
+- **80 buildings** in the BUILDS seed (Day 1 = 2026-04-22 through Day 80 = 2026-07-11), tinted by 8 archetypes
+- **Hand-built city**: every build is a `<div class="sky-building">` with deterministic height-by-impact (2-dot buildings are short, 5-dot buildings are towers), width-by-name, hand-styled brick bands, and a window grid lit by a seeded hash so the city has the same glow every visit
+- **Sky** sits behind the city: stars, sun, moon, horizon glow. A **Day / Sunset / Night** toggle (or a draggable time slider 0-100) moves the sun across the sky, fades stars in and out, and shifts the ground glow
+- **4 stat tiles**: 80 Buildings, Total Impact, Lit Windows count, Tallest build (Day 79 — Build Tape)
+- **Filter chips**: All / Systems / Visual / Audio / Interactive / Data / Meta / Craft / Social with active state — narrow the city to one archetype
+- **3 action buttons**: Today (jumps to today's building), Spotlight (random building), Export (downloads the full skyline as JSON)
+- **Building click → focus panel**: day, name, archetype tag, date, impact dots (1-5), % of city, building coord, description, and a "Jump to this building" button
+- **Keyboard shortcuts**: G Y (open Skyline), ← / → (step prev/next), T (today), D / S / N (day/sunset/night)
+- localStorage persists mode, filter, time, paused, focused building, visits counter
+- Mobile responsive; light theme supported
+- Wired into the command palette + hero meta button + nav link "Skyline"
+- Public API exposed on `window.ajhSkyline` (open, close, jumpTo, next, prev, setMode, setFilter, spotlight, exportJSON, state)
+
 ## Latest Build - Day 79 (2026-07-08)
 
 ### Build Tape — A vintage cassette for 78 days of builds

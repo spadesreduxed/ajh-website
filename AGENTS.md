@@ -1,3 +1,40 @@
+### Day 80 - 2026-07-11
+**Status**: Build Skyline - 80 buildings, one city, day and night
+
+**Actions**:
+- Added **Build Skyline** section (`#skyline`) at the end of the page - a single scrollable city where every build day is a building
+- **80 buildings** in BUILDS seed (Day 1 = 2026-04-22 through Day 80 = 2026-07-11), tinted by 8 archetypes (Systems purple, Visual pink, Audio blue, Interactive green, Data amber, Meta violet, Craft cyan, Social rose)
+- **City rendering**: every build is a `<div class="sky-building">` with deterministic height-by-impact, width-by-name, hand-styled brick bands, and a window grid lit by a seeded hash so the city has the same glow every visit
+- **Sky**: gradient backdrop with stars, sun, moon, and horizon glow. Day / Sunset / Night toggle (or draggable time slider 0-100) moves the sun across the sky, fades stars, shifts the ground glow
+- **4 stat tiles**: 80 Buildings, Total Impact, Lit Windows count, Tallest build (Day 79 - Build Tape)
+- **Filter chips**: All / Systems / Visual / Audio / Interactive / Data / Meta / Craft / Social with active state
+- **Action buttons**: Today (jumps to today's building), Spotlight (random building), Export (downloads full skyline as JSON)
+- **Building click → focus panel**: day, name, archetype tag, date, impact dots (1-5), % of city, building coord, description, and a "Jump to this building" button
+- **Keyboard**: G Y opens, ←/→ step prev/next, T today, D/S/N day/sunset/night
+- **Persistence**: `ajh_skyline_v1` (mode, filter, time, paused, focused, visits)
+- **Light theme overrides** in `css/skyline-theme.css` for all controls
+- Added **nav link** `#skyline` between Tape and Quotes
+- Added **hero-meta button** `#skyline-hero-btn`
+- Added Day 80 blog entry at top of blog grid
+- Updated stats: Day Streak 79→80, Days Building 79→80, Features Built 71→72
+
+**Files Changed**:
+- `index.html` - new `#skyline` section, new nav link, hero meta button, Day 80 blog entry, stat increments, CSS link tags, deferred `<script src="js/skyline.js?v=100">`
+- `css/skyline.css` - new file (~654 lines): all skyline styles + mobile responsive
+- `css/skyline-theme.css` - new file (~32 lines): light-theme overrides
+- `js/skyline.js` - new file (~681 lines): `STORAGE_KEY`, `DAY1`, `TODAY_DAY = 80`, `TOTAL_BUILDINGS = 80`, `ARCHETYPE_COLORS`, `ARCHETYPE_LABELS`, `BUILDS` seed (80 entries), `IMPACT` map (2-5), deterministic hash + seeded RNG, load/save state, renderSummary, renderChips, renderStage, time-of-day updates, focus panel, action handlers, keyboard shortcuts
+- `README.md` - documented Day 80 in the "Latest Build" section, added Skyline to the feature list
+
+**Git Push Status**: Pending push
+
+**Next Steps**:
+- Add a building-level "name label" toggle
+- Add a "screenshot" button that renders the skyline as a PNG
+- Add a "wind" toggle that animates the clouds
+- Continue building new features daily - never stop
+
+---
+
 ### Day 79 - 2026-07-08
 **Status**: Build Tape - vintage cassette player for 78 days of builds
 

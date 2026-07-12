@@ -1,0 +1,32 @@
+/* ============================================================
+   Day 80: Build Skyline — light theme overrides
+   ============================================================ */
+
+.skyline-section.theme-light {
+    --sky-bg-1: #cfe1f5;
+    --sky-bg-2: #e8f0f9;
+    --sky-bg-3: #f5e3c8;
+    --sky-fg: #1a1f33;
+    --sky-muted: #5a6a85;
+    --sky-card: rgba(255, 255, 255, 0.85);
+    --sky-border: rgba(15, 23, 42, 0.18);
+    --sky-window-lit: #fde68a;
+    --sky-window-warm: #f59e0b;
+    --sky-window-cool: #3b82f6;
+}
+
+.skyline-section.theme-light .sky-stars,
+.skyline-section.theme-light .sky-moon { opacity: 0; }
+.skyline-section.theme-light .sky-sun { opacity: 0.6; }
+.skyline-section.theme-light .sky-clouds { opacity: 0.7; }
+.skyline-section.theme-light .sky-ground {
+    background: linear-gradient(180deg, #1a1f33 0%, #0d1426 100%);
+}
+.skyline-section.theme-light .sky-window { fill: #1a1f33; }
+.skyline-section.theme-light .sky-window.is-on { fill: #f59e0b; }
+.skyline-section.theme-light .sky-building-day { fill: rgba(26, 31, 51, 0.6); }
+.skyline-section.theme-light .sky-building-num { fill: #1a1f33; }
+.skyline-section.theme-light .sky-building-name { fill: #5a6a85; }
+.skyline-section.theme-light .sky-focus-name { fill: #1a1f33; }
+.skyline-section.theme-light .sky-card { color: #1a1f33; }
+.skyline-section.theme-light .sky-toast { color: #1a1f33; }
