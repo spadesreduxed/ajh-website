@@ -795,6 +795,11 @@ function initCommandPalette() {
     { id: 'tool-aquarium-calm', label: 'Build Aquarium: Calm the Water', icon: 'fa-water', category: 'Tools', action: () => window.ajhAquarium && window.ajhAquarium.toggleCalm && window.ajhAquarium.toggleCalm() },
     { id: 'tool-aquarium-spotlight', label: 'Build Aquarium: Spotlight a Random Fish', icon: 'fa-shuffle', category: 'Tools', action: () => window.ajhAquarium && window.ajhAquarium.spotlight && window.ajhAquarium.spotlight() },
     { id: 'tool-aquarium-export', label: 'Build Aquarium: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhAquarium && window.ajhAquarium.exportJSON && window.ajhAquarium.exportJSON() },
+    { id: 'tool-observatory-open', label: 'Open Build Observatory', icon: 'fa-globe', shortcut: 'G O', category: 'Tools', action: () => window.ajhObservatory && window.ajhObservatory.open && window.ajhObservatory.open() },
+    { id: 'tool-observatory-focus', label: 'Build Observatory: Focus Today Moon', icon: 'fa-crosshairs', category: 'Tools', action: () => window.ajhObservatory && window.ajhObservatory.focusToday && window.ajhObservatory.focusToday() },
+    { id: 'tool-observatory-shoot', label: 'Build Observatory: Shoot a Star', icon: 'fa-meteor', category: 'Tools', action: () => window.ajhObservatory && window.ajhObservatory.shoot && window.ajhObservatory.shoot() },
+    { id: 'tool-observatory-orbits', label: 'Build Observatory: Toggle Orbits', icon: 'fa-circle-dot', category: 'Tools', action: () => window.ajhObservatory && window.ajhObservatory.toggleOrbits && window.ajhObservatory.toggleOrbits() },
+    { id: 'tool-observatory-export', label: 'Build Observatory: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhObservatory && window.ajhObservatory.exportJSON && window.ajhObservatory.exportJSON() },
 
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -3723,6 +3728,7 @@ function initBookmarkCards() {
     { id: 'tape', icon: 'fa-compact-disc', title: 'Build Tape', tag: 'Mixtape', desc: 'A vintage cassette player for 78 days of builds. Spinning reels, sliding tape, side A/B, prev/next/flip, shuffle, runtime clock, share the soundtrack. Press G P.' },
     { id: 'skyline', icon: 'fa-city', title: 'Build Skyline', tag: 'Cityscape', desc: 'All 80 build days as a city. Each day is a building, height by impact, lit windows from a seed, day/sunset/night cycle, sun & moon, click any building to read it, JSON export. Press G Y.' },
     { id: 'aquarium', icon: 'fa-fish', title: 'Build Aquarium', tag: 'Tank', desc: 'All 81 build days as a living fish tank. Each day is a fish — size by impact, species by archetype — with currents, bubbles, light cones, plants, and a Feed action that drops a flake the fish dart for. Press G A.' },
+    { id: 'observatory', icon: 'fa-globe', title: 'Build Observatory', tag: 'Solar System', desc: 'All 82 build days orbiting a central planet. Each day is a moon — orbit by age, size by impact, color by archetype. 3 time-of-day modes, click any moon to read its build, shooting stars streak on demand. Press G O.' },
   ];
 
   let state = {

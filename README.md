@@ -1,3 +1,15 @@
+## Latest Build - Day 82 (2026-07-13)
+
+### Build Observatory — 82 moons, one planet, a solar system of every build
+- A single orbital system where every build day is a moon orbiting a Builder Planet
+- Size by impact, color by archetype, orbit by day — each moon's distance, period, inclination, and direction are seeded from the day
+- SVG orbit rings as tilted ellipses, planet body with glow and phase shadow
+- 4 stat tiles, 8 filter chips, 6 action buttons (Pause, Trails, Meteor, Today, Spotlight, Export)
+- Trails mode paints fading orbit lines; Meteor spawns a streaking comet
+- Click any moon for a focus card; drag to pan, scroll to zoom
+- Keyboard G O opens, T today, M meteor, Space pause
+- Light theme overrides in observatory-theme.css; command palette wired (G O)
+
 ## Latest Build - Day 81 (2026-07-12)
 
 ### Build Aquarium — 81 fish, one tank, currents and bubbles

@@ -1,0 +1,16 @@
+/* ============================================================
+   Day 82: Build Observatory — light theme overrides only.
+   Observatory body class is toggled by the Observatory
+   section's own theme button (no global body class).
+   ============================================================ */
+
+.observatory-section.ob-light .ob-mode-btn { color: #1a0e2c; }
+.observatory-section.ob-light .ob-mode-btn.is-active { color: #fff; }
+.observatory-section.ob-light .ob-action-btn { color: #1a0e2c; }
+.observatory-section.ob-light .ob-chip { color: #1a0e2c; }
+.observatory-section.ob-light .ob-chip-count { color: #5e4a78; background: rgba(80, 60, 140, 0.1); }
+.observatory-section.ob-light .ob-chip.is-active .ob-chip-count { color: #fff; background: rgba(255, 255, 255, 0.25); }
+.observatory-section.ob-light .ob-focus-meta-item { background: rgba(80, 60, 140, 0.08); }
+.observatory-section.ob-light .ob-focus-close { color: #5e4a78; }
+.observatory-section.ob-light .ob-focus-close:hover { background: rgba(80, 60, 140, 0.1); }
+.observatory-section.ob-light .ob-stat i { color: var(--ob-accent); }

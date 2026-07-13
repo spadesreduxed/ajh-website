@@ -1,0 +1,535 @@
+/* ============================================================
+   Day 82: Build Observatory — 82 moons orbiting the Builder Planet.
+   Each build is a moon. Distance by impact, color by archetype.
+   Every moon has a deterministic orbit (period, phase, tilt,
+   wobble) seeded from the day, so the same system always
+   rotates the same way.
+   ============================================================ */
+
+.observatory-section {
+  --ob-deep:        #04030d;
+  --ob-deep-2:      #0a0820;
+  --ob-far:         #1a0f3a;
+  --ob-nebula-1:    rgba(168, 85, 247, 0.16);
+  --ob-nebula-2:    rgba(70, 211, 255, 0.12);
+  --ob-nebula-3:    rgba(236, 72, 153, 0.10);
+  --ob-star:        #fff8d4;
+  --ob-planet-core: #ffd06a;
+  --ob-planet-mid:  #ff7a3d;
+  --ob-planet-edge: #5e1f63;
+  --ob-ring:        rgba(255, 220, 140, 0.32);
+  --ob-card:        rgba(10, 8, 32, 0.78);
+  --ob-card-border: rgba(120, 100, 220, 0.32);
+  --ob-text:        #f0eaff;
+  --ob-muted:      #a59cd6;
+  --ob-accent:     #c084fc;
+  --ob-orbit:      rgba(180, 160, 255, 0.16);
+  --ob-orbit-hot:  rgba(255, 220, 140, 0.45);
+  --ob-moon-glow:  rgba(255, 255, 255, 0.65);
+
+  position: relative;
+  padding: 80px 0 100px;
+  background:
+    radial-gradient(ellipse at 30% 20%, var(--ob-nebula-1) 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 75%, var(--ob-nebula-2) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 50%, var(--ob-far) 0%, var(--ob-deep) 70%),
+    linear-gradient(180deg, var(--ob-deep) 0%, var(--ob-deep-2) 100%);
+  color: var(--ob-text);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Background star field (CSS-only) */
+.observatory-section::before,
+.observatory-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-repeat: repeat;
+  background-size: 320px 320px;
+  z-index: 0;
+}
+.observatory-section::before {
+  background-image:
+    radial-gradient(1px 1px at 23px 47px, var(--ob-star) 99%, transparent 100%),
+    radial-gradient(1px 1px at 89px 12px, rgba(255,255,255,0.7) 99%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 156px 200px, #fff 99%, transparent 100%),
+    radial-gradient(1px 1px at 240px 110px, rgba(255,248,212,0.6) 99%, transparent 100%),
+    radial-gradient(1px 1px at 60px 280px, rgba(255,255,255,0.5) 99%, transparent 100%);
+  opacity: 0.55;
+  animation: ob-twinkle 9s steps(60) infinite;
+}
+.observatory-section::after {
+  background-image:
+    radial-gradient(1px 1px at 280px 30px, rgba(255,255,255,0.4) 99%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 12px 200px, #ffeaa7 99%, transparent 100%),
+    radial-gradient(1px 1px at 200px 240px, rgba(255,255,255,0.6) 99%, transparent 100%);
+  opacity: 0.6;
+  animation: ob-twinkle 14s steps(80) infinite reverse;
+}
+@keyframes ob-twinkle {
+  0%, 100% { opacity: 0.45; }
+  50%      { opacity: 0.85; }
+}
+
+.observatory-section .container { position: relative; z-index: 1; }
+
+.observatory-section .section-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.observatory-section .section-tag {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: rgba(192, 132, 252, 0.16);
+  border: 1px solid rgba(192, 132, 252, 0.36);
+  color: var(--ob-accent);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.observatory-section .section-title {
+  font-size: 40px;
+  font-weight: 800;
+  margin: 0 0 8px;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #fff8d4 0%, #c084fc 50%, #46d3ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.observatory-section .section-subtitle {
+  font-size: 15px;
+  color: var(--ob-muted);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* Stat tiles */
+.ob-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  max-width: 880px;
+  margin: 0 auto 24px;
+}
+.ob-stat {
+  background: var(--ob-card);
+  border: 1px solid var(--ob-card-border);
+  border-radius: 14px;
+  padding: 14px 12px;
+  text-align: center;
+  backdrop-filter: blur(8px);
+}
+.ob-stat i {
+  font-size: 16px;
+  color: var(--ob-accent);
+  margin-bottom: 6px;
+  display: block;
+}
+.ob-stat-num {
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff8d4;
+  line-height: 1;
+}
+.ob-stat-label {
+  font-size: 11px;
+  color: var(--ob-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* Toolbar */
+.ob-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 18px;
+}
+.ob-action-btn,
+.ob-mode-btn {
+  background: var(--ob-card);
+  color: var(--ob-text);
+  border: 1px solid var(--ob-card-border);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+  backdrop-filter: blur(8px);
+}
+.ob-action-btn:hover,
+.ob-mode-btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--ob-accent);
+  background: rgba(120, 100, 220, 0.22);
+}
+.ob-action-btn:active { transform: translateY(0); }
+.ob-mode-btn.is-active {
+  background: linear-gradient(135deg, rgba(192, 132, 252, 0.32) 0%, rgba(70, 211, 255, 0.28) 100%);
+  border-color: var(--ob-accent);
+  color: #fff;
+}
+.ob-speed-readout {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--ob-muted);
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(10, 8, 32, 0.5);
+  border: 1px solid rgba(120, 100, 220, 0.2);
+}
+.ob-speed-readout kbd {
+  font-family: inherit;
+  background: rgba(255, 248, 212, 0.14);
+  color: #fff8d4;
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-size: 11px;
+  border: 1px solid rgba(255, 220, 140, 0.3);
+}
+
+/* Filter chips */
+.ob-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+.ob-chip {
+  background: rgba(10, 8, 32, 0.6);
+  border: 1px solid rgba(120, 100, 220, 0.28);
+  color: var(--ob-text);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.12s ease;
+}
+.ob-chip:hover { border-color: var(--ob-accent); }
+.ob-chip.is-active {
+  background: var(--ob-accent);
+  color: #0a0820;
+  border-color: var(--ob-accent);
+}
+.ob-chip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--chip-color, var(--ob-accent));
+}
+.ob-chip-count {
+  font-size: 10px;
+  color: var(--ob-muted);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 1px 6px;
+  border-radius: 999px;
+}
+.ob-chip.is-active .ob-chip-count {
+  background: rgba(10, 8, 32, 0.2);
+  color: #0a0820;
+}
+
+/* The observatory stage */
+.ob-stage {
+  position: relative;
+  max-width: 1080px;
+  aspect-ratio: 16 / 10;
+  margin: 0 auto 18px;
+  border-radius: 20px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at center, rgba(40, 20, 80, 0.6) 0%, rgba(4, 3, 13, 0) 70%);
+  border: 1px solid rgba(120, 100, 220, 0.24);
+  box-shadow: 0 0 0 1px rgba(192, 132, 252, 0.08) inset, 0 30px 80px rgba(0, 0, 0, 0.5);
+  cursor: crosshair;
+}
+.ob-stage svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ob-orbit {
+  fill: none;
+  stroke: var(--ob-orbit);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+  opacity: 0.5;
+}
+.ob-orbit.is-active { stroke: var(--ob-orbit-hot); opacity: 0.9; }
+
+/* The planet at center */
+.ob-planet-group { transform-box: fill-box; }
+.ob-planet {
+  filter: drop-shadow(0 0 18px rgba(255, 180, 80, 0.55))
+          drop-shadow(0 0 6px rgba(255, 100, 60, 0.45));
+}
+.ob-planet-initial {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-weight: 900;
+  font-size: 28px;
+  fill: rgba(255, 255, 255, 0.92);
+  letter-spacing: 0.02em;
+}
+.ob-planet-label {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 9px;
+  fill: rgba(255, 248, 212, 0.9);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* The rings (Saturn style) */
+.ob-ring {
+  fill: none;
+  stroke: var(--ob-ring);
+  stroke-width: 1.5;
+  opacity: 0.7;
+}
+
+/* The moons */
+.ob-moon {
+  cursor: pointer;
+  transform-box: fill-box;
+  transition: filter 0.2s ease;
+}
+.ob-moon:hover { filter: brightness(1.3) drop-shadow(0 0 6px var(--ob-moon-glow)); }
+.ob-moon.is-focused circle,
+.ob-moon.is-focused ellipse {
+  stroke: #fff8d4;
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 8px #fff8d4) drop-shadow(0 0 4px var(--ob-accent));
+}
+.ob-moon.is-dim { opacity: 0.18; }
+.ob-moon-label {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 700;
+  fill: rgba(255, 255, 255, 0.85);
+  pointer-events: none;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+.ob-moon.is-focused .ob-moon-label { fill: #fff8d4; }
+
+/* Shooting star */
+.ob-shooting-star {
+  stroke: #fff8d4;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  opacity: 0;
+  filter: drop-shadow(0 0 4px #fff8d4);
+}
+
+/* Focus panel for the selected moon */
+.ob-focus {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--ob-card);
+  border: 1px solid var(--ob-card-border);
+  border-radius: 18px;
+  padding: 24px 26px;
+  width: min(440px, 92vw);
+  z-index: 1000;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(192, 132, 252, 0.2) inset;
+  backdrop-filter: blur(20px);
+  color: var(--ob-text);
+}
+.ob-focus[hidden] { display: none; }
+.ob-focus-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: 0;
+  color: var(--ob-muted);
+  cursor: pointer;
+  font-size: 18px;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+}
+.ob-focus-close:hover { color: #fff; background: rgba(255, 255, 255, 0.06); }
+.ob-focus-day {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ob-accent);
+  margin-bottom: 4px;
+}
+.ob-focus-title {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0 0 6px;
+  color: #fff8d4;
+  letter-spacing: -0.01em;
+}
+.ob-focus-archetype {
+  font-size: 12px;
+  color: var(--ob-muted);
+  margin-bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.ob-focus-archetype .ob-chip-dot { display: inline-block; }
+.ob-focus-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.ob-focus-meta-item {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(120, 100, 220, 0.2);
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+.ob-focus-meta-label {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ob-muted);
+  margin-bottom: 2px;
+}
+.ob-focus-meta-val {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff8d4;
+}
+.ob-focus-jump {
+  width: 100%;
+  background: linear-gradient(135deg, var(--ob-accent) 0%, #46d3ff 100%);
+  color: #0a0820;
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.ob-focus-jump:hover { transform: translateY(-1px); }
+
+/* Hint */
+.ob-hint {
+  text-align: center;
+  font-size: 12px;
+  color: var(--ob-muted);
+  margin: 8px auto 0;
+  max-width: 720px;
+}
+.ob-hint kbd {
+  font-family: inherit;
+  background: rgba(255, 248, 212, 0.14);
+  color: #fff8d4;
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-size: 11px;
+  border: 1px solid rgba(255, 220, 140, 0.3);
+}
+
+/* Toast */
+.ob-toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ob-card);
+  border: 1px solid var(--ob-card-border);
+  color: var(--ob-text);
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-size: 13px;
+  z-index: 1100;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  backdrop-filter: blur(12px);
+}
+.ob-toast.is-on {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-6px);
+}
+
+/* Light theme overrides */
+.observatory-section.ob-light {
+  --ob-deep:        #f5f1e8;
+  --ob-deep-2:      #e9e2d0;
+  --ob-far:         #d4cdb8;
+  --ob-nebula-1:    rgba(168, 85, 247, 0.18);
+  --ob-nebula-2:    rgba(70, 130, 220, 0.18);
+  --ob-nebula-3:    rgba(236, 72, 153, 0.10);
+  --ob-star:        #4a3f1e;
+  --ob-planet-core: #ffb84a;
+  --ob-planet-mid:  #f0723a;
+  --ob-planet-edge: #6b2034;
+  --ob-card:        rgba(255, 248, 232, 0.86);
+  --ob-card-border: rgba(80, 60, 140, 0.3);
+  --ob-text:        #1a0e2c;
+  --ob-muted:      #5e4a78;
+  --ob-accent:     #7e22ce;
+  --ob-orbit:      rgba(80, 60, 140, 0.22);
+  --ob-orbit-hot:  rgba(180, 80, 30, 0.5);
+  --ob-moon-glow:  rgba(80, 30, 90, 0.6);
+  background: linear-gradient(180deg, #f9f3e3 0%, #ebd9c0 100%);
+}
+.observatory-section.ob-light .ob-stat-num,
+.observatory-section.ob-light .ob-focus-title,
+.observatory-section.ob-light .ob-focus-meta-val { color: #2a1a44; }
+.observatory-section.ob-light .ob-section-title,
+.observatory-section.ob-light .ob-section-tag { color: var(--ob-accent); }
+.observatory-section.ob-light .ob-chip.is-active { color: #fff; }
+.observatory-section.ob-light .ob-moon-label { fill: rgba(40, 20, 60, 0.85); }
+.observatory-section.ob-light .ob-focus-day { color: var(--ob-accent); }
+.observatory-section.ob-light .ob-focus-jump { color: #fff; }
+.observatory-section.ob-light .ob-speed-readout kbd,
+.observatory-section.ob-light .ob-hint kbd { color: #2a1a44; background: rgba(120, 80, 160, 0.12); border-color: rgba(120, 80, 160, 0.3); }
+.observatory-section.ob-light .ob-toast { color: #1a0e2c; }
+.observatory-section.ob-light .ob-planet-initial { fill: rgba(40, 20, 60, 0.92); }
+.observatory-section.ob-light .ob-planet-label { fill: rgba(40, 20, 60, 0.78); }
+.observatory-section.ob-light .ob-orbit { stroke: rgba(80, 60, 140, 0.32); }
+.observatory-section.ob-light .ob-ring { stroke: rgba(120, 80, 30, 0.5); }
+.observatory-section.ob-light .ob-stage {
+  border-color: rgba(80, 60, 140, 0.3);
+  box-shadow: 0 0 0 1px rgba(126, 34, 206, 0.1) inset, 0 30px 80px rgba(80, 60, 140, 0.18);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .observatory-section { padding: 60px 0 80px; }
+  .observatory-section .section-title { font-size: 30px; }
+  .ob-stats { grid-template-columns: repeat(2, 1fr); }
+  .ob-stage { aspect-ratio: 1 / 1; }
+  .ob-moon-label { display: none; }
+}
+
+/* Focused dim others when one moon is selected */
+.ob-stage.has-focus .ob-moon:not(.is-focused):not(.is-target) {
+  opacity: 0.18;
+}
