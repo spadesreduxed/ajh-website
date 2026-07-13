@@ -1,3 +1,51 @@
+### Day 81 - 2026-07-12
+**Status**: Build Aquarium - 81 fish, one tank, currents and bubbles
+
+**Actions**:
+- Added **Build Aquarium** section (`#aquarium`) at the end of the page - a single living fish tank where every build day is a fish
+- **81 fish** in BUILDS seed (Day 1 = 2026-04-22 through Day 81 = 2026-07-12), tinted by 8 archetypes
+- **8 species**: Systems = swordfish, Visual = angelfish, Audio = blue tang, Interactive = tetra, Data = goldfish, Meta = betta, Craft = koi, Social = clownfish
+- **Each fish** is a hand-built SVG with body, tail, eye, stripe, and a `<span class="aq-fish-tag">` showing the day number on hover
+- **Size by impact** (2-dot minnows up to 5-dot whales), depth, speed, swim direction, and school bias all seeded from the day so the tank has the same flow every visit
+- **Animated swim loop**: fish move horizontally across the tank with a vertical wobble (requestAnimationFrame), gently nudged by a left-to-right current when they wander near a wall, and they flip direction when they hit an edge
+- **Ambient bubbles**: every fish puffs bubbles at a rate tied to impact (5-dot fish stream a constant column, 2-dot fish puffs a single bubble now and then)
+- **Bigger build = more bubbles**: an impact-5 fish emits ~5 bubbles/sec, an impact-2 fish emits ~0.4/sec
+- **Tank** has a gradient water backdrop, a sand bed, a light cone angling in from the top-left, a waterline ripple at the top, and a treasure chest in the corner
+- **Flora**: 5 swaying seaweed plants + 3 hand-built coral formations + 3 rocks scattered on the sand (CSS-only, sway animation)
+- **3 modes**: Day (clear blue water), Sunset (orange/pink water), Night (deep navy with bioluminescent glow) - each remaps the water gradient, plant colors, fish glow, and bubble opacity
+- **4 stat tiles**: 81 Fish, 8 Species, Active Bubbles (live count), Biggest Fish (Day 80 - Build Skyline)
+- **Filter chips**: All / Systems / Visual / Audio / Interactive / Data / Meta / Craft / Social with active state
+- **Action buttons**: Feed (drops a flake, nearest fish darts for it), Bubbles (extra burst from every fish), Calm (slows the current to 10%), Today, Spotlight, Export
+- **Food flake**: a small brown dot falls from the top of the tank, all fish within range turn and dart for it, the closest fish wins and the flake disappears
+- **Fish click → focus panel**: day, name, species, size (1-5), depth, position (# of 81), archetype, and a "Jump to this fish" button that re-feeds
+- **Keyboard**: G A opens, ←/→ step prev/next, T today, D/S/N day/sunset/night
+- **Persistence**: `ajh_aquarium_v1` (mode, filter, calm, focused, visits)
+- **Light theme overrides** in `css/aquarium-theme.css` for all controls
+- Added **nav link** `#aquarium` between Skyline and Quotes
+- Added **hero-meta button** `#aquarium-hero-btn` (fish icon)
+- Added Day 81 blog entry at top of blog grid
+- Updated stats: Day Streak 80→81, Days Building 80→81, Features Built 72→73
+- Added 5 aquarium command palette entries: Open Build Aquarium (G A), Feed the Fish, Calm the Water, Spotlight a Random Fish, Export as JSON
+- Added Build Aquarium to Bookmark Cards list
+
+**Files Changed**:
+- `index.html` - new `#aquarium` section, new nav link, hero meta button, Day 81 blog entry, stat increments, CSS link tags, deferred `<script src="js/aquarium.js?v=101">`
+- `css/aquarium.css` - new file (~800 lines): aquarium section, water layers, sand, light cone, waterline, fish SVG parts, species variants, bubbles, food flake, action buttons, stat tiles, chips, focus panel, mobile responsive, calm mode, treasure chest
+- `css/aquarium-theme.css` - new file (~40 lines): light-theme overrides
+- `js/aquarium.js` - new file (~600 lines): `STORAGE_KEY`, `DAY1`, `TODAY_DAY = 81`, `TOTAL_FISH = 81`, `ARCHETYPE_COLORS`, `ARCHETYPE_LABELS`, `BUILDS` seed (81 entries), `SPECIES` map, `IMPACT` map (2-5), deterministic hash + seeded RNG, requestAnimationFrame swim loop, current nudge, ambient bubble generator, feed mode, focus panel, action handlers, keyboard shortcuts, public API (`window.Aquarium = window.ajhAquarium = { open, focus, feed, toggleCalm, burstBubbles, spotlight, export: exportJSON }`)
+- `js/main.js` - added 5 aquarium commands to command palette, added Build Aquarium to Bookmark Cards list
+- `README.md` - documented Day 81 in the "Latest Build" section, added Aquarium to the feature list
+
+**Git Push Status**: Pending push
+
+**Next Steps**:
+- Add per-fish "swim speed" slider so visitors can crank the current up or down
+- Add a "screenshot" button that captures the tank as a PNG
+- Add a "feeding log" showing which fish ate which flake
+- Continue building new features daily - never stop
+
+---
+
 ### Day 80 - 2026-07-11
 **Status**: Build Skyline - 80 buildings, one city, day and night
 

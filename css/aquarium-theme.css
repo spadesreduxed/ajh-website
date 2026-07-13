@@ -1,0 +1,38 @@
+/* ============================================================
+   Day 81: Build Aquarium — theme overrides only.
+   Aquarium body class is toggled by the Aquarium section's
+   own theme button (no global body class).
+   ============================================================ */
+
+.aquarium-section.aq-light {
+  --aq-water-top: #b8e0ff;
+  --aq-water-mid: #6bb4e8;
+  --aq-water-bot: #2e80b8;
+  --aq-tank-bg: linear-gradient(180deg, #2e80b8 0%, #6bb4e8 50%, #b8e0ff 100%);
+  --aq-tank-border: rgba(255, 255, 255, 0.6);
+  --aq-card: rgba(255, 255, 255, 0.82);
+  --aq-card-border: rgba(40, 100, 160, 0.28);
+  --aq-text: #062847;
+  --aq-muted: #3e6a8c;
+  --aq-accent: #0077c2;
+  background: linear-gradient(180deg, #e0f0ff 0%, #c8e4f8 100%);
+}
+
+.aquarium-section.aq-light .aq-stat-num { color: #062847; }
+.aquarium-section.aq-light .aq-chip,
+.aquarium-section.aq-light .aq-action-btn,
+.aquarium-section.aq-light .aq-mode-btn { color: #062847; }
+.aquarium-section.aq-light .aq-mode-btn.is-active { color: #062847; }
+.aquarium-section.aq-light .aq-chip.is-active { color: #fff; }
+.aquarium-section.aq-light .aq-focus,
+.aquarium-section.aq-light .aq-toast { color: #062847; }
+.aquarium-section.aq-light .aq-focus-name,
+.aquarium-section.aq-light .aq-focus-date { color: #3e6a8c; }
+.aquarium-section.aq-light .aq-hint kbd { color: #062847; }
+
+.aquarium-section.aq-night .aq-tank {
+  box-shadow:
+    0 0 0 6px rgba(255, 255, 255, 0.04),
+    0 24px 60px rgba(0, 0, 0, 0.6),
+    inset 0 0 80px rgba(70, 211, 255, 0.18);
+}

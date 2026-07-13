@@ -67,6 +67,8 @@
     <link rel="stylesheet" href="css/tape-theme.css?v=100">
     <link rel="stylesheet" href="css/skyline.css?v=100">
     <link rel="stylesheet" href="css/skyline-theme.css?v=100">
+    <link rel="stylesheet" href="css/aquarium.css?v=101">
+    <link rel="stylesheet" href="css/aquarium-theme.css?v=101">
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/pixelart.css">
     <link rel="stylesheet" href="css/pixelart-theme.css">
@@ -157,6 +159,7 @@
             <li><a href="#garden">Garden</a></li>
             <li><a href="#tape">Tape</a></li>
             <li><a href="#skyline">Skyline</a></li>
+            <li><a href="#aquarium">Aquarium</a></li>
             <li><a href="#quotes">Quotes</a></li>
             <li><a href="#wisdom">Wisdom</a></li>
             <li><a href="#stats">Stats</a></li>
@@ -298,6 +301,9 @@
                 <button class="plan-btn" id="skyline-hero-btn" aria-label="Build skyline" title="Open the Build Skyline — 80 buildings, day/night cycle (G Y)">
                     <i class="fas fa-city"></i>
                 </button>
+                <button class="plan-btn" id="aquarium-hero-btn" aria-label="Build aquarium" title="Open the Build Aquarium — 81 fish, one tank, currents and feeding (G A)">
+                    <i class="fas fa-fish"></i>
+                </button>
             </div>
             <div class="hero-stats">
                 <div class="stat">
@@ -305,7 +311,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="78">0</span>
+                    <span class="stat-value" data-count="81">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -822,7 +828,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="78">0</div>
+                    <div class="stat-number" data-count="81">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -843,7 +849,7 @@
                 </div>
                 <div class="stat-card large">
                     <i class="fas fa-rocket"></i>
-                    <div class="stat-number" data-count="72">0</div>
+                    <div class="stat-number" data-count="73">0</div>
                     <div class="stat-label">Features Built</div>
                     <div class="stat-sublabel">And counting...</div>
                 </div>
@@ -1841,6 +1847,17 @@
                         <p>Added a new Achievement Badges section with 12 unlockable badges that respond to your activity across the site. Earn the Keyboard Warrior badge by hitting 10 hits in the hero game, Quote Collector by saving 5 quotes, Midnight Builder by visiting after midnight, and 9 more. Progress auto-saves to localStorage. Locked badges show as grayscale silhouettes with hints. Each unlock triggers a confetti burst and toast notification. The site now rewards curiosity — explore to discover them all.</p>
                     </div>
                 </div>
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">12</span>
+                        <span class="blog-month">July 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 81</span>
+                        <h3>Build Aquarium — 81 Fish, One Tank, Currents and Feeding</h3>
+                        <p>Day 81 ships the <em>Build Aquarium</em>: the fifth lens on the same build history, after DNA, Constellation, Trail, Weather, Garden, Tape, and Skyline. Every build is now a <em>fish</em> in a single living tank. <em>Size</em> follows impact (2-dot fish are minnows, 5-dot fish are whales), <em>species</em> follows archetype (Systems = swordfish, Visual = angelfish, Audio = blue tang, Interactive = tetra, Data = goldfish, Meta = betta, Craft = koi, Social = clownfish), and every fish has a deterministic swim loop — phase, depth, speed, and school bias are all seeded from the day so the same fish always swims the same pattern, and the whole tank has the same flow every visit. A <em>current</em> runs left-to-right and gently nudges fish that wander too close to a wall. <em>Plants</em> and <em>coral</em> grow from the sand (re-using the garden plant shapes, in cool aquarium greens and teals) so the tank has somewhere to hide. <em>Bubbles</em> drift up from each fish at a rate tied to its impact — a 5-dot fish streams a constant column of bubbles, a 2-dot fish puffs a single bubble now and then. A <em>light cone</em> angles in from the top-left, dimming the right side of the tank into shadow, and a <em>waterline ripple</em> sits at the top. Filter chips narrow the tank to one species. <em>Feed</em> drops a flake of food into the tank — every fish within range turns and darts for it, and the hungriest fish eats it (closest fish wins). <em>Bubbles</em> mode pulses the tank with an extra burst. <em>Calm</em> slows the current to a near-standstill. Click any fish to open a focus card with day, name, species, size, depth, and a "Jump to this fish" button. Spotlight mode hops a random fish into focus, and <kbd>Export</kbd> dumps the full tank as JSON. <kbd>G A</kbd> opens the tank — the build has somewhere to live now, and it's hungry.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1986,7 +2003,7 @@
                         <div class="project-progress">
                             <div class="progress-header">
                                 <span>Build Progress</span>
-                                <span class="progress-percent">Day 26/∞</span>
+                                <span class="progress-percent">Day 81/∞</span>
                             </div>
                             <div class="progress-bar">
                                 <div class="progress-fill" style="width: 100%"></div>
@@ -5400,6 +5417,110 @@
         <div class="sky-toast" id="sky-toast" role="status" aria-live="polite"></div>
     </section>
 
+    <!-- Day 81 - Build Aquarium: every build day is a fish in the tank -->
+    <section id="aquarium" class="section aquarium-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-fish"></i> Day 81</span>
+                <h2 class="section-title">Build Aquarium</h2>
+                <p class="section-subtitle">Eighty-one builds, eighty-one fish, one living tank. Drop a flake and watch the school swarm.</p>
+            </div>
+
+            <div class="aq-stats">
+                <div class="aq-stat">
+                    <i class="fas fa-fish"></i>
+                    <div class="aq-stat-num" id="aq-stat-fish">0</div>
+                    <div class="aq-stat-label">Fish</div>
+                </div>
+                <div class="aq-stat">
+                    <i class="fas fa-water"></i>
+                    <div class="aq-stat-num" id="aq-stat-species">0</div>
+                    <div class="aq-stat-label">Species</div>
+                </div>
+                <div class="aq-stat">
+                    <i class="fas fa-bubble"></i>
+                    <div class="aq-stat-num" id="aq-stat-bubbles">0</div>
+                    <div class="aq-stat-label">Bubbles</div>
+                </div>
+                <div class="aq-stat">
+                    <i class="fas fa-star" id="aq-stat-biggest-icon"></i>
+                    <div class="aq-stat-num" id="aq-stat-biggest">—</div>
+                    <div class="aq-stat-label">Biggest</div>
+                </div>
+            </div>
+
+            <div class="aq-toolbar">
+                <div class="aq-feed-wrap">
+                    <button class="aq-action-btn" id="aq-feed" title="Drop a flake of food into the tank">
+                        <i class="fas fa-cookie-bite"></i> <span>Feed</span>
+                    </button>
+                    <button class="aq-action-btn" id="aq-bubbles-btn" title="Burst of bubbles from every fish">
+                        <i class="fas fa-bubbles"></i> <span>Bubbles</span>
+                    </button>
+                    <button class="aq-action-btn" id="aq-calm" title="Slow the current to a near-standstill">
+                        <i class="fas fa-water"></i> <span>Calm</span>
+                    </button>
+                </div>
+                <div class="aq-actions">
+                    <button class="aq-action-btn" id="aq-jump-today" title="Jump to today's fish">
+                        <i class="fas fa-circle-dot"></i> <span>Today</span>
+                    </button>
+                    <button class="aq-action-btn" id="aq-shuffle" title="Spotlight a random fish">
+                        <i class="fas fa-shuffle"></i> <span>Spotlight</span>
+                    </button>
+                    <button class="aq-action-btn" id="aq-export" title="Export aquarium as JSON">
+                        <i class="fas fa-download"></i> <span>Export</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="aq-chips" id="aq-chips" role="tablist" aria-label="Filter species">
+                <!-- Filled by aquarium.js -->
+            </div>
+
+            <div class="aq-tank-wrap">
+                <div class="aq-tank" id="aq-tank" aria-label="Aquarium of all 81 builds">
+                    <div class="aq-light" aria-hidden="true"></div>
+                    <div class="aq-ripple" aria-hidden="true"></div>
+                    <div class="aq-sand" aria-hidden="true"></div>
+                    <div class="aq-flora" id="aq-flora" aria-hidden="true"></div>
+                    <div class="aq-school" id="aq-school" aria-label="Fish">
+                        <!-- Fish rendered by aquarium.js -->
+                    </div>
+                    <div class="aq-foam" aria-hidden="true"></div>
+                </div>
+                <div class="aq-pedestal" aria-hidden="true"></div>
+            </div>
+
+            <p class="aq-hint">
+                <i class="fas fa-keyboard"></i>
+                <kbd>G</kbd> <kbd>A</kbd> open Aquarium · click any fish to read its build · <kbd>←</kbd>/<kbd>→</kbd> step prev/next · <kbd>T</kbd> today · <kbd>F</kbd> feed · <kbd>B</kbd> bubbles · <kbd>C</kbd> calm · the tank grows every day.
+            </p>
+        </div>
+
+        <div class="aq-focus" id="aq-focus" role="dialog" aria-modal="true" aria-labelledby="aq-focus-title" hidden>
+            <button class="aq-focus-close" id="aq-focus-close" aria-label="Close fish detail"><i class="fas fa-xmark"></i></button>
+            <div class="aq-focus-emoji" id="aq-focus-emoji" aria-hidden="true">🐟</div>
+            <div class="aq-focus-day" id="aq-focus-day">—</div>
+            <h3 class="aq-focus-title" id="aq-focus-title">—</h3>
+            <div class="aq-focus-name" id="aq-focus-name">—</div>
+            <div class="aq-focus-meta">
+                <span class="aq-focus-tag" id="aq-focus-tag">—</span>
+                <span class="aq-focus-date" id="aq-focus-date">—</span>
+                <span class="aq-focus-species" id="aq-focus-species">—</span>
+            </div>
+            <div class="aq-focus-size" id="aq-focus-size" aria-label="Size">—</div>
+            <div class="aq-focus-stats">
+                <span class="aq-focus-depth" id="aq-focus-depth">Depth —</span>
+                <span class="aq-focus-speed" id="aq-focus-speed">Speed —</span>
+            </div>
+            <p class="aq-focus-desc" id="aq-focus-desc">—</p>
+            <button class="aq-focus-jump" id="aq-focus-jump"><i class="fas fa-circle-dot"></i> Jump to this fish</button>
+        </div>
+
+        <div class="aq-toast" id="aq-toast" role="status" aria-live="polite"></div>
+    </section>
+
     <script src="js/dna.js" defer></script>
     <script src="js/constellation.js" defer></script>
     <script src="js/trail.js" defer></script>
@@ -5407,5 +5528,6 @@
     <script src="js/garden.js?v=78b" defer></script>
     <script src="js/tape.js?v=100" defer></script>
     <script src="js/skyline.js?v=100" defer></script>
+    <script src="js/aquarium.js?v=101" defer></script>
 </body>
 </html>

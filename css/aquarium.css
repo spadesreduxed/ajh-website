@@ -1,0 +1,899 @@
+/* ============================================================
+   Day 81: Build Aquarium — 81 days as a living fish tank.
+   Every build is a fish. Impact = size. Archetype = species.
+   ============================================================ */
+
+.aquarium-section {
+  --aq-water-top: #1d4e89;
+  --aq-water-mid: #0f3a6b;
+  --aq-water-bot: #062847;
+  --aq-sand: #c8a96a;
+  --aq-foam: rgba(255, 255, 255, 0.18);
+  --aq-glow: rgba(120, 200, 255, 0.25);
+  --aq-tank-bg: linear-gradient(180deg, #062847 0%, #0a3a6b 50%, #062847 100%);
+  --aq-tank-border: rgba(255, 255, 255, 0.18);
+  --aq-card: rgba(8, 28, 52, 0.78);
+  --aq-card-border: rgba(120, 200, 255, 0.28);
+  --aq-text: #e6f2ff;
+  --aq-muted: #8aa9c6;
+  --aq-accent: #46d3ff;
+
+  position: relative;
+  padding: 80px 0 100px;
+  background: radial-gradient(ellipse at top, #0a3a6b 0%, #062847 70%);
+  color: var(--aq-text);
+  overflow: hidden;
+}
+
+.aquarium-section .section-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.aquarium-section .section-tag {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: rgba(70, 211, 255, 0.16);
+  border: 1px solid rgba(70, 211, 255, 0.34);
+  color: var(--aq-accent);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.aquarium-section .section-title {
+  font-size: 40px;
+  font-weight: 800;
+  margin: 0 0 8px;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, #46d3ff, #6affb8, #46d3ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.aquarium-section .section-subtitle {
+  color: var(--aq-muted);
+  font-size: 15px;
+  max-width: 620px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ---- Stat tiles ---- */
+.aq-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  max-width: 980px;
+  margin: 0 auto 28px;
+}
+
+.aq-stat {
+  background: var(--aq-card);
+  border: 1px solid var(--aq-card-border);
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+  backdrop-filter: blur(6px);
+  position: relative;
+  overflow: hidden;
+}
+
+.aq-stat i {
+  font-size: 18px;
+  color: var(--aq-accent);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.aq-stat-num {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--aq-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.aq-stat-label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--aq-muted);
+  margin-top: 4px;
+}
+
+/* ---- Tank (the main stage) ---- */
+.aq-tank-wrap {
+  max-width: 1080px;
+  margin: 0 auto 22px;
+  position: relative;
+}
+
+.aq-tank {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 20px;
+  border: 1px solid var(--aq-tank-border);
+  background: var(--aq-tank-bg);
+  overflow: hidden;
+  box-shadow:
+    0 0 0 6px rgba(255, 255, 255, 0.04),
+    0 24px 60px rgba(0, 0, 0, 0.45),
+    inset 0 0 80px rgba(70, 211, 255, 0.08);
+}
+
+/* Water surface ripple */
+.aq-surface {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 32px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 100%);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.aq-surface::before,
+.aq-surface::after {
+  content: '';
+  position: absolute;
+  left: -50%;
+  right: -50%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  animation: aq-ripple 6s linear infinite;
+}
+
+.aq-surface::after {
+  top: 8px;
+  animation-delay: -3s;
+  opacity: 0.6;
+}
+
+@keyframes aq-ripple {
+  0%   { transform: translateX(-25%) scaleY(1); }
+  50%  { transform: translateX(0%) scaleY(1.6); }
+  100% { transform: translateX(25%) scaleY(1); }
+}
+
+/* Sand floor */
+.aq-sand {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 56px;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(255, 220, 160, 0.4) 0%, transparent 35%),
+    radial-gradient(ellipse at 70% 60%, rgba(255, 220, 160, 0.3) 0%, transparent 35%),
+    linear-gradient(180deg, #8a6c3a 0%, #c8a96a 50%, #b89556 100%);
+  border-top: 2px solid rgba(255, 255, 255, 0.12);
+  z-index: 2;
+}
+
+.aq-sand::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 12% 80%, rgba(0, 0, 0, 0.18) 0 1.5px, transparent 2px),
+    radial-gradient(circle at 35% 60%, rgba(0, 0, 0, 0.12) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 62% 70%, rgba(0, 0, 0, 0.18) 0 1.5px, transparent 2px),
+    radial-gradient(circle at 88% 50%, rgba(0, 0, 0, 0.12) 0 1px, transparent 1.5px);
+}
+
+/* Seaweed */
+.aq-weed {
+  position: absolute;
+  bottom: 50px;
+  width: 14px;
+  background: linear-gradient(180deg, rgba(34, 139, 34, 0.0) 0%, rgba(34, 139, 34, 0.7) 100%);
+  border-radius: 50% 50% 0 0;
+  transform-origin: bottom center;
+  z-index: 3;
+}
+
+.aq-weed::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -1px;
+  right: -1px;
+  bottom: 0;
+  background: linear-gradient(90deg, rgba(0, 80, 0, 0.4), rgba(34, 139, 34, 0.5) 50%, rgba(0, 80, 0, 0.4));
+  border-radius: 50% 50% 0 0;
+}
+
+.aq-weed-1 { left: 5%;  height: 110px; animation: aq-sway 5s ease-in-out infinite; }
+.aq-weed-2 { left: 14%; height: 80px;  animation: aq-sway 6s ease-in-out infinite -1s; }
+.aq-weed-3 { left: 82%; height: 100px; animation: aq-sway 7s ease-in-out infinite -2s; }
+.aq-weed-4 { left: 92%; height: 70px;  animation: aq-sway 5.5s ease-in-out infinite -3s; }
+.aq-weed-5 { left: 50%; height: 60px;  opacity: 0.6; animation: aq-sway 8s ease-in-out infinite -1.5s; }
+
+@keyframes aq-sway {
+  0%, 100% { transform: rotate(-4deg); }
+  50%      { transform: rotate(4deg); }
+}
+
+/* Tank lighting (day/night) */
+.aq-light {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  transition: background 1.4s ease;
+}
+
+.aq-light.is-day {
+  background: linear-gradient(180deg, rgba(255, 220, 150, 0.10) 0%, rgba(70, 211, 255, 0) 50%);
+}
+
+.aq-light.is-night {
+  background: linear-gradient(180deg, rgba(0, 10, 30, 0.45) 0%, rgba(70, 100, 200, 0.15) 100%);
+}
+
+.aq-light.is-sunset {
+  background: linear-gradient(180deg, rgba(255, 130, 80, 0.18) 0%, rgba(255, 100, 120, 0.10) 60%, rgba(40, 20, 80, 0.25) 100%);
+}
+
+/* Tank edge highlight */
+.aq-tank::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  pointer-events: none;
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.4);
+  z-index: 6;
+}
+
+/* ---- Fish ---- */
+.aq-fish {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  z-index: 3;
+  cursor: pointer;
+  user-select: none;
+  will-change: transform;
+  transform-origin: center;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.25));
+  transition: transform 0.18s ease;
+}
+
+.aq-fish:hover {
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.6)) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.25));
+  z-index: 10;
+}
+
+.aq-fish.is-focused {
+  z-index: 11;
+  filter: drop-shadow(0 0 16px var(--aq-accent)) drop-shadow(0 0 4px #fff);
+}
+
+.aq-fish-body {
+  position: relative;
+  background: var(--fish-color, #46d3ff);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  transform: scaleX(var(--fish-flip, 1));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aq-fish-tail {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: calc(var(--fish-h, 16px) * 0.45) 0 calc(var(--fish-h, 16px) * 0.45) calc(var(--fish-h, 16px) * 0.55);
+  border-color: transparent transparent transparent var(--fish-color, #46d3ff);
+  transform: translateY(-50%);
+}
+
+.aq-fish-eye {
+  position: absolute;
+  width: calc(var(--fish-h, 16px) * 0.16);
+  height: calc(var(--fish-h, 16px) * 0.16);
+  background: #fff;
+  border-radius: 50%;
+  top: 22%;
+  right: 14%;
+}
+
+.aq-fish-eye::after {
+  content: '';
+  position: absolute;
+  inset: 22% 22% 22% 22%;
+  background: #000;
+  border-radius: 50%;
+}
+
+.aq-fish-stripe {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 30%;
+  width: 4%;
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 50%;
+}
+
+/* Fish swim cycle. Phase-shifted per fish via --phase */
+.aq-fish {
+  animation:
+    aq-swim-x var(--aq-cycle, 28s) linear infinite,
+    aq-swim-y var(--aq-cycle, 28s) ease-in-out infinite;
+  animation-delay: var(--phase, 0s);
+}
+
+@keyframes aq-swim-x {
+  0%   { left: -8%; }
+  100% { left: 102%; }
+}
+
+@keyframes aq-swim-y {
+  0%   { top: var(--y0, 30%); }
+  25%  { top: var(--y1, 20%); }
+  50%  { top: var(--y2, 50%); }
+  75%  { top: var(--y3, 25%); }
+  100% { top: var(--y0, 30%); }
+}
+
+.aq-fish.is-flipped {
+  animation-direction: reverse, alternate;
+}
+
+/* fish darting animation when food drops */
+.aq-fish.is-darting {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: none;
+}
+
+/* ---- Bubbles ---- */
+.aq-bubbles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.aq-bubble {
+  position: absolute;
+  bottom: 56px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.85), rgba(180, 220, 255, 0.4) 60%, rgba(70, 211, 255, 0) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  animation: aq-rise 4s linear forwards;
+}
+
+@keyframes aq-rise {
+  0%   { transform: translateY(0) scale(0.4); opacity: 0; }
+  20%  { opacity: 0.9; }
+  100% { transform: translateY(-340px) scale(1.2); opacity: 0; }
+}
+
+/* Food */
+.aq-food {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ff8a3d;
+  box-shadow: 0 0 8px #ff8a3d;
+  z-index: 5;
+  pointer-events: none;
+  animation: aq-food-fall 2s linear forwards;
+}
+
+@keyframes aq-food-fall {
+  0%   { transform: translateY(-30px); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+
+/* Tank caption */
+.aq-tank-caption {
+  position: absolute;
+  bottom: 12px;
+  left: 16px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  z-index: 7;
+  pointer-events: none;
+}
+
+.aq-tank-caption strong {
+  color: var(--aq-accent);
+  font-weight: 700;
+}
+
+/* ---- Toolbar ---- */
+.aq-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  max-width: 980px;
+  margin: 0 auto 16px;
+}
+
+.aq-modes {
+  display: inline-flex;
+  border-radius: 999px;
+  border: 1px solid var(--aq-card-border);
+  background: var(--aq-card);
+  padding: 4px;
+}
+
+.aq-mode-btn {
+  border: none;
+  background: transparent;
+  color: var(--aq-muted);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: inherit;
+}
+
+.aq-mode-btn:hover { color: var(--aq-text); }
+
+.aq-mode-btn.is-active {
+  background: rgba(70, 211, 255, 0.18);
+  color: var(--aq-accent);
+  box-shadow: 0 0 0 1px rgba(70, 211, 255, 0.5) inset;
+}
+
+.aq-actions {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.aq-action-btn {
+  border: 1px solid var(--aq-card-border);
+  background: var(--aq-card);
+  color: var(--aq-text);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.18s ease;
+}
+
+.aq-action-btn:hover {
+  border-color: var(--aq-accent);
+  color: var(--aq-accent);
+}
+
+.aq-action-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---- Filter chips ---- */
+.aq-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  max-width: 980px;
+  margin: 0 auto 18px;
+}
+
+.aq-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--aq-card-border);
+  background: var(--aq-card);
+  color: var(--aq-text);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.18s ease;
+}
+
+.aq-chip:hover { border-color: var(--aq-accent); }
+
+.aq-chip.is-active {
+  background: var(--aq-accent);
+  color: #062847;
+  border-color: var(--aq-accent);
+}
+
+.aq-chip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--aq-chip-color, var(--aq-accent));
+}
+
+.aq-chip-count {
+  font-size: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1px 6px;
+  border-radius: 999px;
+  margin-left: 2px;
+}
+
+.aq-chip.is-active .aq-chip-count {
+  background: rgba(255, 255, 255, 0.4);
+  color: #062847;
+}
+
+/* ---- Focus panel ---- */
+.aq-focus-back {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.aq-focus-back.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.aq-focus {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -48%) scale(0.92);
+  width: min(440px, 92vw);
+  background: var(--aq-card);
+  border: 1px solid var(--aq-card-border);
+  border-radius: 18px;
+  padding: 22px;
+  color: var(--aq-text);
+  z-index: 101;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.aq-focus.is-open {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+.aq-focus-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--aq-card-border);
+  color: var(--aq-text);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aq-focus-close:hover { background: rgba(255, 255, 255, 0.16); }
+
+.aq-focus-day {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--aq-accent);
+  margin-bottom: 6px;
+}
+
+.aq-focus-title {
+  margin: 0 0 4px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.aq-focus-name {
+  font-size: 14px;
+  color: var(--aq-muted);
+  margin-bottom: 14px;
+}
+
+.aq-focus-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.aq-focus-tag {
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--aq-accent);
+  color: #062847;
+  font-weight: 600;
+}
+
+.aq-focus-date {
+  font-size: 11px;
+  color: var(--aq-muted);
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--aq-card-border);
+}
+
+.aq-focus-impact {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.aq-focus-impact .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.aq-focus-impact .dot.is-on {
+  background: var(--aq-accent);
+  box-shadow: 0 0 8px var(--aq-accent);
+}
+
+.aq-focus-stats {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: var(--aq-muted);
+}
+
+.aq-focus-stats strong {
+  color: var(--aq-text);
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.aq-focus-desc {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--aq-text);
+  margin: 0 0 14px;
+  opacity: 0.85;
+}
+
+.aq-focus-jump {
+  width: 100%;
+  background: var(--aq-accent);
+  color: #062847;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: filter 0.18s ease;
+}
+
+.aq-focus-jump:hover { filter: brightness(1.1); }
+
+/* ---- Toast ---- */
+.aq-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--aq-card);
+  color: var(--aq-text);
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--aq-card-border);
+  font-size: 13px;
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.aq-toast.is-show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ---- Hint ---- */
+.aq-hint {
+  text-align: center;
+  font-size: 12px;
+  color: var(--aq-muted);
+  margin: 16px auto 0;
+  max-width: 720px;
+  line-height: 1.6;
+}
+
+.aq-hint kbd {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 11px;
+  font-family: monospace;
+  color: var(--aq-text);
+  margin: 0 2px;
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 760px) {
+  .aq-stats { grid-template-columns: repeat(2, 1fr); }
+  .aquarium-section .section-title { font-size: 30px; }
+  .aq-tank { aspect-ratio: 4 / 5; }
+  .aq-toolbar { flex-direction: column; align-items: stretch; }
+  .aq-actions, .aq-modes { justify-content: center; }
+}
+
+/* ---- Light theme ---- */
+body.aq-light .aquarium-section {
+  --aq-water-top: #b8e0ff;
+  --aq-water-mid: #6bb4e8;
+  --aq-water-bot: #2e80b8;
+  --aq-tank-bg: linear-gradient(180deg, #2e80b8 0%, #6bb4e8 50%, #b8e0ff 100%);
+  --aq-tank-border: rgba(255, 255, 255, 0.6);
+  --aq-card: rgba(255, 255, 255, 0.78);
+  --aq-card-border: rgba(40, 100, 160, 0.28);
+  --aq-text: #062847;
+  --aq-muted: #3e6a8c;
+  --aq-accent: #0077c2;
+  background: linear-gradient(180deg, #e0f0ff 0%, #c8e4f8 100%);
+}
+
+body.aq-light .aq-stat-num { color: #062847; }
+body.aq-light .aq-chip { color: #062847; }
+body.aq-light .aq-action-btn { color: #062847; }
+body.aq-light .aq-focus { color: #062847; }
+body.aq-light .aq-focus .aq-focus-name { color: #3e6a8c; }
+body.aq-light .aq-focus-date { color: #3e6a8c; }
+body.aq-light .aq-toast { color: #062847; }
+body.aq-light .aq-hint kbd { color: #062847; }
+body.aq-light .aq-mode-btn.is-active { color: #fff; }
+body.aq-light .aq-mode-btn.is-active { color: #062847; }
+body.aq-light .aq-chip.is-active { color: #fff; }
+
+/* Coral mounds */
+.aq-coral {
+  position: absolute;
+  bottom: 0;
+  width: var(--coral-w, 50px);
+  height: calc(var(--coral-w, 50px) * 0.7);
+  z-index: 2;
+  pointer-events: none;
+  filter: drop-shadow(0 -2px 4px rgba(0, 0, 0, 0.4));
+  animation: aq-sway 6s ease-in-out infinite;
+}
+.aq-coral:nth-child(odd) { animation-delay: -2s; animation-duration: 7s; }
+
+/* Rocks */
+.aq-rock {
+  position: absolute;
+  bottom: 0;
+  width: var(--rock-w, 40px);
+  height: calc(var(--rock-w, 40px) * 0.6);
+  z-index: 1;
+  pointer-events: none;
+  transform: rotate(var(--rock-rotate, 0deg));
+  opacity: 0.85;
+}
+
+/* Treasure chest */
+.aq-chest {
+  position: absolute;
+  bottom: 0;
+  width: 40px;
+  height: 25px;
+  z-index: 2;
+  pointer-events: auto;
+  cursor: help;
+  transition: transform 0.3s ease;
+}
+.aq-chest:hover {
+  transform: translateY(-3px) scale(1.05);
+  filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.6));
+}
+
+
+/* Calm mode slows the current and dampens fish motion */
+body.aq-calm .aq-fish {
+  animation-duration: 30s !important;
+}
+body.aq-calm .aq-fish-tail {
+  animation-duration: 1.2s !important;
+}
+body.aq-calm .aq-current {
+  opacity: 0.15;
+  animation-duration: 60s !important;
+}
+body.aq-calm .aq-bubble {
+  animation-duration: 12s !important;
+}
+body.aq-calm .aq-weed,
+body.aq-calm .aq-kelp {
+  animation-duration: 12s !important;
+}
+
+/* Flashing food: a flake that drifted to the bottom */
+.aq-food {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #f4d36b, #b07b1a);
+  box-shadow: 0 0 6px rgba(244, 211, 107, 0.6);
+  pointer-events: none;
+  z-index: 6;
+  animation: aq-food-sink 3.2s ease-in forwards;
+}
+@keyframes aq-food-sink {
+  0%   { transform: translateY(-20px) scale(0.6); opacity: 0; }
+  10%  { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(60px) scale(0.7); opacity: 0; }
+}
+
+/* Toast */
+.aq-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  padding: 12px 22px;
+  background: rgba(8, 28, 52, 0.95);
+  color: var(--aq-text, #e6f2ff);
+  border: 1px solid var(--aq-card-border, rgba(120, 200, 255, 0.4));
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 10000;
+  max-width: 90vw;
+  text-align: center;
+}
+.aq-toast.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}

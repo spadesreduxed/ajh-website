@@ -1,3 +1,19 @@
+## Latest Build - Day 81 (2026-07-12)
+
+### Build Aquarium — 81 fish, one tank, currents and bubbles
+- A **single living fish tank** where every build day is a fish — the fifth lens on the same 81-day build history after Calendar, DNA, Constellation, Trail, Weather, Garden, Tape, and Skyline
+- **Size** by impact (2-dot minnows up to 5-dot whales), **species** by archetype (Systems = swordfish, Visual = angelfish, Audio = blue tang, Interactive = tetra, Data = goldfish, Meta = betta, Craft = koi, Social = clownfish)
+- Each fish has a deterministic **swim loop** — phase, depth, speed, school bias all seeded from the day so the same fish always swims the same pattern
+- A **left-to-right current** nudges fish that wander too close to a wall, **bubbles** drift up from each fish at a rate tied to impact
+- **Tank** has gradient water, sand bed, top-left light cone, waterline ripple, swaying seaweed, hand-built coral, rocks, and a treasure chest in the corner
+- **3 modes**: Day / Sunset / Night — each remaps the water gradient, plant colors, fish glow, bubble opacity
+- **Filter chips** narrow the tank to one species
+- **Feed** drops a flake of food — every fish within range turns and darts for it, the hungriest fish eats it
+- **Bubbles** mode pulses the tank with an extra burst, **Calm** slows the current to 10%
+- **Click any fish** to open a focus panel with day, name, species, size, depth, and a "Jump to this fish" button
+- **Spotlight** hops a random fish into focus, **Export** dumps the full tank as JSON
+- Wired into the command palette: **Open Build Aquarium** (G A), **Feed the Fish**, **Calm the Water**, **Spotlight a Random Fish**, **Export as JSON**; new nav link "Aquarium"; hero meta button (fish icon); new bookmark card "Build Aquarium" (Tank)
+
 # AJH Website
 
 A daily-built GitHub Pages website that grows better every day.

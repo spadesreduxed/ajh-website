@@ -789,6 +789,12 @@ function initCommandPalette() {
     { id: 'tool-skyline-open', label: 'Open Build Skyline', icon: 'fa-city', shortcut: 'G Y', category: 'Tools', action: () => window.ajhSkyline && window.ajhSkyline.open && window.ajhSkyline.open() },
     { id: 'tool-skyline-mode', label: 'Build Skyline: Cycle Day/Night', icon: 'fa-circle-half-stroke', category: 'Tools', action: () => window.ajhSkyline && window.ajhSkyline.cycleMode && window.ajhSkyline.cycleMode() },
     { id: 'tool-skyline-export', label: 'Build Skyline: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhSkyline && window.ajhSkyline.exportJSON && window.ajhSkyline.exportJSON() },
+    // Day 81: Build Aquarium
+    { id: 'tool-aquarium-open', label: 'Open Build Aquarium', icon: 'fa-fish', shortcut: 'G A', category: 'Tools', action: () => window.ajhAquarium && window.ajhAquarium.open && window.ajhAquarium.open() },
+    { id: 'tool-aquarium-feed', label: 'Build Aquarium: Feed the Fish', icon: 'fa-bowl-food', category: 'Tools', action: () => window.ajhAquarium && window.ajhAquarium.feed && window.ajhAquarium.feed() },
+    { id: 'tool-aquarium-calm', label: 'Build Aquarium: Calm the Water', icon: 'fa-water', category: 'Tools', action: () => window.ajhAquarium && window.ajhAquarium.toggleCalm && window.ajhAquarium.toggleCalm() },
+    { id: 'tool-aquarium-spotlight', label: 'Build Aquarium: Spotlight a Random Fish', icon: 'fa-shuffle', category: 'Tools', action: () => window.ajhAquarium && window.ajhAquarium.spotlight && window.ajhAquarium.spotlight() },
+    { id: 'tool-aquarium-export', label: 'Build Aquarium: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhAquarium && window.ajhAquarium.exportJSON && window.ajhAquarium.exportJSON() },
 
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -3716,6 +3722,7 @@ function initBookmarkCards() {
     { id: 'weather', icon: 'fa-cloud-sun', title: 'Build Weather', tag: 'Forecast', desc: 'All 77 build days as a 7-day rolling forecast. Today\'s outlook, climate cards by archetype, conditions (Sunny/Cloudy/Stormy/...), temp & humidity, share card, export as JSON. Press G W.' },
     { id: 'tape', icon: 'fa-compact-disc', title: 'Build Tape', tag: 'Mixtape', desc: 'A vintage cassette player for 78 days of builds. Spinning reels, sliding tape, side A/B, prev/next/flip, shuffle, runtime clock, share the soundtrack. Press G P.' },
     { id: 'skyline', icon: 'fa-city', title: 'Build Skyline', tag: 'Cityscape', desc: 'All 80 build days as a city. Each day is a building, height by impact, lit windows from a seed, day/sunset/night cycle, sun & moon, click any building to read it, JSON export. Press G Y.' },
+    { id: 'aquarium', icon: 'fa-fish', title: 'Build Aquarium', tag: 'Tank', desc: 'All 81 build days as a living fish tank. Each day is a fish — size by impact, species by archetype — with currents, bubbles, light cones, plants, and a Feed action that drops a flake the fish dart for. Press G A.' },
   ];
 
   let state = {
