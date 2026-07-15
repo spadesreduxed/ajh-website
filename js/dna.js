@@ -102,6 +102,16 @@
     { day: 71, name: 'Step Sequencer',                  category: 'audio',     impact: 4 },
     { day: 72, name: 'The Forge (Reflection Studio)',  category: 'meta',      impact: 4 },
     { day: 73, name: 'Lab Notebook (Hypothesis Log)',  category: 'meta',      impact: 4 },
+    { day: 74, name: 'Build DNA (Pattern Genome)',                category: 'data',      impact: 5 },
+    { day: 75, name: 'Constellation Map (75 Stars)',              category: 'visual',    impact: 4 },
+    { day: 76, name: 'Build Trail (Chronological Ribbon)',         category: 'data',      impact: 3 },
+    { day: 77, name: 'Build Weather (Forecast Engine)',            category: 'data',      impact: 4 },
+    { day: 78, name: 'Build Garden (8 SVG Plants)',                category: 'craft',     impact: 4 },
+    { day: 79, name: 'Build Tape (Cassette Player)',               category: 'audio',     impact: 4 },
+    { day: 80, name: 'Build Skyline (80 Buildings)',               category: 'visual',    impact: 5 },
+    { day: 81, name: 'Build Aquarium (81 Fish)',                    category: 'craft',     impact: 4 },
+    { day: 82, name: 'Build Observatory (82 Moons)',                category: 'data',      impact: 5 },
+    { day: 83, name: 'Build Waveform (83 Frequencies)',             category: 'audio',     impact: 5 },
   ];
 
   // Personality archetypes — derived from top-2 archetype mix

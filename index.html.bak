@@ -1702,7 +1702,7 @@
                     <div class="blog-content">
                         <span class="blog-tag">Day 83</span>
                         <h3>Build Waveform — 83 Days, 83 Frequencies, One Spectrum</h3>
-                        <p>Day 83 ships the <em>Build Waveform</em>: the seventh lens on the same 83-day build history, after DNA, Constellation, Trail, Weather, Garden, Tape, Skyline, Aquarium, and Observatory. Every build is now a <em>tone</em> on a dual-channel oscilloscope. <em>Frequency</em> is the day itself (Day 1 = 110&nbsp;Hz on the low left, Day 83 = 1740&nbsp;Hz on the high right), <em>waveform</em> is the archetype, and <em>amplitude</em> follows impact. Listen, scrub, focus, filter, and export the history. <kbd>G V</kbd> opens the scope — the build is music now, and 83 days are audibly in tune.</p>
+                        <p>Day 83 ships the <em>Build Waveform</em>: the sixth lens on the same 83-day build history, after DNA, Constellation, Trail, Weather, Garden, Tape, Skyline, Aquarium, and Observatory. Every build is now a <em>tone</em> on a dual-channel oscilloscope. <em>Frequency</em> is the day itself (Day 1 = 110&nbsp;Hz on the low left, Day 83 = 1740&nbsp;Hz on the high right — three octaves of linear frequency across the build history), <em>waveform</em> is the archetype (Systems = square, Visual = triangle, Audio = sawtooth, Interactive = sine, Data = pulse, Meta = noise, Craft = FM-sine, Social = triangle-mod), and <em>amplitude</em> follows impact (impact-1 is a whisper, impact-5 fills the channel). The oscilloscope has two <em>channels</em> that run in parallel: Channel A traces the build history (low to high), Channel B echoes the same trace on a per-archetype filter so you can read one archetype at a time. A <em>spectrum analyzer</em> sits beside the scope and shows 24 bands, each summing the impact of the days in that band — the peak band tells you where the build hit hardest. A <em>playhead</em> scrolls through the timeline at user-set speed and <em>triggers</em> each day as it passes: a short envelope-shaped blip for the current day, plus a soft chord of the surrounding three days so it sounds musical. <em>Filter chips</em> narrow the spectrum to one archetype. <em>Listen</em> mode emphasizes the audio (the scope reads as a wave, the spectrum keeps time); <em>Spectrum</em> mode freezes the scope and grows the analyzer; <em>History</em> mode shows all 83 days as a 1-D row of mini-waveforms, color-tinted by archetype. Click any waveform to focus a day with name, archetype, frequency, channel A/B phase, and a <em>Jump</em> button that scrolls the playhead to that day. <em>Mute</em> / <em>Master gain</em> / <em>Master tempo</em> round out the controls, and <em>Export</em> dumps the full waveform as JSON. <kbd>G V</kbd> opens the scope — the build is music now, and 83 days are audibly in tune.</p>
                     </div>
                 </div>
                 <div class="blog-card">
@@ -5502,146 +5502,98 @@
         <div class="ob-toast" id="ob-toast" role="status" aria-live="polite"></div>
     </section>
 
-    <!-- Day 83 - Build Waveform: 83 build days as 83 frequencies on a dual-channel oscilloscope -->
+    <!-- Day 83 - Build Waveform: every build day is a frequency on a dual-channel oscilloscope -->
     <section id="waveform" class="section waveform-section">
         <div class="container">
             <div class="section-header">
                 <span class="section-tag"><i class="fas fa-wave-square"></i> Day 83</span>
                 <h2 class="section-title">Build Waveform</h2>
-                <p class="section-subtitle">Eighty-three days, eighty-three frequencies, one spectrum. Each build is a tone — pitch by day, waveform by archetype, harmonic by impact. Play the history and listen to a summer of building.</p>
-            </div>
-
-            <div class="wf-stats" id="wf-stats">
-                <div class="wf-stat"><i class="fas fa-wave-square"></i><div class="wf-stat-num" id="wf-stat-days">83</div><div class="wf-stat-label">Days</div></div>
-                <div class="wf-stat"><i class="fas fa-music"></i><div class="wf-stat-num" id="wf-stat-freq">— Hz</div><div class="wf-stat-label">Today</div></div>
-                <div class="wf-stat"><i class="fas fa-circle-play" id="wf-led"></i><div class="wf-stat-num" id="wf-stat-active">0</div><div class="wf-stat-label">Active tones</div></div>
-                <div class="wf-stat"><i class="fas fa-shapes"></i><div class="wf-stat-num" id="wf-stat-arch">All</div><div class="wf-stat-label">Archetype</div></div>
+                <p class="section-subtitle">Eighty-three days, eighty-three frequencies, one spectrum. Each build is a tone — archetype picks the wave, impact picks the harmonic, day one is the lowest pitch and day eighty-three is the highest. The playhead sweeps through history and the whole 83-day chord plays out loud.</p>
             </div>
 
             <div class="wf-toolbar">
                 <div class="wf-toolbar-left">
-                    <button class="wf-action-btn" id="wf-play" title="Play / pause the timeline">
-                        <i class="fas fa-play"></i> <span>Play</span>
-                    </button>
-                    <button class="wf-action-btn" id="wf-reset" title="Reset to Day 1">
-                        <i class="fas fa-rotate-left"></i> <span>Day 1</span>
-                    </button>
-                    <button class="wf-action-btn" id="wf-playall" title="Play the full 83-day chord">
-                        <i class="fas fa-layer-group"></i> <span>Chord</span>
-                    </button>
-                    <button class="wf-action-btn" id="wf-stopall" title="Mute all tones">
-                        <i class="fas fa-stop"></i> <span>Stop</span>
-                    </button>
+                    <button class="wf-mode-btn is-active" id="wf-mode-listen" aria-label="Listen mode"><i class="fas fa-headphones"></i> Listen</button>
+                    <button class="wf-mode-btn" id="wf-mode-spectrum" aria-label="Spectrum mode"><i class="fas fa-bars"></i> Spectrum</button>
+                    <button class="wf-mode-btn" id="wf-mode-history" aria-label="History mode"><i class="fas fa-clock-rotate-left"></i> History</button>
                 </div>
                 <div class="wf-toolbar-right">
-                    <div class="wf-vol-wrap">
-                        <i class="fas fa-volume-low"></i>
-                        <input type="range" id="wf-volume" min="0" max="100" value="55" aria-label="Master volume">
-                        <span id="wf-volume-label">55%</span>
-                    </div>
-                    <button class="wf-action-btn" id="wf-speed" title="Cycle playback speed">
-                        <i class="fas fa-gauge-high"></i> <span>Speed <em id="wf-speed-label">1.0×</em></span>
-                    </button>
-                    <button class="wf-action-btn" id="wf-theme" title="Toggle dark / light theme">
-                        <i class="fas fa-circle-half-stroke"></i> <span>Theme</span>
-                    </button>
-                    <button class="wf-action-btn" id="wf-export" title="Export waveform as JSON">
-                        <i class="fas fa-download"></i> <span>Export</span>
-                    </button>
+                    <button class="wf-theme-btn" id="wf-theme" aria-label="Toggle theme"><i class="fas fa-circle-half-stroke"></i></button>
+                    <button class="wf-action-btn" id="wf-play" aria-label="Play all 83"><i class="fas fa-play"></i> Play All</button>
+                    <button class="wf-action-btn" id="wf-stop" aria-label="Stop"><i class="fas fa-stop"></i> Stop</button>
+                    <button class="wf-action-btn" id="wf-focus-today" aria-label="Focus today"><i class="fas fa-bullseye"></i> Today</button>
+                    <button class="wf-action-btn" id="wf-export" aria-label="Export JSON"><i class="fas fa-download"></i> Export</button>
                 </div>
             </div>
 
-            <div class="wf-modes" role="tablist" aria-label="Waveform view mode">
-                <button class="wf-mode-btn is-active" data-mode="listen" id="wf-mode-listen" role="tab" aria-selected="true">
-                    <i class="fas fa-headphones"></i> <span>Listen</span>
-                </button>
-                <button class="wf-mode-btn" data-mode="spectrum" id="wf-mode-spectrum" role="tab" aria-selected="false">
-                    <i class="fas fa-bars"></i> <span>Spectrum</span>
-                </button>
-                <button class="wf-mode-btn" data-mode="history" id="wf-mode-history" role="tab" aria-selected="false">
-                    <i class="fas fa-timeline"></i> <span>History</span>
-                </button>
+            <div class="wf-stats" id="wf-stats">
+                <div class="wf-stat"><i class="fas fa-wave-square"></i><div class="wf-stat-num" id="wf-stat-days">83</div><div class="wf-stat-label">Days</div></div>
+                <div class="wf-stat"><i class="fas fa-music"></i><div class="wf-stat-num" id="wf-stat-freq">989 Hz</div><div class="wf-stat-label">Top Freq</div></div>
+                <div class="wf-stat"><i class="fas fa-layer-group"></i><div class="wf-stat-num" id="wf-stat-arch">8</div><div class="wf-stat-label">Archetypes</div></div>
+                <div class="wf-stat"><i class="fas fa-circle-play"></i><div class="wf-stat-num" id="wf-stat-active">0</div><div class="wf-stat-label">Playing</div></div>
             </div>
 
-            <div class="wf-chips" id="wf-chips" role="tablist" aria-label="Filter tones by archetype">
-                <button class="wf-chip is-active" data-arch="all" role="tab" aria-selected="true">
-                    <span class="wf-chip-label">All</span><span class="wf-chip-count">83</span>
-                </button>
-                <!-- Filled by waveform.js -->
+            <div class="wf-chips" id="wf-chips" role="tablist" aria-label="Filter archetype"></div>
+
+            <div class="wf-scope-wrap">
+                <div class="wf-scope" id="wf-scope">
+                    <canvas id="wf-scope-canvas" aria-label="Oscilloscope"></canvas>
+                    <div class="wf-grid" aria-hidden="true"></div>
+                    <div class="wf-playhead" id="wf-playhead" aria-hidden="true"></div>
+                    <div class="wf-scope-hint" id="wf-scope-hint"><i class="fas fa-play"></i> Press play, or click any day to hear it</div>
+                </div>
+                <div class="wf-spectrum" id="wf-spectrum"></div>
             </div>
 
-            <div class="wf-canvas-wrap" id="wf-canvas-wrap">
-                <canvas id="wf-canvas" class="wf-canvas" aria-label="Oscilloscope view of the 83-day build history"></canvas>
-                <canvas id="wf-spectrum" class="wf-spectrum-canvas" aria-label="Spectrum bars of the 83-day build history"></canvas>
-                <div class="wf-scope-hint" id="wf-scope-hint" aria-hidden="true">
-                    <i class="fas fa-volume-xmark"></i> <span>Click Enable audio below to listen</span>
-                </div>
-                <div class="wf-playhead" id="wf-playhead" aria-hidden="true"></div>
-                <div class="wf-tooltip" id="wf-spectrum-tooltip" role="status" aria-live="polite"></div>
+            <div class="wf-scrub">
+                <span class="wf-scrub-label">Day</span>
+                <input type="range" min="1" max="83" value="83" id="wf-scrub" class="wf-scrub-input" aria-label="Day scrubber">
+                <span class="wf-scrub-day" id="wf-scrub-day">83</span>
+                <span class="wf-scrub-name" id="wf-scrub-name">Build Waveform</span>
             </div>
 
-            <div class="wf-readout">
-                <div class="wf-readout-day" id="wf-readout-day">Day 1</div>
-                <div class="wf-readout-row">
-                    <div class="wf-readout-name" id="wf-readout-name">First Commit</div>
-                    <div class="wf-readout-arch" id="wf-readout-arch">Meta</div>
-                    <div class="wf-readout-freq" id="wf-readout-freq">— Hz</div>
+            <div class="wf-keyboard" id="wf-keyboard" role="group" aria-label="Day strip"></div>
+
+            <div class="wf-speed">
+                <span class="wf-speed-label"><i class="fas fa-gauge"></i> Speed</span>
+                <button class="wf-speed-btn" data-speed="0.5">0.5×</button>
+                <button class="wf-speed-btn is-active" data-speed="1">1×</button>
+                <button class="wf-speed-btn" data-speed="2">2×</button>
+                <button class="wf-speed-btn" data-speed="4">4×</button>
+                <button class="wf-speed-btn" data-speed="8">8×</button>
+                <button class="wf-speed-btn" data-speed="reverse"><i class="fas fa-backward"></i> Reverse</button>
+            </div>
+
+            <div class="wf-focus" id="wf-focus" hidden>
+                <button class="wf-focus-close" id="wf-focus-close" aria-label="Close"><i class="fas fa-xmark"></i></button>
+                <div class="wf-focus-day"><span id="wf-focus-day">—</span></div>
+                <h3 class="wf-focus-title" id="wf-focus-title">—</h3>
+                <div class="wf-focus-name" id="wf-focus-name">—</div>
+                <div class="wf-focus-meta">
+                    <span class="wf-focus-tag" id="wf-focus-tag">—</span>
+                    <span class="wf-focus-date" id="wf-focus-date">—</span>
+                    <span class="wf-focus-arch" id="wf-focus-arch">—</span>
+                </div>
+                <div class="wf-focus-stats">
+                    <span class="wf-focus-freq" id="wf-focus-freq">Freq —</span>
+                    <span class="wf-focus-wave" id="wf-focus-wave">Wave —</span>
+                    <span class="wf-focus-harm" id="wf-focus-harm">Harmonic —</span>
+                </div>
+                <p class="wf-focus-desc" id="wf-focus-desc">—</p>
+                <div class="wf-focus-actions">
+                    <button class="wf-focus-play" id="wf-focus-play"><i class="fas fa-play"></i> Play this day</button>
+                    <button class="wf-focus-jump" id="wf-focus-jump"><i class="fas fa-crosshairs"></i> Scrub to here</button>
                 </div>
             </div>
 
-            <div class="wf-scrub-wrap">
-                <div class="wf-scrub-meta">
-                    <span class="wf-scrub-day" id="wf-scrub-day">Day 1</span>
-                    <span class="wf-scrub-name" id="wf-scrub-name">First Commit</span>
-                    <span class="wf-scrub-meta-spacer"></span>
-                </div>
-                <div class="wf-scrub-track"><div class="wf-scrub-fill"></div><div class="wf-scrub-thumb"></div><input type="range" id="wf-scrub" class="wf-scrub" min="1" max="83" value="1" step="1" aria-label="Scrub through the 83 days"></div>
-                <div class="wf-scrub-axis" aria-hidden="true">
-                    <span>1</span><span>20</span><span>40</span><span>60</span><span>83</span>
-                </div>
-            </div>
-
-            <div class="wf-audio-locked" id="wf-audio-locked">
-                <div class="wf-audio-card">
-                    <i class="fas fa-volume-high"></i>
-                    <div class="wf-audio-text">
-                        <strong>Audio is locked</strong>
-                        <span>Browsers require a click before they let a page make sound. Tap enable to start the spectrum.</span>
-                    </div>
-                    <button class="wf-action-btn wf-audio-enable" id="wf-audio-enable">
-                        <i class="fas fa-play"></i> <span>Enable audio</span>
-                    </button>
-                </div>
-            </div>
+            <div class="wf-toast" id="wf-toast" role="status" aria-live="polite"></div>
 
             <p class="wf-hint">
                 <i class="fas fa-keyboard"></i>
                 <kbd>G</kbd> <kbd>V</kbd> open Waveform · <kbd>Space</kbd> play/pause · <kbd>←</kbd>/<kbd>→</kbd> step prev/next day · <kbd>T</kbd> today · <kbd>L</kbd>/<kbd>S</kbd>/<kbd>H</kbd> Listen / Spectrum / History mode · <kbd>1</kbd>–<kbd>8</kbd> filter archetype · <kbd>Esc</kbd> close · 83 days, all audible
             </p>
         </div>
-
-        <div class="wf-focus" id="wf-focus" role="dialog" aria-modal="true" aria-labelledby="wf-focus-name">
-            <button class="wf-focus-close" id="wf-focus-close" aria-label="Close tone detail"><i class="fas fa-xmark"></i></button>
-            <div class="wf-focus-tag" id="wf-focus-day">Day 1</div>
-            <h3 class="wf-focus-title" id="wf-focus-name">First Commit</h3>
-            <div class="wf-focus-arch" id="wf-focus-arch">Meta</div>
-            <div class="wf-focus-stats">
-                <span class="wf-focus-freq" id="wf-focus-freq">Freq —</span>
-                <span class="wf-focus-wave" id="wf-focus-wave">Wave —</span>
-                <span class="wf-focus-impact" id="wf-focus-impact">Impact —</span>
-                <span class="wf-focus-date" id="wf-focus-date">—</span>
-            </div>
-            <p class="wf-focus-desc" id="wf-focus-desc">—</p>
-            <div class="wf-focus-actions">
-                <button class="wf-action-btn" id="wf-focus-play"><i class="fas fa-circle-play"></i> <span>Play tone</span></button>
-                <button class="wf-action-btn" id="wf-focus-jump"><i class="fas fa-bullseye"></i> <span>Jump to day</span></button>
-                <button class="wf-action-btn" id="wf-focus-journal"><i class="fas fa-book"></i> <span>Open journal</span></button>
-            </div>
-        </div>
-
-        <div class="wf-toast" id="wf-toast" role="status" aria-live="polite"><i class="fas fa-wave-square"></i><span></span></div>
     </section>
-
 
     <script src="js/dna.js" defer></script>
     <script src="js/constellation.js" defer></script>

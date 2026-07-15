@@ -8,7 +8,7 @@
   'use strict';
 
   const DAY1 = new Date(2026, 3, 22); // Apr 22 2026
-  const TODAY_DAY = 80;
+  const TODAY_DAY = 83;
   const TOTAL_BUILDINGS = 80;
   const STORAGE_KEY = 'ajh_skyline_v1';
 
@@ -111,6 +111,9 @@
     { d: 78, a: 'data',        n: 'Build Garden' },
     { d: 79, a: 'data',        n: 'Build Tape' },
     { d: 80, a: 'data',        n: 'Build Skyline' },
+    { d: 81, a: 'craft',        n: 'Build Aquarium' },
+    { d: 82, a: 'data',        n: 'Build Observatory' },
+    { d: 83, a: 'audio',        n: 'Build Waveform' },
   ];
 
   // Impact estimates per build (matches prior features: 2–5)
@@ -119,7 +122,7 @@
 
   function impactFor(d) {
     // Mirrors trail/garden/constellation: recent "big" features are 5, polish is 2-3
-    if ([11, 17, 25, 26, 29, 30, 32, 33, 74, 75, 76, 77, 78, 79, 80].includes(d)) return 5;
+    if ([11, 17, 25, 26, 29, 30, 32, 33, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83].includes(d)) return 5;
     if ([2, 6, 14, 15, 18, 19, 21, 22, 23, 27, 28, 64, 65, 66, 67, 68, 71, 72, 73].includes(d)) return 4;
     if ([1, 3, 5, 7, 8, 10, 12, 13, 16, 20, 24, 39, 40, 43, 46, 48, 51, 53, 55, 58, 62, 69, 70].includes(d)) return 3;
     return 2;

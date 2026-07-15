@@ -10,7 +10,7 @@
   'use strict';
 
   const DAY1 = new Date(2026, 3, 22); // Apr 22 2026
-  const TODAY_DAY = 81;
+  const TODAY_DAY = 83;
   const TOTAL_FISH = 81;
   const STORAGE_KEY = 'ajh_aquarium_v1';
 
@@ -126,6 +126,8 @@
     { d: 79, a: 'data',        n: 'Build Tape' },
     { d: 80, a: 'data',        n: 'Build Skyline' },
     { d: 81, a: 'craft',       n: 'Build Aquarium' },
+    { d: 82, a: 'data',        n: 'Build Observatory' },
+    { d: 83, a: 'audio',        n: 'Build Waveform' },
   ];
 
   // Impact estimates per build (2 = tiny fry, 5 = whale/shark)
@@ -134,7 +136,7 @@
 
   function impactFor(d) {
     // Big flagship features
-    if ([11, 15, 17, 19, 22, 24, 25, 30, 37, 40, 44, 46, 48, 49, 57, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81].includes(d)) return 5;
+    if ([11, 15, 17, 19, 22, 24, 25, 30, 37, 40, 44, 46, 48, 49, 57, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83].includes(d)) return 5;
     // Medium features
     if ([2, 3, 6, 8, 9, 10, 14, 18, 20, 23, 26, 27, 28, 29, 32, 33, 34, 35, 36, 38, 39, 41, 42, 43, 45, 47, 50, 51, 52, 53, 54, 55, 56, 58, 59].includes(d)) return 4;
     if ([1, 4, 5, 7, 12, 13, 16, 21, 31].includes(d)) return 3;

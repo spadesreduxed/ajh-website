@@ -800,6 +800,11 @@ function initCommandPalette() {
     { id: 'tool-observatory-shoot', label: 'Build Observatory: Shoot a Star', icon: 'fa-meteor', category: 'Tools', action: () => window.ajhObservatory && window.ajhObservatory.shoot && window.ajhObservatory.shoot() },
     { id: 'tool-observatory-orbits', label: 'Build Observatory: Toggle Orbits', icon: 'fa-circle-dot', category: 'Tools', action: () => window.ajhObservatory && window.ajhObservatory.toggleOrbits && window.ajhObservatory.toggleOrbits() },
     { id: 'tool-observatory-export', label: 'Build Observatory: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhObservatory && window.ajhObservatory.exportJSON && window.ajhObservatory.exportJSON() },
+    { id: 'tool-waveform-open', label: 'Open Build Waveform', icon: 'fa-wave-square', shortcut: 'G V', category: 'Tools', action: () => window.ajhWaveform && window.ajhWaveform.open && window.ajhWaveform.open() },
+    { id: 'tool-waveform-play', label: 'Build Waveform: Play / Pause', icon: 'fa-play', category: 'Tools', action: () => window.ajhWaveform && window.ajhWaveform.toggle && window.ajhWaveform.toggle() },
+    { id: 'tool-waveform-chord', label: 'Build Waveform: Play All 83-Day Chord', icon: 'fa-music', category: 'Tools', action: () => window.ajhWaveform && window.ajhWaveform.playAll && window.ajhWaveform.playAll() },
+    { id: 'tool-waveform-mode', label: 'Build Waveform: Cycle Listen / Spectrum / History', icon: 'fa-wave-square', category: 'Tools', action: () => window.ajhWaveform && window.ajhWaveform.cycleMode && window.ajhWaveform.cycleMode() },
+    { id: 'tool-waveform-export', label: 'Build Waveform: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhWaveform && window.ajhWaveform.export && window.ajhWaveform.export() },
 
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -3722,13 +3727,14 @@ function initBookmarkCards() {
     { id: 'forge', icon: 'fa-fire-burner', title: 'The Forge', tag: 'Reflection', desc: 'A build reflection studio. Five-axis rating, 280-char note, mood emoji, weekly and all-time stats. Press F to write today.' },
     { id: 'lab', icon: 'fa-flask', title: 'Lab Notebook', tag: 'Hypotheses', desc: 'A build hypothesis log: if I add X, then Y. Draft, running, validated, falsified, parked. Kill rate, kanban, JSON I/O. Press L to open.' },
     { id: 'dna', icon: 'fa-dna', title: 'Build DNA', tag: 'Patterns', desc: 'Your build style as a strand: 8 archetype axes, personality verdict, focus card, archetypes bar, and a live build log. Press G D.' },
-    { id: 'constellation75', icon: 'fa-star', title: 'Constellation Map', tag: 'Sky', desc: 'All 75 build days as a starfield. 8 archetype clusters, impact-sized stars, click to read each build, fireworks burst mode, JSON export. Press G S.' },
-    { id: 'trail', icon: 'fa-timeline', title: 'Build Trail', tag: 'Chronological', desc: 'A horizontal ribbon of all 76 build days, in time order. Filter by archetype, jump to today, fire the leaderboard, export as JSON. Press G T.' },
-    { id: 'weather', icon: 'fa-cloud-sun', title: 'Build Weather', tag: 'Forecast', desc: 'All 77 build days as a 7-day rolling forecast. Today\'s outlook, climate cards by archetype, conditions (Sunny/Cloudy/Stormy/...), temp & humidity, share card, export as JSON. Press G W.' },
-    { id: 'tape', icon: 'fa-compact-disc', title: 'Build Tape', tag: 'Mixtape', desc: 'A vintage cassette player for 78 days of builds. Spinning reels, sliding tape, side A/B, prev/next/flip, shuffle, runtime clock, share the soundtrack. Press G P.' },
-    { id: 'skyline', icon: 'fa-city', title: 'Build Skyline', tag: 'Cityscape', desc: 'All 80 build days as a city. Each day is a building, height by impact, lit windows from a seed, day/sunset/night cycle, sun & moon, click any building to read it, JSON export. Press G Y.' },
-    { id: 'aquarium', icon: 'fa-fish', title: 'Build Aquarium', tag: 'Tank', desc: 'All 81 build days as a living fish tank. Each day is a fish — size by impact, species by archetype — with currents, bubbles, light cones, plants, and a Feed action that drops a flake the fish dart for. Press G A.' },
-    { id: 'observatory', icon: 'fa-globe', title: 'Build Observatory', tag: 'Solar System', desc: 'All 82 build days orbiting a central planet. Each day is a moon — orbit by age, size by impact, color by archetype. 3 time-of-day modes, click any moon to read its build, shooting stars streak on demand. Press G O.' },
+    { id: 'constellation75', icon: 'fa-star', title: 'Constellation Map', tag: 'Sky', desc: 'All 83 build days as a starfield. 8 archetype clusters, impact-sized stars, click to read each build, fireworks burst mode, JSON export. Press G S.' },
+    { id: 'trail', icon: 'fa-timeline', title: 'Build Trail', tag: 'Chronological', desc: 'A horizontal ribbon of all 83 build days, in time order. Filter by archetype, jump to today, fire the leaderboard, export as JSON. Press G T.' },
+    { id: 'weather', icon: 'fa-cloud-sun', title: 'Build Weather', tag: 'Forecast', desc: 'All 83 build days as a 7-day rolling forecast. Today\'s outlook, climate cards by archetype, conditions (Sunny/Cloudy/Stormy/...), temp & humidity, share card, export as JSON. Press G W.' },
+    { id: 'tape', icon: 'fa-compact-disc', title: 'Build Tape', tag: 'Mixtape', desc: 'A vintage cassette player for 83 days of builds. Spinning reels, sliding tape, side A/B, prev/next/flip, shuffle, runtime clock, share the soundtrack. Press G P.' },
+    { id: 'skyline', icon: 'fa-city', title: 'Build Skyline', tag: 'Cityscape', desc: 'All 83 build days as a city. Each day is a building, height by impact, lit windows from a seed, day/sunset/night cycle, sun & moon, click any building to read it, JSON export. Press G Y.' },
+    { id: 'aquarium', icon: 'fa-fish', title: 'Build Aquarium', tag: 'Tank', desc: 'All 83 build days as a living fish tank. Each day is a fish — size by impact, species by archetype — with currents, bubbles, light cones, plants, and a Feed action that drops a flake the fish dart for. Press G A.' },
+    { id: 'observatory', icon: 'fa-globe', title: 'Build Observatory', tag: 'Solar System', desc: 'All 83 build days orbiting a central planet. Each day is a moon — orbit by age, size by impact, color by archetype. 3 time-of-day modes, click any moon to read its build, shooting stars streak on demand. Press G O.' },
+    { id: 'waveform', icon: 'fa-wave-square', title: 'Build Waveform', tag: 'Audio', desc: 'All 83 build days as 83 frequencies on a dual-channel oscilloscope. Each day is a tone — pitch by day, waveform by archetype, harmonic by impact. Listen mode plays history, Spectrum bars it, History scrolls it. Filter by archetype, scrub the playhead, play/pause, focus any tone, export as JSON. Press G V.' },
   ];
 
   let state = {
@@ -7002,6 +7008,13 @@ function initDay78HeroButtons() {
   if (skylineBtn) {
     skylineBtn.addEventListener('click', () => {
       const target = document.getElementById('skyline');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+  const waveformBtn = document.getElementById('waveform-hero-btn');
+  if (waveformBtn) {
+    waveformBtn.addEventListener('click', () => {
+      const target = document.getElementById('waveform');
       if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }

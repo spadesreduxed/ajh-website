@@ -96,10 +96,18 @@
     { d: 72, name: 'The Forge (Reflection Studio)',                 arch: 'meta',        impact: 4, date: '2026-07-01' },
     { d: 73, name: 'Lab Notebook (Hypothesis Log)',                 arch: 'meta',        impact: 4, date: '2026-07-02' },
     { d: 74, name: 'Build DNA (Pattern Genome)',                    arch: 'data',        impact: 5, date: '2026-07-03' },
+    { d: 75, name: 'Constellation Map (75 Stars)',                   arch: 'visual',      impact: 4, date: '2026-07-04' },
+    { d: 76, name: 'Build Trail (Chronological Ribbon)',             arch: 'data',        impact: 3, date: '2026-07-05' },
+    { d: 77, name: 'Build Weather (Forecast Engine)',                arch: 'data',        impact: 4, date: '2026-07-06' },
+    { d: 78, name: 'Build Garden (8 SVG Plants)',                    arch: 'craft',       impact: 4, date: '2026-07-07' },
+    { d: 79, name: 'Build Tape (Cassette Player)',                   arch: 'craft',       impact: 4, date: '2026-07-08' },
+    { d: 80, name: 'Build Skyline (City + Day/Night)',               arch: 'data',        impact: 4, date: '2026-07-09' },
+    { d: 81, name: 'Build Aquarium (81 Fish)',                       arch: 'craft',       impact: 4, date: '2026-07-10' },
+    { d: 82, name: 'Build Observatory (82 Moons + Planet)',          arch: 'data',        impact: 4, date: '2026-07-11' },
   ];
 
   // Day 75 — today's build, prepended so it's the first star rendered
-  STARS.unshift({ d: 75, name: 'Constellation Map', arch: 'visual', impact: 5, date: '2026-07-04', current: true });
+  STARS.unshift({ d: 83, name: 'Build Waveform (83 Frequencies)', arch: 'audio', impact: 5, date: '2026-07-12', current: true });
 
   // ---------- state ----------
   const STORAGE = {

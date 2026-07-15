@@ -129,7 +129,12 @@
         { day: 74, name: 'Build DNA (Pattern Genome)',             category: 'data',        impact: 4 },
         { day: 75, name: 'Constellation Map (75 Stars)',           category: 'visual',      impact: 4 },
         { day: 76, name: 'Build Trail (Chronological Ribbon)',     category: 'data',        impact: 3 },
-        { day: 77, name: 'Build Weather (Forecast Engine)',        category: 'data',        impact: 4 },
+        { day: 78, name: 'Build Garden', category: 'data', impact: 5 },
+        { day: 79, name: 'Build Tape', category: 'data', impact: 5 },
+        { day: 80, name: 'Build Skyline', category: 'data', impact: 5 },
+        { day: 81, name: 'Build Aquarium', category: 'craft', impact: 5 },
+        { day: 82, name: 'Build Observatory', category: 'data', impact: 5 },
+        { day: 83, name: 'Build Waveform', category: 'audio', impact: 5 },
     ];
 
     // Build descriptions (short) for detail panel
@@ -144,6 +149,13 @@
         74: 'Pattern genome of the build: 8 archetype distribution, personality card, build log feed, and focus card. Your build has a fingerprint.',
         75: 'Constellation map of 75 stars plotted across 8 archetype clusters. Click any star to read what shipped that day.',
         76: 'Horizontal chronological ribbon of all 75+1 build days. The third lens on the same data — alongside the sky (constellation) and the genome (DNA).',
+        77: '14-day forecast engine for the 77-day build streak — every build is a weather day with conditions, temp, and wind tied to its impact and archetype.',
+        78: '8 hand-built SVG plants growing from 77 days of build data. Each plant is a different species, watered and advancing day by day.',
+        79: 'Vintage cassette player for 78 days of builds. Day 1 on side A, today on side B, with autoplay and a working tape transport.',
+        80: '80 buildings, one city, day/night cycle. The fourth lens on the same build history — every build is a building in a scrollable skyline.',
+        81: '81 fish, one tank, currents and feeding. The fifth lens — every build is a fish in a single living aquarium with deterministic swim loops.',
+        82: '82 moons, one planet, orbits and phases. The sixth lens — every build is a moon orbiting a Builder Planet in a top-down solar system.',
+        83: '83 frequencies, one spectrum, listen mode. The seventh lens — every build is a tone on a dual-channel oscilloscope, with Web Audio synthesis.',
     };
 
     function getDesc(b) {
@@ -151,7 +163,7 @@
     }
 
     const STORAGE = 'ajh_trail_v1';
-    const TODAY_DAY = 76; // Day 76 = 2026-07-05
+    const TODAY_DAY = 83; // Day 76 = 2026-07-05
 
     function loadState() {
         try {

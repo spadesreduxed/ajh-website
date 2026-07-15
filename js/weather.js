@@ -7,7 +7,7 @@
 
     // Day 1 = 2026-04-22, today is Day 77 = 2026-07-06
     const DAY1 = new Date(2026, 3, 22);
-    const TODAY_DAY = 77;
+    const TODAY_DAY = 83;
 
     // Archetype color map (mirrors DNA + Trail)
     const ARCHETYPE_COLORS = {
@@ -168,7 +168,12 @@
         { day: 74, name: 'Build DNA (Pattern Genome)',             category: 'data',        impact: 4 },
         { day: 75, name: 'Constellation Map (75 Stars)',           category: 'visual',      impact: 4 },
         { day: 76, name: 'Build Trail (Chronological Ribbon)',     category: 'data',        impact: 3 },
-        { day: 77, name: 'Build Weather (Forecast)',               category: 'data',        impact: 4 },
+        { day: 78, name: 'Build Garden', category: 'data', impact: 5 },
+        { day: 79, name: 'Build Tape', category: 'data', impact: 5 },
+        { day: 80, name: 'Build Skyline', category: 'data', impact: 5 },
+        { day: 81, name: 'Build Aquarium', category: 'craft', impact: 5 },
+        { day: 82, name: 'Build Observatory', category: 'data', impact: 5 },
+        { day: 83, name: 'Build Waveform', category: 'audio', impact: 5 },
     ];
 
     // Short descriptions for the day list

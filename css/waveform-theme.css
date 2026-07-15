@@ -1,0 +1,51 @@
+/* ============================================================
+   Day 83: Build Waveform — light theme overrides only.
+   Waveform body class is toggled by the section's own theme
+   button (no global body class).
+   ============================================================ */
+
+.waveform-section.wf-light {
+  --wf-bg-0: #f5f0ff;
+  --wf-bg-1: #ece6ff;
+  --wf-bg-2: #d9d0ff;
+  --wf-text: #1a1140;
+  --wf-text-dim: #5a4a7a;
+  --wf-card: rgba(255, 255, 255, 0.85);
+  --wf-card-strong: rgba(255, 255, 255, 0.95);
+  --wf-border: rgba(110, 80, 180, 0.22);
+  --wf-grid: rgba(110, 80, 180, 0.12);
+  --wf-grid-strong: rgba(110, 80, 180, 0.22);
+}
+
+.waveform-section.wf-light .wf-stat {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(110, 80, 180, 0.2);
+}
+.waveform-section.wf-light .wf-chip {
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--wf-text-dim);
+}
+.waveform-section.wf-light .wf-chip.is-active {
+  color: #fff;
+}
+.waveform-section.wf-light .wf-canvas-wrap {
+  background: linear-gradient(180deg, #ffffff 0%, #ece6ff 100%);
+}
+.waveform-section.wf-light .wf-spectrum-wrap {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(236, 230, 255, 0.85));
+}
+.waveform-section.wf-light .wf-btn {
+  color: var(--wf-text);
+}
+.waveform-section.wf-light .wf-scrub-row {
+  background: var(--wf-card);
+}
+.waveform-section.wf-light .wf-audio-locked {
+  background: rgba(245, 240, 255, 0.7);
+}
+.waveform-section.wf-light .wf-audio-locked h4 { color: var(--wf-text); }
+.waveform-section.wf-light .wf-audio-locked p { color: var(--wf-text-dim); }
+.waveform-section.wf-light .wf-banner {
+  background: linear-gradient(90deg, rgba(110, 80, 180, 0.06), rgba(190, 120, 220, 0.06));
+  border-color: rgba(110, 80, 180, 0.25);
+}
