@@ -73,6 +73,7 @@
     <link rel="stylesheet" href="css/observatory-theme.css?v=102">
     <link rel="stylesheet" href="css/waveform.css?v=103">
     <link rel="stylesheet" href="css/waveform-theme.css?v=103">
+    <link rel="stylesheet" href="css/compass.css?v=104">
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/pixelart.css">
     <link rel="stylesheet" href="css/pixelart-theme.css">
@@ -166,6 +167,7 @@
             <li><a href="#aquarium">Aquarium</a></li>
             <li><a href="#observatory">Observatory</a></li>
             <li><a href="#waveform">Waveform</a></li>
+            <li><a href="#compass">Compass</a></li>
             <li><a href="#quotes">Quotes</a></li>
             <li><a href="#wisdom">Wisdom</a></li>
             <li><a href="#stats">Stats</a></li>
@@ -316,6 +318,9 @@
                 <button class="plan-btn" id="waveform-hero-btn" aria-label="Build waveform" title="Open the Build Waveform — 83 days, 83 frequencies, one spectrum (G V)">
                     <i class="fas fa-wave-square"></i>
                 </button>
+                <button class="plan-btn" id="compass-hero-btn" aria-label="Build compass" title="Open the Build Compass — 84 builds, four directions (G C)">
+                    <i class="fas fa-compass"></i>
+                </button>
             </div>
             <div class="hero-stats">
                 <div class="stat">
@@ -323,7 +328,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="83">0</span>
+                    <span class="stat-value" data-count="84">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -840,7 +845,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="83">0</div>
+                    <div class="stat-number" data-count="84">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -1700,9 +1705,9 @@
                         <span class="blog-month">July 2026</span>
                     </div>
                     <div class="blog-content">
-                        <span class="blog-tag">Day 83</span>
-                        <h3>Build Waveform — 83 Days, 83 Frequencies, One Spectrum</h3>
-                        <p>Day 83 ships the <em>Build Waveform</em>: the seventh lens on the same 83-day build history, after DNA, Constellation, Trail, Weather, Garden, Tape, Skyline, Aquarium, and Observatory. Every build is now a <em>tone</em> on a dual-channel oscilloscope. <em>Frequency</em> is the day itself (Day 1 = 110&nbsp;Hz on the low left, Day 83 = 1740&nbsp;Hz on the high right), <em>waveform</em> is the archetype, and <em>amplitude</em> follows impact. Listen, scrub, focus, filter, and export the history. <kbd>G V</kbd> opens the scope — the build is music now, and 83 days are audibly in tune.</p>
+                        <span class="blog-tag">Day 84</span>
+                        <h3>Build Compass — 84 Builds, Four Directions</h3>
+                        <p>Day 84 ships the <em>Build Compass</em>: a living map of the streak arranged around four earned directions — Systems, Shipping, Craft, and Learning. Click any build, filter by archetype, step through the history, jump to today, randomize, and toggle a light theme. <kbd>G C</kbd> opens the compass and asks the useful question: where is the work pointing next?</p>
                     </div>
                 </div>
                 <div class="blog-card">
@@ -5642,6 +5647,49 @@
         <div class="wf-toast" id="wf-toast" role="status" aria-live="polite"><i class="fas fa-wave-square"></i><span></span></div>
     </section>
 
+    <section id="compass" class="section compass-section">
+        <div class="container">
+            <div class="cp-header">
+                <span class="cp-kicker"><i class="fas fa-compass"></i> Day 84</span>
+                <h2 class="cp-title">Build Compass</h2>
+                <p class="cp-subtitle">Eighty-four builds, four directions, one question: where is the work pointing next? Explore the streak as a living compass.</p>
+            </div>
+            <div class="cp-toolbar">
+                <button class="cp-action" id="cp-today"><i class="fas fa-location-crosshairs"></i> Today</button>
+                <button class="cp-action" id="cp-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                <button class="cp-action" id="cp-next">Next <i class="fas fa-arrow-right"></i></button>
+                <button class="cp-action" id="cp-random"><i class="fas fa-shuffle"></i> Random</button>
+                <button class="cp-action" id="cp-theme"><i class="fas fa-circle-half-stroke"></i> Theme</button>
+            </div>
+            <div class="cp-filters" role="tablist" aria-label="Filter the build compass">
+                <button class="cp-filter is-active" data-filter="all">All</button>
+                <button class="cp-filter" data-filter="systems">Systems</button>
+                <button class="cp-filter" data-filter="visual">Visual</button>
+                <button class="cp-filter" data-filter="audio">Audio</button>
+                <button class="cp-filter" data-filter="interactive">Interactive</button>
+                <button class="cp-filter" data-filter="data">Data</button>
+                <button class="cp-filter" data-filter="meta">Meta</button>
+                <button class="cp-filter" data-filter="craft">Craft</button>
+            </div>
+            <div class="cp-stage" id="cp-stage" aria-label="Interactive compass map of all 84 builds"></div>
+            <div class="cp-stats">
+                <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-builds">84</span><span class="cp-stat-label">Builds</span></div>
+                <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-filter">All</span><span class="cp-stat-label">Filter</span></div>
+                <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-direction">Systems</span><span class="cp-stat-label">Selected axis</span></div>
+                <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-views">0</span><span class="cp-stat-label">Explorations</span></div>
+            </div>
+            <div class="cp-focus" aria-live="polite">
+                <div class="cp-focus-day" id="cp-focus-day">Day 84</div>
+                <h3 class="cp-focus-name" id="cp-focus-name">Build Compass</h3>
+                <span class="cp-focus-arch" id="cp-focus-arch">Systems</span>
+                <span class="cp-focus-impact" id="cp-focus-impact">Impact 5/5</span>
+                <span class="cp-focus-date" id="cp-focus-date">Jul 15, 2026</span>
+                <p class="cp-focus-desc" id="cp-focus-desc">Build Compass sits on the systems axis of the build compass.</p>
+                <div class="cp-actions"><button class="cp-action" id="cp-jump-journal"><i class="fas fa-book"></i> Open journal</button></div>
+            </div>
+            <p class="cp-hint"><i class="fas fa-keyboard"></i> <kbd>G</kbd> <kbd>C</kbd> open Compass · click or tab to a build · arrow buttons step through the streak · every direction is earned.</p>
+        </div>
+    </section>
 
     <script src="js/dna.js" defer></script>
     <script src="js/constellation.js" defer></script>
@@ -5653,5 +5701,6 @@
     <script src="js/aquarium.js?v=101" defer></script>
     <script src="js/observatory.js?v=102" defer></script>
     <script src="js/waveform.js?v=103" defer></script>
+    <script src="js/compass.js?v=104" defer></script>
 </body>
 </html>

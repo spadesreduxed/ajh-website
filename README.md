@@ -1,3 +1,11 @@
+## Latest Build - Day 84 (2026-07-15)
+
+### Build Compass — 84 builds, four directions
+- A living map of the complete build streak arranged around four directions: Systems, Shipping, Craft, and Learning
+- Every build is a selectable point positioned by day and impact; archetype colors remain consistent with the other build-history lenses
+- Filter chips, Today / Previous / Next / Random controls, keyboard navigation, accessible SVG points, visit persistence, and a light theme toggle
+- Command palette + hero button integration with `G C`; public API on `window.ajhCompass`
+
 ## Latest Build - Day 82 (2026-07-13)
 
 ### Build Observatory — 82 moons, one planet, a solar system of every build

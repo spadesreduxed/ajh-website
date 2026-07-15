@@ -1,3 +1,32 @@
+### Day 84 - 2026-07-15
+**Status**: Build Compass - 84 builds arranged around four directions
+
+**Actions**:
+- Added **Build Compass** section (`#compass`) after Waveform.
+- Added an accessible SVG map of all 84 build days with Systems / Shipping / Craft / Learning axes, impact-sized points, archetype colors, keyboard focus, and selectable build details.
+- Added Today, Previous, Next, Random, filter chips, light theme toggle, exploration counter persistence, command palette actions, hero button, nav link, and `window.ajhCompass` API.
+- Updated the main streak counters from 83 to 84 and added the Day 84 blog entry.
+- Researched progressive enhancement, canvas performance, Web Audio interaction requirements, and accessibility guidance before implementing the visual feature.
+
+**Files Changed**:
+- `index.html` - Compass section, navigation, hero button, Day 84 blog entry, streak counters, asset links.
+- `css/compass.css` - Compass visual system and responsive/light-theme styles.
+- `js/compass.js` - 84-build data model, SVG rendering, filters, controls, keyboard navigation, persistence, and public API.
+- `js/main.js` - command palette, bookmark card, and hero button wiring.
+- `README.md` - latest build documentation.
+
+**Validation**:
+- JavaScript syntax checks pass for the new and related scripts.
+- `git diff --check` passes.
+- Push to the configured `origin` remote succeeded; the `ajhs` remote currently points to a missing repository.
+
+**Next Steps**:
+- Add axis-specific recommendations based on underrepresented directions.
+- Add a shareable compass snapshot or SVG export.
+- Continue building new features daily - never stop
+
+---
+
 ### Day 82 - 2026-07-13
 **Status**: Build Observatory - 82 moons, one planet, a solar system of every build
 
