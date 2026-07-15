@@ -9,7 +9,7 @@
 
   const DAY1 = new Date(2026, 3, 22); // Apr 22 2026
   const TODAY_DAY = 83;
-  const TOTAL_BUILDINGS = 80;
+  const TOTAL_BUILDINGS = 83;
   const STORAGE_KEY = 'ajh_skyline_v1';
 
   // Same archetype palette used by DNA / Trail / Weather / Garden / Tape

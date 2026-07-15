@@ -7,7 +7,7 @@
 
   const DAY1 = new Date(2026, 3, 22); // Apr 22 2026
   const TODAY_DAY = 83;
-  const TOTAL_TRACKS = 79;
+  const TOTAL_TRACKS = 83;
   const TRACK_SECONDS = 3.2; // each "track" plays for 3.2s
   const STORAGE_KEY = 'ajh_tape_v1';
 

@@ -11,7 +11,7 @@
 
   const DAY1 = new Date(2026, 3, 22); // Apr 22 2026
   const TODAY_DAY = 83;
-  const TOTAL_FISH = 81;
+  const TOTAL_FISH = 83;
   const STORAGE_KEY = 'ajh_aquarium_v1';
 
   // Archetype palette matches the rest of the site
