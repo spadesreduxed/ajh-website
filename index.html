@@ -73,7 +73,7 @@
     <link rel="stylesheet" href="css/observatory-theme.css?v=102">
     <link rel="stylesheet" href="css/waveform.css?v=103">
     <link rel="stylesheet" href="css/waveform-theme.css?v=103">
-    <link rel="stylesheet" href="css/compass.css?v=104">
+    <link rel="stylesheet" href="css/compass.css?v=105">
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/pixelart.css">
     <link rel="stylesheet" href="css/pixelart-theme.css">
@@ -318,7 +318,7 @@
                 <button class="plan-btn" id="waveform-hero-btn" aria-label="Build waveform" title="Open the Build Waveform — 83 days, 83 frequencies, one spectrum (G V)">
                     <i class="fas fa-wave-square"></i>
                 </button>
-                <button class="plan-btn" id="compass-hero-btn" aria-label="Build compass" title="Open the Build Compass — 84 builds, four directions (G C)">
+                <button class="plan-btn" id="compass-hero-btn" aria-label="Build compass" title="Open the Build Compass — 85 builds, four directions (G C)">
                     <i class="fas fa-compass"></i>
                 </button>
             </div>
@@ -328,7 +328,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="84">0</span>
+                    <span class="stat-value" data-count="85">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -845,7 +845,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="84">0</div>
+                    <div class="stat-number" data-count="85">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -866,7 +866,7 @@
                 </div>
                 <div class="stat-card large">
                     <i class="fas fa-rocket"></i>
-                    <div class="stat-number" data-count="74">0</div>
+                    <div class="stat-number" data-count="75">0</div>
                     <div class="stat-label">Features Built</div>
                     <div class="stat-sublabel">And counting...</div>
                 </div>
@@ -1435,6 +1435,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">15</span>
+                        <span class="blog-month">July 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 85</span>
+                        <h3>Compass Field Notes — Choose the Next Direction</h3>
+                        <p>Day 85 turns the <em>Build Compass</em> into a planning instrument. The map now holds 85 builds, exports its accessible SVG as a shareable artifact, remembers its theme, and calculates the least-used direction from the work so far. Systems, Shipping, Craft, and Learning each get a concrete next move — not a fortune cookie, a useful nudge for tomorrow's build.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">9</span>
@@ -5650,9 +5661,9 @@
     <section id="compass" class="section compass-section">
         <div class="container">
             <div class="cp-header">
-                <span class="cp-kicker"><i class="fas fa-compass"></i> Day 84</span>
+                <span class="cp-kicker"><i class="fas fa-compass"></i> Day 85</span>
                 <h2 class="cp-title">Build Compass</h2>
-                <p class="cp-subtitle">Eighty-four builds, four directions, one question: where is the work pointing next? Explore the streak as a living compass.</p>
+                <p class="cp-subtitle">Eighty-five builds, four directions, one question: where is the work pointing next? Explore the streak as a living compass.</p>
             </div>
             <div class="cp-toolbar">
                 <button class="cp-action" id="cp-today"><i class="fas fa-location-crosshairs"></i> Today</button>
@@ -5660,6 +5671,7 @@
                 <button class="cp-action" id="cp-next">Next <i class="fas fa-arrow-right"></i></button>
                 <button class="cp-action" id="cp-random"><i class="fas fa-shuffle"></i> Random</button>
                 <button class="cp-action" id="cp-theme"><i class="fas fa-circle-half-stroke"></i> Theme</button>
+                <button class="cp-action" id="cp-export"><i class="fas fa-download"></i> Export SVG</button>
             </div>
             <div class="cp-filters" role="tablist" aria-label="Filter the build compass">
                 <button class="cp-filter is-active" data-filter="all">All</button>
@@ -5671,15 +5683,21 @@
                 <button class="cp-filter" data-filter="meta">Meta</button>
                 <button class="cp-filter" data-filter="craft">Craft</button>
             </div>
-            <div class="cp-stage" id="cp-stage" aria-label="Interactive compass map of all 84 builds"></div>
+            <div class="cp-stage" id="cp-stage" aria-label="Interactive compass map of all 85 builds"></div>
+            <div class="cp-recommendation" aria-live="polite">
+                <div class="cp-recommendation-kicker"><i class="fas fa-route"></i> Next direction</div>
+                <strong id="cp-recommendation-axis">Learning</strong>
+                <p id="cp-recommendation-text">Run a deliberate experiment and turn the lesson into the next move.</p>
+                <span id="cp-recommendation-meta">0 impact points · 0 builds · the least-used direction right now</span>
+            </div>
             <div class="cp-stats">
-                <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-builds">84</span><span class="cp-stat-label">Builds</span></div>
+                <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-builds">85</span><span class="cp-stat-label">Builds</span></div>
                 <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-filter">All</span><span class="cp-stat-label">Filter</span></div>
                 <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-direction">Systems</span><span class="cp-stat-label">Selected axis</span></div>
                 <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-views">0</span><span class="cp-stat-label">Explorations</span></div>
             </div>
             <div class="cp-focus" aria-live="polite">
-                <div class="cp-focus-day" id="cp-focus-day">Day 84</div>
+                <div class="cp-focus-day" id="cp-focus-day">Day 85</div>
                 <h3 class="cp-focus-name" id="cp-focus-name">Build Compass</h3>
                 <span class="cp-focus-arch" id="cp-focus-arch">Systems</span>
                 <span class="cp-focus-impact" id="cp-focus-impact">Impact 5/5</span>
@@ -5701,6 +5719,6 @@
     <script src="js/aquarium.js?v=101" defer></script>
     <script src="js/observatory.js?v=102" defer></script>
     <script src="js/waveform.js?v=103" defer></script>
-    <script src="js/compass.js?v=104" defer></script>
+    <script src="js/compass.js?v=105" defer></script>
 </body>
 </html>

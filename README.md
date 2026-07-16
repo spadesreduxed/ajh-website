@@ -1,10 +1,11 @@
-## Latest Build - Day 84 (2026-07-15)
+## Latest Build - Day 85 (2026-07-16)
 
-### Build Compass — 84 builds, four directions
-- A living map of the complete build streak arranged around four directions: Systems, Shipping, Craft, and Learning
-- Every build is a selectable point positioned by day and impact; archetype colors remain consistent with the other build-history lenses
-- Filter chips, Today / Previous / Next / Random controls, keyboard navigation, accessible SVG points, visit persistence, and a light theme toggle
-- Command palette + hero button integration with `G C`; public API on `window.ajhCompass`
+### Compass Field Notes — choose the next direction
+- Extended the Build Compass from 84 to 85 builds and rolled the streak, hero, stats, and focus state forward.
+- Added a data-driven **Next direction** card that groups archetypes into Systems, Shipping, Craft, and Learning, then recommends the least-used direction with a concrete next move.
+- Added an accessible **Export SVG** action using a Blob download, with embedded styling so the snapshot remains readable outside the page.
+- Restored persisted light/dark mode on boot and wired the journal jump button.
+- Command palette “Jump to Today” now selects Day 85; the public `window.ajhCompass` API exposes `exportSVG()` and `recommendation()`.
 
 ## Latest Build - Day 82 (2026-07-13)
 
