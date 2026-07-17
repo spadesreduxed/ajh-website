@@ -25,6 +25,36 @@
 
 ---
 
+### Day 86 - 2026-07-17
+**Status**: Build Lighthouse - a local quality signal
+
+**Actions**:
+- Added **Build Lighthouse** (`#lighthouse`) with 20 self-audit checks across accessibility, metadata, resilience, structure, and performance.
+- Added score ring, pass/warn summary, grouped result cards, and a concrete next-move recommendation.
+- Added copy report and JSON export actions; persisted the latest report in localStorage (`ajh_lighthouse_v1`).
+- Added Lighthouse navigation link, hero shortcut, command-palette actions, and Day 86 counters.
+- Kept the audit client-side: it reads the current document and sends no data anywhere.
+
+**Files Changed**:
+- `index.html` - Lighthouse section, navigation/hero entry, Day 86 counters, and build-log card
+- `css/lighthouse.css` - Lighthouse visual system, responsive layout, and reduced-motion rules
+- `js/lighthouse.js` - audit checks, score calculation, persistence, report copy/export, and shortcuts
+- `js/compass.js` - Compass data now derives its count from 86 build entries
+- `js/main.js` - command-palette and hero-button wiring
+- `README.md` - latest-build documentation
+
+**Validation**:
+- `node --check js/compass.js`, `node --check js/main.js`, and `node --check js/lighthouse.js` pass.
+- `git diff --check` passes.
+- HTML parser check passes.
+
+**Next Steps**:
+- Use the first warning as tomorrow's repair target.
+- Add a small “fix verified” history so the Lighthouse becomes a quality timeline, not only a snapshot.
+- Continue building new features daily - never stop
+
+---
+
 ### Day 82 - 2026-07-13
 **Status**: Build Observatory - 82 moons, one planet, a solar system of every build
 

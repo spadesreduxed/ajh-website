@@ -1,4 +1,12 @@
-## Latest Build - Day 85 (2026-07-16)
+## Latest Build - Day 86 (2026-07-17)
+
+### Build Lighthouse — keep the signal bright
+- Added a client-side self-audit for accessibility, metadata, resilience, structure, and performance.
+- Added a score ring, grouped pass/warn cards, a concrete next-move recommendation, copyable report, and JSON export.
+- Added the Lighthouse navigation link, hero shortcut, command-palette actions, and Day 86 counters.
+- The audit stays local to the browser; no report data leaves the page.
+
+## Previous Build - Day 85 (2026-07-16)
 
 ### Compass Field Notes — choose the next direction
 - Extended the Build Compass from 84 to 85 builds and rolled the streak, hero, stats, and focus state forward.

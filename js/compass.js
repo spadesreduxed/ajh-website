@@ -45,6 +45,7 @@
     { d: 81, a: 'craft', n: 'Build Aquarium', i: 5 }, { d: 82, a: 'data', n: 'Build Observatory', i: 5 },
     { d: 83, a: 'audio', n: 'Build Waveform', i: 5 }, { d: 84, a: 'systems', n: 'Build Compass', i: 5 },
     { d: 85, a: 'systems', n: 'Compass Field Notes', i: 5 },
+    { d: 86, a: 'systems', n: 'Build Lighthouse', i: 5 },
   ];
 
   const ARCH = {
@@ -54,18 +55,19 @@
     craft: { label: 'Craft', color: '#22d3ee' }, social: { label: 'Social', color: '#fb7185' },
   };
   const KEY = 'ajh_compass_v1';
-  const state = { filter: 'all', selected: 85, theme: 'dark', views: 0 };
+  const TOTAL = BUILDS.length;
+  const state = { filter: 'all', selected: 86, theme: 'dark', views: 0 };
   const $ = (id) => document.getElementById(id);
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 
   function load() {
     try { Object.assign(state, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (_) {}
-    state.selected = clamp(Number(state.selected) || 85, 1, 85);
+    state.selected = clamp(Number(state.selected) || TOTAL, 1, TOTAL);
     if (!ARCH[state.filter] && state.filter !== 'all') state.filter = 'all';
   }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (_) {} }
   function point(build) {
-    const angle = ((build.d - 1) / 85) * Math.PI * 2 - Math.PI / 2;
+    const angle = ((build.d - 1) / TOTAL) * Math.PI * 2 - Math.PI / 2;
     const radius = 90 + build.i * 30;
     return { x: 400 + Math.cos(angle) * radius, y: 280 + Math.sin(angle) * radius, angle }; 
   }
@@ -76,7 +78,7 @@
       const selected = b.d === state.selected ? ' is-selected' : '';
       return `<g class="cp-point${dim}${selected}" data-day="${b.d}" tabindex="0" role="button" aria-label="Day ${b.d}, ${b.n}, ${meta.label}"><circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${5 + b.i * 1.8}" fill="${meta.color}" fill-opacity="${visible(b) ? .78 : .14}" stroke="${meta.color}"/><text x="${p.x.toFixed(1)}" y="${(p.y - 12).toFixed(1)}">${b.d}</text></g>`;
     }).join('');
-    return `<svg class="cp-svg" viewBox="0 0 800 560" role="img" aria-label="Compass map of 85 build days"><circle class="cp-ring" cx="400" cy="280" r="120"/><circle class="cp-ring" cx="400" cy="280" r="180"/><line class="cp-axis" x1="400" y1="50" x2="400" y2="510" stroke="var(--cp-accent)"/><line class="cp-axis" x1="170" y1="280" x2="630" y2="280" stroke="var(--cp-accent)"/><text class="cp-axis-label" x="400" y="28" fill="var(--cp-accent)">N / SYSTEMS</text><text class="cp-axis-label" x="400" y="538" fill="var(--cp-accent)">S / SHIPPING</text><text class="cp-axis-label" x="660" y="284" fill="var(--cp-accent)">E / CRAFT</text><text class="cp-axis-label" x="140" y="284" fill="var(--cp-accent)">W / LEARNING</text><circle class="cp-center" cx="400" cy="280" r="55"/><text class="cp-center-label" x="400" y="276">AJH</text><text class="cp-center-label" x="400" y="292" font-size="9">85 BUILDS</text>${points}</svg>`;
+    return `<svg class="cp-svg" viewBox="0 0 800 560" role="img" aria-label="Compass map of ${TOTAL} build days"><circle class="cp-ring" cx="400" cy="280" r="120"/><circle class="cp-ring" cx="400" cy="280" r="180"/><line class="cp-axis" x1="400" y1="50" x2="400" y2="510" stroke="var(--cp-accent)"/><line class="cp-axis" x1="170" y1="280" x2="630" y2="280" stroke="var(--cp-accent)"/><text class="cp-axis-label" x="400" y="28" fill="var(--cp-accent)">N / SYSTEMS</text><text class="cp-axis-label" x="400" y="538" fill="var(--cp-accent)">S / SHIPPING</text><text class="cp-axis-label" x="660" y="284" fill="var(--cp-accent)">E / CRAFT</text><text class="cp-axis-label" x="140" y="284" fill="var(--cp-accent)">W / LEARNING</text><circle class="cp-center" cx="400" cy="280" r="55"/><text class="cp-center-label" x="400" y="276">AJH</text><text class="cp-center-label" x="400" y="292" font-size="9">${TOTAL} BUILDS</text>${points}</svg>`;
   }
   const DIRECTIONS = {
     systems: { label: 'Systems', color: '#a78bfa', keys: ['systems', 'data'], text: 'Strengthen the foundation: improve reliability, tooling, and the parts that let every future build ship faster.' },
@@ -104,16 +106,16 @@
     const b = BUILDS.find((build) => build.d === state.selected) || BUILDS[BUILDS.length - 1]; const meta = ARCH[b.a];
     $('cp-focus-day').textContent = 'Day ' + b.d; $('cp-focus-day').style.color = meta.color;
     $('cp-focus-name').textContent = b.n; $('cp-focus-arch').textContent = meta.label; $('cp-focus-date').textContent = new Date(2026, 3, 21 + b.d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    $('cp-focus-impact').textContent = 'Impact ' + b.i + '/5'; $('cp-focus-desc').textContent = b.n + ' sits on the ' + meta.label.toLowerCase() + ' axis of the build compass. The map turns the 85-day streak into direction: where the work points, and what to build next.';
+    $('cp-focus-impact').textContent = 'Impact ' + b.i + '/5'; $('cp-focus-desc').textContent = b.n + ' sits on the ' + meta.label.toLowerCase() + ' axis of the build compass. The map turns the 86-day streak into direction: where the work points, and what to build next.';
   }
   function render() {
     $('cp-stage').innerHTML = compassSvg(); updateFocus(); updateRecommendation();
-    $('cp-stat-builds').textContent = '85'; $('cp-stat-filter').textContent = state.filter === 'all' ? 'All' : ARCH[state.filter].label; $('cp-stat-direction').textContent = ARCH[BUILDS[state.selected - 1].a].label; $('cp-stat-views').textContent = String(state.views);
+    $('cp-stat-builds').textContent = String(TOTAL); $('cp-stat-filter').textContent = state.filter === 'all' ? 'All' : ARCH[state.filter].label; $('cp-stat-direction').textContent = ARCH[BUILDS[state.selected - 1].a].label; $('cp-stat-views').textContent = String(state.views);
     document.querySelectorAll('.cp-filter').forEach((b) => b.classList.toggle('is-active', b.dataset.filter === state.filter));
     document.querySelectorAll('.cp-point').forEach((el) => { const select = () => { state.selected = Number(el.dataset.day); state.views += 1; save(); render(); }; el.addEventListener('click', select); el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(); } }); });
   }
   function open() { $('compass')?.scrollIntoView({ behavior: 'smooth' }); }
-  function jump(day) { state.selected = clamp(day, 1, 85); save(); render(); }
+  function jump(day) { state.selected = clamp(day, 1, TOTAL); save(); render(); }
   function exportSVG() {
     const source = $('cp-stage')?.querySelector('svg');
     if (!source) return;
@@ -132,13 +134,13 @@
     load(); $('compass').classList.toggle('cp-light', state.theme === 'light'); render();
     document.querySelectorAll('.cp-filter').forEach((b) => b.addEventListener('click', () => { state.filter = b.dataset.filter; save(); render(); }));
     $('cp-theme')?.addEventListener('click', () => { state.theme = state.theme === 'dark' ? 'light' : 'dark'; $('compass').classList.toggle('cp-light', state.theme === 'light'); save(); });
-    $('cp-today')?.addEventListener('click', () => jump(85)); $('cp-random')?.addEventListener('click', () => jump(1 + Math.floor(Math.random() * 85)));
-    $('cp-next')?.addEventListener('click', () => jump(state.selected === 85 ? 1 : state.selected + 1)); $('cp-prev')?.addEventListener('click', () => jump(state.selected === 1 ? 85 : state.selected - 1));
+    $('cp-today')?.addEventListener('click', () => jump(TOTAL)); $('cp-random')?.addEventListener('click', () => jump(1 + Math.floor(Math.random() * TOTAL)));
+    $('cp-next')?.addEventListener('click', () => jump(state.selected === TOTAL ? 1 : state.selected + 1)); $('cp-prev')?.addEventListener('click', () => jump(state.selected === 1 ? TOTAL : state.selected - 1));
     $('cp-export')?.addEventListener('click', exportSVG);
     $('cp-jump-journal')?.addEventListener('click', () => $('journal')?.scrollIntoView({ behavior: 'smooth' }));
     $('compass-hero-btn')?.addEventListener('click', open);
     document.addEventListener('keydown', (e) => { if (e.key.toLowerCase() === 'c' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) open(); });
-    window.ajhCompass = { open, jump, next: () => jump(state.selected === 85 ? 1 : state.selected + 1), prev: () => jump(state.selected === 1 ? 85 : state.selected - 1), random: () => jump(1 + Math.floor(Math.random() * 85)), exportSVG, recommendation, state: () => state };
+    window.ajhCompass = { open, jump, next: () => jump(state.selected === TOTAL ? 1 : state.selected + 1), prev: () => jump(state.selected === 1 ? TOTAL : state.selected - 1), random: () => jump(1 + Math.floor(Math.random() * TOTAL)), exportSVG, recommendation, state: () => state };
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();
