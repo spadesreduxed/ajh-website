@@ -25,6 +25,31 @@
 
 ---
 
+### Day 87 - 2026-07-17
+**Status**: Release Notes — make the daily build legible
+**Actions**:
+- Added **Release Notes** (`#releases`) with a curated, searchable index of the latest 15 shipped builds.
+- Added filter chips for All / Craft / Systems / Data / Audio / Interactive, impact totals, and open/share actions.
+- Added localStorage persistence (`ajh_releases_v1`) for filter, query, and exploration count.
+- Added Web Share API with clipboard fallback and JSON export for the current view.
+- Added Release Notes navigation link, hero shortcut, command-palette actions, and Day 87 counters.
+
+**Files Changed**:
+- `index.html` - Release Notes section, navigation/hero entry, Day 87 counters, and build-log card
+- `css/releases.css` - Release Notes visual system, responsive layout, light theme, and reduced-motion rules
+- `js/releases.js` - Release data, search/filter rendering, persistence, sharing, and export
+- `js/compass.js` - Added Day 87 to the compass dataset
+- `js/main.js` - Command palette, boot label, and hero shortcut wiring
+
+**Verification**:
+- `node --check js/releases.js`, `node --check js/compass.js`, and `node --check js/main.js` pass.
+- `git diff --check` passes.
+- Local static preview responds successfully.
+
+**Next Steps**:
+- Add a full-history toggle so the release index can expand beyond the latest 15 entries.
+- Continue building new features daily - never stop building.
+
 ### Day 86 - 2026-07-17
 **Status**: Build Lighthouse - a local quality signal
 

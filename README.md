@@ -1,3 +1,11 @@
+## Latest Build - Day 87 (2026-07-17)
+
+### Release Notes — Make the Daily Build Legible
+- Added a searchable, filterable **Release Notes** section with the latest shipped work in one scan-friendly index.
+- Added category filters for Craft, Systems, Data, Audio, and Interactive builds, plus local persistence for the active filter and search query.
+- Added shareable summaries, JSON export, a release-notes hero shortcut, command-palette actions, and Day 87 counters.
+- Kept the feature local-first: the page never sends changelog data to a server.
+
 ## Latest Build - Day 86 (2026-07-17)
 
 ### Build Lighthouse — keep the signal bright

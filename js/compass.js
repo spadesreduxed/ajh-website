@@ -46,6 +46,7 @@
     { d: 83, a: 'audio', n: 'Build Waveform', i: 5 }, { d: 84, a: 'systems', n: 'Build Compass', i: 5 },
     { d: 85, a: 'systems', n: 'Compass Field Notes', i: 5 },
     { d: 86, a: 'systems', n: 'Build Lighthouse', i: 5 },
+    { d: 87, a: 'data', n: 'Release Notes', i: 4 },
   ];
 
   const ARCH = {
@@ -56,7 +57,7 @@
   };
   const KEY = 'ajh_compass_v1';
   const TOTAL = BUILDS.length;
-  const state = { filter: 'all', selected: 86, theme: 'dark', views: 0 };
+  const state = { filter: 'all', selected: 87, theme: 'dark', views: 0 };
   const $ = (id) => document.getElementById(id);
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 

@@ -811,6 +811,9 @@ function initCommandPalette() {
     { id: 'tool-compass-random', label: 'Build Compass: Random Build', icon: 'fa-shuffle', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.random && window.ajhCompass.random() },
     { id: 'tool-lighthouse-open', label: 'Run Build Lighthouse Audit', icon: 'fa-lightbulb', shortcut: 'G L H', category: 'Tools', action: () => window.ajhLighthouse && window.ajhLighthouse.run && window.ajhLighthouse.run() },
     { id: 'tool-lighthouse-copy', label: 'Copy Lighthouse Report', icon: 'fa-copy', category: 'Tools', action: () => window.ajhLighthouse && window.ajhLighthouse.copy && window.ajhLighthouse.copy() },
+    { id: 'tool-releases-open', label: 'Open Release Notes', icon: 'fa-scroll', shortcut: 'G R', category: 'Tools', action: () => window.ajhReleases && window.ajhReleases.open && window.ajhReleases.open() },
+    { id: 'tool-releases-share', label: 'Share Release Notes View', icon: 'fa-share-nodes', category: 'Tools', action: () => window.ajhReleases && window.ajhReleases.share && window.ajhReleases.share() },
+    { id: 'tool-releases-export', label: 'Release Notes: Export JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhReleases && window.ajhReleases.exportJSON && window.ajhReleases.exportJSON() },
 
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -1151,7 +1154,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBookmarkCards();
   initDay78HeroButtons();
 
-  console.log('⚡ AJH Website loaded - Day 86: Build Lighthouse');
+  console.log('⚡ AJH Website loaded - Day 87: Release Notes');
 });
 
 // Day 48 - Daily Challenge + API Status
@@ -7041,3 +7044,11 @@ function initDay78HeroButtons() {
     });
   }
 }
+
+(function initReleaseNotesHeroButton() {
+  const button = document.getElementById('releases-hero-btn');
+  if (!button) return;
+  button.addEventListener('click', () => {
+    document.getElementById('releases')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+})();
