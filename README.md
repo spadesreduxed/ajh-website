@@ -1,4 +1,14 @@
-## Latest Build - Day 87 (2026-07-17)
+## Latest Build - Day 88 (2026-07-18)
+
+### Release Archive — keep the long view available
+- Added a **Show full history** toggle to Release Notes. The default stays focused on the latest 16 releases, while the archive expands to all 88 builds.
+- The full-history view reuses the Build Compass dataset as its source of truth, so counts, filters, search, impact totals, sharing, and JSON export stay aligned.
+- Added accessible tab state, a live results region, an explicit toggle state, and keyboard-safe controls for the archive.
+- Corrected the Day 88 date and rolled the Compass, hero, streak, progress, and command-palette references forward.
+- Kept the feature local-first: release data and view preferences never leave the browser.
+
+## Previous Build - Day 87 (2026-07-17)
+
 
 ### Release Notes — Make the Daily Build Legible
 - Added a searchable, filterable **Release Notes** section with the latest shipped work in one scan-friendly index.

@@ -25,6 +25,35 @@
 
 ---
 
+### Day 88 - 2026-07-18
+**Status**: Release Archive - keep the long view available
+
+**Actions**:
+- Extended Release Notes with a persisted **Show full history** toggle: latest 16 remains the fast view, while the archive expands to all 88 builds from the Build Compass dataset.
+- Kept filter, query, impact totals, sharing, and JSON export aligned between the compact and full views.
+- Added accessible tab selection state, a live results region, explicit pressed state, and keyboard-safe archive controls.
+- Rolled Day 88 through the hero, streak counters, progress label, Compass focus, and command-palette Today action.
+- Researched accessible live regions, keyboard access, reduced motion, and static-site performance before shipping.
+
+**Files Changed**:
+- `index.html` - Day 88 counters, archive controls, tab/live-region semantics, build-log card, and versioned assets.
+- `css/compass.css` - versioned cache-bust reference only; existing Compass visual system retained.
+- `js/compass.js` - Day 88 build source and archive-facing public dataset.
+- `js/main.js` - Day 88 command/bookmark copy and boot label.
+- `js/releases.js` - full-history toggle, aligned archive source, accessible state updates, and current-view sharing/export.
+- `README.md` - latest-build documentation.
+
+**Validation**:
+- `node --check js/releases.js`, `node --check js/compass.js`, and `node --check js/main.js` pass.
+- `git diff --check` passes.
+- Local static preview smoke test completed.
+
+**Next Steps**:
+- Use the archive as the source for the next build lens or add richer per-day release metadata.
+- Continue building new features daily - never stop
+
+---
+
 ### Day 87 - 2026-07-17
 **Status**: Release Notes — make the daily build legible
 **Actions**:

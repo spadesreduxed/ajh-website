@@ -1,6 +1,7 @@
 (function () {
   'use strict';
   const BUILDS = [
+    { d: 88, a: 'systems', n: 'Release Archive', i: 5, date: 'Jul 18, 2026', text: 'A full-history view that makes the entire build streak searchable, filterable, and exportable.' },
     { d: 87, a: 'data', n: 'Release Notes', i: 4, date: 'Jul 17, 2026', text: 'A searchable, filterable changelog that makes the daily build streak easier to scan and share.' },
     { d: 86, a: 'systems', n: 'Build Lighthouse', i: 5, date: 'Jul 16, 2026', text: 'A client-side quality audit for accessibility, metadata, resilience, structure, and performance.' },
     { d: 85, a: 'systems', n: 'Compass Field Notes', i: 5, date: 'Jul 15, 2026', text: 'A direction-aware planning layer that turns the build history into a concrete next move.' },
@@ -17,23 +18,29 @@
     { d: 74, a: 'data', n: 'Build DNA', i: 5, date: 'Jul 3, 2026', text: 'A weighted fingerprint reveals the builder archetypes shaping the streak.' },
     { d: 73, a: 'data', n: 'Lab Notebook', i: 5, date: 'Jul 2, 2026', text: 'Hypotheses and outcomes make experiments visible instead of letting them disappear into the log.' },
   ];
-  const state = { filter: 'all', query: '', views: 0 };
+  const state = { filter: 'all', query: '', views: 0, fullHistory: false };
   const $ = (id) => document.getElementById(id);
   function save() { try { localStorage.setItem('ajh_releases_v1', JSON.stringify(state)); } catch (_) {} }
   function load() { try { Object.assign(state, JSON.parse(localStorage.getItem('ajh_releases_v1') || '{}')); } catch (_) {} }
+  function archive() {
+    const builds = window.ajhCompass?.builds?.() || [];
+    return builds.map((build) => ({ d: build.d, a: build.a, n: build.n, i: build.i, date: new Date(2026, 3, 21 + build.d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }), text: `${build.n} is part of AJH's daily build streak — a ${build.a} experiment shipped on Day ${build.d}.` }));
+  }
+  function source() { return state.fullHistory ? archive() : BUILDS; }
+  function findBuild(day) { return source().find((item) => item.d === Number(day)); }
   function visible(build) { const q = state.query.trim().toLowerCase(); return (state.filter === 'all' || build.a === state.filter) && (!q || `${build.d} ${build.n} ${build.a} ${build.text}`.toLowerCase().includes(q)); }
   function stars(i) { return '★'.repeat(i) + '☆'.repeat(5 - i); }
   function render() {
-    const shown = BUILDS.filter(visible); const impact = shown.reduce((sum, build) => sum + build.i, 0);
-    $('releases-count').textContent = shown.length; $('releases-impact').textContent = `${impact} impact points`;
-    $('releases-grid').innerHTML = shown.map((build) => `<article class="release-card"><div class="release-card-top"><span class="release-day">DAY ${build.d}</span><span class="release-date">${build.date}</span></div><h3>${build.n}</h3><p>${build.text}</p><div class="release-card-bottom"><span class="release-type">${build.a}</span><span class="release-impact" aria-label="Impact ${build.i} out of 5">${stars(build.i)}</span><button class="release-open" data-day="${build.d}">Open ↗</button></div></article>`).join('');
-    $('releases-empty').hidden = shown.length > 0; document.querySelectorAll('.release-filter').forEach((button) => button.classList.toggle('is-active', button.dataset.filter === state.filter));
-    document.querySelectorAll('.release-open').forEach((button) => button.addEventListener('click', () => { const build = BUILDS.find((item) => item.d === Number(button.dataset.day)); if (build) share(build); }));
+    const shown = source().filter(visible); const impact = shown.reduce((sum, build) => sum + build.i, 0);
+    $('releases-count').textContent = shown.length; $('releases-impact').textContent = `${impact} impact points`; $('releases-scope').textContent = state.fullHistory ? 'Full 88-day archive' : 'Latest 16'; $('releases-history-toggle').innerHTML = `<i class="fas fa-arrows-to-circle"></i> ${state.fullHistory ? 'Show latest 16' : 'Show full history'}`; $('releases-history-toggle').setAttribute('aria-pressed', String(state.fullHistory)); $('releases-history-hint').textContent = state.fullHistory ? 'the latest 16 are the quick view' : 'show the full 88-day archive when you want the long view';
+    $('releases-grid').innerHTML = shown.map((build) => `<article class="release-card"><div class="release-card-top"><span class="release-day">DAY ${build.d}</span><span class="release-date">${build.date}</span></div><h3>${build.n}</h3><p>${build.text}</p><div class="release-card-bottom"><span class="release-type">${build.a}</span><span class="release-impact" aria-label="Impact ${build.i} out of 5">${stars(build.i)}</span><button class="release-open" type="button" data-day="${build.d}">Open ↗</button></div></article>`).join('');
+    $('releases-empty').hidden = shown.length > 0; document.querySelectorAll('.release-filter').forEach((button) => { const active = button.dataset.filter === state.filter; button.classList.toggle('is-active', active); button.setAttribute('aria-selected', String(active)); });
+    document.querySelectorAll('.release-open').forEach((button) => button.addEventListener('click', () => { const build = findBuild(button.dataset.day); if (build) share(build); }));
   }
   function open() { $('releases')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); state.views += 1; save(); }
-  function snapshot() { return { title: 'AJH Release Notes', filter: state.filter, query: state.query, generatedAt: new Date().toISOString(), releases: BUILDS.filter(visible) }; }
+  function snapshot() { return { title: 'AJH Release Notes', filter: state.filter, query: state.query, fullHistory: state.fullHistory, generatedAt: new Date().toISOString(), releases: source().filter(visible) }; }
   function exportJSON() { const url = URL.createObjectURL(new Blob([JSON.stringify(snapshot(), null, 2)], { type: 'application/json' })); const a = document.createElement('a'); a.href = url; a.download = `ajh-release-notes-${new Date().toISOString().slice(0, 10)}.json`; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); }
-  function share(build) { const target = build ? `Day ${build.d}: ${build.n} — ${build.text}` : `AJH Release Notes · ${BUILDS.filter(visible).length} releases shown`; const data = { title: 'AJH Release Notes', text: target, url: `${location.href.split('#')[0]}#releases` }; if (navigator.share) navigator.share(data).catch(() => {}); else navigator.clipboard?.writeText(`${target}\n${data.url}`); }
-  function boot() { load(); if (!['all', 'craft', 'systems', 'data', 'audio', 'interactive'].includes(state.filter)) state.filter = 'all'; $('releases-search').value = state.query; render(); $('releases-search').addEventListener('input', (event) => { state.query = event.target.value; save(); render(); }); document.querySelectorAll('.release-filter').forEach((button) => button.addEventListener('click', () => { state.filter = button.dataset.filter; save(); render(); })); $('releases-share').addEventListener('click', () => share()); $('releases-export').addEventListener('click', exportJSON); document.addEventListener('keydown', (event) => { if (event.target.matches('input, textarea, select, button, a')) return; if (event.key.toLowerCase() === 'r' && event.shiftKey) open(); }); window.ajhReleases = { open, share, exportJSON, state: () => state }; }
+  function share(build) { const target = build ? `Day ${build.d}: ${build.n} — ${build.text}` : `AJH Release Notes · ${source().filter(visible).length} releases shown`; const data = { title: 'AJH Release Notes', text: target, url: `${location.href.split('#')[0]}#releases` }; if (navigator.share) navigator.share(data).catch(() => {}); else navigator.clipboard?.writeText(`${target}\n${data.url}`); }
+  function boot() { load(); if (!['all', 'craft', 'systems', 'data', 'audio', 'interactive'].includes(state.filter)) state.filter = 'all'; state.fullHistory = state.fullHistory === true; $('releases-search').value = state.query; render(); $('releases-search').addEventListener('input', (event) => { state.query = event.target.value; save(); render(); }); document.querySelectorAll('.release-filter').forEach((button) => button.addEventListener('click', () => { state.filter = button.dataset.filter; save(); render(); })); $('releases-history-toggle').addEventListener('click', () => { state.fullHistory = !state.fullHistory; save(); render(); }); $('releases-share').addEventListener('click', () => share()); $('releases-export').addEventListener('click', exportJSON); document.addEventListener('keydown', (event) => { if (event.target.matches('input, textarea, select, button, a')) return; if (event.key.toLowerCase() === 'r' && event.shiftKey) open(); }); window.ajhReleases = { open, share, exportJSON, toggleHistory: () => { state.fullHistory = !state.fullHistory; save(); render(); }, state: () => state }; }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();

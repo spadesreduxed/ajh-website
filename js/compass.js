@@ -47,6 +47,7 @@
     { d: 85, a: 'systems', n: 'Compass Field Notes', i: 5 },
     { d: 86, a: 'systems', n: 'Build Lighthouse', i: 5 },
     { d: 87, a: 'data', n: 'Release Notes', i: 4 },
+    { d: 88, a: 'systems', n: 'Release Archive', i: 5 },
   ];
 
   const ARCH = {
@@ -57,7 +58,7 @@
   };
   const KEY = 'ajh_compass_v1';
   const TOTAL = BUILDS.length;
-  const state = { filter: 'all', selected: 87, theme: 'dark', views: 0 };
+  const state = { filter: 'all', selected: 88, theme: 'dark', views: 0 };
   const $ = (id) => document.getElementById(id);
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 
@@ -107,7 +108,7 @@
     const b = BUILDS.find((build) => build.d === state.selected) || BUILDS[BUILDS.length - 1]; const meta = ARCH[b.a];
     $('cp-focus-day').textContent = 'Day ' + b.d; $('cp-focus-day').style.color = meta.color;
     $('cp-focus-name').textContent = b.n; $('cp-focus-arch').textContent = meta.label; $('cp-focus-date').textContent = new Date(2026, 3, 21 + b.d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    $('cp-focus-impact').textContent = 'Impact ' + b.i + '/5'; $('cp-focus-desc').textContent = b.n + ' sits on the ' + meta.label.toLowerCase() + ' axis of the build compass. The map turns the 86-day streak into direction: where the work points, and what to build next.';
+    $('cp-focus-impact').textContent = 'Impact ' + b.i + '/5'; $('cp-focus-desc').textContent = b.n + ' sits on the ' + meta.label.toLowerCase() + ' axis of the build compass. The map turns the 88-day streak into direction: where the work points, and what to build next.';
   }
   function render() {
     $('cp-stage').innerHTML = compassSvg(); updateFocus(); updateRecommendation();
@@ -141,7 +142,7 @@
     $('cp-jump-journal')?.addEventListener('click', () => $('journal')?.scrollIntoView({ behavior: 'smooth' }));
     $('compass-hero-btn')?.addEventListener('click', open);
     document.addEventListener('keydown', (e) => { if (e.key.toLowerCase() === 'c' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) open(); });
-    window.ajhCompass = { open, jump, next: () => jump(state.selected === TOTAL ? 1 : state.selected + 1), prev: () => jump(state.selected === 1 ? TOTAL : state.selected - 1), random: () => jump(1 + Math.floor(Math.random() * TOTAL)), exportSVG, recommendation, state: () => state };
+    window.ajhCompass = { open, jump, next: () => jump(state.selected === TOTAL ? 1 : state.selected + 1), prev: () => jump(state.selected === 1 ? TOTAL : state.selected - 1), random: () => jump(1 + Math.floor(Math.random() * TOTAL)), exportSVG, recommendation, builds: () => BUILDS.map((build) => ({ ...build })), state: () => state };
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();
