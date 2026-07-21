@@ -806,7 +806,7 @@ function initCommandPalette() {
     { id: 'tool-waveform-mode', label: 'Build Waveform: Cycle Listen / Spectrum / History', icon: 'fa-wave-square', category: 'Tools', action: () => window.ajhWaveform && window.ajhWaveform.cycleMode && window.ajhWaveform.cycleMode() },
     { id: 'tool-waveform-export', label: 'Build Waveform: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhWaveform && window.ajhWaveform.export && window.ajhWaveform.export() },
     { id: 'tool-compass-open', label: 'Open Build Compass', icon: 'fa-compass', shortcut: 'G C', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.open && window.ajhCompass.open() },
-    { id: 'tool-compass-today', label: 'Build Compass: Jump to Today', icon: 'fa-location-crosshairs', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.jump && window.ajhCompass.jump(88) },
+    { id: 'tool-compass-today', label: 'Build Compass: Jump to Today', icon: 'fa-location-crosshairs', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.jump && window.ajhCompass.jump(89) },
     { id: 'tool-compass-next', label: 'Build Compass: Next Direction', icon: 'fa-arrow-right', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.next && window.ajhCompass.next() },
     { id: 'tool-compass-random', label: 'Build Compass: Random Build', icon: 'fa-shuffle', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.random && window.ajhCompass.random() },
     { id: 'tool-lighthouse-open', label: 'Run Build Lighthouse Audit', icon: 'fa-lightbulb', shortcut: 'G L H', category: 'Tools', action: () => window.ajhLighthouse && window.ajhLighthouse.run && window.ajhLighthouse.run() },
@@ -1154,7 +1154,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBookmarkCards();
   initDay78HeroButtons();
 
-  console.log('⚡ AJH Website loaded - Day 88: Release Archive');
+  console.log('⚡ AJH Website loaded - Day 89: Lighthouse History');
 });
 
 // Day 48 - Daily Challenge + API Status
@@ -3744,7 +3744,7 @@ function initBookmarkCards() {
     { id: 'aquarium', icon: 'fa-fish', title: 'Build Aquarium', tag: 'Tank', desc: 'All 81 build days as a living fish tank. Each day is a fish — size by impact, species by archetype — with currents, bubbles, light cones, plants, and a Feed action that drops a flake the fish dart for. Press G A.' },
     { id: 'observatory', icon: 'fa-globe', title: 'Build Observatory', tag: 'Solar System', desc: 'All 82 build days orbiting a central planet. Each day is a moon — orbit by age, size by impact, color by archetype. 3 time-of-day modes, click any moon to read its build, shooting stars streak on demand. Press G O.' },
     { id: 'waveform', icon: 'fa-wave-square', title: 'Build Waveform', tag: 'Audio', desc: 'All 83 build days as 83 frequencies on a dual-channel oscilloscope. Each day is a tone — pitch by day, waveform by archetype, harmonic by impact. Listen mode plays history, Spectrum bars it, History scrolls it. Filter by archetype, scrub the playhead, play/pause, focus any tone, export as JSON. Press G V.' },
-    { id: 'compass', icon: 'fa-compass', title: 'Build Compass', tag: 'Direction', desc: 'All 88 build days arranged around four axes: Systems, Shipping, Craft, and Learning. Click any point, filter by archetype, step through the streak, jump to today, randomize, toggle light mode, and see where the work points next. Press G C.' },
+    { id: 'compass', icon: 'fa-compass', title: 'Build Compass', tag: 'Direction', desc: 'All 89 build days arranged around four axes: Systems, Shipping, Craft, and Learning. Click any point, filter by archetype, step through the streak, jump to today, randomize, toggle light mode, and see where the work points next. Press G C.' },
   ];
 
   let state = {

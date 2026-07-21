@@ -1,3 +1,33 @@
+### Day 89 - 2026-07-21
+**Status**: Lighthouse History - keep the signal over time
+
+**Actions**:
+- Turned Build Lighthouse into a local quality trail: every audit records score, pass/warn counts, and timestamp.
+- Added a compact trend strip with latest score, change since the previous run, and the ten newest snapshots.
+- Added one-click clearing plus history in Lighthouse JSON exports and copied reports.
+- Rolled the current page, Compass, Release Notes, hero, streak, and build log forward to Day 89.
+- Researched WCAG 2.2 focus visibility, reduced-motion support, and static-site performance before shipping the local history UI.
+
+**Files Changed**:
+- `index.html` - Lighthouse history markup, Day 89 counters, build-log card, and current labels.
+- `css/lighthouse.css` - Quality-trail cards, bars, status colors, responsive layout, and reduced-motion styling.
+- `js/lighthouse.js` - Snapshot history, trend calculation, persistence, rendering, clear action, and export/copy coverage.
+- `js/compass.js` - Added Day 89 Lighthouse History to the shared build dataset.
+- `js/releases.js` - Added Day 89 to the compact release index.
+- `js/main.js` - Rolled command-palette and bookmark copy forward.
+- `README.md` - Documented the Day 89 build.
+
+**Validation**:
+- `node --check` passes for all changed JavaScript modules.
+- `git diff --check` passes.
+- Local static preview smoke test completed.
+
+**Next Steps**:
+- Use the quality trail to choose the next repair from the first persistent warning.
+- Continue building new features daily - never stop
+
+---
+
 ### Day 85 - 2026-07-16
 **Status**: Compass Field Notes - recommendations and SVG export
 

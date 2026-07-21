@@ -1,4 +1,12 @@
-## Latest Build - Day 88 (2026-07-18)
+## Latest Build - Day 89 (2026-07-21)
+
+### Lighthouse History — keep the signal over time
+- Turned Build Lighthouse into a local quality trail: each audit records its score, pass/warn counts, and timestamp.
+- Added a compact trend strip with the latest score, change since the previous run, and the ten most recent snapshots.
+- Added one-click clearing and included the full trail in Lighthouse JSON exports and copied reports.
+- Kept the history private and browser-local with a 30-snapshot cap; no audit data leaves the page.
+
+## Previous Build - Day 88 (2026-07-18)
 
 ### Release Archive — keep the long view available
 - Added a **Show full history** toggle to Release Notes. The default stays focused on the latest 16 releases, while the archive expands to all 88 builds.
