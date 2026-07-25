@@ -806,7 +806,7 @@ function initCommandPalette() {
     { id: 'tool-waveform-mode', label: 'Build Waveform: Cycle Listen / Spectrum / History', icon: 'fa-wave-square', category: 'Tools', action: () => window.ajhWaveform && window.ajhWaveform.cycleMode && window.ajhWaveform.cycleMode() },
     { id: 'tool-waveform-export', label: 'Build Waveform: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhWaveform && window.ajhWaveform.export && window.ajhWaveform.export() },
     { id: 'tool-compass-open', label: 'Open Build Compass', icon: 'fa-compass', shortcut: 'G C', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.open && window.ajhCompass.open() },
-    { id: 'tool-compass-today', label: 'Build Compass: Jump to Today', icon: 'fa-location-crosshairs', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.jump && window.ajhCompass.jump(89) },
+    { id: 'tool-compass-today', label: 'Build Compass: Jump to Today', icon: 'fa-location-crosshairs', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.jump && window.ajhCompass.jump(90) },
     { id: 'tool-compass-next', label: 'Build Compass: Next Direction', icon: 'fa-arrow-right', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.next && window.ajhCompass.next() },
     { id: 'tool-compass-random', label: 'Build Compass: Random Build', icon: 'fa-shuffle', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.random && window.ajhCompass.random() },
     { id: 'tool-lighthouse-open', label: 'Run Build Lighthouse Audit', icon: 'fa-lightbulb', shortcut: 'G L H', category: 'Tools', action: () => window.ajhLighthouse && window.ajhLighthouse.run && window.ajhLighthouse.run() },
@@ -814,6 +814,8 @@ function initCommandPalette() {
     { id: 'tool-releases-open', label: 'Open Release Notes', icon: 'fa-scroll', shortcut: 'G R', category: 'Tools', action: () => window.ajhReleases && window.ajhReleases.open && window.ajhReleases.open() },
     { id: 'tool-releases-share', label: 'Share Release Notes View', icon: 'fa-share-nodes', category: 'Tools', action: () => window.ajhReleases && window.ajhReleases.share && window.ajhReleases.share() },
     { id: 'tool-releases-export', label: 'Release Notes: Export JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhReleases && window.ajhReleases.exportJSON && window.ajhReleases.exportJSON() },
+    { id: 'tool-pulse-open', label: 'Open Build Pulse', icon: 'fa-chart-line', shortcut: 'Shift P', category: 'Tools', action: () => window.ajhPulse && window.ajhPulse.open && window.ajhPulse.open() },
+    { id: 'tool-pulse-refresh', label: 'Recalculate Build Pulse', icon: 'fa-rotate', category: 'Tools', action: () => window.ajhPulse && window.ajhPulse.refresh && window.ajhPulse.refresh() },
 
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -1154,7 +1156,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBookmarkCards();
   initDay78HeroButtons();
 
-  console.log('⚡ AJH Website loaded - Day 89: Lighthouse History');
+  console.log('⚡ AJH Website loaded - Day 91: Build Pulse');
 });
 
 // Day 48 - Daily Challenge + API Status
@@ -1216,10 +1218,10 @@ function initSiteTour() {
       </div>
       <div class="tour-actions">
         <button class="tour-btn tour-skip" id="tour-skip">Skip Tour</button>
-        <button class="tour-btn tour-prev" id="tour-prev" ${currentStep === 0 ? 'disabled' : ''}>
+        <button class="tour-btn tour-prev" id="tour-prev" aria-label="Previous tour step" ${currentStep === 0 ? 'disabled' : ''}>
           <i class="fas fa-arrow-left"></i>
         </button>
-        <button class="tour-btn tour-next" id="tour-next">
+        <button class="tour-btn tour-next" id="tour-next" aria-label="Next tour step">
           ${currentStep === tourSteps.length - 1 ? 'Finish' : '<i class="fas fa-arrow-right"></i>'}
         </button>
       </div>
@@ -3744,7 +3746,8 @@ function initBookmarkCards() {
     { id: 'aquarium', icon: 'fa-fish', title: 'Build Aquarium', tag: 'Tank', desc: 'All 81 build days as a living fish tank. Each day is a fish — size by impact, species by archetype — with currents, bubbles, light cones, plants, and a Feed action that drops a flake the fish dart for. Press G A.' },
     { id: 'observatory', icon: 'fa-globe', title: 'Build Observatory', tag: 'Solar System', desc: 'All 82 build days orbiting a central planet. Each day is a moon — orbit by age, size by impact, color by archetype. 3 time-of-day modes, click any moon to read its build, shooting stars streak on demand. Press G O.' },
     { id: 'waveform', icon: 'fa-wave-square', title: 'Build Waveform', tag: 'Audio', desc: 'All 83 build days as 83 frequencies on a dual-channel oscilloscope. Each day is a tone — pitch by day, waveform by archetype, harmonic by impact. Listen mode plays history, Spectrum bars it, History scrolls it. Filter by archetype, scrub the playhead, play/pause, focus any tone, export as JSON. Press G V.' },
-    { id: 'compass', icon: 'fa-compass', title: 'Build Compass', tag: 'Direction', desc: 'All 89 build days arranged around four axes: Systems, Shipping, Craft, and Learning. Click any point, filter by archetype, step through the streak, jump to today, randomize, toggle light mode, and see where the work points next. Press G C.' },
+    { id: 'compass', icon: 'fa-compass', title: 'Build Compass', tag: 'Direction', desc: 'All 90 build days arranged around four axes: Systems, Shipping, Craft, and Learning. Click any point, filter by archetype, step through the streak, jump to today, randomize, toggle light mode, and see where the work points next. Press G C.' },
+    { id: 'pulse', icon: 'fa-chart-line', title: 'Build Pulse', tag: 'Signal', desc: 'A compact local readout of recent energy, total impact, archetype lanes, and the next direction earned by the build history. Press Shift P.' },
   ];
 
   let state = {
@@ -7035,6 +7038,10 @@ function initDay78HeroButtons() {
       if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
+  const pulseBtn = document.getElementById('pulse-hero-btn');
+  if (pulseBtn) {
+    pulseBtn.addEventListener('click', () => document.getElementById('pulse')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  }
   const lighthouseBtn = document.getElementById('lighthouse-hero-btn');
   if (lighthouseBtn) {
     lighthouseBtn.addEventListener('click', () => {
@@ -7044,6 +7051,7 @@ function initDay78HeroButtons() {
     });
   }
 }
+
 
 (function initReleaseNotesHeroButton() {
   const button = document.getElementById('releases-hero-btn');

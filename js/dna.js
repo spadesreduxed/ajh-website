@@ -257,12 +257,11 @@
       const y = padY;
       const intensity = a.score / maxScore;
       const opacity = 0.30 + 0.70 * intensity;
-      const glow = intensity > 0.7 ? `<filter id="glow${i}"><feGaussianBlur stdDeviation="2.5"/></filter>` : '';
+      const glow = '';
       const useGlow = intensity > 0.7 ? ` filter="url(#glow${i})"` : '';
       cells += `
         <rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="6" fill="${a.color}" opacity="${opacity}"${useGlow}/>
         <text x="${x + cellSize / 2}" y="${y + cellSize / 2 + 4}" text-anchor="middle" fill="#fff" font-size="11" font-weight="700" font-family="-apple-system, system-ui, sans-serif" style="pointer-events:none">${a.score}</text>
-        ${glow}
       `;
     });
 

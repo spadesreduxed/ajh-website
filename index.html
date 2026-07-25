@@ -74,6 +74,8 @@
     <link rel="stylesheet" href="css/waveform.css?v=103">
     <link rel="stylesheet" href="css/waveform-theme.css?v=103">
     <link rel="stylesheet" href="css/compass.css?v=108">
+    <link rel="stylesheet" href="css/ledger.css?v=110">
+    <link rel="stylesheet" href="css/pulse.css?v=111">
     <link rel="stylesheet" href="css/lighthouse.css?v=106">
     <link rel="stylesheet" href="css/releases.css?v=108">
     <link rel="stylesheet" href="css/theme.css">
@@ -170,6 +172,8 @@
             <li><a href="#observatory">Observatory</a></li>
             <li><a href="#waveform">Waveform</a></li>
             <li><a href="#compass">Compass</a></li>
+            <li><a href="#ledger">Ledger</a></li>
+            <li><a href="#pulse">Pulse</a></li>
             <li><a href="#lighthouse">Lighthouse</a></li>
             <li><a href="#releases">Releases</a></li>
             <li><a href="#quotes">Quotes</a></li>
@@ -322,8 +326,14 @@
                 <button class="plan-btn" id="waveform-hero-btn" aria-label="Build waveform" title="Open the Build Waveform — 83 days, 83 frequencies, one spectrum (G V)">
                     <i class="fas fa-wave-square"></i>
                 </button>
-                <button class="plan-btn" id="compass-hero-btn" aria-label="Build compass" title="Open the Build Compass — 89 builds, four directions (G C)">
+                <button class="plan-btn" id="compass-hero-btn" aria-label="Build compass" title="Open the Build Compass — 90 builds, four directions (G C)">
                     <i class="fas fa-compass"></i>
+                </button>
+                <button class="plan-btn" id="pulse-hero-btn" aria-label="Build pulse" title="Open Build Pulse — read the streak's signal (Shift P)">
+                    <i class="fas fa-chart-line"></i>
+                </button>
+                <button class="plan-btn" id="ledger-hero-btn" aria-label="Build ledger" title="Open the 90-day Build Ledger (G L)">
+                    <i class="fas fa-table-list"></i>
                 </button>
                 <button class="plan-btn" id="lighthouse-hero-btn" aria-label="Build lighthouse" title="Run the site self-audit (G L H)">
                     <i class="fas fa-lightbulb"></i>
@@ -334,11 +344,11 @@
             </div>
             <div class="hero-stats">
                 <div class="stat">
-                    <span class="stat-value" data-count="90">0</span>
+                    <span class="stat-value" data-count="91">0</span>
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="89">0</span>
+                    <span class="stat-value" data-count="91">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -349,7 +359,7 @@
             <div class="daily-streak">
                 <span class="streak-icon">🔥</span>
                 <div class="streak-info">
-                    <span class="streak-count">89 days</span>
+                    <span class="streak-count">91 days</span>
                     <span class="streak-label">Daily Streak</span>
                 </div>
             </div>
@@ -369,11 +379,11 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 89</span>
+                    <span class="insight-value">Day 91</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
-                    <span class="insight-value">88</span>
+                    <span class="insight-value">89</span>
                     <span class="insight-label">streak</span>
                 </div>
             </div>
@@ -546,109 +556,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Project Detail Modal -->
-    <div class="project-modal" id="project-modal">
-        <div class="project-modal-content">
-            <div class="project-modal-header">
-                <div class="project-modal-icon" id="modal-icon">
-                    <i class="fas fa-vault"></i>
-                </div>
-                <div class="project-modal-title-wrap">
-                    <h3 class="project-modal-title" id="modal-title">Project Name</h3>
-                    <span class="project-modal-badge" id="modal-badge">Category</span>
-                </div>
-                <button class="project-modal-close" id="modal-close" aria-label="Close modal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="project-modal-body">
-                <div class="project-modal-desc" id="modal-desc">
-                    <p>Project description goes here...</p>
-                </div>
-                <div class="project-modal-tech" id="modal-tech">
-                    <h4><i class="fas fa-code"></i> Tech Stack</h4>
-                    <div class="tech-tags" id="modal-tech-tags"></div>
-                </div>
-                <div class="project-modal-stats" id="modal-stats">
-                    <div class="modal-stat">
-                        <i class="fas fa-star"></i>
-                        <span id="modal-stars">0</span> Stars
-                    </div>
-                    <div class="modal-stat">
-                        <i class="fas fa-code-branch"></i>
-                        <span id="modal-forks">0</span> Forks
-                    </div>
-                    <div class="modal-stat">
-                        <i class="fas fa-eye"></i>
-                        <span id="modal-views">0</span> Views
-                    </div>
-                </div>
-            </div>
-            <div class="project-modal-footer">
-                <a href="#" class="btn btn-primary btn-sm" id="modal-github" target="_blank">
-                    <i class="fab fa-github"></i> View Code
-                </a>
-                <a href="#" class="btn btn-outline btn-sm" id="modal-live" target="_blank">
-                    <i class="fas fa-external-link-alt"></i> Live Demo
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- World Clock Modal -->
-    <div class="world-clock-modal" id="world-clock-modal">
-        <div class="world-clock-content">
-            <div class="world-clock-header">
-                <h3><i class="fas fa-globe"></i> World Clock</h3>
-                <button class="world-clock-close" id="world-clock-close" aria-label="Close">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="world-clock-grid">
-                <div class="world-clock-item">
-                    <div class="world-clock-city">New York</div>
-                    <div class="world-clock-time" id="wc-new-york">--:--</div>
-                    <div class="world-clock-zone">EST/EDT</div>
-                </div>
-                <div class="world-clock-item">
-                    <div class="world-clock-city">Los Angeles</div>
-                    <div class="world-clock-time" id="wc-la">--:--</div>
-                    <div class="world-clock-zone">PST/PDT</div>
-                </div>
-                <div class="world-clock-item">
-                    <div class="world-clock-city">London</div>
-                    <div class="world-clock-time" id="wc-london">--:--</div>
-                    <div class="world-clock-zone">GMT/BST</div>
-                </div>
-                <div class="world-clock-item">
-                    <div class="world-clock-city">Tokyo</div>
-                    <div class="world-clock-time" id="wc-tokyo">--:--</div>
-                    <div class="world-clock-zone">JST</div>
-                </div>
-                <div class="world-clock-item">
-                    <div class="world-clock-city">Sydney</div>
-                    <div class="world-clock-time" id="wc-sydney">--:--</div>
-                    <div class="world-clock-zone">AEST/AEDT</div>
-                </div>
-                <div class="world-clock-item">
-                    <div class="world-clock-city">Dubai</div>
-                    <div class="world-clock-time" id="wc-dubai">--:--</div>
-                    <div class="world-clock-zone">GST</div>
-                </div>
-                <div class="world-clock-item">
-                    <div class="world-clock-city">Berlin</div>
-                    <div class="world-clock-time" id="wc-berlin">--:--</div>
-                    <div class="world-clock-zone">CET/CEST</div>
-                </div>
-                <div class="world-clock-item">
-                    <div class="world-clock-city">Singapore</div>
-                    <div class="world-clock-time" id="wc-singapore">--:--</div>
-                    <div class="world-clock-zone">SGT</div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Skills Section -->
     <section id="skills" class="section alt-bg">
@@ -855,13 +762,13 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="89">0</div>
+                    <div class="stat-number" data-count="91">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
                 <div class="stat-card">
                     <i class="fas fa-code"></i>
-                    <div class="stat-number" data-count="90">0</div>
+                    <div class="stat-number" data-count="91">0</div>
                     <div class="stat-label">Repositories</div>
                 </div>
                 <div class="stat-card">
@@ -1415,24 +1322,6 @@
                     </div>
                 </div>
             </div>
-            <div class="demo-modal" id="demo-modal">
-                <div class="demo-modal-content">
-                    <div class="demo-modal-header">
-                        <h3 id="demo-modal-title">Project Preview</h3>
-                        <button class="demo-modal-close" id="demo-modal-close">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                    <div class="demo-modal-body">
-                        <iframe id="demo-iframe" src="" frameborder="0"></iframe>
-                    </div>
-                    <div class="demo-modal-footer">
-                        <a href="#" id="demo-external-link" target="_blank" class="btn btn-primary">
-                            <i class="fas fa-external-link-alt"></i> Open Full Site
-                        </a>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -1445,6 +1334,17 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">23</span>
+                        <span class="blog-month">July 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 90</span>
+                        <h3>Build Ledger — One Source of Truth</h3>
+                        <p>Day 90 adds a compact Build Ledger beside the release archive: one searchable table for every shipped day, with impact, archetype, date, and direct links to the journal. It is deliberately plain — less spectacle, more legibility — so the 91-day streak can be scanned, filtered, copied, and understood at a glance.</p>
+                    </div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date">
                         <span class="blog-day">21</span>
@@ -1464,7 +1364,7 @@
                     <div class="blog-content">
                         <span class="blog-tag">Day 88</span>
                         <h3>Release Archive — The Long View</h3>
-                        <p>Day 88 gives Release Notes a proper archive. The default stays focused on the latest work, but <em>Show full history</em> expands the same filters, impact totals, search, sharing, and JSON export across every build in the 89-day streak. The archive reads its compact history from the Build Compass, so there is one source of truth for the count and the timeline.</p>
+                        <p>Day 88 gives Release Notes a proper archive. The default stays focused on the latest work, but <em>Show full history</em> expands the same filters, impact totals, search, sharing, and JSON export across every build in the 90-day streak. The archive reads its compact history from the Build Compass, so there is one source of truth for the count and the timeline.</p>
                     </div>
                 </div>
                 <div class="blog-card">
@@ -1920,7 +1820,7 @@
                         <div class="project-progress">
                             <div class="progress-header">
                                 <span>Build Progress</span>
-                                <span class="progress-percent">Day 89/∞</span>
+                                <span class="progress-percent">Day 91/∞</span>
                             </div>
                             <div class="progress-bar">
                                 <div class="progress-fill" style="width: 100%"></div>
@@ -2704,31 +2604,14 @@
         </div>
     </div>
 
-    <!-- Search Modal -->
-    <div class="nav-search-modal" id="nav-search-modal">
-        <div class="search-container">
-            <input type="text" class="search-input" id="search-input" placeholder="Search anything..." autocomplete="off">
-            <button class="search-close" id="search-close" aria-label="Close search">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="search-results" id="search-results"></div>
-            <div class="search-hints">
-                <span class="hint-label">Quick:</span>
-                <button class="hint-tag" data-section="#projects">Projects</button>
-                <button class="hint-tag" data-section="#stats">Stats</button>
-                <button class="hint-tag" data-section="#blog">Blog</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="js/main.js"></script>
-    <script src="js/pixelart.js"></script>
-    <script src="js/dailychallenge.js"></script>
-    <script src="js/receipts.js"></script>
-    <script src="js/soundboard.js"></script>
-    <script src="js/sequencer.js"></script>
-    <script src="js/forge.js"></script>
-    <script src="js/lab.js"></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/pixelart.js" defer></script>
+    <script src="js/dailychallenge.js" defer></script>
+    <script src="js/receipts.js" defer></script>
+    <script src="js/soundboard.js" defer></script>
+    <script src="js/sequencer.js" defer></script>
+    <script src="js/forge.js" defer></script>
+    <script src="js/lab.js" defer></script>
 
 
 
@@ -3042,7 +2925,7 @@
                 <div class="music-playlist" id="music-playlist">
                     <div class="playlist-header">
                         <span>Playlist</span>
-                        <button class="playlist-toggle" id="playlist-toggle">
+                        <button class="playlist-toggle" id="playlist-toggle" aria-label="Collapse playlist" title="Collapse playlist">
                             <i class="fas fa-chevron-up"></i>
                         </button>
                     </div>
@@ -3746,13 +3629,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Reading Mode Floating Toolbar (Day 63) -->
-    <div class="reading-toolbar" id="reading-toolbar" hidden>
-        <span class="reading-toolbar-label"><i class="fas fa-book-open"></i> Reading Mode</span>
-        <button class="reading-toolbar-btn" id="reading-toolbar-print" title="Print this section (Ctrl/Cmd+P)"><i class="fas fa-print"></i> Print</button>
-        <button class="reading-toolbar-btn reading-toolbar-exit" id="reading-toolbar-exit" title="Exit reading mode (R or Esc)"><i class="fas fa-xmark"></i> Exit</button>
-    </div>
 
     <!-- Reading Mode Toast (Day 63) -->
     <div class="reading-toast" id="reading-toast" hidden></div>
@@ -5693,9 +5569,9 @@
     <section id="compass" class="section compass-section">
         <div class="container">
             <div class="cp-header">
-                <span class="cp-kicker"><i class="fas fa-compass"></i> Day 89</span>
+                <span class="cp-kicker"><i class="fas fa-compass"></i> Day 91</span>
                 <h2 class="cp-title">Build Compass</h2>
-                <p class="cp-subtitle">Eighty-nine builds, four directions, one question: where is the work pointing next? Explore the streak as a living compass.</p>
+                <p class="cp-subtitle">Ninety builds, four directions, one question: where is the work pointing next? Explore the streak as a living compass.</p>
             </div>
             <div class="cp-toolbar">
                 <button class="cp-action" id="cp-today"><i class="fas fa-location-crosshairs"></i> Today</button>
@@ -5715,7 +5591,7 @@
                 <button class="cp-filter" data-filter="meta">Meta</button>
                 <button class="cp-filter" data-filter="craft">Craft</button>
             </div>
-            <div class="cp-stage" id="cp-stage" aria-label="Interactive compass map of all 89 builds"></div>
+            <div class="cp-stage" id="cp-stage" aria-label="Interactive compass map of all 90 builds"></div>
             <div class="cp-recommendation" aria-live="polite">
                 <div class="cp-recommendation-kicker"><i class="fas fa-route"></i> Next direction</div>
                 <strong id="cp-recommendation-axis">Learning</strong>
@@ -5723,13 +5599,13 @@
                 <span id="cp-recommendation-meta">0 impact points · 0 builds · the least-used direction right now</span>
             </div>
             <div class="cp-stats">
-                <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-builds">88</span><span class="cp-stat-label">Builds</span></div>
+                <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-builds">90</span><span class="cp-stat-label">Builds</span></div>
                 <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-filter">All</span><span class="cp-stat-label">Filter</span></div>
                 <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-direction">Systems</span><span class="cp-stat-label">Selected axis</span></div>
                 <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-views">0</span><span class="cp-stat-label">Explorations</span></div>
             </div>
             <div class="cp-focus" aria-live="polite">
-                <div class="cp-focus-day" id="cp-focus-day">Day 89</div>
+                <div class="cp-focus-day" id="cp-focus-day">Day 91</div>
                 <h3 class="cp-focus-name" id="cp-focus-name">Build Compass</h3>
                 <span class="cp-focus-arch" id="cp-focus-arch">Systems</span>
                 <span class="cp-focus-impact" id="cp-focus-impact">Impact 5/5</span>
@@ -5741,10 +5617,66 @@
         </div>
     </section>
 
+    <section id="ledger" class="section ledger-section">
+        <div class="container">
+            <div class="ledger-header">
+                <span class="ledger-kicker"><i class="fas fa-table-list"></i> Day 91 · Build Ledger</span>
+                <h2 class="ledger-title">Build Ledger</h2>
+                <p class="ledger-subtitle">The quiet index behind the flashy experiments: every build, one row, easy to search and carry forward.</p>
+            </div>
+            <div class="ledger-toolbar">
+                <label class="ledger-search"><i class="fas fa-search"></i><input id="ledger-search" type="search" placeholder="Search days, names, or archetypes…" aria-label="Search build ledger"></label>
+                <div class="ledger-filters" id="ledger-filters" role="tablist" aria-label="Filter build ledger">
+                    <button class="ledger-filter is-active" data-filter="all" role="tab" aria-selected="true">All</button>
+                    <button class="ledger-filter" data-filter="systems" role="tab" aria-selected="false">Systems</button>
+                    <button class="ledger-filter" data-filter="data" role="tab" aria-selected="false">Data</button>
+                    <button class="ledger-filter" data-filter="craft" role="tab" aria-selected="false">Craft</button>
+                    <button class="ledger-filter" data-filter="audio" role="tab" aria-selected="false">Audio</button>
+                    <button class="ledger-filter" data-filter="interactive" role="tab" aria-selected="false">Interactive</button>
+                </div>
+                <button class="ledger-action" id="ledger-export" type="button"><i class="fas fa-download"></i> Export CSV</button>
+            </div>
+            <div class="ledger-summary"><strong id="ledger-count">0</strong><span>days shown</span><span>·</span><span id="ledger-impact">0 impact points</span><span>·</span><span id="ledger-latest">Day 91 latest</span></div>
+            <div class="ledger-table-wrap">
+                <table class="ledger-table">
+                    <caption class="sr-only">AJH daily build ledger</caption>
+                    <thead><tr><th scope="col">Day</th><th scope="col">Build</th><th scope="col">Archetype</th><th scope="col">Impact</th><th scope="col">Date</th><th scope="col"><span class="sr-only">Open</span></th></tr></thead>
+                    <tbody id="ledger-body"></tbody>
+                </table>
+            </div>
+            <div class="ledger-empty" id="ledger-empty" hidden><i class="fas fa-filter-circle-xmark"></i><strong>No builds match</strong><span>Try another search or filter.</span></div>
+            <p class="ledger-hint"><i class="fas fa-keyboard"></i> Search and filters stay in this browser · export the visible rows as a portable CSV</p>
+        </div>
+    </section>
+
+    <section id="pulse" class="section pulse-section">
+        <div class="container">
+            <div class="pulse-header">
+                <span class="pulse-kicker"><i class="fas fa-chart-line"></i> Day 91 · Signal</span>
+                <h2 class="pulse-title">Build Pulse</h2>
+                <p class="pulse-subtitle">A compact readout of the streak: how much shipped, where the energy is, and which direction deserves the next deliberate move.</p>
+            </div>
+            <div class="pulse-toolbar"><button class="pulse-action" id="pulse-refresh" type="button"><i class="fas fa-rotate"></i> Recalculate</button></div>
+            <div class="pulse-snapshot">
+                <div class="pulse-card pulse-score-card"><div class="pulse-score-orb"><strong id="pulse-score">—</strong><span>/100</span></div><div><span class="pulse-card-label">Current signal</span><strong class="pulse-card-value" id="pulse-score-note">Reading the streak…</strong><span class="pulse-card-note">A local composite of recent momentum, consistency, and impact.</span></div></div>
+                <div class="pulse-card"><span class="pulse-card-label">Latest ship</span><strong class="pulse-card-value" id="pulse-latest">Day 91</strong><span class="pulse-card-note" id="pulse-latest-note">Build Ledger</span></div>
+                <div class="pulse-card"><span class="pulse-card-label">Total impact</span><strong class="pulse-card-value" id="pulse-impact">—</strong><span class="pulse-card-note" id="pulse-impact-note">Across the full streak</span></div>
+                <div class="pulse-card"><span class="pulse-card-label">Average build</span><strong class="pulse-card-value" id="pulse-avg">—</strong><span class="pulse-card-note" id="pulse-avg-note">Recent momentum</span></div>
+            </div>
+            <div class="pulse-grid">
+                <div class="pulse-card"><div class="pulse-card-head"><h3>Recent energy</h3><span>last 10 builds · impact / 5</span></div><div class="pulse-bars" id="pulse-bars" aria-label="Impact bars for the last ten builds"></div></div>
+                <div class="pulse-card"><div class="pulse-card-head"><h3>Archetype lanes</h3><span>impact by direction</span></div><div class="pulse-archetypes" id="pulse-archetypes"></div></div>
+            </div>
+            <div class="pulse-card pulse-next"><div><span class="pulse-card-label"><i class="fas fa-route"></i> Next signal</span><strong id="pulse-next-axis">—</strong><p id="pulse-next-text">The build history will choose a direction here.</p></div><span class="pulse-status" id="pulse-status">0 explorations</span></div>
+            <p class="pulse-hint"><i class="fas fa-keyboard"></i> <kbd>Shift</kbd> <kbd>P</kbd> opens Build Pulse · all calculations run locally from the build history</p>
+        </div>
+    </section>
+
+
     <section id="lighthouse" class="section lighthouse-section">
         <div class="container">
             <div class="lh-header">
-                <span class="lh-kicker"><i class="fas fa-lightbulb"></i> Day 86 · Quality</span>
+                <span class="lh-kicker"><i class="fas fa-lightbulb"></i> Day 91 · Quality</span>
                 <h2 class="lh-title">Build Lighthouse</h2>
                 <p class="lh-subtitle">A fast, honest self-audit for the site. Check the foundations, fix one thing, and keep the light on.</p>
             </div>
@@ -5769,7 +5701,7 @@
             </div>
             <div class="lh-history-card">
                 <div class="lh-history-head">
-                    <div><span class="lh-history-kicker"><i class="fas fa-clock-rotate-left"></i> Day 89 · Quality trail</span><h3>Keep the signal over time</h3></div>
+                    <div><span class="lh-history-kicker"><i class="fas fa-clock-rotate-left"></i> Day 91 · Quality trail</span><h3>Keep the signal over time</h3></div>
                     <button class="lh-action" id="lh-history-clear" type="button"><i class="fas fa-trash-can"></i> Clear trail</button>
                 </div>
                 <div class="lh-history-summary" id="lh-history-summary">Run the audit to start a local quality trail.</div>
@@ -5782,7 +5714,7 @@
     <section id="releases" class="section releases-section">
         <div class="container">
             <div class="releases-header">
-                <span class="releases-kicker"><i class="fas fa-scroll"></i> Day 89 · Changelog</span>
+                <span class="releases-kicker"><i class="fas fa-scroll"></i> Day 91 · Changelog</span>
                 <h2 class="releases-title">Release Notes</h2>
                 <p class="releases-subtitle">A readable index of what shipped, why it mattered, and where the build is going next.</p>
             </div>
@@ -5801,7 +5733,7 @@
             <div class="releases-summary"><strong id="releases-count">0</strong><span>releases shown</span><span class="releases-dot">·</span><span id="releases-impact">0 impact points</span><span class="releases-dot">·</span><span id="releases-scope">Latest 16</span></div>
             <div class="releases-grid" id="releases-grid" aria-live="polite" aria-label="Release notes results"></div>
             <div class="releases-empty" id="releases-empty" hidden><i class="fas fa-magnifying-glass"></i><strong>No releases match</strong><span>Try a different search or reset the filter.</span></div>
-            <p class="releases-hint"><i class="fas fa-keyboard"></i> <kbd>G</kbd> <kbd>R</kbd> opens Release Notes · <span id="releases-history-hint">show the full 89-day archive when you want the long view</span> · filters are remembered locally</p>
+            <p class="releases-hint"><i class="fas fa-keyboard"></i> <kbd>G</kbd> <kbd>R</kbd> opens Release Notes · <span id="releases-history-hint">show the full 91-day archive when you want the long view</span> · filters are remembered locally</p>
         </div>
     </section>
 
@@ -5817,6 +5749,8 @@
     <script src="js/observatory.js?v=102" defer></script>
     <script src="js/waveform.js?v=103" defer></script>
     <script src="js/compass.js?v=105" defer></script>
+    <script src="js/ledger.js?v=110" defer></script>
+    <script src="js/pulse.js?v=111" defer></script>
     <script src="js/lighthouse.js?v=106" defer></script>
     <script src="js/releases.js?v=107" defer></script>
 </body>
