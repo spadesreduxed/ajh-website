@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   const $ = (id) => document.getElementById(id);
-  const state = { filter: 'all', query: '' };
+  const state = { filter: 'all', query: '', viewed: 0 };
   const builds = [
     { d: 1, a: 'meta', n: 'Animated Gradient Hero', i: 4 }, { d: 2, a: 'craft', n: 'Loading States', i: 3 },
     { d: 3, a: 'systems', n: 'Keyboard Shortcuts', i: 4 }, { d: 4, a: 'visual', n: 'Particle Background', i: 3 },
@@ -51,14 +51,15 @@
     { d: 91, a: 'systems', n: 'Build Pulse', i: 4 }
   ];
   function date(day) { return new Date(2026, 3, 21 + day).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
+  function journalCard(day) { return [...document.querySelectorAll('#blog .blog-card')].find((el) => el.textContent.includes(`Day ${day}`)); }
   function visible(b) { const q = state.query.trim().toLowerCase(); return (state.filter === 'all' || b.a === state.filter) && (!q || `${b.d} ${b.n} ${b.a}`.toLowerCase().includes(q)); }
   function render() {
     const rows = builds.filter(visible); const impact = rows.reduce((sum, b) => sum + b.i, 0);
-    $('ledger-count').textContent = rows.length; $('ledger-impact').textContent = `${impact} impact points`;
+    $('ledger-count').textContent = rows.length; $('ledger-impact').textContent = `${impact} impact points`; $('ledger-latest').textContent = `${state.viewed} journal${state.viewed === 1 ? '' : 's'} opened`;
     $('ledger-body').innerHTML = rows.slice().reverse().map((b) => `<tr><th scope="row">Day ${b.d}</th><td><strong>${b.n}</strong></td><td><span class="ledger-type ledger-${b.a}">${b.a}</span></td><td><span class="ledger-impact" aria-label="Impact ${b.i} out of 5">${'●'.repeat(b.i)}${'○'.repeat(5 - b.i)}</span></td><td><time datetime="2026-04-${String(21 + b.d).padStart(2, '0')}">${date(b.d)}</time></td><td><a class="ledger-open" href="#blog" data-day="${b.d}">Journal <i class="fas fa-arrow-right"></i></a></td></tr>`).join('');
     $('ledger-empty').hidden = rows.length > 0;
     document.querySelectorAll('.ledger-filter').forEach((btn) => { const active = btn.dataset.filter === state.filter; btn.classList.toggle('is-active', active); btn.setAttribute('aria-selected', String(active)); });
-    document.querySelectorAll('.ledger-open').forEach((link) => link.addEventListener('click', () => { const card = [...document.querySelectorAll('#blog .blog-card')].find((el) => el.textContent.includes(`Day ${link.dataset.day}`)); card?.scrollIntoView({ behavior: 'smooth', block: 'center' }); }));
+    document.querySelectorAll('.ledger-open').forEach((link) => link.addEventListener('click', () => { const card = journalCard(link.dataset.day); state.viewed += 1; save(); card?.scrollIntoView({ behavior: 'smooth', block: 'center' }); }));
   }
   function save() { try { localStorage.setItem('ajh_ledger_v1', JSON.stringify(state)); } catch (_) {} }
   function load() { try { Object.assign(state, JSON.parse(localStorage.getItem('ajh_ledger_v1') || '{}')); } catch (_) {} }
