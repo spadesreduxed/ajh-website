@@ -1,3 +1,11 @@
+## Latest Build - Day 92 (2026-07-26)
+
+### Next-Build Brief — turn the signal into a ship
+- Added an editable, dismissible brief inside Build Pulse so the recommendation ends with one concrete next slice.
+- Added browser-local saving, clear/restore controls, a hero shortcut, and a small-screen layout that keeps the brief usable.
+- Rolled the shared build datasets and visible streak counters forward to Day 92.
+- Researched native dialog/inert patterns and browser-local storage tradeoffs before shipping.
+
 ## Latest Build - Day 91 (2026-07-25)
 
 ### Build Pulse — read the signal, choose the next move

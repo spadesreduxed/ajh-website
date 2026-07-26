@@ -51,6 +51,7 @@
     { d: 89, a: 'systems', n: 'Lighthouse History', i: 4 },
     { d: 90, a: 'systems', n: 'Build Ledger', i: 4 },
     { d: 91, a: 'systems', n: 'Build Pulse', i: 4 },
+    { d: 92, a: 'systems', n: 'Next-Build Brief', i: 4 },
   ];
 
   const ARCH = {
@@ -61,7 +62,7 @@
   };
   const KEY = 'ajh_compass_v1';
   const TOTAL = BUILDS.length;
-  const state = { filter: 'all', selected: 91, theme: 'dark', views: 0 };
+  const state = { filter: 'all', selected: 92, theme: 'dark', views: 0 };
   const $ = (id) => document.getElementById(id);
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 
@@ -110,8 +111,8 @@
   function updateFocus() {
     const b = BUILDS.find((build) => build.d === state.selected) || BUILDS[BUILDS.length - 1]; const meta = ARCH[b.a];
     $('cp-focus-day').textContent = 'Day ' + b.d; $('cp-focus-day').style.color = meta.color;
-    $('cp-focus-name').textContent = b.n; $('cp-focus-arch').textContent = meta.label; $('cp-focus-date').textContent = new Date(2026, 3, 21 + b.d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    $('cp-focus-impact').textContent = 'Impact ' + b.i + '/5'; $('cp-focus-desc').textContent = b.n + ' sits on the ' + meta.label.toLowerCase() + ' axis of the build compass. The map turns the 91-day streak into direction: where the work points, and what to build next.';
+    $('cp-focus-name').textContent = b.n; $('cp-focus-arch').textContent = meta.label; $('cp-focus-date').textContent = b.d === 92 ? 'Jul 26, 2026' : new Date(2026, 3, 21 + b.d + 4).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    $('cp-focus-impact').textContent = 'Impact ' + b.i + '/5'; $('cp-focus-desc').textContent = b.n + ' sits on the ' + meta.label.toLowerCase() + ' axis of the build compass. The map turns the 92-day streak into direction: where the work points, and what to build next.';
   }
   function render() {
     $('cp-stage').innerHTML = compassSvg(); updateFocus(); updateRecommendation();
