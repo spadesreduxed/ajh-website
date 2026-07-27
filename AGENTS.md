@@ -1,3 +1,34 @@
+### Day 93 - 2026-07-27
+**Status**: Build Checkpoint - verify the next slice before moving on
+
+**Actions**:
+- Added a Build Checkpoint section that turns the Pulse brief into a four-step shipping ritual: clear intent, built slice, verified behavior, and recorded handoff.
+- Added editable title and intent fields, browser-local persistence, reset, Pulse-brief import, copy status, JSON export, progress state, hero shortcut, navigation entry, and `Shift K` keyboard access.
+- Rolled the shared Compass, Ledger, Release Notes, Pulse signal, Lighthouse labels, hero counters, visible streak copy, and build log forward to Day 93.
+- Researched accessible form labels, native checkbox semantics, local-first persistence, and reduced-motion patterns before shipping.
+
+**Files Changed**:
+- `index.html` - Checkpoint section, navigation, hero shortcut, Day 93 labels, counters, and build-log card.
+- `css/checkpoint.css` - Checkpoint visual system, responsive layout, light theme, and reduced-motion styling.
+- `js/checkpoint.js` - Local checkpoint state, progress rendering, Pulse import, copy/export actions, and shortcuts.
+- `js/compass.js` - Added Day 93 Build Checkpoint to the shared history.
+- `js/ledger.js` - Added Day 93 to the searchable ledger.
+- `js/releases.js` - Added Day 93 to the release index.
+- `js/pulse.js` - Updated the streak normalization to the 93-build history.
+- `js/main.js` - Added Checkpoint command-palette actions and Day 93 boot label.
+- `README.md` - Documented the latest build.
+
+**Validation**:
+- `node --check` passes for all changed JavaScript modules.
+- `git diff --check` passes.
+- Local static preview smoke test completed.
+
+**Next Steps**:
+- Use completed checkpoints as the handoff for the next daily slice.
+- Continue building new features daily - never stop
+
+---
+
 ### Day 91 - 2026-07-25
 **Status**: Build Pulse - read the streak before choosing the next move
 
