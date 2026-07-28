@@ -1,4 +1,14 @@
-## Latest Build - Day 93 (2026-07-27)
+## Latest Build - Day 94 (2026-07-28)
+
+### Build Dispatch — close the handoff loop
+- Added a focused **Build Dispatch** section after Checkpoint: name the finished slice, record its owner and handoff note, verify the result, and mark the next move clear.
+- Added browser-local draft persistence, three-step progress state, recent-dispatch history, reset, copy status, and JSON export.
+- Added a Dispatch button, navigation entry, command-palette actions, `Shift D` keyboard access, responsive styling, light-theme support, and reduced-motion support.
+- Rolled the shared build datasets and visible streak counters forward to Day 94.
+- Researched native form semantics, visible keyboard focus, and local-first progressive enhancement before shipping.
+
+## Previous Build - Day 93 (2026-07-27)
+
 
 ### Build Checkpoint — verify the next slice
 - Added a focused **Build Checkpoint** section that turns the Pulse recommendation into a four-step shipping ritual: intent, build, verify, and record.

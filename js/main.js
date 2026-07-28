@@ -806,7 +806,7 @@ function initCommandPalette() {
     { id: 'tool-waveform-mode', label: 'Build Waveform: Cycle Listen / Spectrum / History', icon: 'fa-wave-square', category: 'Tools', action: () => window.ajhWaveform && window.ajhWaveform.cycleMode && window.ajhWaveform.cycleMode() },
     { id: 'tool-waveform-export', label: 'Build Waveform: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhWaveform && window.ajhWaveform.export && window.ajhWaveform.export() },
     { id: 'tool-compass-open', label: 'Open Build Compass', icon: 'fa-compass', shortcut: 'G C', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.open && window.ajhCompass.open() },
-    { id: 'tool-compass-today', label: 'Build Compass: Jump to Today', icon: 'fa-location-crosshairs', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.jump && window.ajhCompass.jump(93) },
+    { id: 'tool-compass-today', label: 'Build Compass: Jump to Today', icon: 'fa-location-crosshairs', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.jump && window.ajhCompass.jump(94) },
     { id: 'tool-compass-next', label: 'Build Compass: Next Direction', icon: 'fa-arrow-right', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.next && window.ajhCompass.next() },
     { id: 'tool-compass-random', label: 'Build Compass: Random Build', icon: 'fa-shuffle', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.random && window.ajhCompass.random() },
     { id: 'tool-lighthouse-open', label: 'Run Build Lighthouse Audit', icon: 'fa-lightbulb', shortcut: 'G L H', category: 'Tools', action: () => window.ajhLighthouse && window.ajhLighthouse.run && window.ajhLighthouse.run() },
@@ -818,6 +818,9 @@ function initCommandPalette() {
     { id: 'tool-pulse-refresh', label: 'Recalculate Build Pulse', icon: 'fa-rotate', category: 'Tools', action: () => window.ajhPulse && window.ajhPulse.refresh && window.ajhPulse.refresh() },
     { id: 'tool-checkpoint-open', label: 'Open Build Checkpoint', icon: 'fa-check-double', shortcut: 'Shift K', category: 'Tools', action: () => window.ajhCheckpoint && window.ajhCheckpoint.open && window.ajhCheckpoint.open() },
     { id: 'tool-checkpoint-copy', label: 'Copy Checkpoint Status', icon: 'fa-share-nodes', category: 'Tools', action: () => window.ajhCheckpoint && window.ajhCheckpoint.copy && window.ajhCheckpoint.copy() },
+    { id: 'tool-dispatch-open', label: 'Open Build Dispatch', icon: 'fa-paper-plane', shortcut: 'Shift D', category: 'Tools', action: () => window.ajhDispatch && window.ajhDispatch.open && window.ajhDispatch.open() },
+    { id: 'tool-dispatch-send', label: 'Dispatch Finished Handoff', icon: 'fa-paper-plane', category: 'Tools', action: () => window.ajhDispatch && window.ajhDispatch.dispatch && window.ajhDispatch.dispatch() },
+    { id: 'tool-dispatch-copy', label: 'Copy Dispatch Status', icon: 'fa-share-nodes', category: 'Tools', action: () => window.ajhDispatch && window.ajhDispatch.copy && window.ajhDispatch.copy() },
 
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -1158,7 +1161,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBookmarkCards();
   initDay78HeroButtons();
 
-  console.log('⚡ AJH Website loaded - Day 93: Build Checkpoint');
+  console.log('⚡ AJH Website loaded - Day 94: Build Dispatch');
 });
 
 // Day 48 - Daily Challenge + API Status

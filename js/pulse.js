@@ -38,7 +38,7 @@
     const recent = all.slice(-10); const totalImpact = all.reduce((sum, build) => sum + build.i, 0); const recentImpact = recent.reduce((sum, build) => sum + build.i, 0); const average = recentImpact / recent.length;
     const scores = Object.fromEntries(ARCHETYPES.map(([key]) => [key, { impact: 0, count: 0 }]));
     all.forEach((build) => { if (!scores[build.a]) scores[build.a] = { impact: 0, count: 0 }; scores[build.a].impact += build.i; scores[build.a].count += 1; });
-    const momentum = recentImpact / (recent.length * 5); const consistency = all.length >= 2 ? Math.min(1, all.length / 93) : .2; const signal = Math.round((momentum * .65 + consistency * .35) * 100);
+    const momentum = recentImpact / (recent.length * 5); const consistency = all.length >= 2 ? Math.min(1, all.length / 94) : .2; const signal = Math.round((momentum * .65 + consistency * .35) * 100);
     const next = direction(scores); const latest = all[all.length - 1];
     $('pulse-score').textContent = signal; $('pulse-score-note').textContent = signal >= 85 ? 'Strong and steady' : signal >= 70 ? 'Good momentum' : 'Room to sharpen';
     $('pulse-latest').textContent = `Day ${latest.d}`; $('pulse-latest-note').textContent = latest.n; $('pulse-impact').textContent = `${totalImpact} pts`; $('pulse-impact-note').textContent = `${all.length} builds recorded`; $('pulse-avg').textContent = `${average.toFixed(1)} / 5`; $('pulse-avg-note').textContent = `last ${recent.length} builds`;

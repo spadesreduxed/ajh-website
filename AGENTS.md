@@ -1,3 +1,34 @@
+### Day 94 - 2026-07-28
+**Status**: Build Dispatch - close the handoff loop
+
+**Actions**:
+- Added a Build Dispatch section after Checkpoint for recording a finished slice, owner, handoff note, verification, and next move.
+- Added three-step progress, browser-local drafts, recent dispatch history, reset, copy, JSON export, hero shortcut, navigation entry, command-palette actions, and `Shift D` keyboard access.
+- Rolled the shared Compass, Ledger, Release Notes, Pulse signal, Lighthouse labels, hero counters, visible streak copy, and build log forward to Day 94.
+- Researched native form semantics, visible keyboard focus, and local-first progressive enhancement before shipping.
+
+**Files Changed**:
+- `index.html` - Dispatch section, navigation, hero shortcut, Day 94 labels, counters, and build-log card.
+- `css/dispatch.css` - Dispatch visual system, responsive layout, light theme, and reduced-motion styling.
+- `js/dispatch.js` - Local draft state, progress rendering, dispatch history, copy/export actions, and shortcut.
+- `js/compass.js` - Added Day 94 Build Dispatch to the shared history.
+- `js/ledger.js` - Added Day 94 to the searchable ledger.
+- `js/releases.js` - Added Day 94 to the release index.
+- `js/pulse.js` - Updated the streak normalization to the 94-build history.
+- `js/main.js` - Added Dispatch command-palette actions and Day 94 boot label.
+- `README.md` - Documented the latest build.
+
+**Validation**:
+- `node --check` passes for all changed JavaScript modules.
+- `git diff --check` passes.
+- Local static preview smoke test completed.
+
+**Next Steps**:
+- Use completed dispatches as the handoff for the next daily slice.
+- Continue building new features daily - never stop
+
+---
+
 ### Day 93 - 2026-07-27
 **Status**: Build Checkpoint - verify the next slice before moving on
 
