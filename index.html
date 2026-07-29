@@ -79,6 +79,7 @@
     <link rel="stylesheet" href="css/brief.css?v=112">
     <link rel="stylesheet" href="css/checkpoint.css?v=113">
     <link rel="stylesheet" href="css/dispatch.css?v=1">
+    <link rel="stylesheet" href="css/relay.css?v=1">
     <link rel="stylesheet" href="css/lighthouse.css?v=106">
     <link rel="stylesheet" href="css/releases.css?v=108">
     <link rel="stylesheet" href="css/theme.css">
@@ -179,6 +180,7 @@
             <li><a href="#pulse">Pulse</a></li>
             <li><a href="#checkpoint">Checkpoint</a></li>
             <li><a href="#dispatch">Dispatch</a></li>
+            <li><a href="#relay">Relay</a></li>
             <li><a href="#lighthouse">Lighthouse</a></li>
             <li><a href="#releases">Releases</a></li>
             <li><a href="#quotes">Quotes</a></li>
@@ -331,7 +333,7 @@
                 <button class="plan-btn" id="waveform-hero-btn" aria-label="Build waveform" title="Open the Build Waveform — 83 days, 83 frequencies, one spectrum (G V)">
                     <i class="fas fa-wave-square"></i>
                 </button>
-                <button class="plan-btn" id="compass-hero-btn" aria-label="Build compass" title="Open the Build Compass — 94 builds, four directions (G C)">
+                <button class="plan-btn" id="compass-hero-btn" aria-label="Build compass" title="Open the Build Compass — 95 builds, four directions (G C)">
                     <i class="fas fa-compass"></i>
                 </button>
                 <button class="plan-btn" id="pulse-hero-btn" aria-label="Build pulse" title="Open Build Pulse — read the streak's signal (Shift P)">
@@ -342,6 +344,9 @@
                 </button>
                 <button class="plan-btn" id="dispatch-hero-btn" aria-label="Build dispatch" title="Open Build Dispatch — record the finished handoff (Shift D)">
                     <i class="fas fa-paper-plane"></i>
+                </button>
+                <button class="plan-btn" id="relay-hero-btn" aria-label="Build relay" title="Open Build Relay — start tomorrow from a clean handoff (Shift R)">
+                    <i class="fas fa-forward-step"></i>
                 </button>
                 <button class="plan-btn" id="ledger-hero-btn" aria-label="Build ledger" title="Open the Build Ledger (G L)">
                     <i class="fas fa-table-list"></i>
@@ -359,7 +364,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="94">0</span>
+                    <span class="stat-value" data-count="95">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -370,7 +375,7 @@
             <div class="daily-streak">
                 <span class="streak-icon">🔥</span>
                 <div class="streak-info">
-                    <span class="streak-count">94 days</span>
+                    <span class="streak-count">95 days</span>
                     <span class="streak-label">Daily Streak</span>
                 </div>
             </div>
@@ -390,11 +395,11 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 94</span>
+                    <span class="insight-value">Day 95</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
-                    <span class="insight-value">93</span>
+                    <span class="insight-value">95</span>
                     <span class="insight-label">streak</span>
                 </div>
             </div>
@@ -773,7 +778,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="94">0</div>
+                    <div class="stat-number" data-count="95">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -1347,7 +1352,18 @@
             <div class="blog-grid">
                 <div class="blog-card">
                     <div class="blog-date">
-                        <span class="blog-day">26</span>
+                        <span class="blog-day">29</span>
+                        <span class="blog-month">July 2026</span>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-tag">Day 95</span>
+                        <h3>Build Relay — Start Tomorrow From a Clean Handoff</h3>
+                        <p>Day 95 turns the dispatched record into a starting line: import the last checkpoint or dispatch, make the next slice and its scope explicit, verify the first move, then send a browser-local relay into tomorrow's queue. The streak now carries context forward instead of starting cold.</p>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="blog-day">28</span>
                         <span class="blog-month">July 2026</span>
                     </div>
                     <div class="blog-content">
@@ -1375,7 +1391,7 @@
                     <div class="blog-content">
                         <span class="blog-tag">Day 90</span>
                         <h3>Build Ledger — One Source of Truth</h3>
-                        <p>Day 90 adds a compact Build Ledger beside the release archive: one searchable table for every shipped day, with impact, archetype, date, and direct links to the journal. It is deliberately plain — less spectacle, more legibility — so the 94-day streak can be scanned, filtered, copied, and understood at a glance.</p>
+                        <p>Day 90 adds a compact Build Ledger beside the release archive: one searchable table for every shipped day, with impact, archetype, date, and direct links to the journal. It is deliberately plain — less spectacle, more legibility — so the 95-day streak can be scanned, filtered, copied, and understood at a glance.</p>
                     </div>
                 </div>
                 <div class="blog-card">
@@ -1397,7 +1413,7 @@
                     <div class="blog-content">
                         <span class="blog-tag">Day 88</span>
                         <h3>Release Archive — The Long View</h3>
-                        <p>Day 88 gives Release Notes a proper archive. The default stays focused on the latest work, but <em>Show full history</em> expands the same filters, impact totals, search, sharing, and JSON export across every build in the 94-day streak. The archive reads its compact history from the Build Compass, so there is one source of truth for the count and the timeline.</p>
+                        <p>Day 88 gives Release Notes a proper archive. The default stays focused on the latest work, but <em>Show full history</em> expands the same filters, impact totals, search, sharing, and JSON export across every build in the 95-day streak. The archive reads its compact history from the Build Compass, so there is one source of truth for the count and the timeline.</p>
                     </div>
                 </div>
                 <div class="blog-card">
@@ -1853,7 +1869,7 @@
                         <div class="project-progress">
                             <div class="progress-header">
                                 <span>Build Progress</span>
-                                <span class="progress-percent">Day 94/∞</span>
+                                <span class="progress-percent">Day 95/∞</span>
                             </div>
                             <div class="progress-bar">
                                 <div class="progress-fill" style="width: 100%"></div>
@@ -5602,9 +5618,9 @@
     <section id="compass" class="section compass-section">
         <div class="container">
             <div class="cp-header">
-                <span class="cp-kicker"><i class="fas fa-compass"></i> Day 94</span>
+                <span class="cp-kicker"><i class="fas fa-compass"></i> Day 95</span>
                 <h2 class="cp-title">Build Compass</h2>
-                <p class="cp-subtitle">Ninety-four builds, four directions, one question: where is the work pointing next? Explore the streak as a living compass.</p>
+                <p class="cp-subtitle">Ninety-five builds, four directions, one question: where is the work pointing next? Explore the streak as a living compass.</p>
             </div>
             <div class="cp-toolbar">
                 <button class="cp-action" id="cp-today"><i class="fas fa-location-crosshairs"></i> Today</button>
@@ -5624,7 +5640,7 @@
                 <button class="cp-filter" data-filter="meta">Meta</button>
                 <button class="cp-filter" data-filter="craft">Craft</button>
             </div>
-            <div class="cp-stage" id="cp-stage" aria-label="Interactive compass map of all 94 builds"></div>
+            <div class="cp-stage" id="cp-stage" aria-label="Interactive compass map of all 95 builds"></div>
             <div class="cp-recommendation" aria-live="polite">
                 <div class="cp-recommendation-kicker"><i class="fas fa-route"></i> Next direction</div>
                 <strong id="cp-recommendation-axis">Learning</strong>
@@ -5638,7 +5654,7 @@
                 <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-views">0</span><span class="cp-stat-label">Explorations</span></div>
             </div>
             <div class="cp-focus" aria-live="polite">
-                <div class="cp-focus-day" id="cp-focus-day">Day 94</div>
+                <div class="cp-focus-day" id="cp-focus-day">Day 95</div>
                 <h3 class="cp-focus-name" id="cp-focus-name">Build Compass</h3>
                 <span class="cp-focus-arch" id="cp-focus-arch">Systems</span>
                 <span class="cp-focus-impact" id="cp-focus-impact">Impact 5/5</span>
@@ -5653,7 +5669,7 @@
     <section id="ledger" class="section ledger-section">
         <div class="container">
             <div class="ledger-header">
-                <span class="ledger-kicker"><i class="fas fa-table-list"></i> Day 94 · Build Ledger</span>
+                <span class="ledger-kicker"><i class="fas fa-table-list"></i> Day 95 · Build Ledger</span>
                 <h2 class="ledger-title">Build Ledger</h2>
                 <p class="ledger-subtitle">The quiet index behind the flashy experiments: every build, one row, easy to search and carry forward.</p>
             </div>
@@ -5669,7 +5685,7 @@
                 </div>
                 <button class="ledger-action" id="ledger-export" type="button"><i class="fas fa-download"></i> Export CSV</button>
             </div>
-            <div class="ledger-summary"><strong id="ledger-count">0</strong><span>days shown</span><span>·</span><span id="ledger-impact">0 impact points</span><span>·</span><span id="ledger-latest">Day 94 latest</span></div>
+            <div class="ledger-summary"><strong id="ledger-count">0</strong><span>days shown</span><span>·</span><span id="ledger-impact">0 impact points</span><span>·</span><span id="ledger-latest">Day 95 latest</span></div>
             <div class="ledger-table-wrap">
                 <table class="ledger-table">
                     <caption class="sr-only">AJH daily build ledger</caption>
@@ -5685,14 +5701,14 @@
     <section id="pulse" class="section pulse-section">
         <div class="container">
             <div class="pulse-header">
-                <span class="pulse-kicker"><i class="fas fa-chart-line"></i> Day 94 · Signal</span>
+                <span class="pulse-kicker"><i class="fas fa-chart-line"></i> Day 95 · Signal</span>
                 <h2 class="pulse-title">Build Pulse</h2>
                 <p class="pulse-subtitle">A compact readout of the streak: how much shipped, where the energy is, and which direction deserves the next deliberate move.</p>
             </div>
             <div class="pulse-toolbar"><button class="pulse-action" id="pulse-refresh" type="button"><i class="fas fa-rotate"></i> Recalculate</button></div>
             <div class="pulse-snapshot">
                 <div class="pulse-card pulse-score-card"><div class="pulse-score-orb"><strong id="pulse-score">—</strong><span>/100</span></div><div><span class="pulse-card-label">Current signal</span><strong class="pulse-card-value" id="pulse-score-note">Reading the streak…</strong><span class="pulse-card-note">A local composite of recent momentum, consistency, and impact.</span></div></div>
-                <div class="pulse-card"><span class="pulse-card-label">Latest ship</span><strong class="pulse-card-value" id="pulse-latest">Day 94</strong><span class="pulse-card-note" id="pulse-latest-note">Build Ledger</span></div>
+                <div class="pulse-card"><span class="pulse-card-label">Latest ship</span><strong class="pulse-card-value" id="pulse-latest">Day 95</strong><span class="pulse-card-note" id="pulse-latest-note">Build Relay</span></div>
                 <div class="pulse-card"><span class="pulse-card-label">Total impact</span><strong class="pulse-card-value" id="pulse-impact">—</strong><span class="pulse-card-note" id="pulse-impact-note">Across the full streak</span></div>
                 <div class="pulse-card"><span class="pulse-card-label">Average build</span><strong class="pulse-card-value" id="pulse-avg">—</strong><span class="pulse-card-note" id="pulse-avg-note">Recent momentum</span></div>
             </div>
@@ -5709,7 +5725,7 @@
     <section id="checkpoint" class="section checkpoint-section">
         <div class="container">
             <div class="checkpoint-header">
-                <span class="checkpoint-kicker"><i class="fas fa-check-double"></i> Day 94 · Ship loop</span>
+                <span class="checkpoint-kicker"><i class="fas fa-check-double"></i> Day 95 · Ship loop</span>
                 <h2 class="checkpoint-title">Build Checkpoint</h2>
                 <p class="checkpoint-subtitle">Turn the next-build idea into a finished slice. Name it, check it, verify it, and leave a clean handoff for tomorrow.</p>
             </div>
@@ -5741,7 +5757,7 @@
     <section id="dispatch" class="section dispatch-section">
         <div class="container">
             <div class="dispatch-header">
-                <span class="dispatch-kicker"><i class="fas fa-paper-plane"></i> Day 94 · Handoff</span>
+                <span class="dispatch-kicker"><i class="fas fa-paper-plane"></i> Day 95 · Handoff</span>
                 <h2 class="dispatch-title">Build Dispatch</h2>
                 <p class="dispatch-subtitle">Close the loop after Checkpoint: name the finished slice, verify the handoff, and leave a compact record for the next build.</p>
             </div>
@@ -5770,10 +5786,47 @@
         </div>
     </section>
 
+    <section id="relay" class="section relay-section">
+        <div class="container">
+            <div class="relay-header">
+                <span class="relay-kicker"><i class="fas fa-forward-step"></i> Day 95 · Starting line</span>
+                <h2 class="relay-title">Build Relay</h2>
+                <p class="relay-subtitle">Start tomorrow without losing today's context. Import a Dispatch or Checkpoint, define the next slice, and leave a usable first move in the queue.</p>
+            </div>
+            <div class="relay-toolbar">
+                <button class="relay-action" id="relay-import-dispatch" type="button"><i class="fas fa-arrow-down"></i> Import Dispatch</button>
+                <button class="relay-action" id="relay-import-checkpoint" type="button"><i class="fas fa-arrow-down"></i> Import Checkpoint</button>
+                <button class="relay-action" id="relay-reset" type="button"><i class="fas fa-rotate-left"></i> Reset draft</button>
+            </div>
+            <div class="relay-grid">
+                <div class="relay-card relay-status-card" id="relay-status-card" aria-live="polite">
+                    <div class="relay-orb"><strong id="relay-progress">0/3</strong><span>checks</span></div>
+                    <div><span class="relay-card-label">Tomorrow's starting line</span><h3 id="relay-status">Waiting for handoff</h3><p id="relay-message">3 checks left before the next build has a usable starting point.</p><span class="relay-status-pill" id="relay-status-pill">Local draft</span><div class="relay-progress-track"><span id="relay-progress-bar"></span></div></div>
+                </div>
+                <div class="relay-card">
+                    <div class="relay-fields">
+                        <div class="relay-field"><label for="relay-title">Next slice</label><input id="relay-title" maxlength="100" placeholder="What starts tomorrow?" /></div>
+                        <div class="relay-field"><label for="relay-owner">Owner</label><input id="relay-owner" maxlength="60" placeholder="AJH" /></div>
+                        <div class="relay-field full"><label for="relay-source">Starting from</label><input id="relay-source" maxlength="100" placeholder="Dispatch, Checkpoint, or your own note" /></div>
+                        <div class="relay-field full"><label for="relay-brief">First move / scope</label><textarea id="relay-brief" maxlength="500" placeholder="What is the smallest useful first move, and how will you know it worked?"></textarea></div>
+                    </div>
+                    <div class="relay-checks" role="group" aria-label="Relay checks">
+                        <label class="relay-check"><input type="checkbox" data-relay-step="context" /><span>Context is loaded</span><small>carry</small></label>
+                        <label class="relay-check"><input type="checkbox" data-relay-step="scope" /><span>Scope is small</span><small>focus</small></label>
+                        <label class="relay-check"><input type="checkbox" data-relay-step="next" /><span>First move is clear</span><small>start</small></label>
+                    </div>
+                    <details class="relay-queue"><summary>Recent relays</summary><div class="relay-queue-list" id="relay-queue-list"></div></details>
+                </div>
+            </div>
+            <div class="relay-footer"><span id="relay-count">0 of 3 checks complete</span><div class="relay-actions"><button class="relay-action" id="relay-copy" type="button"><i class="fas fa-share-nodes"></i> Copy relay</button><button class="relay-action" id="relay-export" type="button"><i class="fas fa-download"></i> Export JSON</button><button class="relay-action is-primary" id="relay-send" type="button"><i class="fas fa-forward-step"></i> Send forward</button></div><span><strong id="relay-sent">0 started</strong> · <span id="relay-views">0 opened</span></span></div>
+            <p class="relay-hint"><i class="fas fa-keyboard"></i> <kbd>Shift</kbd> <kbd>R</kbd> opens Relay · records stay in this browser until you export or copy them</p>
+        </div>
+    </section>
+
     <section id="lighthouse" class="section lighthouse-section">
         <div class="container">
             <div class="lh-header">
-                <span class="lh-kicker"><i class="fas fa-lightbulb"></i> Day 94 · Quality</span>
+                <span class="lh-kicker"><i class="fas fa-lightbulb"></i> Day 95 · Quality</span>
                 <h2 class="lh-title">Build Lighthouse</h2>
                 <p class="lh-subtitle">A fast, honest self-audit for the site. Check the foundations, fix one thing, and keep the light on.</p>
             </div>
@@ -5798,7 +5851,7 @@
             </div>
             <div class="lh-history-card">
                 <div class="lh-history-head">
-                    <div><span class="lh-history-kicker"><i class="fas fa-clock-rotate-left"></i> Day 94 · Quality trail</span><h3>Keep the signal over time</h3></div>
+                    <div><span class="lh-history-kicker"><i class="fas fa-clock-rotate-left"></i> Day 95 · Quality trail</span><h3>Keep the signal over time</h3></div>
                     <button class="lh-action" id="lh-history-clear" type="button"><i class="fas fa-trash-can"></i> Clear trail</button>
                 </div>
                 <div class="lh-history-summary" id="lh-history-summary">Run the audit to start a local quality trail.</div>
@@ -5811,7 +5864,7 @@
     <section id="releases" class="section releases-section">
         <div class="container">
             <div class="releases-header">
-                <span class="releases-kicker"><i class="fas fa-scroll"></i> Day 94 · Changelog</span>
+                <span class="releases-kicker"><i class="fas fa-scroll"></i> Day 95 · Changelog</span>
                 <h2 class="releases-title">Release Notes</h2>
                 <p class="releases-subtitle">A readable index of what shipped, why it mattered, and where the build is going next.</p>
             </div>
@@ -5830,7 +5883,7 @@
             <div class="releases-summary"><strong id="releases-count">0</strong><span>releases shown</span><span class="releases-dot">·</span><span id="releases-impact">0 impact points</span><span class="releases-dot">·</span><span id="releases-scope">Latest 16</span></div>
             <div class="releases-grid" id="releases-grid" aria-live="polite" aria-label="Release notes results"></div>
             <div class="releases-empty" id="releases-empty" hidden><i class="fas fa-magnifying-glass"></i><strong>No releases match</strong><span>Try a different search or reset the filter.</span></div>
-            <p class="releases-hint"><i class="fas fa-keyboard"></i> <kbd>G</kbd> <kbd>R</kbd> opens Release Notes · <span id="releases-history-hint">show the full 94-day archive when you want the long view</span> · filters are remembered locally</p>
+            <p class="releases-hint"><i class="fas fa-keyboard"></i> <kbd>G</kbd> <kbd>R</kbd> opens Release Notes · <span id="releases-history-hint">show the full 95-day archive when you want the long view</span> · filters are remembered locally</p>
         </div>
     </section>
 
@@ -5850,6 +5903,7 @@
     <script src="js/pulse.js?v=111" defer></script>
     <script src="js/checkpoint.js?v=113" defer></script>
     <script src="js/dispatch.js?v=1" defer></script>
+    <script src="js/relay.js?v=1" defer></script>
     <script src="js/lighthouse.js?v=106" defer></script>
     <script src="js/releases.js?v=107" defer></script>
 </body>

@@ -1,3 +1,11 @@
+## Latest Build - Day 95 (2026-07-29)
+
+### Build Relay — carry the handoff into tomorrow
+- Added a focused **Build Relay** section after Dispatch: import a Dispatch or Checkpoint, define tomorrow's next slice, keep the scope small, and record the first move.
+- Added browser-local draft persistence, three-step readiness state, recent relay queue, reset, copy status, JSON export, send-forward action, hero shortcut, navigation entry, command-palette actions, and `Shift R` keyboard access.
+- Rolled the shared build datasets and visible streak counters forward to Day 95.
+- Researched progressive enhancement, semantic controls, keyboard access, and local-first handoffs before shipping.
+
 ## Latest Build - Day 94 (2026-07-28)
 
 ### Build Dispatch — close the handoff loop
