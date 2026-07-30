@@ -52,15 +52,16 @@
     { d: 92, a: 'systems', n: 'Next-Build Brief', i: 4 },
     { d: 93, a: 'systems', n: 'Build Checkpoint', i: 4 },
     { d: 94, a: 'systems', n: 'Build Dispatch', i: 4 },
-    { d: 95, a: 'systems', n: 'Build Relay', i: 4 }
+    { d: 95, a: 'systems', n: 'Build Relay', i: 4 },
+    { d: 96, a: 'systems', n: 'Build Runway', i: 4 }
   ];
-  function date(day) { return day === 95 ? 'Jul 29, 2026' : day === 94 ? 'Jul 28, 2026' : day === 93 ? 'Jul 27, 2026' : day === 92 ? 'Jul 26, 2026' : new Date(2026, 3, 21 + day).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
+  function date(day) { return day === 96 ? 'Jul 30, 2026' : day === 95 ? 'Jul 29, 2026' : day === 94 ? 'Jul 28, 2026' : day === 93 ? 'Jul 27, 2026' : day === 92 ? 'Jul 26, 2026' : new Date(2026, 3, 21 + day).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
   function journalCard(day) { return [...document.querySelectorAll('#blog .blog-card')].find((el) => el.textContent.includes(`Day ${day}`)); }
   function visible(b) { const q = state.query.trim().toLowerCase(); return (state.filter === 'all' || b.a === state.filter) && (!q || `${b.d} ${b.n} ${b.a}`.toLowerCase().includes(q)); }
   function render() {
     const rows = builds.filter(visible); const impact = rows.reduce((sum, b) => sum + b.i, 0);
     $('ledger-count').textContent = rows.length; $('ledger-impact').textContent = `${impact} impact points`; $('ledger-latest').textContent = `${state.viewed} journal${state.viewed === 1 ? '' : 's'} opened`;
-    $('ledger-body').innerHTML = rows.slice().reverse().map((b) => `<tr><th scope="row">Day ${b.d}</th><td><strong>${b.n}</strong></td><td><span class="ledger-type ledger-${b.a}">${b.a}</span></td><td><span class="ledger-impact" aria-label="Impact ${b.i} out of 5">${'●'.repeat(b.i)}${'○'.repeat(5 - b.i)}</span></td><td><time datetime="${b.d === 95 ? '2026-07-29' : b.d === 94 ? '2026-07-28' : b.d === 93 ? '2026-07-27' : b.d === 92 ? '2026-07-26' : `2026-04-${String(21 + b.d + 4).padStart(2, '0')}`}">${date(b.d)}</time></td><td><a class="ledger-open" href="#blog" data-day="${b.d}">Journal <i class="fas fa-arrow-right"></i></a></td></tr>`).join('');
+    $('ledger-body').innerHTML = rows.slice().reverse().map((b) => `<tr><th scope="row">Day ${b.d}</th><td><strong>${b.n}</strong></td><td><span class="ledger-type ledger-${b.a}">${b.a}</span></td><td><span class="ledger-impact" aria-label="Impact ${b.i} out of 5">${'●'.repeat(b.i)}${'○'.repeat(5 - b.i)}</span></td><td><time datetime="${b.d === 96 ? '2026-07-30' : b.d === 95 ? '2026-07-29' : b.d === 94 ? '2026-07-28' : b.d === 93 ? '2026-07-27' : b.d === 92 ? '2026-07-26' : `2026-04-${String(21 + b.d + 4).padStart(2, '0')}`}">${date(b.d)}</time></td><td><a class="ledger-open" href="#blog" data-day="${b.d}">Journal <i class="fas fa-arrow-right"></i></a></td></tr>`).join('');
     $('ledger-empty').hidden = rows.length > 0;
     document.querySelectorAll('.ledger-filter').forEach((btn) => { const active = btn.dataset.filter === state.filter; btn.classList.toggle('is-active', active); btn.setAttribute('aria-selected', String(active)); });
     document.querySelectorAll('.ledger-open').forEach((link) => link.addEventListener('click', () => { const card = journalCard(link.dataset.day); state.viewed += 1; save(); card?.scrollIntoView({ behavior: 'smooth', block: 'center' }); }));
