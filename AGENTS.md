@@ -1,3 +1,34 @@
+### Day 97 - 2026-07-31
+**Status**: Build Flight Plan - give the next build a destination
+
+**Actions**:
+- Added a Build Flight Plan section after Runway for importing the next build, naming its destination, defining a small route, and verifying arrival.
+- Added three-step preflight, browser-local drafts, Runway/Pulse imports, reset, filing queue, copy, JSON export, hero shortcut, navigation entry, command-palette actions, and `Shift F` keyboard access.
+- Rolled the shared Compass, Ledger, Release Notes, Pulse signal, Lighthouse labels, hero counters, visible streak copy, and build log forward to Day 97.
+- Researched progressive enhancement, native form controls, keyboard access, local-first persistence, and static GitHub Pages constraints before shipping.
+
+**Files Changed**:
+- `index.html` - Flight Plan section, navigation, hero shortcut, Day 97 labels, counters, dates, and build-log card.
+- `css/flight.css` - Flight Plan visual system, responsive layout, light theme, and reduced-motion styling.
+- `js/flight.js` - Local plan state, Runway/Pulse imports, preflight rendering, filing queue, copy/export actions, and shortcut.
+- `js/compass.js` - Added Day 97 Build Flight Plan to the shared history.
+- `js/ledger.js` - Added Day 97 to the searchable ledger.
+- `js/releases.js` - Added Day 97 to the release index.
+- `js/pulse.js` - Updated streak normalization to the 97-build history.
+- `js/main.js` - Added Flight Plan command-palette actions and Day 97 boot label.
+- `README.md` - Documented the latest build.
+
+**Validation**:
+- `node --check` passes for all JavaScript modules.
+- `git diff --check` passes.
+- Local static preview smoke test completed.
+
+**Next Steps**:
+- Use the filed flight plan as the starting context for the next daily build.
+- Continue building new features daily - never stop
+
+---
+
 ### Day 96 - 2026-07-30
 **Status**: Build Runway - prepare the next build for takeoff
 

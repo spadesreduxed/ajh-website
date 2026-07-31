@@ -1,8 +1,8 @@
-## Latest Build - Day 96 (2026-07-30)
+## Latest Build - Day 97 (2026-07-31)
 
-### Build Runway — prepare the next build for takeoff
-- Added a focused **Build Runway** section after Relay: load context, define a small next build, verify the starting conditions, and launch it into a local queue.
-- Added browser-local draft persistence, three-step readiness state, Relay/Pulse imports, reset, copy status, JSON export, launch action, hero shortcut, navigation entry, command-palette actions, and `Shift U` keyboard access.
-- Rolled the shared build datasets and visible streak counters forward to Day 96.
-- Researched progressive enhancement, semantic controls, keyboard access, and local-first launch handoffs before shipping.
+### Build Flight Plan — give tomorrow a destination
+- Added a focused **Build Flight Plan** section after Runway: import the next build, name its destination, keep the route small, and define the arrival check.
+- Added browser-local plan persistence, three-step preflight state, Runway/Pulse imports, reset, copy status, JSON export, filing queue, hero shortcut, navigation entry, command-palette actions, and `Shift F` keyboard access.
+- Rolled the shared Compass, Ledger, Release Notes, Pulse signal, Lighthouse labels, hero counters, visible streak copy, and build log forward to Day 97.
+- Researched progressive enhancement, native controls, keyboard access, local-first persistence, and static GitHub Pages delivery before shipping.
 

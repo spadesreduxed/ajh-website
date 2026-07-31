@@ -81,6 +81,7 @@
     <link rel="stylesheet" href="css/dispatch.css?v=1">
     <link rel="stylesheet" href="css/relay.css?v=1">
     <link rel="stylesheet" href="css/runway.css?v=1">
+    <link rel="stylesheet" href="css/flight.css?v=1">
     <link rel="stylesheet" href="css/lighthouse.css?v=106">
     <link rel="stylesheet" href="css/releases.css?v=108">
     <link rel="stylesheet" href="css/theme.css">
@@ -183,6 +184,7 @@
             <li><a href="#dispatch">Dispatch</a></li>
             <li><a href="#relay">Relay</a></li>
             <li><a href="#runway">Runway</a></li>
+            <li><a href="#flight">Flight Plan</a></li>
             <li><a href="#lighthouse">Lighthouse</a></li>
             <li><a href="#releases">Releases</a></li>
             <li><a href="#quotes">Quotes</a></li>
@@ -335,7 +337,7 @@
                 <button class="plan-btn" id="waveform-hero-btn" aria-label="Build waveform" title="Open the Build Waveform — 83 days, 83 frequencies, one spectrum (G V)">
                     <i class="fas fa-wave-square"></i>
                 </button>
-                <button class="plan-btn" id="compass-hero-btn" aria-label="Build compass" title="Open the Build Compass — 96 builds, four directions (G C)">
+                <button class="plan-btn" id="compass-hero-btn" aria-label="Build compass" title="Open the Build Compass — 97 builds, four directions (G C)">
                     <i class="fas fa-compass"></i>
                 </button>
                 <button class="plan-btn" id="pulse-hero-btn" aria-label="Build pulse" title="Open Build Pulse — read the streak's signal (Shift P)">
@@ -353,6 +355,9 @@
                 <button class="plan-btn" id="runway-hero-btn" aria-label="Build runway" title="Open Build Runway — prepare the next build for takeoff (Shift U)">
                     <i class="fas fa-plane-departure"></i>
                 </button>
+                <button class="plan-btn" id="flight-hero-btn" aria-label="Build flight plan" title="Open Build Flight Plan — chart the next route (Shift F)">
+                    <i class="fas fa-route"></i>
+                </button>
                 <button class="plan-btn" id="ledger-hero-btn" aria-label="Build ledger" title="Open the Build Ledger (G L)">
                     <i class="fas fa-table-list"></i>
                 </button>
@@ -369,7 +374,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="96">0</span>
+                    <span class="stat-value" data-count="97">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -380,7 +385,7 @@
             <div class="daily-streak">
                 <span class="streak-icon">🔥</span>
                 <div class="streak-info">
-                    <span class="streak-count">96 days</span>
+                    <span class="streak-count">97 days</span>
                     <span class="streak-label">Daily Streak</span>
                 </div>
             </div>
@@ -400,11 +405,11 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 96</span>
+                    <span class="insight-value">Day 97</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
-                    <span class="insight-value">96</span>
+                    <span class="insight-value">97</span>
                     <span class="insight-label">streak</span>
                 </div>
             </div>
@@ -783,13 +788,13 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="95">0</div>
+                    <div class="stat-number" data-count="97">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
                 <div class="stat-card">
                     <i class="fas fa-code"></i>
-                    <div class="stat-number" data-count="94">0</div>
+                    <div class="stat-number" data-count="95">0</div>
                     <div class="stat-label">Repositories</div>
                 </div>
                 <div class="stat-card">
@@ -1356,6 +1361,10 @@
             </div>
             <div class="blog-grid">
                 <div class="blog-card">
+                    <div class="blog-date"><span class="blog-day">31</span><span class="blog-month">July 2026</span></div>
+                    <div class="blog-content"><span class="blog-tag">Day 97</span><h3>Build Flight Plan — Give Tomorrow a Destination</h3><p>Day 97 turns the runway into a filed mission: import the next build, name its destination, keep the route small, and define an arrival check. The daily streak now has a destination instead of only a departure.</p></div>
+                </div>
+                <div class="blog-card">
                     <div class="blog-date"><span class="blog-day">30</span><span class="blog-month">July 2026</span></div>
                     <div class="blog-content"><span class="blog-tag">Day 96</span><h3>Build Runway — Prepare the Next Build for Takeoff</h3><p>Day 96 turns the relay into a launchable runway: load the latest context, keep the next slice small, verify the starting conditions, and launch it into a local queue that can be loaded or advanced tomorrow.</p></div>
                 </div>
@@ -1393,7 +1402,7 @@
                     <div class="blog-content">
                         <span class="blog-tag">Day 90</span>
                         <h3>Build Ledger — One Source of Truth</h3>
-                        <p>Day 90 adds a compact Build Ledger beside the release archive: one searchable table for every shipped day, with impact, archetype, date, and direct links to the journal. It is deliberately plain — less spectacle, more legibility — so the 96-day streak can be scanned, filtered, copied, and understood at a glance.</p>
+                        <p>Day 90 adds a compact Build Ledger beside the release archive: one searchable table for every shipped day, with impact, archetype, date, and direct links to the journal. It is deliberately plain — less spectacle, more legibility — so the 97-day streak can be scanned, filtered, copied, and understood at a glance.</p>
                     </div>
                 </div>
                 <div class="blog-card">
@@ -1415,7 +1424,7 @@
                     <div class="blog-content">
                         <span class="blog-tag">Day 88</span>
                         <h3>Release Archive — The Long View</h3>
-                        <p>Day 88 gives Release Notes a proper archive. The default stays focused on the latest work, but <em>Show full history</em> expands the same filters, impact totals, search, sharing, and JSON export across every build in the 96-day streak. The archive reads its compact history from the Build Compass, so there is one source of truth for the count and the timeline.</p>
+                        <p>Day 88 gives Release Notes a proper archive. The default stays focused on the latest work, but <em>Show full history</em> expands the same filters, impact totals, search, sharing, and JSON export across every build in the 97-day streak. The archive reads its compact history from the Build Compass, so there is one source of truth for the count and the timeline.</p>
                     </div>
                 </div>
                 <div class="blog-card">
@@ -1871,7 +1880,7 @@
                         <div class="project-progress">
                             <div class="progress-header">
                                 <span>Build Progress</span>
-                                <span class="progress-percent">Day 96/∞</span>
+                                <span class="progress-percent">Day 97/∞</span>
                             </div>
                             <div class="progress-bar">
                                 <div class="progress-fill" style="width: 100%"></div>
@@ -5620,9 +5629,9 @@
     <section id="compass" class="section compass-section">
         <div class="container">
             <div class="cp-header">
-                <span class="cp-kicker"><i class="fas fa-compass"></i> Day 96</span>
+                <span class="cp-kicker"><i class="fas fa-compass"></i> Day 97</span>
                 <h2 class="cp-title">Build Compass</h2>
-                <p class="cp-subtitle">Ninety-five builds, four directions, one question: where is the work pointing next? Explore the streak as a living compass.</p>
+                <p class="cp-subtitle">Ninety-seven builds, four directions, one question: where is the work pointing next? Explore the streak as a living compass.</p>
             </div>
             <div class="cp-toolbar">
                 <button class="cp-action" id="cp-today"><i class="fas fa-location-crosshairs"></i> Today</button>
@@ -5642,7 +5651,7 @@
                 <button class="cp-filter" data-filter="meta">Meta</button>
                 <button class="cp-filter" data-filter="craft">Craft</button>
             </div>
-            <div class="cp-stage" id="cp-stage" aria-label="Interactive compass map of all 96 builds"></div>
+            <div class="cp-stage" id="cp-stage" aria-label="Interactive compass map of all 97 builds"></div>
             <div class="cp-recommendation" aria-live="polite">
                 <div class="cp-recommendation-kicker"><i class="fas fa-route"></i> Next direction</div>
                 <strong id="cp-recommendation-axis">Learning</strong>
@@ -5650,13 +5659,13 @@
                 <span id="cp-recommendation-meta">0 impact points · 0 builds · the least-used direction right now</span>
             </div>
             <div class="cp-stats">
-                <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-builds">90</span><span class="cp-stat-label">Builds</span></div>
+                <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-builds">97</span><span class="cp-stat-label">Builds</span></div>
                 <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-filter">All</span><span class="cp-stat-label">Filter</span></div>
                 <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-direction">Systems</span><span class="cp-stat-label">Selected axis</span></div>
                 <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-views">0</span><span class="cp-stat-label">Explorations</span></div>
             </div>
             <div class="cp-focus" aria-live="polite">
-                <div class="cp-focus-day" id="cp-focus-day">Day 96</div>
+                <div class="cp-focus-day" id="cp-focus-day">Day 97</div>
                 <h3 class="cp-focus-name" id="cp-focus-name">Build Compass</h3>
                 <span class="cp-focus-arch" id="cp-focus-arch">Systems</span>
                 <span class="cp-focus-impact" id="cp-focus-impact">Impact 5/5</span>
@@ -5671,7 +5680,7 @@
     <section id="ledger" class="section ledger-section">
         <div class="container">
             <div class="ledger-header">
-                <span class="ledger-kicker"><i class="fas fa-table-list"></i> Day 96 · Build Ledger</span>
+                <span class="ledger-kicker"><i class="fas fa-table-list"></i> Day 97 · Build Ledger</span>
                 <h2 class="ledger-title">Build Ledger</h2>
                 <p class="ledger-subtitle">The quiet index behind the flashy experiments: every build, one row, easy to search and carry forward.</p>
             </div>
@@ -5687,7 +5696,7 @@
                 </div>
                 <button class="ledger-action" id="ledger-export" type="button"><i class="fas fa-download"></i> Export CSV</button>
             </div>
-            <div class="ledger-summary"><strong id="ledger-count">0</strong><span>days shown</span><span>·</span><span id="ledger-impact">0 impact points</span><span>·</span><span id="ledger-latest">Day 96 latest</span></div>
+            <div class="ledger-summary"><strong id="ledger-count">0</strong><span>days shown</span><span>·</span><span id="ledger-impact">0 impact points</span><span>·</span><span id="ledger-latest">Day 97 latest</span></div>
             <div class="ledger-table-wrap">
                 <table class="ledger-table">
                     <caption class="sr-only">AJH daily build ledger</caption>
@@ -5703,14 +5712,14 @@
     <section id="pulse" class="section pulse-section">
         <div class="container">
             <div class="pulse-header">
-                <span class="pulse-kicker"><i class="fas fa-chart-line"></i> Day 96 · Signal</span>
+                <span class="pulse-kicker"><i class="fas fa-chart-line"></i> Day 97 · Signal</span>
                 <h2 class="pulse-title">Build Pulse</h2>
                 <p class="pulse-subtitle">A compact readout of the streak: how much shipped, where the energy is, and which direction deserves the next deliberate move.</p>
             </div>
             <div class="pulse-toolbar"><button class="pulse-action" id="pulse-refresh" type="button"><i class="fas fa-rotate"></i> Recalculate</button></div>
             <div class="pulse-snapshot">
                 <div class="pulse-card pulse-score-card"><div class="pulse-score-orb"><strong id="pulse-score">—</strong><span>/100</span></div><div><span class="pulse-card-label">Current signal</span><strong class="pulse-card-value" id="pulse-score-note">Reading the streak…</strong><span class="pulse-card-note">A local composite of recent momentum, consistency, and impact.</span></div></div>
-                <div class="pulse-card"><span class="pulse-card-label">Latest ship</span><strong class="pulse-card-value" id="pulse-latest">Day 96</strong><span class="pulse-card-note" id="pulse-latest-note">Build Runway</span></div>
+                <div class="pulse-card"><span class="pulse-card-label">Latest ship</span><strong class="pulse-card-value" id="pulse-latest">Day 97</strong><span class="pulse-card-note" id="pulse-latest-note">Build Flight Plan</span></div>
                 <div class="pulse-card"><span class="pulse-card-label">Total impact</span><strong class="pulse-card-value" id="pulse-impact">—</strong><span class="pulse-card-note" id="pulse-impact-note">Across the full streak</span></div>
                 <div class="pulse-card"><span class="pulse-card-label">Average build</span><strong class="pulse-card-value" id="pulse-avg">—</strong><span class="pulse-card-note" id="pulse-avg-note">Recent momentum</span></div>
             </div>
@@ -5727,7 +5736,7 @@
     <section id="checkpoint" class="section checkpoint-section">
         <div class="container">
             <div class="checkpoint-header">
-                <span class="checkpoint-kicker"><i class="fas fa-check-double"></i> Day 96 · Ship loop</span>
+                <span class="checkpoint-kicker"><i class="fas fa-check-double"></i> Day 97 · Ship loop</span>
                 <h2 class="checkpoint-title">Build Checkpoint</h2>
                 <p class="checkpoint-subtitle">Turn the next-build idea into a finished slice. Name it, check it, verify it, and leave a clean handoff for tomorrow.</p>
             </div>
@@ -5759,7 +5768,7 @@
     <section id="dispatch" class="section dispatch-section">
         <div class="container">
             <div class="dispatch-header">
-                <span class="dispatch-kicker"><i class="fas fa-paper-plane"></i> Day 96 · Handoff</span>
+                <span class="dispatch-kicker"><i class="fas fa-paper-plane"></i> Day 97 · Handoff</span>
                 <h2 class="dispatch-title">Build Dispatch</h2>
                 <p class="dispatch-subtitle">Close the loop after Checkpoint: name the finished slice, verify the handoff, and leave a compact record for the next build.</p>
             </div>
@@ -5791,7 +5800,7 @@
     <section id="relay" class="section relay-section">
         <div class="container">
             <div class="relay-header">
-                <span class="relay-kicker"><i class="fas fa-forward-step"></i> Day 96 · Starting line</span>
+                <span class="relay-kicker"><i class="fas fa-forward-step"></i> Day 97 · Starting line</span>
                 <h2 class="relay-title">Build Relay</h2>
                 <p class="relay-subtitle">Start tomorrow without losing today's context. Import a Dispatch or Checkpoint, define the next slice, and leave a usable first move in the queue.</p>
             </div>
@@ -5828,7 +5837,7 @@
     <section id="runway" class="section runway-section">
         <div class="container">
             <div class="runway-header">
-                <span class="runway-kicker"><i class="fas fa-plane-departure"></i> Day 96 · Takeoff</span>
+                <span class="runway-kicker"><i class="fas fa-plane-departure"></i> Day 97 · Takeoff</span>
                 <h2 class="runway-title">Build Runway</h2>
                 <p class="runway-subtitle">Turn the relay into a launchable next build. Load context, keep the scope small, verify the starting conditions, and leave the queue ready for takeoff.</p>
             </div>
@@ -5862,10 +5871,47 @@
         </div>
     </section>
 
+    <section id="flight" class="section flight-section">
+        <div class="container">
+            <div class="flight-header">
+                <span class="flight-kicker"><i class="fas fa-route"></i> Day 97 · Destination</span>
+                <h2 class="flight-title">Build Flight Plan</h2>
+                <p class="flight-subtitle">Turn the runway into a filed mission. Give the next build a destination, keep the route small, and define the check that tells you when you have arrived.</p>
+            </div>
+            <div class="flight-toolbar">
+                <button class="flight-action" id="flight-import-runway" type="button"><i class="fas fa-arrow-down"></i> Import Runway</button>
+                <button class="flight-action" id="flight-import-pulse" type="button"><i class="fas fa-chart-line"></i> Import Pulse</button>
+                <button class="flight-action" id="flight-reset" type="button"><i class="fas fa-rotate-left"></i> Reset plan</button>
+            </div>
+            <div class="flight-grid">
+                <div class="flight-card flight-status-card" id="flight-status-card" aria-live="polite">
+                    <div class="flight-orb"><strong id="flight-progress">0/3</strong><span>checks</span></div>
+                    <div><span class="flight-card-label">Next build route</span><h3 id="flight-status">Awaiting mission</h3><p id="flight-message">3 checks left before this route is ready to fly.</p><span class="flight-status-pill" id="flight-status-pill">Local plan</span><div class="flight-progress-track"><span id="flight-progress-bar"></span></div></div>
+                </div>
+                <div class="flight-card">
+                    <div class="flight-fields">
+                        <div class="flight-field"><label for="flight-title">Mission</label><input id="flight-title" maxlength="100" placeholder="What ships next?" /></div>
+                        <div class="flight-field"><label for="flight-owner">Owner</label><input id="flight-owner" maxlength="60" placeholder="AJH" /></div>
+                        <div class="flight-field full"><label for="flight-mission">Destination</label><input id="flight-mission" maxlength="140" placeholder="What outcome are you aiming for?" /></div>
+                        <div class="flight-field full"><label for="flight-next">Route / arrival check</label><textarea id="flight-next" maxlength="500" placeholder="What is the smallest move, and what proves you arrived?"></textarea></div>
+                    </div>
+                    <div class="flight-checks" role="group" aria-label="Flight plan checks">
+                        <label class="flight-check"><input type="checkbox" data-flight-step="brief" /><strong>Mission</strong><span>named</span></label>
+                        <label class="flight-check"><input type="checkbox" data-flight-step="scope" /><strong>Route</strong><span>small</span></label>
+                        <label class="flight-check"><input type="checkbox" data-flight-step="verify" /><strong>Arrival</strong><span>defined</span></label>
+                    </div>
+                    <details class="flight-log"><summary>Filed plans</summary><div class="flight-log-list" id="flight-log-list"></div></details>
+                </div>
+            </div>
+            <div class="flight-footer"><span id="flight-count">0 of 3 checks complete</span><div class="flight-actions"><button class="flight-action" id="flight-copy" type="button"><i class="fas fa-share-nodes"></i> Copy flight plan</button><button class="flight-action" id="flight-export" type="button"><i class="fas fa-download"></i> Export JSON</button><button class="flight-action is-primary" id="flight-launch" type="button"><i class="fas fa-route"></i> File flight plan</button></div><span><strong id="flight-launched">0 launched</strong> · <span id="flight-views">0 opened</span></span></div>
+            <p class="flight-hint"><i class="fas fa-keyboard"></i> <kbd>Shift</kbd> <kbd>F</kbd> opens Flight Plan · everything stays in this browser until you export or copy it</p>
+        </div>
+    </section>
+
     <section id="lighthouse" class="section lighthouse-section">
         <div class="container">
             <div class="lh-header">
-                <span class="lh-kicker"><i class="fas fa-lightbulb"></i> Day 96 · Quality</span>
+                <span class="lh-kicker"><i class="fas fa-lightbulb"></i> Day 97 · Quality</span>
                 <h2 class="lh-title">Build Lighthouse</h2>
                 <p class="lh-subtitle">A fast, honest self-audit for the site. Check the foundations, fix one thing, and keep the light on.</p>
             </div>
@@ -5890,7 +5936,7 @@
             </div>
             <div class="lh-history-card">
                 <div class="lh-history-head">
-                    <div><span class="lh-history-kicker"><i class="fas fa-clock-rotate-left"></i> Day 96 · Quality trail</span><h3>Keep the signal over time</h3></div>
+                    <div><span class="lh-history-kicker"><i class="fas fa-clock-rotate-left"></i> Day 97 · Quality trail</span><h3>Keep the signal over time</h3></div>
                     <button class="lh-action" id="lh-history-clear" type="button"><i class="fas fa-trash-can"></i> Clear trail</button>
                 </div>
                 <div class="lh-history-summary" id="lh-history-summary">Run the audit to start a local quality trail.</div>
@@ -5903,7 +5949,7 @@
     <section id="releases" class="section releases-section">
         <div class="container">
             <div class="releases-header">
-                <span class="releases-kicker"><i class="fas fa-scroll"></i> Day 96 · Changelog</span>
+                <span class="releases-kicker"><i class="fas fa-scroll"></i> Day 97 · Changelog</span>
                 <h2 class="releases-title">Release Notes</h2>
                 <p class="releases-subtitle">A readable index of what shipped, why it mattered, and where the build is going next.</p>
             </div>
@@ -5922,7 +5968,7 @@
             <div class="releases-summary"><strong id="releases-count">0</strong><span>releases shown</span><span class="releases-dot">·</span><span id="releases-impact">0 impact points</span><span class="releases-dot">·</span><span id="releases-scope">Latest 16</span></div>
             <div class="releases-grid" id="releases-grid" aria-live="polite" aria-label="Release notes results"></div>
             <div class="releases-empty" id="releases-empty" hidden><i class="fas fa-magnifying-glass"></i><strong>No releases match</strong><span>Try a different search or reset the filter.</span></div>
-            <p class="releases-hint"><i class="fas fa-keyboard"></i> <kbd>G</kbd> <kbd>R</kbd> opens Release Notes · <span id="releases-history-hint">show the full 96-day archive when you want the long view</span> · filters are remembered locally</p>
+            <p class="releases-hint"><i class="fas fa-keyboard"></i> <kbd>G</kbd> <kbd>R</kbd> opens Release Notes · <span id="releases-history-hint">show the full 97-day archive when you want the long view</span> · filters are remembered locally</p>
         </div>
     </section>
 
@@ -5944,6 +5990,7 @@
     <script src="js/dispatch.js?v=1" defer></script>
     <script src="js/relay.js?v=1" defer></script>
     <script src="js/runway.js?v=1" defer></script>
+    <script src="js/flight.js?v=1" defer></script>
     <script src="js/lighthouse.js?v=106" defer></script>
     <script src="js/releases.js?v=107" defer></script>
 </body>
