@@ -830,6 +830,9 @@ function initCommandPalette() {
     { id: 'tool-flight-open', label: 'Open Build Flight Plan', icon: 'fa-route', shortcut: 'Shift F', category: 'Tools', action: () => window.ajhFlight && window.ajhFlight.open && window.ajhFlight.open() },
     { id: 'tool-flight-import', label: 'Load Runway Into Flight Plan', icon: 'fa-arrow-down', category: 'Tools', action: () => window.ajhFlight && window.ajhFlight.importRunway && window.ajhFlight.importRunway() },
     { id: 'tool-flight-file', label: 'File Next Flight Plan', icon: 'fa-route', category: 'Tools', action: () => window.ajhFlight && window.ajhFlight.launch && window.ajhFlight.launch() },
+    { id: 'tool-landing-open', label: 'Open Build Landing', icon: 'fa-plane-arrival', shortcut: 'Shift L', category: 'Tools', action: () => window.ajhLanding && window.ajhLanding.open && window.ajhLanding.open() },
+    { id: 'tool-landing-import', label: 'Load Flight Into Landing', icon: 'fa-arrow-down', category: 'Tools', action: () => window.ajhLanding && window.ajhLanding.importFlight && window.ajhLanding.importFlight() },
+    { id: 'tool-landing-confirm', label: 'Confirm Build Landing', icon: 'fa-plane-arrival', category: 'Tools', action: () => window.ajhLanding && window.ajhLanding.land && window.ajhLanding.land() },
 
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -1170,7 +1173,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBookmarkCards();
   initDay78HeroButtons();
 
-  console.log('⚡ AJH Website loaded - Day 97: Build Flight Plan');
+  console.log('⚡ AJH Website loaded - Day 98: Build Landing');
 });
 
 // Day 48 - Daily Challenge + API Status

@@ -1,3 +1,34 @@
+### Day 98 - 2026-08-01
+**Status**: Build Landing - confirm what arrived
+
+**Actions**:
+- Added a Build Landing section after Flight Plan for importing a filed mission, confirming the received signal, recording the scoped result, and leaving tomorrow a clean handoff.
+- Added three landing checks, browser-local draft/history persistence, Flight Plan/Lighthouse imports, reset, copy, JSON export, arrival history, hero shortcut, navigation entry, command-palette actions, and `Shift L` keyboard access.
+- Rolled the shared Compass, Ledger, Release Notes, Pulse signal, Lighthouse labels, hero counters, visible streak copy, and build log forward to Day 98.
+- Researched progressive enhancement, native controls, local-first persistence, and accessible keyboard interaction before shipping.
+
+**Files Changed**:
+- `index.html` - Landing section, navigation, hero shortcut, Day 98 labels, counters, dates, and build-log card.
+- `css/landing.css` - Landing visual system, responsive layout, light theme, and reduced-motion styling.
+- `js/landing.js` - Local arrival state, Flight/Lighthouse imports, check rendering, history, copy/export actions, and shortcut.
+- `js/compass.js` - Added Day 98 Build Landing to the shared history.
+- `js/ledger.js` - Added Day 98 to the searchable ledger.
+- `js/releases.js` - Added Day 98 to the release index.
+- `js/pulse.js` - Updated streak normalization to the 98-build history.
+- `js/main.js` - Added Landing command-palette actions and Day 98 boot label.
+- `README.md` - Documented the latest build.
+
+**Validation**:
+- `node --check` passes for all JavaScript modules.
+- `git diff --check` passes.
+- Local static preview smoke test completed.
+
+**Next Steps**:
+- Use completed landing records as the starting context for the next daily build.
+- Continue building new features daily - never stop
+
+---
+
 ### Day 97 - 2026-07-31
 **Status**: Build Flight Plan - give the next build a destination
 
