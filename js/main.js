@@ -833,6 +833,9 @@ function initCommandPalette() {
     { id: 'tool-landing-open', label: 'Open Build Landing', icon: 'fa-plane-arrival', shortcut: 'Shift L', category: 'Tools', action: () => window.ajhLanding && window.ajhLanding.open && window.ajhLanding.open() },
     { id: 'tool-landing-import', label: 'Load Flight Into Landing', icon: 'fa-arrow-down', category: 'Tools', action: () => window.ajhLanding && window.ajhLanding.importFlight && window.ajhLanding.importFlight() },
     { id: 'tool-landing-confirm', label: 'Confirm Build Landing', icon: 'fa-plane-arrival', category: 'Tools', action: () => window.ajhLanding && window.ajhLanding.land && window.ajhLanding.land() },
+    { id: 'tool-dock-open', label: 'Open Build Dock', icon: 'fa-anchor', shortcut: 'Shift O', category: 'Tools', action: () => window.ajhDock && window.ajhDock.open && window.ajhDock.open() },
+    { id: 'tool-dock-sync', label: 'Sync Build Dock Signals', icon: 'fa-arrows-rotate', category: 'Tools', action: () => window.ajhDock && window.ajhDock.sync && window.ajhDock.sync() },
+    { id: 'tool-dock-copy', label: 'Copy Build Dock Snapshot', icon: 'fa-share-nodes', category: 'Tools', action: () => window.ajhDock && window.ajhDock.copy && window.ajhDock.copy() },
 
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -1173,7 +1176,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBookmarkCards();
   initDay78HeroButtons();
 
-  console.log('⚡ AJH Website loaded - Day 98: Build Landing');
+  console.log('⚡ AJH Website loaded - Day 99: Build Dock');
 });
 
 // Day 48 - Daily Challenge + API Status

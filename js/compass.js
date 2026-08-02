@@ -58,6 +58,7 @@
     { d: 96, a: 'systems', n: 'Build Runway', i: 4 },
     { d: 97, a: 'systems', n: 'Build Flight Plan', i: 4 },
     { d: 98, a: 'systems', n: 'Build Landing', i: 4 },
+    { d: 99, a: 'systems', n: 'Build Dock', i: 4 },
   ];
 
   const ARCH = {
@@ -68,7 +69,7 @@
   };
   const KEY = 'ajh_compass_v1';
   const TOTAL = BUILDS.length;
-  const state = { filter: 'all', selected: 98, theme: 'dark', views: 0 };
+  const state = { filter: 'all', selected: 99, theme: 'dark', views: 0 };
   const $ = (id) => document.getElementById(id);
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 
@@ -117,8 +118,8 @@
   function updateFocus() {
     const b = BUILDS.find((build) => build.d === state.selected) || BUILDS[BUILDS.length - 1]; const meta = ARCH[b.a];
     $('cp-focus-day').textContent = 'Day ' + b.d; $('cp-focus-day').style.color = meta.color;
-    $('cp-focus-name').textContent = b.n; $('cp-focus-arch').textContent = meta.label; $('cp-focus-date').textContent = b.d === 98 ? 'Aug 1, 2026' : b.d === 97 ? 'Jul 31, 2026' : b.d === 96 ? 'Jul 30, 2026' : b.d === 95 ? 'Jul 29, 2026' : b.d === 94 ? 'Jul 28, 2026' : b.d === 93 ? 'Jul 27, 2026' : b.d === 92 ? 'Jul 26, 2026' : new Date(2026, 3, 21 + b.d + 4).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    $('cp-focus-impact').textContent = 'Impact ' + b.i + '/5'; $('cp-focus-desc').textContent = b.n + ' sits on the ' + meta.label.toLowerCase() + ' axis of the build compass. The map turns the 98-day streak into direction: where the work points, and what to build next.';
+    $('cp-focus-name').textContent = b.n; $('cp-focus-arch').textContent = meta.label; $('cp-focus-date').textContent = b.d === 99 ? 'Aug 2, 2026' : b.d === 98 ? 'Aug 1, 2026' : b.d === 97 ? 'Jul 31, 2026' : b.d === 96 ? 'Jul 30, 2026' : b.d === 95 ? 'Jul 29, 2026' : b.d === 94 ? 'Jul 28, 2026' : b.d === 93 ? 'Jul 27, 2026' : b.d === 92 ? 'Jul 26, 2026' : new Date(2026, 3, 21 + b.d + 4).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    $('cp-focus-impact').textContent = 'Impact ' + b.i + '/5'; $('cp-focus-desc').textContent = b.n + ' sits on the ' + meta.label.toLowerCase() + ' axis of the build compass. The map turns the 99-day streak into direction: where the work points, and what to build next.';
   }
   function render() {
     $('cp-stage').innerHTML = compassSvg(); updateFocus(); updateRecommendation();

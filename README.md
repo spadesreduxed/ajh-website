@@ -1,3 +1,34 @@
+### Day 99 - 2026-08-02
+**Status**: Build Dock - align the latest signals
+
+**Actions**:
+- Added a Build Dock control surface after Flight Plan for bringing Pulse, Landing, Lighthouse, and Flight Plan into one readable local snapshot.
+- Added source readiness lanes, operator note persistence, sync history, copy, JSON export, hero shortcut, navigation entry, command-palette actions, and `Shift O` keyboard access.
+- Rolled the shared Compass, Ledger, Release Notes, Pulse normalization, hero counters, visible streak copy, and build log forward to Day 99.
+- Researched local-first dashboards, semantic status markup, keyboard access, and progressive enhancement before shipping.
+
+**Files Changed**:
+- `index.html` - Build Dock section, navigation, hero shortcut, Day 99 labels, counters, dates, and build-log card.
+- `css/dock.css` - Dock visual system, responsive layout, light theme, and reduced-motion styling.
+- `js/dock.js` - Local signal aggregation, operator note, snapshot history, sync, copy/export actions, and shortcut.
+- `js/compass.js` - Added Day 99 Build Dock to the shared build dataset.
+- `js/ledger.js` - Added Day 99 to the searchable ledger.
+- `js/releases.js` - Added Day 99 to the release index.
+- `js/pulse.js` - Updated consistency normalization for the Day 99 history.
+- `js/main.js` - Added Dock command-palette actions and Day 99 boot label.
+- `README.md` - Documented the latest build.
+
+**Validation**:
+- `node --check` passes for all JavaScript modules.
+- `git diff --check` passes.
+- Local static preview smoke test completed.
+
+**Next Steps**:
+- Use the Dock snapshot as the starting context for the next daily build.
+- Continue building new features daily - never stop
+
+---
+
 ### Day 98 - 2026-08-01
 **Status**: Build Landing - confirm what arrived
 
