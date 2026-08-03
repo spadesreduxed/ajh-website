@@ -1,3 +1,33 @@
+### Day 100 - 2026-08-03
+**Status**: Build Passport - stamp the evidence
+
+**Actions**:
+- Added a Build Passport section between Dock and Landing for turning a shipped slice into a portable local record.
+- Added identity, scope, evidence, and handoff fields; four checks; Dock/Lighthouse imports; local history; reset; copy; JSON export; hero shortcut; navigation entry; command-palette actions; and `Shift B` keyboard access.
+- Rolled the shared Compass, Ledger, Release Notes, hero counters, visible streak copy, and build log forward to Day 100.
+- Researched progressive enhancement, native HTML controls, evidence-first handoffs, and keyboard access before shipping.
+
+**Files Changed**:
+- `index.html` - Build Passport section, navigation, hero shortcut, Day 100 labels, counters, dates, and build-log card.
+- `css/passport.css` - Passport visual system, responsive layout, light theme, and reduced-motion styling.
+- `js/passport.js` - Local passport state, Dock/Lighthouse imports, check rendering, stamped history, copy/export actions, and shortcut.
+- `js/compass.js` - Added Day 100 Build Passport to the shared build dataset.
+- `js/ledger.js` - Added Day 100 to the searchable ledger.
+- `js/releases.js` - Added Day 100 to the release index.
+- `js/main.js` - Added Passport command-palette actions and Day 100 boot label.
+- `README.md` - Documented the latest build.
+
+**Validation**:
+- `node --check` passes for all JavaScript modules.
+- `git diff --check` passes.
+- Local static preview smoke test completed.
+
+**Next Steps**:
+- Use stamped passports as the starting context for the next daily build.
+- Continue building new features daily - never stop
+
+---
+
 ### Day 99 - 2026-08-02
 **Status**: Build Dock - align the latest signals
 

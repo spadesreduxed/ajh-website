@@ -1,3 +1,23 @@
+### Day 100 - 2026-08-03
+**Status**: Build Passport - stamp the evidence
+
+**Actions**:
+- Added Build Passport between Dock and Landing: a local evidence record for identity, scope, proof, and handoff.
+- Added Dock/Lighthouse imports, four checks, stamped history, copy/export, hero/navigation/command-palette wiring, and `Shift B`.
+- Rolled shared build history, counters, labels, and log forward to Day 100.
+- Researched progressive enhancement, native controls, evidence-first handoffs, and keyboard access.
+
+**Validation**:
+- `node --check` passes for all JavaScript modules.
+- `git diff --check` passes.
+- Local static preview smoke test completed.
+
+**Next Steps**:
+- Use stamped passports as the starting context for the next daily build.
+- Continue building new features daily - never stop
+
+---
+
 ### Day 98 - 2026-08-01
 **Status**: Build Landing - confirm what arrived
 

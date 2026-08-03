@@ -836,6 +836,9 @@ function initCommandPalette() {
     { id: 'tool-dock-open', label: 'Open Build Dock', icon: 'fa-anchor', shortcut: 'Shift O', category: 'Tools', action: () => window.ajhDock && window.ajhDock.open && window.ajhDock.open() },
     { id: 'tool-dock-sync', label: 'Sync Build Dock Signals', icon: 'fa-arrows-rotate', category: 'Tools', action: () => window.ajhDock && window.ajhDock.sync && window.ajhDock.sync() },
     { id: 'tool-dock-copy', label: 'Copy Build Dock Snapshot', icon: 'fa-share-nodes', category: 'Tools', action: () => window.ajhDock && window.ajhDock.copy && window.ajhDock.copy() },
+    { id: 'tool-passport-open', label: 'Open Build Passport', icon: 'fa-id-card', shortcut: 'Shift B', category: 'Tools', action: () => window.ajhPassport && window.ajhPassport.open && window.ajhPassport.open() },
+    { id: 'tool-passport-import', label: 'Load Dock Into Passport', icon: 'fa-arrow-down', category: 'Tools', action: () => window.ajhPassport && window.ajhPassport.importDock && window.ajhPassport.importDock() },
+    { id: 'tool-passport-stamp', label: 'Stamp Build Passport', icon: 'fa-stamp', category: 'Tools', action: () => window.ajhPassport && window.ajhPassport.stamp && window.ajhPassport.stamp() },
 
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -1176,7 +1179,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBookmarkCards();
   initDay78HeroButtons();
 
-  console.log('⚡ AJH Website loaded - Day 99: Build Dock');
+  console.log('⚡ AJH Website loaded - Day 100: Build Passport');
 });
 
 // Day 48 - Daily Challenge + API Status

@@ -84,6 +84,7 @@
     <link rel="stylesheet" href="css/flight.css?v=1">
     <link rel="stylesheet" href="css/landing.css?v=1">
     <link rel="stylesheet" href="css/dock.css?v=1">
+    <link rel="stylesheet" href="css/passport.css?v=1">
     <link rel="stylesheet" href="css/lighthouse.css?v=106">
     <link rel="stylesheet" href="css/releases.css?v=108">
     <link rel="stylesheet" href="css/theme.css">
@@ -189,6 +190,7 @@
             <li><a href="#flight">Flight Plan</a></li>
             <li><a href="#landing">Landing</a></li>
             <li><a href="#dock">Dock</a></li>
+            <li><a href="#passport">Passport</a></li>
             <li><a href="#lighthouse">Lighthouse</a></li>
             <li><a href="#releases">Releases</a></li>
             <li><a href="#quotes">Quotes</a></li>
@@ -368,6 +370,9 @@
                 <button class="plan-btn" id="dock-hero-btn" aria-label="Build dock" title="Open Build Dock — align the latest signals (Shift O)">
                     <i class="fas fa-anchor"></i>
                 </button>
+                <button class="plan-btn" id="passport-hero-btn" aria-label="Build passport" title="Open Build Passport — stamp the evidence (Shift B)">
+                    <i class="fas fa-id-card"></i>
+                </button>
                 <button class="plan-btn" id="ledger-hero-btn" aria-label="Build ledger" title="Open the Build Ledger (G L)">
                     <i class="fas fa-table-list"></i>
                 </button>
@@ -384,7 +389,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="99">0</span>
+                    <span class="stat-value" data-count="100">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -395,7 +400,7 @@
             <div class="daily-streak">
                 <span class="streak-icon">🔥</span>
                 <div class="streak-info">
-                    <span class="streak-count">99 days</span>
+                    <span class="streak-count">100 days</span>
                     <span class="streak-label">Daily Streak</span>
                 </div>
             </div>
@@ -415,11 +420,11 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 99</span>
+                    <span class="insight-value">Day 100</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
-                    <span class="insight-value">99</span>
+                    <span class="insight-value">100</span>
                     <span class="insight-label">streak</span>
                 </div>
             </div>
@@ -798,7 +803,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="99">0</div>
+                    <div class="stat-number" data-count="100">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -819,7 +824,7 @@
                 </div>
                 <div class="stat-card large">
                     <i class="fas fa-rocket"></i>
-                    <div class="stat-number" data-count="76">0</div>
+                    <div class="stat-number" data-count="77">0</div>
                     <div class="stat-label">Features Built</div>
                     <div class="stat-sublabel">And counting...</div>
                 </div>
@@ -1371,6 +1376,10 @@
             </div>
             <div class="blog-grid">
                 <div class="blog-card">
+                    <div class="blog-date"><span class="blog-day">3</span><span class="blog-month">August 2026</span></div>
+                    <div class="blog-content"><span class="blog-tag">Day 100</span><h3>Build Passport — Stamp the Evidence</h3><p>Day 100 gives the streak a portable record: name the build, keep the scope small, attach evidence, and leave a handoff that future-you can actually use. The daily pipeline now remembers not only what shipped, but why it can be trusted.</p></div>
+                </div>
+                <div class="blog-card">
                     <div class="blog-date"><span class="blog-day">2</span><span class="blog-month">August 2026</span></div>
                     <div class="blog-content"><span class="blog-tag">Day 99</span><h3>Build Dock — Align the Latest Signals</h3><p>Day 99 turns the daily pipeline into one calm control surface: Pulse, Landing, Lighthouse, and Flight Plan can now report into a local dock. Sync a snapshot, leave an operator note, and start tomorrow with the signal in one place.</p></div>
                 </div>
@@ -1898,7 +1907,7 @@
                         <div class="project-progress">
                             <div class="progress-header">
                                 <span>Build Progress</span>
-                                <span class="progress-percent">Day 99/∞</span>
+                                <span class="progress-percent">Day 100/∞</span>
                             </div>
                             <div class="progress-bar">
                                 <div class="progress-fill" style="width: 100%"></div>
@@ -5683,7 +5692,7 @@
                 <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-views">0</span><span class="cp-stat-label">Explorations</span></div>
             </div>
             <div class="cp-focus" aria-live="polite">
-                <div class="cp-focus-day" id="cp-focus-day">Day 99</div>
+                <div class="cp-focus-day" id="cp-focus-day">Day 100</div>
                 <h3 class="cp-focus-name" id="cp-focus-name">Build Compass</h3>
                 <span class="cp-focus-arch" id="cp-focus-arch">Systems</span>
                 <span class="cp-focus-impact" id="cp-focus-impact">Impact 5/5</span>
@@ -5714,7 +5723,7 @@
                 </div>
                 <button class="ledger-action" id="ledger-export" type="button"><i class="fas fa-download"></i> Export CSV</button>
             </div>
-            <div class="ledger-summary"><strong id="ledger-count">0</strong><span>days shown</span><span>·</span><span id="ledger-impact">0 impact points</span><span>·</span><span id="ledger-latest">Day 99 latest</span></div>
+            <div class="ledger-summary"><strong id="ledger-count">0</strong><span>days shown</span><span>·</span><span id="ledger-impact">0 impact points</span><span>·</span><span id="ledger-latest">Day 100 latest</span></div>
             <div class="ledger-table-wrap">
                 <table class="ledger-table">
                     <caption class="sr-only">AJH daily build ledger</caption>
@@ -5737,7 +5746,7 @@
             <div class="pulse-toolbar"><button class="pulse-action" id="pulse-refresh" type="button"><i class="fas fa-rotate"></i> Recalculate</button></div>
             <div class="pulse-snapshot">
                 <div class="pulse-card pulse-score-card"><div class="pulse-score-orb"><strong id="pulse-score">—</strong><span>/100</span></div><div><span class="pulse-card-label">Current signal</span><strong class="pulse-card-value" id="pulse-score-note">Reading the streak…</strong><span class="pulse-card-note">A local composite of recent momentum, consistency, and impact.</span></div></div>
-                <div class="pulse-card"><span class="pulse-card-label">Latest ship</span><strong class="pulse-card-value" id="pulse-latest">Day 99</strong><span class="pulse-card-note" id="pulse-latest-note">Build Dock</span></div>
+                <div class="pulse-card"><span class="pulse-card-label">Latest ship</span><strong class="pulse-card-value" id="pulse-latest">Day 100</strong><span class="pulse-card-note" id="pulse-latest-note">Build Passport</span></div>
                 <div class="pulse-card"><span class="pulse-card-label">Total impact</span><strong class="pulse-card-value" id="pulse-impact">—</strong><span class="pulse-card-note" id="pulse-impact-note">Across the full streak</span></div>
                 <div class="pulse-card"><span class="pulse-card-label">Average build</span><strong class="pulse-card-value" id="pulse-avg">—</strong><span class="pulse-card-note" id="pulse-avg-note">Recent momentum</span></div>
             </div>
@@ -5960,6 +5969,46 @@
         </div>
     </section>
 
+    <section id="passport" class="section passport-section">
+        <div class="container">
+            <div class="passport-header">
+                <span class="passport-kicker"><i class="fas fa-id-card"></i> Day 100 · Evidence</span>
+                <h2 class="passport-title">Build Passport</h2>
+                <p class="passport-subtitle">Turn a shipped slice into a portable record. Give it an identity, keep the scope honest, attach evidence, and leave a handoff future-you can trust.</p>
+            </div>
+            <div class="passport-toolbar">
+                <button class="passport-action" id="passport-import-dock" type="button"><i class="fas fa-arrow-down"></i> Import Dock</button>
+                <button class="passport-action" id="passport-import-lighthouse" type="button"><i class="fas fa-lightbulb"></i> Import Lighthouse</button>
+                <button class="passport-action" id="passport-reset" type="button"><i class="fas fa-rotate-left"></i> Reset draft</button>
+            </div>
+            <div class="passport-grid">
+                <div class="passport-card passport-status-card" id="passport-status-card" aria-live="polite">
+                    <div class="passport-orb"><strong id="passport-progress">0/4</strong><span>checks</span></div>
+                    <div><span class="passport-card-label">Evidence record</span><h3 id="passport-status">Awaiting a build</h3><p id="passport-message">4 checks left before this build can cross the line cleanly.</p><span class="passport-status-pill" id="passport-status-pill">Local draft</span><div class="passport-progress-track"><span id="passport-progress-bar"></span></div></div>
+                </div>
+                <div class="passport-card">
+                    <div class="passport-fields">
+                        <div class="passport-field"><label for="passport-title">Build identity</label><input id="passport-title" maxlength="100" placeholder="What should this build be remembered as?" /></div>
+                        <div class="passport-field"><label for="passport-owner">Owner</label><input id="passport-owner" maxlength="60" placeholder="AJH" /></div>
+                        <div class="passport-field full"><label for="passport-identity">Identity / signal</label><input id="passport-identity" maxlength="180" placeholder="What does this build prove or make visible?" /></div>
+                        <div class="passport-field full"><label for="passport-scope">Scope</label><textarea id="passport-scope" maxlength="500" placeholder="What is now true, and what did you deliberately leave out?"></textarea></div>
+                        <div class="passport-field full"><label for="passport-evidence">Evidence</label><textarea id="passport-evidence" maxlength="500" placeholder="What did you check, run, or observe?"></textarea></div>
+                        <div class="passport-field full"><label for="passport-handoff">Handoff</label><textarea id="passport-handoff" maxlength="500" placeholder="What should the next build inherit or inspect first?"></textarea></div>
+                    </div>
+                    <div class="passport-checks" role="group" aria-label="Passport checks">
+                        <label class="passport-check"><input type="checkbox" data-passport-step="identity" /><strong>Identity</strong><span>clear</span><small>name it</small></label>
+                        <label class="passport-check"><input type="checkbox" data-passport-step="scope" /><strong>Scope</strong><span>small</span><small>contain it</small></label>
+                        <label class="passport-check"><input type="checkbox" data-passport-step="evidence" /><strong>Evidence</strong><span>attached</span><small>trust it</small></label>
+                        <label class="passport-check"><input type="checkbox" data-passport-step="handoff" /><strong>Handoff</strong><span>ready</span><small>continue</small></label>
+                    </div>
+                    <details class="passport-history"><summary>Stamped passports</summary><div class="passport-history-list" id="passport-history-list"></div></details>
+                </div>
+            </div>
+            <div class="passport-footer"><span id="passport-count">0 of 4 checks complete</span><div class="passport-actions"><button class="passport-action" id="passport-copy" type="button"><i class="fas fa-share-nodes"></i> Copy passport</button><button class="passport-action" id="passport-export" type="button"><i class="fas fa-download"></i> Export JSON</button><button class="passport-action is-primary" id="passport-stamp" type="button"><i class="fas fa-stamp"></i> Stamp passport</button></div><span><strong id="passport-stamped">0 stamped</strong> · <span id="passport-views">0 opened</span></span></div>
+            <p class="passport-hint"><i class="fas fa-keyboard"></i> <kbd>Shift</kbd> <kbd>B</kbd> opens Passport · records stay in this browser until you export or copy them</p>
+        </div>
+    </section>
+
     <section id="landing" class="section landing-section">
         <div class="container">
             <div class="landing-header">
@@ -6026,7 +6075,7 @@
             </div>
             <div class="lh-history-card">
                 <div class="lh-history-head">
-                    <div><span class="lh-history-kicker"><i class="fas fa-clock-rotate-left"></i> Day 99 · Quality trail</span><h3>Keep the signal over time</h3></div>
+                    <div><span class="lh-history-kicker"><i class="fas fa-clock-rotate-left"></i> Day 100 · Quality trail</span><h3>Keep the signal over time</h3></div>
                     <button class="lh-action" id="lh-history-clear" type="button"><i class="fas fa-trash-can"></i> Clear trail</button>
                 </div>
                 <div class="lh-history-summary" id="lh-history-summary">Run the audit to start a local quality trail.</div>
@@ -6058,7 +6107,7 @@
             <div class="releases-summary"><strong id="releases-count">0</strong><span>releases shown</span><span class="releases-dot">·</span><span id="releases-impact">0 impact points</span><span class="releases-dot">·</span><span id="releases-scope">Latest 16</span></div>
             <div class="releases-grid" id="releases-grid" aria-live="polite" aria-label="Release notes results"></div>
             <div class="releases-empty" id="releases-empty" hidden><i class="fas fa-magnifying-glass"></i><strong>No releases match</strong><span>Try a different search or reset the filter.</span></div>
-            <p class="releases-hint"><i class="fas fa-keyboard"></i> <kbd>G</kbd> <kbd>R</kbd> opens Release Notes · <span id="releases-history-hint">show the full 99-day archive when you want the long view</span> · filters are remembered locally</p>
+            <p class="releases-hint"><i class="fas fa-keyboard"></i> <kbd>G</kbd> <kbd>R</kbd> opens Release Notes · <span id="releases-history-hint">show the full 100-day archive when you want the long view</span> · filters are remembered locally</p>
         </div>
     </section>
 
@@ -6082,6 +6131,7 @@
     <script src="js/runway.js?v=1" defer></script>
     <script src="js/flight.js?v=1" defer></script>
     <script src="js/landing.js?v=1" defer></script>
+    <script src="js/passport.js?v=1" defer></script>
     <script src="js/dock.js?v=1" defer></script>
     <script src="js/lighthouse.js?v=106" defer></script>
     <script src="js/releases.js?v=107" defer></script>
