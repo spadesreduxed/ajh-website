@@ -85,6 +85,7 @@
     <link rel="stylesheet" href="css/landing.css?v=1">
     <link rel="stylesheet" href="css/dock.css?v=1">
     <link rel="stylesheet" href="css/passport.css?v=1">
+    <link rel="stylesheet" href="css/archive.css?v=1">
     <link rel="stylesheet" href="css/lighthouse.css?v=106">
     <link rel="stylesheet" href="css/releases.css?v=108">
     <link rel="stylesheet" href="css/theme.css">
@@ -191,6 +192,7 @@
             <li><a href="#landing">Landing</a></li>
             <li><a href="#dock">Dock</a></li>
             <li><a href="#passport">Passport</a></li>
+            <li><a href="#archive">Archive</a></li>
             <li><a href="#lighthouse">Lighthouse</a></li>
             <li><a href="#releases">Releases</a></li>
             <li><a href="#quotes">Quotes</a></li>
@@ -373,6 +375,9 @@
                 <button class="plan-btn" id="passport-hero-btn" aria-label="Build passport" title="Open Build Passport — stamp the evidence (Shift B)">
                     <i class="fas fa-id-card"></i>
                 </button>
+                <button class="plan-btn" id="archive-hero-btn" aria-label="Build archive" title="Open Build Archive — search the whole trail (Shift A)">
+                    <i class="fas fa-box-archive"></i>
+                </button>
                 <button class="plan-btn" id="ledger-hero-btn" aria-label="Build ledger" title="Open the Build Ledger (G L)">
                     <i class="fas fa-table-list"></i>
                 </button>
@@ -420,7 +425,7 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 100</span>
+                    <span class="insight-value">Day 101</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
@@ -1375,6 +1380,10 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card" id="build-day-101">
+                    <div class="blog-date"><span class="blog-day">4</span><span class="blog-month">August 2026</span></div>
+                    <div class="blog-content"><span class="blog-tag">Day 101</span><h3>Build Archive — Make the Trail Searchable</h3><p>Day 101 turns the daily pipeline into a searchable archive: build history, quality audits, handoffs, plans, and local evidence now have one calm index. The streak can be explored by what shipped, what was checked, and what future-you left behind.</p></div>
+                </div>
                 <div class="blog-card">
                     <div class="blog-date"><span class="blog-day">3</span><span class="blog-month">August 2026</span></div>
                     <div class="blog-content"><span class="blog-tag">Day 100</span><h3>Build Passport — Stamp the Evidence</h3><p>Day 100 gives the streak a portable record: name the build, keep the scope small, attach evidence, and leave a handoff that future-you can actually use. The daily pipeline now remembers not only what shipped, but why it can be trusted.</p></div>
@@ -1907,7 +1916,7 @@
                         <div class="project-progress">
                             <div class="progress-header">
                                 <span>Build Progress</span>
-                                <span class="progress-percent">Day 100/∞</span>
+                                <span class="progress-percent">Day 101/∞</span>
                             </div>
                             <div class="progress-bar">
                                 <div class="progress-fill" style="width: 100%"></div>
@@ -5692,7 +5701,7 @@
                 <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-views">0</span><span class="cp-stat-label">Explorations</span></div>
             </div>
             <div class="cp-focus" aria-live="polite">
-                <div class="cp-focus-day" id="cp-focus-day">Day 100</div>
+                <div class="cp-focus-day" id="cp-focus-day">Day 101</div>
                 <h3 class="cp-focus-name" id="cp-focus-name">Build Compass</h3>
                 <span class="cp-focus-arch" id="cp-focus-arch">Systems</span>
                 <span class="cp-focus-impact" id="cp-focus-impact">Impact 5/5</span>
@@ -5723,7 +5732,7 @@
                 </div>
                 <button class="ledger-action" id="ledger-export" type="button"><i class="fas fa-download"></i> Export CSV</button>
             </div>
-            <div class="ledger-summary"><strong id="ledger-count">0</strong><span>days shown</span><span>·</span><span id="ledger-impact">0 impact points</span><span>·</span><span id="ledger-latest">Day 100 latest</span></div>
+            <div class="ledger-summary"><strong id="ledger-count">0</strong><span>days shown</span><span>·</span><span id="ledger-impact">0 impact points</span><span>·</span><span id="ledger-latest">Day 101 latest</span></div>
             <div class="ledger-table-wrap">
                 <table class="ledger-table">
                     <caption class="sr-only">AJH daily build ledger</caption>
@@ -5739,14 +5748,14 @@
     <section id="pulse" class="section pulse-section">
         <div class="container">
             <div class="pulse-header">
-                <span class="pulse-kicker"><i class="fas fa-chart-line"></i> Day 99 · Signal</span>
+                <span class="pulse-kicker"><i class="fas fa-chart-line"></i> Day 101 · Signal</span>
                 <h2 class="pulse-title">Build Pulse</h2>
                 <p class="pulse-subtitle">A compact readout of the streak: how much shipped, where the energy is, and which direction deserves the next deliberate move.</p>
             </div>
             <div class="pulse-toolbar"><button class="pulse-action" id="pulse-refresh" type="button"><i class="fas fa-rotate"></i> Recalculate</button></div>
             <div class="pulse-snapshot">
                 <div class="pulse-card pulse-score-card"><div class="pulse-score-orb"><strong id="pulse-score">—</strong><span>/100</span></div><div><span class="pulse-card-label">Current signal</span><strong class="pulse-card-value" id="pulse-score-note">Reading the streak…</strong><span class="pulse-card-note">A local composite of recent momentum, consistency, and impact.</span></div></div>
-                <div class="pulse-card"><span class="pulse-card-label">Latest ship</span><strong class="pulse-card-value" id="pulse-latest">Day 100</strong><span class="pulse-card-note" id="pulse-latest-note">Build Passport</span></div>
+                <div class="pulse-card"><span class="pulse-card-label">Latest ship</span><strong class="pulse-card-value" id="pulse-latest">Day 101</strong><span class="pulse-card-note" id="pulse-latest-note">Build Archive</span></div>
                 <div class="pulse-card"><span class="pulse-card-label">Total impact</span><strong class="pulse-card-value" id="pulse-impact">—</strong><span class="pulse-card-note" id="pulse-impact-note">Across the full streak</span></div>
                 <div class="pulse-card"><span class="pulse-card-label">Average build</span><strong class="pulse-card-value" id="pulse-avg">—</strong><span class="pulse-card-note" id="pulse-avg-note">Recent momentum</span></div>
             </div>
@@ -6009,6 +6018,32 @@
         </div>
     </section>
 
+    <section id="archive" class="section archive-section">
+        <div class="container">
+            <div class="archive-header">
+                <span class="archive-kicker"><i class="fas fa-box-archive"></i> Day 101 · Retrieval</span>
+                <h2 class="archive-title">Build Archive</h2>
+                <p class="archive-subtitle">One searchable trail for what shipped, what was checked, what arrived, and what tomorrow inherited. Browse the streak without opening every tool one by one.</p>
+            </div>
+            <div class="archive-toolbar">
+                <label class="archive-search"><i class="fas fa-search"></i><input id="archive-search" type="search" placeholder="Search the whole build trail…" aria-label="Search build archive"></label>
+                <div class="archive-filters" id="archive-filters" role="tablist" aria-label="Filter archive records">
+                    <button class="archive-filter is-active" data-filter="all" role="tab" aria-selected="true">All</button>
+                    <button class="archive-filter" data-filter="systems" role="tab" aria-selected="false">Systems</button>
+                    <button class="archive-filter" data-filter="evidence" role="tab" aria-selected="false">Evidence</button>
+                    <button class="archive-filter" data-filter="quality" role="tab" aria-selected="false">Quality</button>
+                    <button class="archive-filter" data-filter="handoff" role="tab" aria-selected="false">Handoffs</button>
+                    <button class="archive-filter" data-filter="plan" role="tab" aria-selected="false">Plans</button>
+                </div>
+                <div class="archive-actions"><button class="archive-action" id="archive-refresh" type="button"><i class="fas fa-rotate"></i> Refresh trail</button><button class="archive-action" id="archive-show-all" type="button" aria-pressed="false"><i class="fas fa-arrows-to-circle"></i> Show full trail</button><button class="archive-action" id="archive-copy" type="button"><i class="fas fa-share-nodes"></i> Copy manifest</button><button class="archive-action" id="archive-export" type="button"><i class="fas fa-download"></i> Export JSON</button></div>
+            </div>
+            <div class="archive-summary"><strong id="archive-total">0</strong><span>builds</span><span class="archive-dot">·</span><strong id="archive-local">0</strong><span>local records</span><span class="archive-dot">·</span><span id="archive-shown">0 shown</span><span class="archive-dot">·</span><span id="archive-scope">Latest 18</span><span class="archive-dot">·</span><span id="archive-views">0 opened</span><span class="archive-dot">·</span><span id="archive-refreshes">0 refreshed</span></div>
+            <div class="archive-grid" id="archive-grid" aria-live="polite" aria-label="Build archive records"></div>
+            <div class="archive-empty" id="archive-empty" hidden><i class="fas fa-box-open"></i><strong>No records match</strong><span>Try another search or filter.</span></div>
+            <p class="archive-hint"><i class="fas fa-keyboard"></i> <kbd>Shift</kbd> <kbd>A</kbd> opens the Archive · local records never leave this browser unless you export or copy them</p>
+        </div>
+    </section>
+
     <section id="landing" class="section landing-section">
         <div class="container">
             <div class="landing-header">
@@ -6075,7 +6110,7 @@
             </div>
             <div class="lh-history-card">
                 <div class="lh-history-head">
-                    <div><span class="lh-history-kicker"><i class="fas fa-clock-rotate-left"></i> Day 100 · Quality trail</span><h3>Keep the signal over time</h3></div>
+                    <div><span class="lh-history-kicker"><i class="fas fa-clock-rotate-left"></i> Day 101 · Quality trail</span><h3>Keep the signal over time</h3></div>
                     <button class="lh-action" id="lh-history-clear" type="button"><i class="fas fa-trash-can"></i> Clear trail</button>
                 </div>
                 <div class="lh-history-summary" id="lh-history-summary">Run the audit to start a local quality trail.</div>
@@ -6107,7 +6142,7 @@
             <div class="releases-summary"><strong id="releases-count">0</strong><span>releases shown</span><span class="releases-dot">·</span><span id="releases-impact">0 impact points</span><span class="releases-dot">·</span><span id="releases-scope">Latest 16</span></div>
             <div class="releases-grid" id="releases-grid" aria-live="polite" aria-label="Release notes results"></div>
             <div class="releases-empty" id="releases-empty" hidden><i class="fas fa-magnifying-glass"></i><strong>No releases match</strong><span>Try a different search or reset the filter.</span></div>
-            <p class="releases-hint"><i class="fas fa-keyboard"></i> <kbd>G</kbd> <kbd>R</kbd> opens Release Notes · <span id="releases-history-hint">show the full 100-day archive when you want the long view</span> · filters are remembered locally</p>
+            <p class="releases-hint"><i class="fas fa-keyboard"></i> <kbd>G</kbd> <kbd>R</kbd> opens Release Notes · <span id="releases-history-hint">show the full 101-day archive when you want the long view</span> · filters are remembered locally</p>
         </div>
     </section>
 
@@ -6122,7 +6157,7 @@
     <script src="js/aquarium.js?v=101" defer></script>
     <script src="js/observatory.js?v=102" defer></script>
     <script src="js/waveform.js?v=103" defer></script>
-    <script src="js/compass.js?v=105" defer></script>
+    <script src="js/compass.js?v=109" defer></script>
     <script src="js/ledger.js?v=110" defer></script>
     <script src="js/pulse.js?v=111" defer></script>
     <script src="js/checkpoint.js?v=113" defer></script>
@@ -6132,6 +6167,7 @@
     <script src="js/flight.js?v=1" defer></script>
     <script src="js/landing.js?v=1" defer></script>
     <script src="js/passport.js?v=1" defer></script>
+    <script src="js/archive.js?v=2" defer></script>
     <script src="js/dock.js?v=1" defer></script>
     <script src="js/lighthouse.js?v=106" defer></script>
     <script src="js/releases.js?v=107" defer></script>

@@ -1,3 +1,31 @@
+### Day 101 - 2026-08-04
+**Status**: Build Archive - make the trail searchable
+
+**Actions**:
+- Added Build Archive after Passport: one searchable, filterable index for the 101-day build history and its local evidence surfaces.
+- Added All, Builds, Evidence, Quality, Handoffs, and Plans filters; latest-24/full-trail toggle; refresh counter; local signal summary; inspect/copy actions; JSON manifest export; hero shortcut; navigation entry; command-palette actions; and `Shift A` keyboard access.
+- Wired archive records to the shared Compass dataset and live local state from Passport, Dock, Landing, Lighthouse, Flight Plan, Runway, Relay, Dispatch, and Checkpoint.
+- Researched progressive enhancement, visible focus, native controls, and interaction responsiveness before shipping.
+
+**Files Changed**:
+- `index.html` - Archive section, navigation, hero shortcut, Day 101 labels, build-log card, and script/style wiring.
+- `css/archive.css` - Archive visual system, filters, responsive layout, light theme, and reduced-motion styling.
+- `js/archive.js` - Search/filter state, local signal aggregation, inspect/copy, manifest export, and keyboard shortcut.
+- `js/compass.js` - Added Day 101 Build Archive to the shared build dataset.
+- `js/main.js` - Added Archive command-palette actions and Day 101 boot label.
+- `README.md` - Documented the latest build.
+
+**Validation**:
+- `node --check` passes for all JavaScript modules.
+- `git diff --check` passes.
+- Local static preview smoke test completed.
+
+**Next Steps**:
+- Use the archive manifest as the starting context for the next daily build.
+- Continue building new features daily - never stop
+
+---
+
 ### Day 100 - 2026-08-03
 **Status**: Build Passport - stamp the evidence
 

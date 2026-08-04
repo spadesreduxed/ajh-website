@@ -806,7 +806,7 @@ function initCommandPalette() {
     { id: 'tool-waveform-mode', label: 'Build Waveform: Cycle Listen / Spectrum / History', icon: 'fa-wave-square', category: 'Tools', action: () => window.ajhWaveform && window.ajhWaveform.cycleMode && window.ajhWaveform.cycleMode() },
     { id: 'tool-waveform-export', label: 'Build Waveform: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhWaveform && window.ajhWaveform.export && window.ajhWaveform.export() },
     { id: 'tool-compass-open', label: 'Open Build Compass', icon: 'fa-compass', shortcut: 'G C', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.open && window.ajhCompass.open() },
-    { id: 'tool-compass-today', label: 'Build Compass: Jump to Today', icon: 'fa-location-crosshairs', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.jump && window.ajhCompass.jump(96) },
+    { id: 'tool-compass-today', label: 'Build Compass: Jump to Today', icon: 'fa-location-crosshairs', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.jump && window.ajhCompass.jump(101) },
     { id: 'tool-compass-next', label: 'Build Compass: Next Direction', icon: 'fa-arrow-right', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.next && window.ajhCompass.next() },
     { id: 'tool-compass-random', label: 'Build Compass: Random Build', icon: 'fa-shuffle', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.random && window.ajhCompass.random() },
     { id: 'tool-lighthouse-open', label: 'Run Build Lighthouse Audit', icon: 'fa-lightbulb', shortcut: 'G L H', category: 'Tools', action: () => window.ajhLighthouse && window.ajhLighthouse.run && window.ajhLighthouse.run() },
@@ -839,6 +839,9 @@ function initCommandPalette() {
     { id: 'tool-passport-open', label: 'Open Build Passport', icon: 'fa-id-card', shortcut: 'Shift B', category: 'Tools', action: () => window.ajhPassport && window.ajhPassport.open && window.ajhPassport.open() },
     { id: 'tool-passport-import', label: 'Load Dock Into Passport', icon: 'fa-arrow-down', category: 'Tools', action: () => window.ajhPassport && window.ajhPassport.importDock && window.ajhPassport.importDock() },
     { id: 'tool-passport-stamp', label: 'Stamp Build Passport', icon: 'fa-stamp', category: 'Tools', action: () => window.ajhPassport && window.ajhPassport.stamp && window.ajhPassport.stamp() },
+    { id: 'tool-archive-open', label: 'Open Build Archive', icon: 'fa-box-archive', shortcut: 'Shift A', category: 'Tools', action: () => window.ajhArchive && window.ajhArchive.open && window.ajhArchive.open() },
+    { id: 'tool-archive-refresh', label: 'Refresh Build Archive', icon: 'fa-rotate', category: 'Tools', action: () => window.ajhArchive && window.ajhArchive.refresh && window.ajhArchive.refresh() },
+    { id: 'tool-archive-copy', label: 'Copy Archive Manifest', icon: 'fa-share-nodes', category: 'Tools', action: () => window.ajhArchive && window.ajhArchive.copy && window.ajhArchive.copy() },
 
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -1179,7 +1182,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBookmarkCards();
   initDay78HeroButtons();
 
-  console.log('⚡ AJH Website loaded - Day 100: Build Passport');
+  console.log('⚡ AJH Website loaded - Day 101: Build Archive');
 });
 
 // Day 48 - Daily Challenge + API Status

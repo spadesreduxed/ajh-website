@@ -1,6 +1,7 @@
 (function () {
   'use strict';
   const BUILDS = [
+    { d: 101, a: 'systems', n: 'Build Archive', i: 4, date: 'Aug 4, 2026', text: 'A searchable local index makes the streak, its quality signals, and its handoffs easier to retrieve and carry forward.' },
     { d: 100, a: 'systems', n: 'Build Passport', i: 4, date: 'Aug 3, 2026', text: 'A local evidence record gives each shipped slice an identity, honest scope, proof, and a handoff future-you can trust.' },
     { d: 98, a: 'systems', n: 'Build Landing', i: 4, date: 'Aug 1, 2026', text: 'A local arrival surface confirms what landed, keeps the handoff small, and leaves tomorrow a clean departure.' },
     { d: 99, a: 'systems', n: 'Build Dock', i: 4, date: 'Aug 2, 2026', text: 'A local control surface aligns Pulse, Landing, Lighthouse, and Flight Plan so the next build starts with one readable signal.' },
@@ -43,7 +44,7 @@
   function stars(i) { return '★'.repeat(i) + '☆'.repeat(5 - i); }
   function render() {
     const shown = source().filter(visible); const impact = shown.reduce((sum, build) => sum + build.i, 0);
-    $('releases-count').textContent = shown.length; $('releases-impact').textContent = `${impact} impact points`; $('releases-scope').textContent = state.fullHistory ? 'Full 100-day archive' : 'Latest 16'; $('releases-history-toggle').innerHTML = `<i class="fas fa-arrows-to-circle"></i> ${state.fullHistory ? 'Show latest 16' : 'Show full history'}`; $('releases-history-toggle').setAttribute('aria-pressed', String(state.fullHistory)); $('releases-history-hint').textContent = state.fullHistory ? 'the latest 16 are the quick view' : 'show the full 100-day archive when you want the long view';
+    $('releases-count').textContent = shown.length; $('releases-impact').textContent = `${impact} impact points`; $('releases-scope').textContent = state.fullHistory ? 'Full 101-day archive' : 'Latest 16'; $('releases-history-toggle').innerHTML = `<i class="fas fa-arrows-to-circle"></i> ${state.fullHistory ? 'Show latest 16' : 'Show full history'}`; $('releases-history-toggle').setAttribute('aria-pressed', String(state.fullHistory)); $('releases-history-hint').textContent = state.fullHistory ? 'the latest 16 are the quick view' : 'show the full 101-day archive when you want the long view';
     $('releases-grid').innerHTML = shown.map((build) => `<article class="release-card"><div class="release-card-top"><span class="release-day">DAY ${build.d}</span><span class="release-date">${build.date}</span></div><h3>${build.n}</h3><p>${build.text}</p><div class="release-card-bottom"><span class="release-type">${build.a}</span><span class="release-impact" aria-label="Impact ${build.i} out of 5">${stars(build.i)}</span><button class="release-open" type="button" data-day="${build.d}">Open ↗</button></div></article>`).join('');
     $('releases-empty').hidden = shown.length > 0; document.querySelectorAll('.release-filter').forEach((button) => { const active = button.dataset.filter === state.filter; button.classList.toggle('is-active', active); button.setAttribute('aria-selected', String(active)); });
     document.querySelectorAll('.release-open').forEach((button) => button.addEventListener('click', () => { const build = findBuild(button.dataset.day); if (build) share(build); }));
