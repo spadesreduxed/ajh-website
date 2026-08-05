@@ -1,10 +1,10 @@
 (function () {
   'use strict';
   const KEY = 'ajh_archive_v1';
-  const FILTERS = ['all', 'build', 'evidence', 'quality', 'handoff', 'plan'];
+  const FILTERS = ['all', 'build', 'systems', 'evidence', 'quality', 'handoff', 'plan'];
   const state = { filter: 'all', query: '', views: 0, refreshed: 0, fullHistory: false };
   const $ = (id) => document.getElementById(id);
-  const dates = { 101: 'Aug 4, 2026', 100: 'Aug 3, 2026', 99: 'Aug 2, 2026', 98: 'Aug 1, 2026', 97: 'Jul 31, 2026', 96: 'Jul 30, 2026', 95: 'Jul 29, 2026', 94: 'Jul 28, 2026', 93: 'Jul 27, 2026', 92: 'Jul 26, 2026' };
+  const dates = { 102: 'Aug 5, 2026', 101: 'Aug 4, 2026', 100: 'Aug 3, 2026', 99: 'Aug 2, 2026', 98: 'Aug 1, 2026', 97: 'Jul 31, 2026', 96: 'Jul 30, 2026', 95: 'Jul 29, 2026', 94: 'Jul 28, 2026', 93: 'Jul 27, 2026', 92: 'Jul 26, 2026' };
   const descriptions = {
     systems: 'A systems slice that keeps the daily build pipeline legible and ready to continue.',
     quality: 'A quality signal for checking what is true before the next build moves.',

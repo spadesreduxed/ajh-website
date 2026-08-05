@@ -85,7 +85,8 @@
     <link rel="stylesheet" href="css/landing.css?v=1">
     <link rel="stylesheet" href="css/dock.css?v=1">
     <link rel="stylesheet" href="css/passport.css?v=1">
-    <link rel="stylesheet" href="css/archive.css?v=1">
+    <link rel="stylesheet" href="css/archive.css?v=2">
+    <link rel="stylesheet" href="css/handoff.css?v=1">
     <link rel="stylesheet" href="css/lighthouse.css?v=106">
     <link rel="stylesheet" href="css/releases.css?v=108">
     <link rel="stylesheet" href="css/theme.css">
@@ -193,6 +194,7 @@
             <li><a href="#dock">Dock</a></li>
             <li><a href="#passport">Passport</a></li>
             <li><a href="#archive">Archive</a></li>
+            <li><a href="#handoff">Handoff</a></li>
             <li><a href="#lighthouse">Lighthouse</a></li>
             <li><a href="#releases">Releases</a></li>
             <li><a href="#quotes">Quotes</a></li>
@@ -378,6 +380,9 @@
                 <button class="plan-btn" id="archive-hero-btn" aria-label="Build archive" title="Open Build Archive — search the whole trail (Shift A)">
                     <i class="fas fa-box-archive"></i>
                 </button>
+                <button class="plan-btn" id="handoff-hero-btn" aria-label="Build handoff" title="Open Build Handoff — package the next move (Shift H)">
+                    <i class="fas fa-handshake"></i>
+                </button>
                 <button class="plan-btn" id="ledger-hero-btn" aria-label="Build ledger" title="Open the Build Ledger (G L)">
                     <i class="fas fa-table-list"></i>
                 </button>
@@ -394,7 +399,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="100">0</span>
+                    <span class="stat-value" data-count="101">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -425,7 +430,7 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 101</span>
+                    <span class="insight-value">Day 102</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
@@ -1380,6 +1385,10 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card" id="build-day-102">
+                    <div class="blog-date"><span class="blog-day">5</span><span class="blog-month">August 2026</span></div>
+                    <div class="blog-content"><span class="blog-tag">Day 102</span><h3>Build Handoff — Package the Next Move</h3><p>Day 102 turns the archive into a portable starting point: gather the latest signal, name the next move, attach proof, and package a concise handoff that can survive a fresh browser or a fresh day.</p></div>
+                </div>
                 <div class="blog-card" id="build-day-101">
                     <div class="blog-date"><span class="blog-day">4</span><span class="blog-month">August 2026</span></div>
                     <div class="blog-content"><span class="blog-tag">Day 101</span><h3>Build Archive — Make the Trail Searchable</h3><p>Day 101 turns the daily pipeline into a searchable archive: build history, quality audits, handoffs, plans, and local evidence now have one calm index. The streak can be explored by what shipped, what was checked, and what future-you left behind.</p></div>
@@ -1916,7 +1925,7 @@
                         <div class="project-progress">
                             <div class="progress-header">
                                 <span>Build Progress</span>
-                                <span class="progress-percent">Day 101/∞</span>
+                                <span class="progress-percent">Day 102/∞</span>
                             </div>
                             <div class="progress-bar">
                                 <div class="progress-fill" style="width: 100%"></div>
@@ -5732,7 +5741,7 @@
                 </div>
                 <button class="ledger-action" id="ledger-export" type="button"><i class="fas fa-download"></i> Export CSV</button>
             </div>
-            <div class="ledger-summary"><strong id="ledger-count">0</strong><span>days shown</span><span>·</span><span id="ledger-impact">0 impact points</span><span>·</span><span id="ledger-latest">Day 101 latest</span></div>
+            <div class="ledger-summary"><strong id="ledger-count">0</strong><span>days shown</span><span>·</span><span id="ledger-impact">0 impact points</span><span>·</span><span id="ledger-latest">Day 102 latest</span></div>
             <div class="ledger-table-wrap">
                 <table class="ledger-table">
                     <caption class="sr-only">AJH daily build ledger</caption>
@@ -5748,14 +5757,14 @@
     <section id="pulse" class="section pulse-section">
         <div class="container">
             <div class="pulse-header">
-                <span class="pulse-kicker"><i class="fas fa-chart-line"></i> Day 101 · Signal</span>
+                <span class="pulse-kicker"><i class="fas fa-chart-line"></i> Day 102 · Signal</span>
                 <h2 class="pulse-title">Build Pulse</h2>
                 <p class="pulse-subtitle">A compact readout of the streak: how much shipped, where the energy is, and which direction deserves the next deliberate move.</p>
             </div>
             <div class="pulse-toolbar"><button class="pulse-action" id="pulse-refresh" type="button"><i class="fas fa-rotate"></i> Recalculate</button></div>
             <div class="pulse-snapshot">
                 <div class="pulse-card pulse-score-card"><div class="pulse-score-orb"><strong id="pulse-score">—</strong><span>/100</span></div><div><span class="pulse-card-label">Current signal</span><strong class="pulse-card-value" id="pulse-score-note">Reading the streak…</strong><span class="pulse-card-note">A local composite of recent momentum, consistency, and impact.</span></div></div>
-                <div class="pulse-card"><span class="pulse-card-label">Latest ship</span><strong class="pulse-card-value" id="pulse-latest">Day 101</strong><span class="pulse-card-note" id="pulse-latest-note">Build Archive</span></div>
+                <div class="pulse-card"><span class="pulse-card-label">Latest ship</span><strong class="pulse-card-value" id="pulse-latest">Day 102</strong><span class="pulse-card-note" id="pulse-latest-note">Build Handoff</span></div>
                 <div class="pulse-card"><span class="pulse-card-label">Total impact</span><strong class="pulse-card-value" id="pulse-impact">—</strong><span class="pulse-card-note" id="pulse-impact-note">Across the full streak</span></div>
                 <div class="pulse-card"><span class="pulse-card-label">Average build</span><strong class="pulse-card-value" id="pulse-avg">—</strong><span class="pulse-card-note" id="pulse-avg-note">Recent momentum</span></div>
             </div>
@@ -6037,10 +6046,49 @@
                 </div>
                 <div class="archive-actions"><button class="archive-action" id="archive-refresh" type="button"><i class="fas fa-rotate"></i> Refresh trail</button><button class="archive-action" id="archive-show-all" type="button" aria-pressed="false"><i class="fas fa-arrows-to-circle"></i> Show full trail</button><button class="archive-action" id="archive-copy" type="button"><i class="fas fa-share-nodes"></i> Copy manifest</button><button class="archive-action" id="archive-export" type="button"><i class="fas fa-download"></i> Export JSON</button></div>
             </div>
-            <div class="archive-summary"><strong id="archive-total">0</strong><span>builds</span><span class="archive-dot">·</span><strong id="archive-local">0</strong><span>local records</span><span class="archive-dot">·</span><span id="archive-shown">0 shown</span><span class="archive-dot">·</span><span id="archive-scope">Latest 18</span><span class="archive-dot">·</span><span id="archive-views">0 opened</span><span class="archive-dot">·</span><span id="archive-refreshes">0 refreshed</span></div>
+            <div class="archive-summary"><strong id="archive-total">0</strong><span>builds</span><span class="archive-dot">·</span><strong id="archive-local">0</strong><span>local records</span><span class="archive-dot">·</span><span id="archive-shown">0 shown</span><span class="archive-dot">·</span><span id="archive-scope">Latest 24</span><span class="archive-dot">·</span><span id="archive-views">0 opened</span><span class="archive-dot">·</span><span id="archive-refreshes">0 refreshed</span></div>
             <div class="archive-grid" id="archive-grid" aria-live="polite" aria-label="Build archive records"></div>
             <div class="archive-empty" id="archive-empty" hidden><i class="fas fa-box-open"></i><strong>No records match</strong><span>Try another search or filter.</span></div>
             <p class="archive-hint"><i class="fas fa-keyboard"></i> <kbd>Shift</kbd> <kbd>A</kbd> opens the Archive · local records never leave this browser unless you export or copy them</p>
+        </div>
+    </section>
+
+    <section id="handoff" class="section handoff-section">
+        <div class="container">
+            <div class="handoff-header">
+                <span class="handoff-kicker"><i class="fas fa-handshake"></i> Day 102 · Continuity</span>
+                <h2 class="handoff-title">Build Handoff</h2>
+                <p class="handoff-subtitle">Package the latest signal into one portable starting point. Pull in the Archive, choose the next move, attach proof, and leave tomorrow a clean first step.</p>
+            </div>
+            <div class="handoff-toolbar">
+                <button class="handoff-action" id="handoff-import-archive" type="button"><i class="fas fa-arrow-down"></i> Import Archive</button>
+                <button class="handoff-action" id="handoff-import-pulse" type="button"><i class="fas fa-chart-line"></i> Import Pulse</button>
+                <button class="handoff-action" id="handoff-reset" type="button"><i class="fas fa-rotate-left"></i> Reset draft</button>
+            </div>
+            <div class="handoff-grid">
+                <div class="handoff-card handoff-status-card" id="handoff-status-card" aria-live="polite">
+                    <div class="handoff-orb"><strong id="handoff-progress">0/4</strong><span>checks</span></div>
+                    <div><span class="handoff-card-label">Next-day package</span><h3 id="handoff-status">Awaiting a handoff</h3><p id="handoff-message">4 checks left before tomorrow has a clean starting point.</p><span class="handoff-status-pill" id="handoff-status-pill">Local draft</span><div class="handoff-progress-track"><span id="handoff-progress-bar"></span></div></div>
+                </div>
+                <div class="handoff-card">
+                    <div class="handoff-fields">
+                        <div class="handoff-field"><label for="handoff-title">Package name</label><input id="handoff-title" maxlength="100" placeholder="What should tomorrow open first?" /></div>
+                        <div class="handoff-field"><label for="handoff-owner">Owner</label><input id="handoff-owner" maxlength="60" placeholder="AJH" /></div>
+                        <div class="handoff-field full"><label for="handoff-next">Next move</label><input id="handoff-next" maxlength="180" placeholder="Name one small, shippable move." /></div>
+                        <div class="handoff-field full"><label for="handoff-proof">Proof to inspect</label><textarea id="handoff-proof" maxlength="500" placeholder="What should tomorrow verify first?"></textarea></div>
+                        <div class="handoff-field full"><label for="handoff-context">Context</label><textarea id="handoff-context" maxlength="500" placeholder="What does the next builder need to know, and what can stay out of scope?"></textarea></div>
+                    </div>
+                    <div class="handoff-checks" role="group" aria-label="Handoff checks">
+                        <label class="handoff-check"><input type="checkbox" data-handoff-step="signal" /><strong>Signal</strong><span>loaded</span><small>inherit</small></label>
+                        <label class="handoff-check"><input type="checkbox" data-handoff-step="move" /><strong>Move</strong><span>small</span><small>focus</small></label>
+                        <label class="handoff-check"><input type="checkbox" data-handoff-step="proof" /><strong>Proof</strong><span>named</span><small>verify</small></label>
+                        <label class="handoff-check"><input type="checkbox" data-handoff-step="context" /><strong>Context</strong><span>clear</span><small>continue</small></label>
+                    </div>
+                    <details class="handoff-history"><summary>Packaged handoffs</summary><div class="handoff-history-list" id="handoff-history-list"></div></details>
+                </div>
+            </div>
+            <div class="handoff-footer"><span id="handoff-count">0 of 4 checks complete</span><div class="handoff-actions"><button class="handoff-action" id="handoff-copy" type="button"><i class="fas fa-share-nodes"></i> Copy handoff</button><button class="handoff-action" id="handoff-export" type="button"><i class="fas fa-download"></i> Export JSON</button><button class="handoff-action is-primary" id="handoff-package" type="button"><i class="fas fa-box"></i> Package handoff</button></div><span><strong id="handoff-packaged">0 packaged</strong> · <span id="handoff-views">0 opened</span></span></div>
+            <p class="handoff-hint"><i class="fas fa-keyboard"></i> <kbd>Shift</kbd> <kbd>H</kbd> opens Handoff · records stay local until you export or copy them</p>
         </div>
     </section>
 
@@ -6168,6 +6216,7 @@
     <script src="js/landing.js?v=1" defer></script>
     <script src="js/passport.js?v=1" defer></script>
     <script src="js/archive.js?v=2" defer></script>
+    <script src="js/handoff.js?v=1" defer></script>
     <script src="js/dock.js?v=1" defer></script>
     <script src="js/lighthouse.js?v=106" defer></script>
     <script src="js/releases.js?v=107" defer></script>

@@ -2,6 +2,7 @@
   'use strict';
   const BUILDS = [
     { d: 101, a: 'systems', n: 'Build Archive', i: 4, date: 'Aug 4, 2026', text: 'A searchable local index makes the streak, its quality signals, and its handoffs easier to retrieve and carry forward.' },
+    { d: 102, a: 'systems', n: 'Build Handoff', i: 4, date: 'Aug 5, 2026', text: 'A portable next-day package carries the latest signal, proof, context, and one small move forward.' },
     { d: 100, a: 'systems', n: 'Build Passport', i: 4, date: 'Aug 3, 2026', text: 'A local evidence record gives each shipped slice an identity, honest scope, proof, and a handoff future-you can trust.' },
     { d: 98, a: 'systems', n: 'Build Landing', i: 4, date: 'Aug 1, 2026', text: 'A local arrival surface confirms what landed, keeps the handoff small, and leaves tomorrow a clean departure.' },
     { d: 99, a: 'systems', n: 'Build Dock', i: 4, date: 'Aug 2, 2026', text: 'A local control surface aligns Pulse, Landing, Lighthouse, and Flight Plan so the next build starts with one readable signal.' },
