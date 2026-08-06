@@ -1,3 +1,33 @@
+### Day 103 - 2026-08-06
+**Status**: Build Intake - start with the smallest useful slice
+
+**Actions**:
+- Added Build Intake after Handoff: a local-first starting line that turns the latest signal into one narrow, actionable slice.
+- Added landing/Lighthouse import fallback, title/owner/signal/slice/proof fields, three checks, browser-local drafts, started-slice history, copy, JSON export, reset, hero shortcut, navigation entry, command-palette actions, and `Shift I` keyboard access.
+- Rolled the shared Compass, Ledger, Release Notes, counters, visible streak copy, and build log forward to Day 103.
+- Researched progressive enhancement, native controls, local-first persistence, visible focus, and static-site delivery before shipping.
+
+**Files Changed**:
+- `index.html` - Intake section, navigation, hero shortcut, Day 103 labels, counters, blog card, and script/style wiring.
+- `css/intake.css` - Intake visual system, responsive layout, light theme, and reduced-motion styling.
+- `js/intake.js` - Local draft state, Landing/Lighthouse imports, checks, history, copy/export actions, and shortcut.
+- `js/compass.js` - Added Day 103 Build Intake to the shared build dataset.
+- `js/ledger.js` - Added Day 103 to the searchable ledger.
+- `js/releases.js` - Added Day 103 to the release index.
+- `js/main.js` - Added Intake command-palette actions and Day 103 boot label.
+- `README.md` and `AGENTS.md` - Documented the latest build.
+
+**Validation**:
+- `node --check` passes for all JavaScript modules.
+- `git diff --check` passes.
+- Local static preview smoke test completed.
+
+**Next Steps**:
+- Build from the Intake record and return with proof.
+- Continue building new features daily - never stop
+
+---
+
 ### Day 102 - 2026-08-05
 **Status**: Build Handoff - package the next move
 

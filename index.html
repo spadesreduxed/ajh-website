@@ -87,6 +87,7 @@
     <link rel="stylesheet" href="css/passport.css?v=1">
     <link rel="stylesheet" href="css/archive.css?v=2">
     <link rel="stylesheet" href="css/handoff.css?v=1">
+    <link rel="stylesheet" href="css/intake.css?v=1">
     <link rel="stylesheet" href="css/lighthouse.css?v=106">
     <link rel="stylesheet" href="css/releases.css?v=108">
     <link rel="stylesheet" href="css/theme.css">
@@ -383,6 +384,9 @@
                 <button class="plan-btn" id="handoff-hero-btn" aria-label="Build handoff" title="Open Build Handoff — package the next move (Shift H)">
                     <i class="fas fa-handshake"></i>
                 </button>
+                <button class="plan-btn" id="intake-hero-btn" aria-label="Build intake" title="Open Build Intake — start today's smallest useful slice (Shift I)">
+                    <i class="fas fa-inbox"></i>
+                </button>
                 <button class="plan-btn" id="ledger-hero-btn" aria-label="Build ledger" title="Open the Build Ledger (G L)">
                     <i class="fas fa-table-list"></i>
                 </button>
@@ -399,7 +403,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="101">0</span>
+                    <span class="stat-value" data-count="103">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -410,7 +414,7 @@
             <div class="daily-streak">
                 <span class="streak-icon">🔥</span>
                 <div class="streak-info">
-                    <span class="streak-count">100 days</span>
+                    <span class="streak-count">103 days</span>
                     <span class="streak-label">Daily Streak</span>
                 </div>
             </div>
@@ -430,7 +434,7 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 102</span>
+                    <span class="insight-value">Day 103</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
@@ -1385,6 +1389,10 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card" id="build-day-103">
+                    <div class="blog-date"><span class="blog-day">6</span><span class="blog-month">August 2026</span></div>
+                    <div class="blog-content"><span class="blog-tag">Day 103</span><h3>Build Intake — Start With the Smallest Useful Slice</h3><p>Day 103 turns continuity into action: import the last landing or quality signal, name one deliberately small slice, state its scope, and record the proof that will tell you when it is done. The daily builder now has a clean starting line, not just a clean handoff.</p></div>
+                </div>
                 <div class="blog-card" id="build-day-102">
                     <div class="blog-date"><span class="blog-day">5</span><span class="blog-month">August 2026</span></div>
                     <div class="blog-content"><span class="blog-tag">Day 102</span><h3>Build Handoff — Package the Next Move</h3><p>Day 102 turns the archive into a portable starting point: gather the latest signal, name the next move, attach proof, and package a concise handoff that can survive a fresh browser or a fresh day.</p></div>
@@ -1925,7 +1933,7 @@
                         <div class="project-progress">
                             <div class="progress-header">
                                 <span>Build Progress</span>
-                                <span class="progress-percent">Day 102/∞</span>
+                                <span class="progress-percent">Day 103/∞</span>
                             </div>
                             <div class="progress-bar">
                                 <div class="progress-fill" style="width: 100%"></div>
@@ -5696,7 +5704,7 @@
                 <button class="cp-filter" data-filter="meta">Meta</button>
                 <button class="cp-filter" data-filter="craft">Craft</button>
             </div>
-            <div class="cp-stage" id="cp-stage" aria-label="Interactive compass map of all 99 builds"></div>
+            <div class="cp-stage" id="cp-stage" aria-label="Interactive compass map of all 103 builds"></div>
             <div class="cp-recommendation" aria-live="polite">
                 <div class="cp-recommendation-kicker"><i class="fas fa-route"></i> Next direction</div>
                 <strong id="cp-recommendation-axis">Learning</strong>
@@ -5710,7 +5718,7 @@
                 <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-views">0</span><span class="cp-stat-label">Explorations</span></div>
             </div>
             <div class="cp-focus" aria-live="polite">
-                <div class="cp-focus-day" id="cp-focus-day">Day 101</div>
+                <div class="cp-focus-day" id="cp-focus-day">Day 103</div>
                 <h3 class="cp-focus-name" id="cp-focus-name">Build Compass</h3>
                 <span class="cp-focus-arch" id="cp-focus-arch">Systems</span>
                 <span class="cp-focus-impact" id="cp-focus-impact">Impact 5/5</span>
@@ -5741,7 +5749,7 @@
                 </div>
                 <button class="ledger-action" id="ledger-export" type="button"><i class="fas fa-download"></i> Export CSV</button>
             </div>
-            <div class="ledger-summary"><strong id="ledger-count">0</strong><span>days shown</span><span>·</span><span id="ledger-impact">0 impact points</span><span>·</span><span id="ledger-latest">Day 102 latest</span></div>
+            <div class="ledger-summary"><strong id="ledger-count">0</strong><span>days shown</span><span>·</span><span id="ledger-impact">0 impact points</span><span>·</span><span id="ledger-latest">Day 103 latest</span></div>
             <div class="ledger-table-wrap">
                 <table class="ledger-table">
                     <caption class="sr-only">AJH daily build ledger</caption>
@@ -5757,14 +5765,14 @@
     <section id="pulse" class="section pulse-section">
         <div class="container">
             <div class="pulse-header">
-                <span class="pulse-kicker"><i class="fas fa-chart-line"></i> Day 102 · Signal</span>
+                <span class="pulse-kicker"><i class="fas fa-chart-line"></i> Day 103 · Signal</span>
                 <h2 class="pulse-title">Build Pulse</h2>
                 <p class="pulse-subtitle">A compact readout of the streak: how much shipped, where the energy is, and which direction deserves the next deliberate move.</p>
             </div>
             <div class="pulse-toolbar"><button class="pulse-action" id="pulse-refresh" type="button"><i class="fas fa-rotate"></i> Recalculate</button></div>
             <div class="pulse-snapshot">
                 <div class="pulse-card pulse-score-card"><div class="pulse-score-orb"><strong id="pulse-score">—</strong><span>/100</span></div><div><span class="pulse-card-label">Current signal</span><strong class="pulse-card-value" id="pulse-score-note">Reading the streak…</strong><span class="pulse-card-note">A local composite of recent momentum, consistency, and impact.</span></div></div>
-                <div class="pulse-card"><span class="pulse-card-label">Latest ship</span><strong class="pulse-card-value" id="pulse-latest">Day 102</strong><span class="pulse-card-note" id="pulse-latest-note">Build Handoff</span></div>
+                <div class="pulse-card"><span class="pulse-card-label">Latest ship</span><strong class="pulse-card-value" id="pulse-latest">Day 103</strong><span class="pulse-card-note" id="pulse-latest-note">Build Intake</span></div>
                 <div class="pulse-card"><span class="pulse-card-label">Total impact</span><strong class="pulse-card-value" id="pulse-impact">—</strong><span class="pulse-card-note" id="pulse-impact-note">Across the full streak</span></div>
                 <div class="pulse-card"><span class="pulse-card-label">Average build</span><strong class="pulse-card-value" id="pulse-avg">—</strong><span class="pulse-card-note" id="pulse-avg-note">Recent momentum</span></div>
             </div>
@@ -6092,6 +6100,43 @@
         </div>
     </section>
 
+    <section id="intake" class="section intake-section">
+        <div class="container">
+            <div class="intake-header">
+                <span class="intake-kicker"><i class="fas fa-inbox"></i> Day 103 · Starting line</span>
+                <h2 class="intake-title">Build Intake</h2>
+                <p class="intake-subtitle">Turn yesterday’s continuity into today’s smallest useful slice. Import the latest signal, narrow the move, name the proof, and start without letting scope sprawl.</p>
+            </div>
+            <div class="intake-toolbar">
+                <button class="intake-action" id="intake-import" type="button"><i class="fas fa-arrow-down"></i> Import latest signal</button>
+                <button class="intake-action" id="intake-reset" type="button"><i class="fas fa-rotate-left"></i> Reset draft</button>
+            </div>
+            <div class="intake-grid">
+                <div class="intake-card intake-status-card" id="intake-status-card" aria-live="polite">
+                    <div class="intake-orb"><strong id="intake-progress">0/3</strong><span>checks</span></div>
+                    <div><span class="intake-card-label">Today’s starting line</span><h3 id="intake-status">Waiting for a slice</h3><p id="intake-message">3 checks left before today has a clean first move.</p><span class="intake-status-pill" id="intake-status-pill">Local draft</span><div class="intake-progress-track"><span id="intake-progress-bar"></span></div></div>
+                </div>
+                <div class="intake-card">
+                    <div class="intake-fields">
+                        <div class="intake-field"><label for="intake-title">Slice title</label><input id="intake-title" maxlength="100" placeholder="What is today’s smallest useful win?" /></div>
+                        <div class="intake-field"><label for="intake-owner">Owner</label><input id="intake-owner" maxlength="60" placeholder="AJH" /></div>
+                        <div class="intake-field full"><label for="intake-signal">Signal inherited</label><textarea id="intake-signal" maxlength="500" placeholder="What did the last build, audit, or handoff tell you?"></textarea></div>
+                        <div class="intake-field full"><label for="intake-slice">Smallest useful slice</label><textarea id="intake-slice" maxlength="500" placeholder="What will you build—and what is deliberately out of scope?"></textarea></div>
+                        <div class="intake-field full"><label for="intake-proof">Proof of done</label><textarea id="intake-proof" maxlength="500" placeholder="What concrete check will tell you this slice works?"></textarea></div>
+                    </div>
+                    <div class="intake-checks" role="group" aria-label="Intake checks">
+                        <label class="intake-check"><input type="checkbox" data-intake-step="signal" /><strong>Signal</strong><span>inherited</span><small>start informed</small></label>
+                        <label class="intake-check"><input type="checkbox" data-intake-step="slice" /><strong>Slice</strong><span>narrow</span><small>keep focus</small></label>
+                        <label class="intake-check"><input type="checkbox" data-intake-step="proof" /><strong>Proof</strong><span>named</span><small>finish honestly</small></label>
+                    </div>
+                    <details class="intake-history"><summary>Started slices</summary><div class="intake-history-list" id="intake-history-list"></div></details>
+                </div>
+            </div>
+            <div class="intake-footer"><span id="intake-count">0 of 3 checks complete</span><div class="intake-actions"><button class="intake-action" id="intake-copy" type="button"><i class="fas fa-share-nodes"></i> Copy intake</button><button class="intake-action" id="intake-export" type="button"><i class="fas fa-download"></i> Export JSON</button><button class="intake-action is-primary" id="intake-start" type="button"><i class="fas fa-play"></i> Start slice</button></div><span><strong id="intake-started">0 started</strong> · <span id="intake-views">0 opened</span></span></div>
+            <p class="intake-hint"><i class="fas fa-keyboard"></i> <kbd>Shift</kbd> <kbd>I</kbd> opens Intake · drafts stay in this browser until you export or copy them</p>
+        </div>
+    </section>
+
     <section id="landing" class="section landing-section">
         <div class="container">
             <div class="landing-header">
@@ -6217,6 +6262,7 @@
     <script src="js/passport.js?v=1" defer></script>
     <script src="js/archive.js?v=2" defer></script>
     <script src="js/handoff.js?v=1" defer></script>
+    <script src="js/intake.js?v=1" defer></script>
     <script src="js/dock.js?v=1" defer></script>
     <script src="js/lighthouse.js?v=106" defer></script>
     <script src="js/releases.js?v=107" defer></script>

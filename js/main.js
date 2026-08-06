@@ -845,6 +845,9 @@ function initCommandPalette() {
     { id: 'tool-handoff-open', label: 'Open Build Handoff', icon: 'fa-handshake', shortcut: 'Shift H', category: 'Tools', action: () => window.ajhHandoff && window.ajhHandoff.open && window.ajhHandoff.open() },
     { id: 'tool-handoff-import', label: 'Load Archive Into Handoff', icon: 'fa-arrow-down', category: 'Tools', action: () => window.ajhHandoff && window.ajhHandoff.importArchive && window.ajhHandoff.importArchive() },
     { id: 'tool-handoff-package', label: 'Package Next-Day Handoff', icon: 'fa-box', category: 'Tools', action: () => window.ajhHandoff && window.ajhHandoff.packageHandoff && window.ajhHandoff.packageHandoff() },
+    { id: 'tool-intake-open', label: 'Open Build Intake', icon: 'fa-inbox', shortcut: 'Shift I', category: 'Tools', action: () => window.ajhIntake && window.ajhIntake.open && window.ajhIntake.open() },
+    { id: 'tool-intake-import', label: 'Load Signal Into Intake', icon: 'fa-arrow-down', category: 'Tools', action: () => window.ajhIntake && window.ajhIntake.importLanding && window.ajhIntake.importLanding() },
+    { id: 'tool-intake-start', label: 'Start Today’s Build Slice', icon: 'fa-play', category: 'Tools', action: () => window.ajhIntake && window.ajhIntake.start && window.ajhIntake.start() },
 
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -1185,7 +1188,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBookmarkCards();
   initDay78HeroButtons();
 
-  console.log('⚡ AJH Website loaded - Day 102: Build Handoff');
+  console.log('⚡ AJH Website loaded - Day 103: Build Intake');
 });
 
 // Day 48 - Daily Challenge + API Status
