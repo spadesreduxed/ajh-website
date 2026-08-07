@@ -63,6 +63,7 @@
     { d: 101, a: 'systems', n: 'Build Archive', i: 4 },
     { d: 102, a: 'systems', n: 'Build Handoff', i: 4 },
     { d: 103, a: 'systems', n: 'Build Intake', i: 4 },
+    { d: 104, a: 'systems', n: 'Build Proof', i: 5 },
   ];
 
   const ARCH = {
@@ -73,7 +74,7 @@
   };
   const KEY = 'ajh_compass_v1';
   const TOTAL = BUILDS.length;
-  const state = { filter: 'all', selected: 103, theme: 'dark', views: 0 };
+  const state = { filter: 'all', selected: 104, theme: 'dark', views: 0 };
   const $ = (id) => document.getElementById(id);
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 
@@ -119,12 +120,12 @@
     $('cp-recommendation-text').textContent = next.text;
     $('cp-recommendation-meta').textContent = `${next.score} impact points · ${next.count} builds · the least-used direction right now`;
   }
-  function date(day) { const dates = { 102: 'Aug 5, 2026', 103: 'Aug 6, 2026', 101: 'Aug 4, 2026', 100: 'Aug 3, 2026', 99: 'Aug 2, 2026', 98: 'Aug 1, 2026', 97: 'Jul 31, 2026', 96: 'Jul 30, 2026', 95: 'Jul 29, 2026', 94: 'Jul 28, 2026', 93: 'Jul 27, 2026', 92: 'Jul 26, 2026' }; return dates[day] || new Date(2026, 3, 21 + day + 4).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
+  function date(day) { const dates = { 102: 'Aug 5, 2026', 103: 'Aug 6, 2026', 104: 'Aug 7, 2026', 101: 'Aug 4, 2026', 100: 'Aug 3, 2026', 99: 'Aug 2, 2026', 98: 'Aug 1, 2026', 97: 'Jul 31, 2026', 96: 'Jul 30, 2026', 95: 'Jul 29, 2026', 94: 'Jul 28, 2026', 93: 'Jul 27, 2026', 92: 'Jul 26, 2026' }; return dates[day] || new Date(2026, 3, 21 + day + 4).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
   function updateFocus() {
     const b = BUILDS.find((build) => build.d === state.selected) || BUILDS[BUILDS.length - 1]; const meta = ARCH[b.a];
     $('cp-focus-day').textContent = 'Day ' + b.d; $('cp-focus-day').style.color = meta.color;
     $('cp-focus-name').textContent = b.n; $('cp-focus-arch').textContent = meta.label; $('cp-focus-date').textContent = date(b.d);
-    $('cp-focus-impact').textContent = 'Impact ' + b.i + '/5'; $('cp-focus-desc').textContent = b.n + ' sits on the ' + meta.label.toLowerCase() + ' axis of the build compass. The map turns the 101-day streak into direction: where the work points, and what to build next.';
+    $('cp-focus-impact').textContent = 'Impact ' + b.i + '/5'; $('cp-focus-desc').textContent = b.n + ' sits on the ' + meta.label.toLowerCase() + ' axis of the build compass. The map turns the 104-day streak into direction: where the work points, and what to build next.';
   }
   function render() {
     $('cp-stage').innerHTML = compassSvg(); updateFocus(); updateRecommendation();

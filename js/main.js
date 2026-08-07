@@ -848,6 +848,10 @@ function initCommandPalette() {
     { id: 'tool-intake-open', label: 'Open Build Intake', icon: 'fa-inbox', shortcut: 'Shift I', category: 'Tools', action: () => window.ajhIntake && window.ajhIntake.open && window.ajhIntake.open() },
     { id: 'tool-intake-import', label: 'Load Signal Into Intake', icon: 'fa-arrow-down', category: 'Tools', action: () => window.ajhIntake && window.ajhIntake.importLanding && window.ajhIntake.importLanding() },
     { id: 'tool-intake-start', label: 'Start Today’s Build Slice', icon: 'fa-play', category: 'Tools', action: () => window.ajhIntake && window.ajhIntake.start && window.ajhIntake.start() },
+    { id: 'tool-proof-open', label: 'Open Build Proof', icon: 'fa-file-circle-check', shortcut: 'Shift V', category: 'Tools', action: () => window.ajhProof && window.ajhProof.open && window.ajhProof.open() },
+    { id: 'tool-proof-import', label: 'Load Intake Into Proof', icon: 'fa-arrow-down', category: 'Tools', action: () => window.ajhProof && window.ajhProof.importIntake && window.ajhProof.importIntake() },
+    { id: 'tool-proof-audit', label: 'Build Proof: Get Quality Signal', icon: 'fa-stethoscope', category: 'Tools', action: () => window.ajhProof && window.ajhProof.runAudit && window.ajhProof.runAudit() },
+    { id: 'tool-proof-record', label: 'Record Build Proof', icon: 'fa-file-circle-check', category: 'Tools', action: () => window.ajhProof && window.ajhProof.record && window.ajhProof.record() },
 
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -1188,7 +1192,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBookmarkCards();
   initDay78HeroButtons();
 
-  console.log('⚡ AJH Website loaded - Day 103: Build Intake');
+  console.log('⚡ AJH Website loaded - Day 104: Build Proof');
 });
 
 // Day 48 - Daily Challenge + API Status
@@ -7074,6 +7078,8 @@ function initDay78HeroButtons() {
   if (pulseBtn) {
     pulseBtn.addEventListener('click', () => document.getElementById('pulse')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
   }
+  const proofBtn = document.getElementById('proof-hero-btn');
+  if (proofBtn) proofBtn.addEventListener('click', () => document.getElementById('proof')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
   const lighthouseBtn = document.getElementById('lighthouse-hero-btn');
   if (lighthouseBtn) {
     lighthouseBtn.addEventListener('click', () => {

@@ -88,6 +88,7 @@
     <link rel="stylesheet" href="css/archive.css?v=2">
     <link rel="stylesheet" href="css/handoff.css?v=1">
     <link rel="stylesheet" href="css/intake.css?v=1">
+    <link rel="stylesheet" href="css/proof.css?v=1">
     <link rel="stylesheet" href="css/lighthouse.css?v=106">
     <link rel="stylesheet" href="css/releases.css?v=108">
     <link rel="stylesheet" href="css/theme.css">
@@ -196,6 +197,7 @@
             <li><a href="#passport">Passport</a></li>
             <li><a href="#archive">Archive</a></li>
             <li><a href="#handoff">Handoff</a></li>
+            <li><a href="#proof">Proof</a></li>
             <li><a href="#lighthouse">Lighthouse</a></li>
             <li><a href="#releases">Releases</a></li>
             <li><a href="#quotes">Quotes</a></li>
@@ -387,6 +389,9 @@
                 <button class="plan-btn" id="intake-hero-btn" aria-label="Build intake" title="Open Build Intake — start today's smallest useful slice (Shift I)">
                     <i class="fas fa-inbox"></i>
                 </button>
+                <button class="plan-btn" id="proof-hero-btn" aria-label="Build proof" title="Open Build Proof — make the result verifiable (Shift V)">
+                    <i class="fas fa-file-circle-check"></i>
+                </button>
                 <button class="plan-btn" id="ledger-hero-btn" aria-label="Build ledger" title="Open the Build Ledger (G L)">
                     <i class="fas fa-table-list"></i>
                 </button>
@@ -403,7 +408,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="103">0</span>
+                    <span class="stat-value" data-count="104">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -414,7 +419,7 @@
             <div class="daily-streak">
                 <span class="streak-icon">🔥</span>
                 <div class="streak-info">
-                    <span class="streak-count">103 days</span>
+                    <span class="streak-count">104 days</span>
                     <span class="streak-label">Daily Streak</span>
                 </div>
             </div>
@@ -434,7 +439,7 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 103</span>
+                    <span class="insight-value">Day 104</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
@@ -1389,6 +1394,10 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card" id="build-day-104">
+                    <div class="blog-date"><span class="blog-day">7</span><span class="blog-month">August 2026</span></div>
+                    <div class="blog-content"><span class="blog-tag">Day 104</span><h3>Build Proof — Make the Result Verifiable</h3><p>Day 104 turns a started slice into a trustworthy result: import the Intake, name the behavior a visitor should be able to confirm, attach the latest quality signal, and record the evidence that future-you can inspect. The pipeline now has a proof line between “started” and “shipped.”</p></div>
+                </div>
                 <div class="blog-card" id="build-day-103">
                     <div class="blog-date"><span class="blog-day">6</span><span class="blog-month">August 2026</span></div>
                     <div class="blog-content"><span class="blog-tag">Day 103</span><h3>Build Intake — Start With the Smallest Useful Slice</h3><p>Day 103 turns continuity into action: import the last landing or quality signal, name one deliberately small slice, state its scope, and record the proof that will tell you when it is done. The daily builder now has a clean starting line, not just a clean handoff.</p></div>
@@ -1933,7 +1942,7 @@
                         <div class="project-progress">
                             <div class="progress-header">
                                 <span>Build Progress</span>
-                                <span class="progress-percent">Day 103/∞</span>
+                                <span class="progress-percent">Day 104/∞</span>
                             </div>
                             <div class="progress-bar">
                                 <div class="progress-fill" style="width: 100%"></div>
@@ -5704,7 +5713,7 @@
                 <button class="cp-filter" data-filter="meta">Meta</button>
                 <button class="cp-filter" data-filter="craft">Craft</button>
             </div>
-            <div class="cp-stage" id="cp-stage" aria-label="Interactive compass map of all 103 builds"></div>
+            <div class="cp-stage" id="cp-stage" aria-label="Interactive compass map of all 104 builds"></div>
             <div class="cp-recommendation" aria-live="polite">
                 <div class="cp-recommendation-kicker"><i class="fas fa-route"></i> Next direction</div>
                 <strong id="cp-recommendation-axis">Learning</strong>
@@ -5718,7 +5727,7 @@
                 <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-views">0</span><span class="cp-stat-label">Explorations</span></div>
             </div>
             <div class="cp-focus" aria-live="polite">
-                <div class="cp-focus-day" id="cp-focus-day">Day 103</div>
+                <div class="cp-focus-day" id="cp-focus-day">Day 104</div>
                 <h3 class="cp-focus-name" id="cp-focus-name">Build Compass</h3>
                 <span class="cp-focus-arch" id="cp-focus-arch">Systems</span>
                 <span class="cp-focus-impact" id="cp-focus-impact">Impact 5/5</span>
@@ -5749,7 +5758,7 @@
                 </div>
                 <button class="ledger-action" id="ledger-export" type="button"><i class="fas fa-download"></i> Export CSV</button>
             </div>
-            <div class="ledger-summary"><strong id="ledger-count">0</strong><span>days shown</span><span>·</span><span id="ledger-impact">0 impact points</span><span>·</span><span id="ledger-latest">Day 103 latest</span></div>
+            <div class="ledger-summary"><strong id="ledger-count">0</strong><span>days shown</span><span>·</span><span id="ledger-impact">0 impact points</span><span>·</span><span id="ledger-latest">Day 104 latest</span></div>
             <div class="ledger-table-wrap">
                 <table class="ledger-table">
                     <caption class="sr-only">AJH daily build ledger</caption>
@@ -5765,14 +5774,14 @@
     <section id="pulse" class="section pulse-section">
         <div class="container">
             <div class="pulse-header">
-                <span class="pulse-kicker"><i class="fas fa-chart-line"></i> Day 103 · Signal</span>
+                <span class="pulse-kicker"><i class="fas fa-chart-line"></i> Day 104 · Signal</span>
                 <h2 class="pulse-title">Build Pulse</h2>
                 <p class="pulse-subtitle">A compact readout of the streak: how much shipped, where the energy is, and which direction deserves the next deliberate move.</p>
             </div>
             <div class="pulse-toolbar"><button class="pulse-action" id="pulse-refresh" type="button"><i class="fas fa-rotate"></i> Recalculate</button></div>
             <div class="pulse-snapshot">
                 <div class="pulse-card pulse-score-card"><div class="pulse-score-orb"><strong id="pulse-score">—</strong><span>/100</span></div><div><span class="pulse-card-label">Current signal</span><strong class="pulse-card-value" id="pulse-score-note">Reading the streak…</strong><span class="pulse-card-note">A local composite of recent momentum, consistency, and impact.</span></div></div>
-                <div class="pulse-card"><span class="pulse-card-label">Latest ship</span><strong class="pulse-card-value" id="pulse-latest">Day 103</strong><span class="pulse-card-note" id="pulse-latest-note">Build Intake</span></div>
+                <div class="pulse-card"><span class="pulse-card-label">Latest ship</span><strong class="pulse-card-value" id="pulse-latest">Day 104</strong><span class="pulse-card-note" id="pulse-latest-note">Build Intake</span></div>
                 <div class="pulse-card"><span class="pulse-card-label">Total impact</span><strong class="pulse-card-value" id="pulse-impact">—</strong><span class="pulse-card-note" id="pulse-impact-note">Across the full streak</span></div>
                 <div class="pulse-card"><span class="pulse-card-label">Average build</span><strong class="pulse-card-value" id="pulse-avg">—</strong><span class="pulse-card-note" id="pulse-avg-note">Recent momentum</span></div>
             </div>
@@ -6137,6 +6146,48 @@
         </div>
     </section>
 
+    <section id="proof" class="section proof-section">
+        <div class="container">
+            <div class="proof-header">
+                <span class="proof-kicker"><i class="fas fa-file-circle-check"></i> Day 104 · Evidence</span>
+                <h2 class="proof-title">Build Proof</h2>
+                <p class="proof-subtitle">Turn the slice you started into something verifiable. Import the Intake, attach the latest quality signal, name the behavior, and leave a compact record instead of a vague “done.”</p>
+            </div>
+            <div class="proof-toolbar">
+                <button class="proof-action" id="proof-import-intake" type="button"><i class="fas fa-arrow-down"></i> Import Intake</button>
+                <button class="proof-action" id="proof-import-lighthouse" type="button"><i class="fas fa-lightbulb"></i> Import Lighthouse</button>
+                <button class="proof-action" id="proof-audit-run" type="button"><i class="fas fa-stethoscope"></i> Get quality signal</button>
+                <button class="proof-action" id="proof-reset" type="button"><i class="fas fa-rotate-left"></i> Reset draft</button>
+            </div>
+            <div class="proof-grid">
+                <div class="proof-card proof-status-card" id="proof-status-card" aria-live="polite">
+                    <div class="proof-orb"><strong id="proof-progress">0/4</strong><span>checks</span></div>
+                    <div><span class="proof-card-label">Evidence record</span><h3 id="proof-status">Awaiting evidence</h3><p id="proof-message">4 checks left before this slice has a complete proof trail.</p><span class="proof-status-pill" id="proof-status-pill">Local draft</span><div class="proof-progress-track"><span id="proof-progress-bar"></span></div></div>
+                </div>
+                <div class="proof-card">
+                    <div class="proof-fields">
+                        <div class="proof-field"><label for="proof-title">Proof title</label><input id="proof-title" maxlength="100" placeholder="What result are you proving?" /></div>
+                        <div class="proof-field"><label for="proof-owner">Owner</label><input id="proof-owner" maxlength="60" placeholder="AJH" /></div>
+                        <div class="proof-field full"><label for="proof-scope">Scope proved</label><textarea id="proof-scope" maxlength="500" placeholder="What changed, and what remains deliberately out of scope?"></textarea></div>
+                        <div class="proof-field full"><label for="proof-behavior">Behavior to verify</label><textarea id="proof-behavior" maxlength="500" placeholder="What should a visitor be able to see or do now?"></textarea></div>
+                        <div class="proof-field full"><label for="proof-quality">Quality signal</label><textarea id="proof-quality" maxlength="500" placeholder="What audit, test, or observation supports the result?"></textarea></div>
+                        <div class="proof-field full"><label for="proof-record">Record / next repair</label><textarea id="proof-record" maxlength="500" placeholder="Where is the evidence, and what should the next build inspect?"></textarea></div>
+                    </div>
+                    <div class="proof-checks" role="group" aria-label="Proof checks">
+                        <label class="proof-check"><input type="checkbox" data-proof-step="scope" /><strong>Scope</strong><span>contained</span><small>keep honest</small></label>
+                        <label class="proof-check"><input type="checkbox" data-proof-step="behavior" /><strong>Behavior</strong><span>visible</span><small>show it works</small></label>
+                        <label class="proof-check"><input type="checkbox" data-proof-step="quality" /><strong>Quality</strong><span>checked</span><small>trust signal</small></label>
+                        <label class="proof-check"><input type="checkbox" data-proof-step="record" /><strong>Record</strong><span>portable</span><small>leave a trail</small></label>
+                    </div>
+                    <div class="proof-audit" id="proof-audit" aria-live="polite"><div class="proof-audit-empty">No Lighthouse result loaded. Run the local audit to add a quality signal.</div></div>
+                    <details class="proof-history"><summary>Recorded proof passes</summary><div class="proof-history-list" id="proof-history-list"></div></details>
+                </div>
+            </div>
+            <div class="proof-footer"><span id="proof-count">0 of 4 checks complete</span><div class="proof-actions"><button class="proof-action" id="proof-copy" type="button"><i class="fas fa-share-nodes"></i> Copy proof</button><button class="proof-action" id="proof-export" type="button"><i class="fas fa-download"></i> Export JSON</button><button class="proof-action is-primary" id="proof-record" type="button"><i class="fas fa-file-circle-check"></i> Record proof</button></div><span><strong id="proof-runs">0 audits</strong> · <span id="proof-views">0 opened</span></span></div>
+            <p class="proof-hint"><i class="fas fa-keyboard"></i> <kbd>Shift</kbd> <kbd>V</kbd> opens Proof · records stay in this browser until you export or copy them</p>
+        </div>
+    </section>
+
     <section id="landing" class="section landing-section">
         <div class="container">
             <div class="landing-header">
@@ -6263,6 +6314,7 @@
     <script src="js/archive.js?v=2" defer></script>
     <script src="js/handoff.js?v=1" defer></script>
     <script src="js/intake.js?v=1" defer></script>
+    <script src="js/proof.js?v=104" defer></script>
     <script src="js/dock.js?v=1" defer></script>
     <script src="js/lighthouse.js?v=106" defer></script>
     <script src="js/releases.js?v=107" defer></script>
