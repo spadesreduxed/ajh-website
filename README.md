@@ -1,3 +1,27 @@
+### Day 105 - 2026-08-08
+**Status**: Build Repair — turn the next fix into a small verified patch
+**Actions**:
+- Added a local-first Build Repair workflow after Build Proof.
+- Added signal, small patch, expected change, and verification record fields.
+- Added three-step readiness checks, copy/export actions, history, persistence, keyboard shortcut, and hero/nav entry.
+- Rolled shared build labels, ledger, release/archive counters, and service-worker cache forward to Day 105.
+
+**Files Changed**:
+- `index.html` - Repair section, navigation, hero shortcut, Day 105 labels, and build-log card.
+- `css/repair.css` - Responsive Repair interface and theme-safe styling.
+- `js/repair.js` - Draft persistence, checks, record history, copy, export, and shortcut.
+- `js/compass.js` - Added Day 105 Build Repair to the shared build dataset.
+- `js/ledger.js` - Added Day 105 to the searchable ledger.
+- `js/main.js` - Updated the Day 105 boot label.
+- `js/releases.js` - Rolled the release archive to 105 days.
+- `sw.js` - Updated the cache version and Repair assets.
+
+**Next Steps**:
+- Add a direct Proof → Repair import when the next signal is recorded.
+- Continue building new features daily — never stop.
+
+---
+
 ### Day 104 - 2026-08-07
 **Status**: Build Proof - make the result verifiable
 

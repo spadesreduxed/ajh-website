@@ -64,6 +64,7 @@
     { d: 102, a: 'systems', n: 'Build Handoff', i: 4 },
     { d: 103, a: 'systems', n: 'Build Intake', i: 4 },
     { d: 104, a: 'systems', n: 'Build Proof', i: 5 },
+    { d: 105, a: 'systems', n: 'Build Repair', i: 4 },
   ];
 
   const ARCH = {
@@ -74,7 +75,7 @@
   };
   const KEY = 'ajh_compass_v1';
   const TOTAL = BUILDS.length;
-  const state = { filter: 'all', selected: 104, theme: 'dark', views: 0 };
+  const state = { filter: 'all', selected: 105, theme: 'dark', views: 0 };
   const $ = (id) => document.getElementById(id);
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 
@@ -125,7 +126,7 @@
     const b = BUILDS.find((build) => build.d === state.selected) || BUILDS[BUILDS.length - 1]; const meta = ARCH[b.a];
     $('cp-focus-day').textContent = 'Day ' + b.d; $('cp-focus-day').style.color = meta.color;
     $('cp-focus-name').textContent = b.n; $('cp-focus-arch').textContent = meta.label; $('cp-focus-date').textContent = date(b.d);
-    $('cp-focus-impact').textContent = 'Impact ' + b.i + '/5'; $('cp-focus-desc').textContent = b.n + ' sits on the ' + meta.label.toLowerCase() + ' axis of the build compass. The map turns the 104-day streak into direction: where the work points, and what to build next.';
+    $('cp-focus-impact').textContent = 'Impact ' + b.i + '/5'; $('cp-focus-desc').textContent = b.n + ' sits on the ' + meta.label.toLowerCase() + ' axis of the build compass. The map turns the 105-day streak into direction: where the work points, and what to build next.';
   }
   function render() {
     $('cp-stage').innerHTML = compassSvg(); updateFocus(); updateRecommendation();

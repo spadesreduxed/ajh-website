@@ -3,7 +3,7 @@
  * Enables offline support for the website
  */
 
-const CACHE_NAME = 'ajh-website-v3';
+const CACHE_NAME = 'ajh-website-v4';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -17,6 +17,8 @@ const ASSETS_TO_CACHE = [
   '/manifest.json',
   '/css/proof.css',
   '/js/proof.js',
+  '/css/repair.css',
+  '/js/repair.js',
   '/sitemap.xml',
   '/robots.txt'
 ];

@@ -1,0 +1,40 @@
+.repair-section { background: radial-gradient(circle at 12% 12%, rgba(255, 123, 84, .09), transparent 34%), var(--bg-secondary, #0c1018); }
+.repair-header { max-width: 760px; margin-bottom: 2rem; }
+.repair-kicker { color: #ff8b6b; font: 700 .75rem/1.2 'JetBrains Mono', monospace; letter-spacing: .12em; text-transform: uppercase; }
+.repair-title { margin: .65rem 0 .6rem; font-size: clamp(2rem, 5vw, 3.4rem); }
+.repair-subtitle { color: var(--text-secondary, #aab4c5); max-width: 680px; }
+.repair-toolbar, .repair-actions { display: flex; flex-wrap: wrap; gap: .65rem; align-items: center; }
+.repair-toolbar { margin-bottom: 1rem; }
+.repair-action { border: 1px solid rgba(255, 139, 107, .3); background: rgba(255, 255, 255, .04); color: inherit; border-radius: 999px; padding: .65rem .9rem; cursor: pointer; transition: .2s ease; }
+.repair-action:hover, .repair-action:focus-visible { border-color: #ff8b6b; transform: translateY(-1px); }
+.repair-action.is-primary { background: #ff8b6b; border-color: #ff8b6b; color: #190d0a; font-weight: 800; }
+.repair-grid { display: grid; grid-template-columns: minmax(240px, .75fr) minmax(0, 1.25fr); gap: 1rem; }
+.repair-card { border: 1px solid rgba(255,255,255,.1); border-radius: 1.1rem; padding: 1.25rem; background: rgba(255,255,255,.045); box-shadow: 0 18px 55px rgba(0,0,0,.14); }
+.repair-status-card { display: flex; gap: 1rem; align-items: center; }
+.repair-orb { min-width: 86px; aspect-ratio: 1; display: grid; place-content: center; text-align: center; border-radius: 50%; border: 1px solid rgba(255,139,107,.5); background: radial-gradient(circle, rgba(255,139,107,.2), transparent 68%); }
+.repair-orb strong { font-size: 1.35rem; }
+.repair-orb span, .repair-card-label, .repair-status-pill, .repair-field label, .repair-hint, .repair-history summary { color: var(--text-secondary, #aab4c5); font-size: .78rem; }
+.repair-card h3 { margin: .35rem 0; }
+.repair-card p { color: var(--text-secondary, #aab4c5); margin: 0; }
+.repair-status-pill { display: inline-block; margin-top: .65rem; border: 1px solid rgba(255,139,107,.3); border-radius: 999px; padding: .25rem .55rem; }
+.repair-progress-track { height: 5px; margin-top: .75rem; overflow: hidden; border-radius: 99px; background: rgba(255,255,255,.1); }
+.repair-progress-track span { display: block; width: 0; height: 100%; background: #ff8b6b; transition: width .25s ease; }
+.repair-fields { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+.repair-field { display: grid; gap: .35rem; }
+.repair-field.full { grid-column: 1 / -1; }
+.repair-field input, .repair-field textarea { width: 100%; border: 1px solid rgba(255,255,255,.13); border-radius: .65rem; padding: .75rem; background: rgba(0,0,0,.14); color: inherit; font: inherit; resize: vertical; }
+.repair-field textarea { min-height: 92px; }
+.repair-field input:focus, .repair-field textarea:focus { outline: 2px solid rgba(255,139,107,.5); outline-offset: 2px; }
+.repair-checks { display: grid; grid-template-columns: repeat(3, 1fr); gap: .65rem; margin-top: 1rem; }
+.repair-check { display: grid; gap: .15rem; padding: .75rem; border: 1px solid rgba(255,255,255,.1); border-radius: .75rem; cursor: pointer; }
+.repair-check:has(input:checked) { border-color: #ff8b6b; background: rgba(255,139,107,.09); }
+.repair-check input { accent-color: #ff8b6b; }
+.repair-check span, .repair-check small { color: var(--text-secondary, #aab4c5); font-size: .75rem; }
+.repair-history { margin-top: 1rem; border-top: 1px solid rgba(255,255,255,.1); padding-top: .9rem; }
+.repair-history-list { display: grid; gap: .55rem; margin-top: .75rem; }
+.repair-history-item { padding: .7rem; border-left: 2px solid #ff8b6b; background: rgba(255,255,255,.04); }
+.repair-history-item strong, .repair-history-item span { display: block; }
+.repair-history-item span { color: var(--text-secondary, #aab4c5); font-size: .78rem; }
+.repair-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; align-items: center; margin-top: 1rem; }
+@media (max-width: 760px) { .repair-grid { grid-template-columns: 1fr; } .repair-fields, .repair-checks { grid-template-columns: 1fr; } .repair-field.full { grid-column: auto; } }
+@media (prefers-reduced-motion: reduce) { .repair-action { transition: none; } }
