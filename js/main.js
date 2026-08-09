@@ -852,6 +852,9 @@ function initCommandPalette() {
     { id: 'tool-proof-import', label: 'Load Intake Into Proof', icon: 'fa-arrow-down', category: 'Tools', action: () => window.ajhProof && window.ajhProof.importIntake && window.ajhProof.importIntake() },
     { id: 'tool-proof-audit', label: 'Build Proof: Get Quality Signal', icon: 'fa-stethoscope', category: 'Tools', action: () => window.ajhProof && window.ajhProof.runAudit && window.ajhProof.runAudit() },
     { id: 'tool-proof-record', label: 'Record Build Proof', icon: 'fa-file-circle-check', category: 'Tools', action: () => window.ajhProof && window.ajhProof.record && window.ajhProof.record() },
+    { id: 'tool-repair-open', label: 'Open Build Repair', icon: 'fa-screwdriver-wrench', shortcut: 'Shift X', category: 'Tools', action: () => window.ajhRepair && window.ajhRepair.open && window.ajhRepair.open() },
+    { id: 'tool-repair-import', label: 'Import Proof Into Repair', icon: 'fa-arrow-down', category: 'Tools', action: () => window.ajhRepair && window.ajhRepair.importProof && window.ajhRepair.importProof() },
+    { id: 'tool-repair-record', label: 'Record Build Repair', icon: 'fa-screwdriver-wrench', category: 'Tools', action: () => window.ajhRepair && window.ajhRepair.record && window.ajhRepair.record() },
 
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -1192,7 +1195,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBookmarkCards();
   initDay78HeroButtons();
 
-  console.log('⚡ AJH Website loaded - Day 105: Build Repair');
+  console.log('⚡ AJH Website loaded - Day 106: Proof → Repair Bridge');
 });
 
 // Day 48 - Daily Challenge + API Status

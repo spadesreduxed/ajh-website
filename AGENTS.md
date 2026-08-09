@@ -1,3 +1,34 @@
+### Day 106 - 2026-08-09
+**Status**: Proof → Repair Bridge — carry the signal forward
+
+**Actions**:
+- Added a direct **Import Proof** action to Build Repair.
+- The bridge inherits the latest proof's title, owner, behavior, quality signal, record, and next-repair context into a new local repair draft.
+- Added command-palette actions and a public `window.ajhRepair` bridge API for opening, importing, recording, copying, and exporting.
+- Rolled shared build history, current-day labels, stats, release archive, ledger, Compass, and the service-worker cache forward to Day 106.
+- Researched native HTML controls, local-first persistence, accessible button semantics, and GitHub Pages static delivery before shipping.
+
+**Files Changed**:
+- `index.html` - Day 106 labels, Proof import control, current stats, and build-log card.
+- `js/repair.js` - Proof-to-Repair import, shared bridge API, and keyboard-safe navigation.
+- `js/main.js` - Day 106 boot label and command-palette Repair actions.
+- `js/compass.js` - Added Day 106 to the shared build map.
+- `js/ledger.js` - Added Day 106 to the searchable ledger.
+- `js/releases.js` - Added Day 106 to the release archive.
+- `sw.js` - Bumped the offline cache version.
+- `README.md` and `AGENTS.md` - Documented the latest build.
+
+**Validation**:
+- `node --check` passes for all JavaScript modules.
+- `git diff --check` passes.
+- Local static preview smoke test completed.
+
+**Next Steps**:
+- Let Repair hand its recorded patch back into Proof for a complete verify → repair → verify loop.
+- Continue building new features daily — never stop.
+
+---
+
 ### Day 105 - 2026-08-08
 **Status**: Build Repair — turn the next fix into a small verified patch
 **Actions**:
