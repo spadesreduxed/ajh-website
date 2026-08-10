@@ -806,7 +806,7 @@ function initCommandPalette() {
     { id: 'tool-waveform-mode', label: 'Build Waveform: Cycle Listen / Spectrum / History', icon: 'fa-wave-square', category: 'Tools', action: () => window.ajhWaveform && window.ajhWaveform.cycleMode && window.ajhWaveform.cycleMode() },
     { id: 'tool-waveform-export', label: 'Build Waveform: Export as JSON', icon: 'fa-download', category: 'Tools', action: () => window.ajhWaveform && window.ajhWaveform.export && window.ajhWaveform.export() },
     { id: 'tool-compass-open', label: 'Open Build Compass', icon: 'fa-compass', shortcut: 'G C', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.open && window.ajhCompass.open() },
-    { id: 'tool-compass-today', label: 'Build Compass: Jump to Today', icon: 'fa-location-crosshairs', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.jump && window.ajhCompass.jump(101) },
+    { id: 'tool-compass-today', label: 'Build Compass: Jump to Today', icon: 'fa-location-crosshairs', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.jump && window.ajhCompass.jump(107) },
     { id: 'tool-compass-next', label: 'Build Compass: Next Direction', icon: 'fa-arrow-right', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.next && window.ajhCompass.next() },
     { id: 'tool-compass-random', label: 'Build Compass: Random Build', icon: 'fa-shuffle', category: 'Tools', action: () => window.ajhCompass && window.ajhCompass.random && window.ajhCompass.random() },
     { id: 'tool-lighthouse-open', label: 'Run Build Lighthouse Audit', icon: 'fa-lightbulb', shortcut: 'G L H', category: 'Tools', action: () => window.ajhLighthouse && window.ajhLighthouse.run && window.ajhLighthouse.run() },
@@ -850,6 +850,7 @@ function initCommandPalette() {
     { id: 'tool-intake-start', label: 'Start Today’s Build Slice', icon: 'fa-play', category: 'Tools', action: () => window.ajhIntake && window.ajhIntake.start && window.ajhIntake.start() },
     { id: 'tool-proof-open', label: 'Open Build Proof', icon: 'fa-file-circle-check', shortcut: 'Shift V', category: 'Tools', action: () => window.ajhProof && window.ajhProof.open && window.ajhProof.open() },
     { id: 'tool-proof-import', label: 'Load Intake Into Proof', icon: 'fa-arrow-down', category: 'Tools', action: () => window.ajhProof && window.ajhProof.importIntake && window.ajhProof.importIntake() },
+    { id: 'tool-proof-repair', label: 'Load Repair Into Proof', icon: 'fa-screwdriver-wrench', category: 'Tools', action: () => window.ajhProof && window.ajhProof.importRepair && window.ajhProof.importRepair() },
     { id: 'tool-proof-audit', label: 'Build Proof: Get Quality Signal', icon: 'fa-stethoscope', category: 'Tools', action: () => window.ajhProof && window.ajhProof.runAudit && window.ajhProof.runAudit() },
     { id: 'tool-proof-record', label: 'Record Build Proof', icon: 'fa-file-circle-check', category: 'Tools', action: () => window.ajhProof && window.ajhProof.record && window.ajhProof.record() },
     { id: 'tool-repair-open', label: 'Open Build Repair', icon: 'fa-screwdriver-wrench', shortcut: 'Shift X', category: 'Tools', action: () => window.ajhRepair && window.ajhRepair.open && window.ajhRepair.open() },
@@ -1195,7 +1196,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBookmarkCards();
   initDay78HeroButtons();
 
-  console.log('⚡ AJH Website loaded - Day 106: Proof → Repair Bridge');
+  console.log('⚡ AJH Website loaded - Day 107: Repair → Proof Bridge');
 });
 
 // Day 48 - Daily Challenge + API Status

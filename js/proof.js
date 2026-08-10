@@ -16,6 +16,22 @@
     else { state.title = 'Proof of the next slice'; state.scope = 'Import a completed Intake or define the smallest result to verify.'; state.behavior = 'Name the visible behavior a visitor should be able to confirm.'; state.record = 'Keep the result local until it is checked, then export or copy the record.'; }
     state.checks.scope = Boolean(state.scope); state.checks.behavior = Boolean(state.behavior); state.checks.record = Boolean(state.record); save(); render(); open();
   }
+  function importRepair() {
+    const repair = window.ajhRepair?.state?.() || {};
+    const latest = repair.history?.[0];
+    const source = latest || repair.draft || repair;
+    const patch = source.repair || 'No repair patch is loaded yet. Choose the smallest useful change.';
+    const expected = source.expected || 'Confirm the visitor-visible result after the repair is applied.';
+    state.title = `Proof after ${source.title || 'the latest repair'}`;
+    state.owner = source.owner || 'AJH';
+    state.scope = `Repair under verification: ${patch}`;
+    state.behavior = expected;
+    state.quality = '';
+    state.record = source.notes ? `Imported from Build Repair: ${source.notes}` : 'Run a fresh quality signal, record the observation, and name the next repair if one remains.';
+    state.checks = { scope: Boolean(state.scope), behavior: Boolean(state.behavior), quality: false, record: Boolean(state.record) };
+    save(); render(); open();
+    $('proof-message').textContent = latest ? 'Repair imported. Run a fresh quality signal before recording this proof.' : 'Repair draft imported. Finish the patch, then verify the result here.';
+  }
   function importLighthouse() {
     const data = sourceLighthouse();
     if (!data.report?.length) return;
@@ -43,6 +59,6 @@
   function exportJSON() { const url = URL.createObjectURL(new Blob([JSON.stringify({ ...state, exportedAt: new Date().toISOString() }, null, 2)], { type: 'application/json' })); const link = document.createElement('a'); link.href = url; link.download = `ajh-build-proof-${new Date().toISOString().slice(0, 10)}.json`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); }
   function record() { if (complete() !== STEPS.length || !state.title.trim()) { $('proof-message').textContent = 'Add a proof title and complete all four checks before recording.'; $('proof-title').focus(); return; } const item = { title: state.title.trim(), owner: state.owner.trim() || 'AJH', scope: state.scope.trim(), behavior: state.behavior.trim(), quality: state.quality.trim(), record: state.record.trim(), score: state.audit?.score ?? null, date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) }; state.history = [item, ...state.history.filter((entry) => entry.title !== item.title)].slice(0, 8); state.audit = null; state.runs += 1; state.checks = {}; state.title = ''; state.scope = ''; state.behavior = ''; state.quality = ''; state.record = ''; save(); render(); $('proof-status').textContent = 'Proof recorded'; $('proof-message').textContent = 'The result is logged locally. Keep the exported record with the shipped change.'; }
   function open() { $('proof')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); state.views += 1; save(); render(); }
-  function boot() { load(); [['title','title'],['owner','owner'],['scope','scope'],['behavior','behavior'],['quality','quality'],['record','notes']].forEach(([field,id]) => $('proof-' + id)?.addEventListener('input', (event) => update(field, event.target.value))); document.querySelectorAll('[data-proof-step]').forEach((input) => input.addEventListener('change', (event) => { state.checks[event.target.dataset.proofStep] = event.target.checked; save(); render(); })); $('proof-import-intake')?.addEventListener('click', importIntake); $('proof-import-lighthouse')?.addEventListener('click', importLighthouse); $('proof-audit-run')?.addEventListener('click', runAudit); $('proof-reset')?.addEventListener('click', reset); $('proof-copy')?.addEventListener('click', copy); $('proof-export')?.addEventListener('click', exportJSON); $('proof-record')?.addEventListener('click', record); $('proof-hero-btn')?.addEventListener('click', open); document.addEventListener('keydown', (event) => { if (event.target.matches('input, textarea, select, button, a')) return; if (event.shiftKey && event.key.toLowerCase() === 'v') open(); }); window.ajhProof = { open, importIntake, importLighthouse, runAudit, record, copy, exportJSON, state: () => ({ ...state, checks: { ...state.checks }, history: [...state.history] }) }; render(); }
+  function boot() { load(); [['title','title'],['owner','owner'],['scope','scope'],['behavior','behavior'],['quality','quality'],['record','notes']].forEach(([field,id]) => $('proof-' + id)?.addEventListener('input', (event) => update(field, event.target.value))); document.querySelectorAll('[data-proof-step]').forEach((input) => input.addEventListener('change', (event) => { state.checks[event.target.dataset.proofStep] = event.target.checked; save(); render(); })); $('proof-import-intake')?.addEventListener('click', importIntake); $('proof-import-repair')?.addEventListener('click', importRepair); $('proof-import-lighthouse')?.addEventListener('click', importLighthouse); $('proof-audit-run')?.addEventListener('click', runAudit); $('proof-reset')?.addEventListener('click', reset); $('proof-copy')?.addEventListener('click', copy); $('proof-export')?.addEventListener('click', exportJSON); $('proof-record')?.addEventListener('click', record); $('proof-hero-btn')?.addEventListener('click', open); document.addEventListener('keydown', (event) => { if (event.target.matches('input, textarea, select, button, a')) return; if (event.shiftKey && event.key.toLowerCase() === 'v') open(); }); window.ajhProof = { open, importIntake, importRepair, importLighthouse, runAudit, record, copy, exportJSON, state: () => ({ ...state, checks: { ...state.checks }, history: [...state.history] }) }; render(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();
