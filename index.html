@@ -90,6 +90,7 @@
     <link rel="stylesheet" href="css/intake.css?v=1">
     <link rel="stylesheet" href="css/proof.css?v=107">
     <link rel="stylesheet" href="css/repair.css?v=107">
+    <link rel="stylesheet" href="css/verify.css?v=108">
     <link rel="stylesheet" href="css/lighthouse.css?v=106">
     <link rel="stylesheet" href="css/releases.css?v=108">
     <link rel="stylesheet" href="css/theme.css">
@@ -200,6 +201,7 @@
             <li><a href="#handoff">Handoff</a></li>
             <li><a href="#proof">Proof</a></li>
             <li><a href="#repair">Repair</a></li>
+            <li><a href="#verify">Verify</a></li>
             <li><a href="#lighthouse">Lighthouse</a></li>
             <li><a href="#releases">Releases</a></li>
             <li><a href="#quotes">Quotes</a></li>
@@ -397,6 +399,9 @@
                 <button class="plan-btn" id="repair-hero-btn" aria-label="Build repair" title="Open Build Repair — turn the next fix into a small verified patch (Shift X)">
                     <i class="fas fa-screwdriver-wrench"></i>
                 </button>
+                <button class="plan-btn" id="verify-hero-btn" aria-label="Build verify" title="Open Build Verify — confirm the shipped result (Shift Z)">
+                    <i class="fas fa-shield-halved"></i>
+                </button>
                 <button class="plan-btn" id="ledger-hero-btn" aria-label="Build ledger" title="Open the Build Ledger (G L)">
                     <i class="fas fa-table-list"></i>
                 </button>
@@ -413,7 +418,7 @@
                     <span class="stat-label">Repositories</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value" data-count="105">0</span>
+                    <span class="stat-value" data-count="108">0</span>
                     <span class="stat-label">Days Building</span>
                 </div>
                 <div class="stat">
@@ -424,7 +429,7 @@
             <div class="daily-streak">
                 <span class="streak-icon">🔥</span>
                 <div class="streak-info">
-                    <span class="streak-count">104 days</span>
+                    <span class="streak-count">108 days</span>
                     <span class="streak-label">Daily Streak</span>
                 </div>
             </div>
@@ -444,11 +449,11 @@
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-bolt"></i>
-                    <span class="insight-value">Day 107</span>
+                    <span class="insight-value">Day 108</span>
                 </div>
                 <div class="insight-item">
                     <i class="fas fa-fire"></i>
-                    <span class="insight-value">102</span>
+                    <span class="insight-value">103</span>
                     <span class="insight-label">streak</span>
                 </div>
             </div>
@@ -827,7 +832,7 @@
             <div class="stats-bento">
                 <div class="stat-card large">
                     <i class="fas fa-fire"></i>
-                    <div class="stat-number" data-count="102">0</div>
+                    <div class="stat-number" data-count="108">0</div>
                     <div class="stat-label">Day Streak 🔥</div>
                     <div class="stat-sublabel">Never missed a day</div>
                 </div>
@@ -1399,6 +1404,10 @@
                 <p class="section-subtitle">New features, improvements, and experiments</p>
             </div>
             <div class="blog-grid">
+                <div class="blog-card" id="build-day-108">
+                    <div class="blog-date"><span class="blog-day">11</span><span class="blog-month">August 2026</span></div>
+                    <div class="blog-content"><span class="blog-tag">Day 108</span><h3>Build Verify — Close the Quality Loop</h3><p>Day 108 adds a calm verification packet after Repair and Proof: check that the latest patch, result, and fresh Lighthouse signal are all present, then copy or export one portable snapshot. The loop now ends with a visible answer instead of a hopeful feeling.</p></div>
+                </div>
                 <div class="blog-card" id="build-day-107">
                     <div class="blog-date"><span class="blog-day">10</span><span class="blog-month">August 2026</span></div>
                     <div class="blog-content"><span class="blog-tag">Day 107</span><h3>Repair → Proof Bridge — Close the Verify Loop</h3><p>Day 107 closes the local evidence loop: import the latest Build Repair back into Build Proof, carry the patch and expected change forward, then run a fresh quality signal before recording the result. The builder can now move from proof to repair and back to proof without losing the thread.</p></div>
@@ -1955,7 +1964,7 @@
                         <div class="project-progress">
                             <div class="progress-header">
                                 <span>Build Progress</span>
-                                <span class="progress-percent">Day 107/∞</span>
+                                <span class="progress-percent">Day 108/∞</span>
                             </div>
                             <div class="progress-bar">
                                 <div class="progress-fill" style="width: 100%"></div>
@@ -5740,7 +5749,7 @@
                 <div class="cp-stat"><span class="cp-stat-value" id="cp-stat-views">0</span><span class="cp-stat-label">Explorations</span></div>
             </div>
             <div class="cp-focus" aria-live="polite">
-                <div class="cp-focus-day" id="cp-focus-day">Day 107</div>
+                <div class="cp-focus-day" id="cp-focus-day">Day 108</div>
                 <h3 class="cp-focus-name" id="cp-focus-name">Build Compass</h3>
                 <span class="cp-focus-arch" id="cp-focus-arch">Systems</span>
                 <span class="cp-focus-impact" id="cp-focus-impact">Impact 5/5</span>
@@ -5771,7 +5780,7 @@
                 </div>
                 <button class="ledger-action" id="ledger-export" type="button"><i class="fas fa-download"></i> Export CSV</button>
             </div>
-            <div class="ledger-summary"><strong id="ledger-count">0</strong><span>days shown</span><span>·</span><span id="ledger-impact">0 impact points</span><span>·</span><span id="ledger-latest">Day 107 latest</span></div>
+            <div class="ledger-summary"><strong id="ledger-count">0</strong><span>days shown</span><span>·</span><span id="ledger-impact">0 impact points</span><span>·</span><span id="ledger-latest">Day 108 latest</span></div>
             <div class="ledger-table-wrap">
                 <table class="ledger-table">
                     <caption class="sr-only">AJH daily build ledger</caption>
@@ -5787,14 +5796,14 @@
     <section id="pulse" class="section pulse-section">
         <div class="container">
             <div class="pulse-header">
-                <span class="pulse-kicker"><i class="fas fa-chart-line"></i> Day 107 · Signal</span>
+                <span class="pulse-kicker"><i class="fas fa-chart-line"></i> Day 108 · Signal</span>
                 <h2 class="pulse-title">Build Pulse</h2>
                 <p class="pulse-subtitle">A compact readout of the streak: how much shipped, where the energy is, and which direction deserves the next deliberate move.</p>
             </div>
             <div class="pulse-toolbar"><button class="pulse-action" id="pulse-refresh" type="button"><i class="fas fa-rotate"></i> Recalculate</button></div>
             <div class="pulse-snapshot">
                 <div class="pulse-card pulse-score-card"><div class="pulse-score-orb"><strong id="pulse-score">—</strong><span>/100</span></div><div><span class="pulse-card-label">Current signal</span><strong class="pulse-card-value" id="pulse-score-note">Reading the streak…</strong><span class="pulse-card-note">A local composite of recent momentum, consistency, and impact.</span></div></div>
-                <div class="pulse-card"><span class="pulse-card-label">Latest ship</span><strong class="pulse-card-value" id="pulse-latest">Day 107</strong><span class="pulse-card-note" id="pulse-latest-note">Repair → Proof Bridge</span></div>
+                <div class="pulse-card"><span class="pulse-card-label">Latest ship</span><strong class="pulse-card-value" id="pulse-latest">Day 108</strong><span class="pulse-card-note" id="pulse-latest-note">Build Verify</span></div>
                 <div class="pulse-card"><span class="pulse-card-label">Total impact</span><strong class="pulse-card-value" id="pulse-impact">—</strong><span class="pulse-card-note" id="pulse-impact-note">Across the full streak</span></div>
                 <div class="pulse-card"><span class="pulse-card-label">Average build</span><strong class="pulse-card-value" id="pulse-avg">—</strong><span class="pulse-card-note" id="pulse-avg-note">Recent momentum</span></div>
             </div>
@@ -6278,6 +6287,33 @@
         </div>
     </section>
 
+    <section id="verify" class="section verify-section">
+        <div class="container">
+            <div class="verify-header">
+                <span class="verify-kicker"><i class="fas fa-shield-halved"></i> Day 108 · Verification</span>
+                <h2 class="verify-title">Build Verify</h2>
+                <p class="verify-subtitle">Repair makes the patch. Proof makes the result legible. Verify checks that both are backed by a fresh quality signal, then packages the answer for tomorrow.</p>
+            </div>
+            <div class="verify-toolbar">
+                <button class="verify-action" id="verify-refresh" type="button"><i class="fas fa-rotate"></i> Refresh packet</button>
+                <button class="verify-action" id="verify-quality" type="button"><i class="fas fa-lightbulb"></i> Run quality signal</button>
+            </div>
+            <div class="verify-grid">
+                <div class="verify-card verify-status-card" id="verify-status-card" aria-live="polite">
+                    <div class="verify-orb"><strong id="verify-progress">0/3</strong><span>signals</span></div>
+                    <div><span class="verify-card-label">Verification packet</span><h3 id="verify-status">Awaiting a verification trail</h3><p id="verify-message">3 signals still missing before this slice has a complete verification packet.</p><span class="verify-status-pill" id="verify-status-pill">Local snapshot</span><div class="verify-progress-track"><span id="verify-progress-bar"></span></div></div>
+                </div>
+                <div class="verify-card">
+                    <div class="verify-summary"><div><strong>Latest quality signal</strong><br><span id="verify-audit-date">Not checked</span></div><div class="verify-score"><strong id="verify-score">—</strong><span>/ 100</span></div></div>
+                    <div class="verify-lanes" id="verify-lanes" aria-live="polite"></div>
+                </div>
+            </div>
+            <div class="verify-footer"><span id="verify-count">0 of 3 signals present</span><div class="verify-actions"><button class="verify-action" id="verify-copy" type="button"><i class="fas fa-share-nodes"></i> Copy packet</button><button class="verify-action is-primary" id="verify-export" type="button"><i class="fas fa-download"></i> Export JSON</button></div><span id="verify-views">0 opened · 0 refreshed</span></div>
+            <p class="verify-hint"><i class="fas fa-keyboard"></i> <kbd>Shift</kbd> <kbd>Z</kbd> opens Verify · this packet reads local Repair, Proof, and Lighthouse state without sending data anywhere</p>
+            <p class="verify-hint" id="verify-checked-at">No snapshot checked yet</p>
+        </div>
+    </section>
+
     <section id="lighthouse" class="section lighthouse-section">
         <div class="container">
             <div class="lh-header">
@@ -6368,6 +6404,7 @@
     <script src="js/intake.js?v=1" defer></script>
     <script src="js/proof.js?v=107" defer></script>
     <script src="js/repair.js?v=107" defer></script>
+    <script src="js/verify.js?v=108" defer></script>
     <script src="js/dock.js?v=1" defer></script>
     <script src="js/lighthouse.js?v=106" defer></script>
     <script src="js/releases.js?v=107" defer></script>
