@@ -68,8 +68,8 @@
     { d: 107, a: 'systems', n: 'Repair → Proof Bridge', i: 4 },
     { d: 109, a: 'systems', n: 'Build Ship', i: 4 },
   ];
-  function date(day) { const dates = { 109: 'Aug 12, 2026', 108: 'Aug 11, 2026', 107: 'Aug 10, 2026' }; return dates[day] || new Date(2026, 3, 21 + day).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
-  function isoDate(day) { const dates = { 109: '2026-08-12', 108: '2026-08-11', 107: '2026-08-10' }; return dates[day] || `2026-04-${String(21 + day).padStart(2, '0')}`; }
+  function date(day) { const dates = { 109: 'Aug 12, 2026', 108: 'Aug 11, 2026', 107: 'Aug 10, 2026', 106: 'Aug 9, 2026', 105: 'Aug 8, 2026', 102: 'Aug 5, 2026', 103: 'Aug 6, 2026', 104: 'Aug 7, 2026', 101: 'Aug 4, 2026', 100: 'Aug 3, 2026', 99: 'Aug 2, 2026', 98: 'Aug 1, 2026', 97: 'Jul 31, 2026', 96: 'Jul 30, 2026', 95: 'Jul 29, 2026', 94: 'Jul 28, 2026', 93: 'Jul 27, 2026', 92: 'Jul 26, 2026' }; return dates[day] || new Date(2026, 3, 21 + day).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
+  function isoDate(day) { const dates = { 109: '2026-08-12', 108: '2026-08-11', 107: '2026-08-10', 106: '2026-08-09', 105: '2026-08-08', 104: '2026-08-07', 101: '2026-08-04', 100: '2026-08-03', 99: '2026-08-02', 98: '2026-08-01', 97: '2026-07-31', 96: '2026-07-30', 95: '2026-07-29', 94: '2026-07-28', 93: '2026-07-27', 92: '2026-07-26', 103: '2026-08-06' }; return dates[day] || `2026-04-${String(21 + day).padStart(2, '0')}`; }
   function journalCard(day) { return [...document.querySelectorAll('#blog .blog-card')].find((el) => el.textContent.includes(`Day ${day}`)); }
   function visible(b) { const q = state.query.trim().toLowerCase(); return (state.filter === 'all' || b.a === state.filter) && (!q || `${b.d} ${b.n} ${b.a}`.toLowerCase().includes(q)); }
   function render() {
