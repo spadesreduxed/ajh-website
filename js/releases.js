@@ -1,6 +1,7 @@
 (function () {
   'use strict';
   const BUILDS = [
+    { d: 109, a: 'systems', n: 'Build Ship', i: 4, date: 'Aug 12, 2026', text: 'A final local delivery packet makes the verified result portable: confirm the preview, name the evidence, and leave tomorrow a clean handoff.' },
     { d: 107, a: 'systems', n: 'Repair → Proof Bridge', i: 4, date: 'Aug 10, 2026', text: 'Repair now hands its patch and expected change back to Proof so a fresh quality signal can close the verify loop.' },
     { d: 108, a: 'systems', n: 'Build Verify', i: 4, date: 'Aug 11, 2026', text: 'A compact local packet checks the latest repair, proof, and Lighthouse signal together so the shipped result has a visible answer.' },
     { d: 106, a: 'systems', n: 'Proof → Repair Bridge', i: 4, date: 'Aug 9, 2026', text: 'Proof now hands its behavior, quality signal, and record directly to Repair so the next patch starts with context instead of retyping.' },

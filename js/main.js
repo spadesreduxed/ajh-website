@@ -859,6 +859,9 @@ function initCommandPalette() {
     { id: 'tool-verify-open', label: 'Open Build Verify', icon: 'fa-shield-halved', shortcut: 'Shift Z', category: 'Tools', action: () => window.ajhVerify && window.ajhVerify.open && window.ajhVerify.open() },
     { id: 'tool-verify-refresh', label: 'Refresh Verification Packet', icon: 'fa-rotate', category: 'Tools', action: () => window.ajhVerify && window.ajhVerify.refresh && window.ajhVerify.refresh() },
     { id: 'tool-verify-export', label: 'Export Verification Packet', icon: 'fa-download', category: 'Tools', action: () => window.ajhVerify && window.ajhVerify.exportJSON && window.ajhVerify.exportJSON() },
+    { id: 'tool-ship-open', label: 'Open Build Ship', icon: 'fa-rocket', shortcut: 'Shift Q', category: 'Tools', action: () => window.ajhShip && window.ajhShip.open && window.ajhShip.open() },
+    { id: 'tool-ship-import', label: 'Load Verify Into Ship', icon: 'fa-arrow-down', category: 'Tools', action: () => window.ajhShip && window.ajhShip.importVerify && window.ajhShip.importVerify() },
+    { id: 'tool-ship-record', label: 'Record Build Ship', icon: 'fa-rocket', category: 'Tools', action: () => window.ajhShip && window.ajhShip.record && window.ajhShip.record() },
 
     // Pages
     { id: 'page-github', label: 'View GitHub Profile', icon: 'fab fa-github', category: 'Pages', action: () => window.open('https://github.com/1ajh', '_blank') },
@@ -1199,7 +1202,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBookmarkCards();
   initDay78HeroButtons();
 
-  console.log('⚡ AJH Website loaded - Day 108: Build Verify');
+  console.log('⚡ AJH Website loaded - Day 109: Build Ship');
 });
 
 // Day 48 - Daily Challenge + API Status
