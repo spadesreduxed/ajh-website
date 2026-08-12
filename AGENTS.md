@@ -1,3 +1,36 @@
+### Day 109 - 2026-08-12
+**Status**: Build Ship — package the verified result
+
+**Actions**:
+- Added a local-first Build Ship packet after Verify and before Lighthouse.
+- Added Verify import, preview confirmation, evidence and handoff fields, three delivery checks, local history, reset, copy, JSON export, hero shortcut, navigation entry, Shift Q keyboard access, and command-palette actions.
+- Rolled the shared Compass, Ledger, Release Notes, visible day labels, current streak copy, and service-worker cache forward to Day 109.
+- Researched GitHub Pages delivery, semantic keyboard controls, visible focus, progressive enhancement, and reduced-motion patterns before shipping.[^1][^2][^3]
+
+**Files Changed**:
+- `index.html` - Build Ship section, navigation, hero shortcut, Day 109 labels, build-log card, and script/style wiring.
+- `css/ship.css` - Ship packet visual system, responsive layout, light theme, and reduced-motion styling.
+- `js/ship.js` - Verify import, local ship state, delivery checks, history, copy/export actions, and shortcut.
+- `js/main.js` - Ship command-palette actions and Day 109 boot label.
+- `js/compass.js` - Added Day 109 Build Ship to the shared build map.
+- `js/ledger.js` - Added Day 109 to the searchable ledger.
+- `js/releases.js` - Added Day 109 to the release archive.
+- `sw.js` - Bumped the offline cache and included Ship assets.
+- `README.md` and `AGENTS.md` - Documented the latest build.
+
+**Validation**:
+- `node --check` passes for all changed JavaScript modules.
+- `git diff --check` passes.
+- HTML parser and targeted Ship smoke checks pass.
+- Local static preview smoke test completed.
+- Pushed to GitHub as commit `eadddc1`.
+
+**Next Steps**:
+- Use a completed Ship packet as the next build's starting signal.
+- Continue building new features daily — never stop.
+
+---
+
 ### Day 108 - 2026-08-11
 **Status**: Build Verify — close the quality loop
 
